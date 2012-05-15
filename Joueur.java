@@ -10,8 +10,8 @@ public abstract class Joueur {
 	// -------------------------------------Atributs-------------------------------------
 	
     Jeu j;
-    int score;
-    
+    int score, id;
+    Boolean aPerdu;
 
 	// -------------------------------------Accesseurs-------------------------------------
 
@@ -26,5 +26,5 @@ public abstract class Joueur {
 	// -------------------------------------Constructeur-------------------------------------
 
     
-    abstract void jouer();
+    abstract Boolean jouer();
 }

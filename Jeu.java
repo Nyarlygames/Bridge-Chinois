@@ -39,5 +39,11 @@ public class Jeu {
 		}
 	}
 
+        
+        Joueur getJoueurCourant(){
+            
+            
+            return joueur1;
+        }
 	
 }
