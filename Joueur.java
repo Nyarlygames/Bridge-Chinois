@@ -11,7 +11,6 @@ public abstract class Joueur {
 	
     Jeu j;
     int score;
-    Main main;
     
 
 	// -------------------------------------Accesseurs-------------------------------------
@@ -24,11 +23,6 @@ public abstract class Joueur {
         this.score = score;
     }
     
-    public Main getMain()
-    {
-    	return main;
-    }
-
 	// -------------------------------------Constructeur-------------------------------------
 
     
