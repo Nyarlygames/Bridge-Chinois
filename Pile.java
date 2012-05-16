@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 12/05/2012 : 04:20
-Date de Dernière modification 12/05/2012 : 18:54
+Date de Dernière modification 15/05/2012 : 18:32
 */
 
 import java.util.ArrayList;
@@ -49,9 +49,23 @@ public class Pile {
 		return pile.isEmpty();
 	}
 	
+	// ajoute un tas dans la pile
+	
+	public void ajouterTas( ArrayList<Carte> tas)
+	{
+		pile.addAll(tas);
+	}
+	
 	// renvoie la carte qui est au dessus de la pile (l'indice le plus grand)  et la retire de la pile
 	public Carte piocher()
 	{
 		return pile.remove(pile.size()-1);
+	}
+	
+	public void afficherPileConsole()
+	{
+		
+		for(int i=0;i<pile.size();i++)
+			System.out.println( pile.get(i).toString());
 	}
 }

@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:21
-Date de Dernière modification 12/05/2012 : 17:02
+Date de Dernière modification 15/05/2012 : 18:28
 */
 
 import java.util.ArrayList;
@@ -30,11 +30,21 @@ public class Main {
 	
 	
 	// -------------------------------------Accesseurs-------------------------------------
+	
+	
 	public int getSize()
 	{
 		return main.size();
 	}
 	
+	public ArrayList<Carte> getMain() {
+		return main;
+	}
+
+	public void setMain(ArrayList<Carte> main) {
+		this.main = main;
+	}
+
 	public Carte getCarte(int index)
 	{
 		return main.get(index);
@@ -55,7 +65,7 @@ public class Main {
 		{
 			Carte c = this.getCarte(i);
 			
-			System.out.println( c.getRang() + " De " + c.getCouleur());
+			System.out.println(c.toString());
 		}
 			
 	}

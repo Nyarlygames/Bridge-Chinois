@@ -78,4 +78,22 @@ public class PC extends Joueur {
 
         return aPerdu;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    void choisir() {
+        ArrayList<Pile> piochables = new ArrayList<Pile>();
+        for (Pile p : j.moteur.table.piles) {
+            if (!p.estVide()) {
+                piochables.add(p);
+            }
+        }
+
+        Random r = new Random();
+        main.add(piochables.get(r.nextInt(piochables.size())).piocher());
+
+
+    }
+>>>>>>> b415317ed9940a382c9fedb3ca225a5d8bf4f423
 }

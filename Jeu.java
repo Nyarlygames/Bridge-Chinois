@@ -51,6 +51,7 @@ public class Jeu {
 		{
 			moteur.table.main1.add(moteur.table.paquet.piocher());
 			moteur.table.main2.add(moteur.table.paquet.piocher());
+<<<<<<< HEAD
 		}
 		
 		ArrayList<Carte> tas1 = new ArrayList<Carte>(5);
@@ -70,6 +71,27 @@ public class Jeu {
 				tas6.add(moteur.table.paquet.piocher());			
 		}
 		
+=======
+		}
+		
+		ArrayList<Carte> tas1 = new ArrayList<Carte>(5);
+		ArrayList<Carte> tas2 = new ArrayList<Carte>(5);
+		ArrayList<Carte> tas3 = new ArrayList<Carte>(5);
+		ArrayList<Carte> tas4 = new ArrayList<Carte>(5);
+		ArrayList<Carte> tas5 = new ArrayList<Carte>(5);
+		ArrayList<Carte> tas6 = new ArrayList<Carte>(5);
+		
+		for(int i=0;i<5;i++)
+		{
+				tas1.add(moteur.table.paquet.piocher());
+				tas2.add(moteur.table.paquet.piocher());
+				tas3.add(moteur.table.paquet.piocher());
+				tas4.add(moteur.table.paquet.piocher());
+				tas5.add(moteur.table.paquet.piocher());
+				tas6.add(moteur.table.paquet.piocher());			
+		}
+		
+>>>>>>> b415317ed9940a382c9fedb3ca225a5d8bf4f423
 		Pile pile = new Pile(1,tas1);
 		System.out.println("test :");
 		for(int i=0; i<tas1.size();i++)

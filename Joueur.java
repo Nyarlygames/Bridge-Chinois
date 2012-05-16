@@ -1,21 +1,17 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:15
-Date de Dernière modification 12/05/2012 : 04:14
-*/
+Date de Dernière modification 15/05/2012 : 18:21
+ */
 
 public abstract class Joueur {
 
-	
-	// -------------------------------------Atributs-------------------------------------
-	
+    // -------------------------------------Atributs-------------------------------------
     Jeu j;
-    int score;
-    Main main;
-    
+    int score, id;
+    Boolean aPerdu, aJoue, aChoisi;
 
-	// -------------------------------------Accesseurs-------------------------------------
-
+    // -------------------------------------Accesseurs-------------------------------------
     public int getScore() {
         return score;
     }
@@ -23,14 +19,9 @@ public abstract class Joueur {
     public void setScore(Integer score) {
         this.score = score;
     }
-    
-    public Main getMain()
-    {
-    	return main;
-    }
 
-	// -------------------------------------Constructeur-------------------------------------
+    // -------------------------------------Constructeur-------------------------------------
+    abstract Boolean jouer();
 
-    
-    abstract void jouer();
+    abstract void choisir();
 }
