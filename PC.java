@@ -78,6 +78,8 @@ public class PC extends Joueur {
 
         return aPerdu;
     }
+<<<<<<< HEAD
+=======
 
     @Override
     void choisir() {
@@ -93,4 +95,5 @@ public class PC extends Joueur {
 caca
 
     }
+>>>>>>> b415317ed9940a382c9fedb3ca225a5d8bf4f423
 }
