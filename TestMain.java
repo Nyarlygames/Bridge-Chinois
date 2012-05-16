@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 15:21
-Date de Dernière modification 12/05/2012 : 17:02
+Date de DerniÃ¨re modification 12/05/2012 : 17:02
 */
 import java.util.ArrayList;
 
@@ -18,15 +18,15 @@ public class TestMain {
 		if(m1.estVide())
 			System.out.println("TEST REUSSI : MA MAIN EST VIDE");
 		
-		// j'initialise un paquet et je le mélange
+		// j'initialise un paquet et je le mÃ©lange
 		Paquet p = new Paquet();
 		p.melanger();
-		System.out.println("j'initialise un paquet et je le mélange :");
+		System.out.println("j'initialise un paquet et je le mÃ©lange :");
 
 		p.afficherPaquetConsole();
 		
 		// je pioche 11 carte et je les rajoute dans ma main
-		System.out.println("je pioche 11 cartes et je trie au fur et à mesure que je pioche");
+		System.out.println("je pioche 11 cartes et je trie au fur et Ã  mesure que je pioche");
 
 		for(int i=0;i<11;i++)
 		{
@@ -39,14 +39,14 @@ public class TestMain {
 			System.out.println("TEST REUSSI : MA MAIN N'EST PAS VIDE");
 		
 		// j'affiche ma main
-		System.out.println("voici ma main, elle dois être trié");
+		System.out.println("voici ma main, elle dois Ãªtre triÃ©");
 
 		m1.afficherMainConsole();
 		
 
 		
 		ArrayList<Carte> collection2 = new ArrayList<Carte>(11);
-		System.out.println("j'initialise une nouvelle main sans trié");
+		System.out.println("j'initialise une nouvelle main sans triÃ©");
 
 		for(int i=0; i<11;i++)
 		{

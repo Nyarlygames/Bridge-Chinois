@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 12/05/2012 : 00:01
-Date de Dernière modification 14/05/2012 : 04:08
+Date de DerniÃ¨re modification 14/05/2012 : 04:08
 */
 public class Carte {
 	
@@ -30,12 +30,12 @@ public class Carte {
 	
 	// -------------------------------------Methodes-------------------------------------
 	
-	// renvoi vrai si la carte est de la même couleur 
+	// renvoi vrai si la carte est de la mÃªme couleur 
 	public boolean memeCouleur(Carte c){
 		return couleur == c.couleur;
 	}
 	
-	// renvoi vrai si la carte est du même rang
+	// renvoi vrai si la carte est du mÃªme rang
 	public boolean memeRang(Carte c){
 			return rang == c.rang;
 	}

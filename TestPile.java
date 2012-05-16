@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 12/05/2012 : 00:01
-Date de Dernière modification 12/05/2012 : 04:23
+Date de DerniÃ¨re modification 12/05/2012 : 04:23
 */
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class TestPile {
 		System.out.println("J'instancie ma pile avec 6 cartes");
 		Pile maPile = new Pile(1,collection);
 		
-		System.out.println("Ainsi ma pile ne dois pas être vide : ");
+		System.out.println("Ainsi ma pile ne dois pas Ãªtre vide : ");
 		
 		if(maPile.estVide())
 		{
@@ -39,31 +39,31 @@ public class TestPile {
 			System.out.println("REUSSI elle est de taille " + maPile.getPile().size());
 		}
 		
-		System.out.println("Je pioche la première carte qui se trouve au dessus de la pile : le DEUX PIQUE :");
+		System.out.println("Je pioche la premiÃ¨re carte qui se trouve au dessus de la pile : le DEUX PIQUE :");
 		Carte res = maPile.piocher();
 		
 		if(res.memeCouleur(c6))
 		{
-			System.out.println("la BONNE carte a été pioché");
+			System.out.println("la BONNE carte a Ã©tÃ© piochÃ©");
 		}
 		else
 		{
-			System.out.println("la Mauvaise carte a été pioché");
+			System.out.println("la Mauvaise carte a Ã©tÃ© piochÃ©");
 		}
 		
-		System.out.println("Je pioche une deuxième carte qui se trouve au dessus de la pile : le DIX DE CARREAU :");
+		System.out.println("Je pioche une deuxiÃ¨me carte qui se trouve au dessus de la pile : le DIX DE CARREAU :");
 		res = maPile.piocher();
 		
 		if(res.memeCouleur(c5))
 		{
-			System.out.println("la BONNE carte a été pioché");
+			System.out.println("la BONNE carte a Ã©tÃ© piochÃ©");
 		}
 		else
 		{
-			System.out.println("la Mauvaise carte a été pioché");
+			System.out.println("la Mauvaise carte a Ã©tÃ© piochÃ©");
 		}
 		
-		System.out.println("j'ai pioché 2 carte donc ma pile ne dois pas être vide et dois contenir 4 cartes: ");
+		System.out.println("j'ai piochÃ© 2 carte donc ma pile ne dois pas Ãªtre vide et dois contenir 4 cartes: ");
 		if(maPile.estVide() && maPile.getPile().size()==4)
 		{
 			System.out.println("ERREUR");
@@ -77,17 +77,17 @@ public class TestPile {
 		res = maPile.piocher();
 		res = maPile.piocher();
 		res = maPile.piocher();
-		System.out.println("le dernière carte piocher dois être l'AS de CARREAU : ");
+		System.out.println("le derniÃ¨re carte piocher dois Ãªtre l'AS de CARREAU : ");
 		if(res.getCouleur()==Couleur.CARREAU && res.getRang()==Rang.AS)
 		{
-			System.out.println("la BONNE carte a été pioché");
+			System.out.println("la BONNE carte a Ã©tÃ© piochÃ©");
 		}
 		else
 		{
-			System.out.println("la Mauvaise carte a été pioché");
+			System.out.println("la Mauvaise carte a Ã©tÃ© piochÃ©");
 		}
 		
-		System.out.println("j'ai pioché toutes les cartes ma pile dois être vide maintenant :");
+		System.out.println("j'ai piochÃ© toutes les cartes ma pile dois Ãªtre vide maintenant :");
 		if(maPile.estVide())
 		{
 			System.out.println("REUSSI taille :" + maPile.getPile().size());
