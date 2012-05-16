@@ -25,14 +25,14 @@ public class ZoneDessin extends JComponent {
         
         System.out.println(mode);
         Graphics2D drawable = (Graphics2D) g;
-        Image img1 = Toolkit.getDefaultToolkit().getImage("test.jpg");
-        Image img2 = Toolkit.getDefaultToolkit().getImage("test2.jpg");
-        Image img3 = Toolkit.getDefaultToolkit().getImage("test3.jpg");
+        Image img1 = Toolkit.getDefaultToolkit().getImage("res/test.jpg");
+        Image img2 = Toolkit.getDefaultToolkit().getImage("res/test2.jpg");
+        Image img3 = Toolkit.getDefaultToolkit().getImage("res/test3.jpg");
         int w = img1.getWidth(null);
         int h = img1.getHeight(null);
         
-        Image cback = Toolkit.getDefaultToolkit().getImage("carte-dos.jpg");
-        Image cfront = Toolkit.getDefaultToolkit().getImage("carte-front.jpg");
+        Image cback = Toolkit.getDefaultToolkit().getImage("cartes/carte-dos.jpg");
+        Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/carreau_01.jpg");
 
         int cw = cback.getWidth(null);
         int ch = cback.getHeight(null);
@@ -59,7 +59,13 @@ public class ZoneDessin extends JComponent {
 		    // Joueur actif 
 		    for(int f=0;f<t.main2.getSize();f++)
 	    	{
-		    	Carte c = t.main2.getCarte(f);	
+	    	    
+		    	Carte c = t.main2.getCarte(f);
+		    	// on check le type de c et on charge le graphique associe
+		    	System.out.println("ZONEDESSIN");
+		    	System.out.println("LACARTE : "+ c.getCouleur().toString() +" "+c.getRang().toString());
+		    	System.out.println(c.toFileString());
+		    	cfront = Toolkit.getDefaultToolkit().getImage("cartes/"+c.toFileString());
                 g.drawImage(cfront, (width) % t.main2.getSize() + (f*cw), height-ch, this);
 	    	}
 	    }

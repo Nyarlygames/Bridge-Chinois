@@ -59,5 +59,12 @@ public class Carte {
 		return this.rang + " de " + this.couleur;
 	}
 	
+	public String toFileString()
+	{
+	    if(this.rang.ordinal()+2 < 10)
+	        return this.couleur.toString().toLowerCase()+"_0"+(this.rang.ordinal()+2)+".jpg";
+	    else
+	        return this.couleur.toString().toLowerCase()+"_"+(this.rang.ordinal()+2)+".jpg";
+	}
 	
 }

@@ -89,7 +89,7 @@ public class PC extends Joueur {
         }
 
         Random r = new Random();
-        main.add(piochables.get(r.nextInt(piochables.size())).piocher());
+        //main.add(piochables.get(r.nextInt(piochables.size())).piocher());
 
 
     }

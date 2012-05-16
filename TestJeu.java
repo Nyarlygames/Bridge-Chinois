@@ -4,6 +4,8 @@ Date de Creation 12/05/2012 : 16:32
 Date de DerniÃšre modification 12/05/2012 : 18:54
 */
 
+import javax.swing.*;
+
 public class TestJeu {
 
 	
@@ -12,7 +14,10 @@ public class TestJeu {
 		Table table = new Table();
 		Moteur moteur = new Moteur(table);
 		Jeu monJeu = new Jeu(moteur,2);
-		
+        Graphique gg = new Graphique(monJeu);
+
+        SwingUtilities.invokeLater(gg);
+        
 		System.out.println("j'ai initialise mon paquet melange");
 		monJeu.moteur.table.paquet.afficherPaquetConsole();
 		

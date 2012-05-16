@@ -14,9 +14,11 @@ class EcouteurDeSouris implements MouseListener {
 
     // Lors d'une pression de bouton, on change de message
     public void mousePressed(MouseEvent e) {
-
+        
         g.getZoneDessin().i = e.getX();
         g.getZoneDessin().j = e.getY();
+        
+        // si on clique dans la zone du deuxieme titre, on va en mode JEU
         if ( (e.getX() > ((g.getZoneDessin().getSize().height % g.getZoneDessin().opt) + 2*100)) 
                 && (e.getX() < ((g.getZoneDessin().getSize().height % g.getZoneDessin().opt) + 3*100)) ) {
           g.getZoneDessin().mode = 2;
