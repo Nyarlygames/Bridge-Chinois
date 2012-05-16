@@ -7,79 +7,80 @@ import java.util.Random;
  */
 public class PC2 extends Joueur {
 
-    public PC2(Jeu j, int id) {
+    public PC2(Jeu j, int id, Main main, Carte carteAdv) {
         this.j = j;
         this.id = id;
-
-
-
+        nbPlis = 0;
+        score = 0;
+        aJoue = false;
+        aChoisi = false;
+        this.carteAdv = carteAdv;
+        this.main = main;
     }
 
     @Override
-    Boolean jouer() {
-        aPerdu = false;
+    void jouer() {
         ArrayList<Carte> jouables = new ArrayList<Carte>();
-        if (j.getJoueurCourant().equals(j.joueur2)) {
-            Carte c = j.moteur.table.carte1;
-            if (c != null) {
-                for (Carte ca : j.moteur.table.main2.main) {
-                    if (c.memeCouleur(ca)) {
-                        jouables.add(ca);
+        ArrayList<Carte> gagnantes = new ArrayList<Carte>();
+        Boolean prems;
+        if (carteAdv != null) {
+            prems = false;
+            for (Carte ca : main.getMain()) {
+                if (carteAdv.memeCouleur(ca)) {
+                    jouables.add(ca);
+                    if (ca.gagne(carteAdv, j.getMoteur().getTable().getAtout())) {
+                        gagnantes.add(ca);
                     }
                 }
-                if (jouables.isEmpty()) {//pas d'atouts non plus donc bah on met tout
-                    for (Carte ca : j.moteur.table.main2.main) {
-                        jouables.add(ca);
+            }
+
+            if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
+                for (Carte ca : main.getMain()) {
+                    jouables.add(ca);
+                    if (ca.gagne(carteAdv, j.getMoteur().getTable().getAtout())) {
+                        gagnantes.add(ca);
                     }
                 }
+            }
 
-                Carte meilleure = jouables.get(0);
+        } else {
+            prems = true;
+            for (Carte ca : main.getMain()) {
+                gagnantes.add(ca);
+            }
+        }
 
-
-                for (Carte ca : jouables) {
-                    if (ca.plusForte(meilleure)) {
+        Carte meilleure = null;
+        if (!gagnantes.isEmpty()) {
+            if (!prems) {
+                meilleure = gagnantes.get(0);
+                for (Carte ca : gagnantes) {
+                    if (!ca.rangPlusFort(carteAdv)) {
                         meilleure = ca;
                     }
                 }
-
-
-
-            } else {
-                Random r = new Random();
-                j.moteur.table.carte2 = j.moteur.table.main2.main.get(r.nextInt(jouables.size()));
-
-            }
-        } else {//pc est joueur 1
-            Carte c = j.moteur.table.carte2;
-            if (c != null) {
-                for (Carte ca : j.moteur.table.main1.main) {
-                    if (c.memeCouleur(ca)) {
-                        jouables.add(ca);
+            } else {//si on commence a jouer alors on met la plus grosse carte possible
+                meilleure = gagnantes.get(0);
+                for (Carte ca : gagnantes) {
+                    if (ca.rangPlusFort(carteAdv)) {
+                        meilleure = ca;
                     }
                 }
-                if (jouables.isEmpty()) {//pas d'atouts non plus donc bah on met tout
-                    for (Carte ca : j.moteur.table.main1.main) {
-                        jouables.add(ca);
-                    }
-                }
-
-
-                Random r = new Random();
-                j.moteur.table.carte1 = jouables.get(r.nextInt(jouables.size()));
-
-            } else {
-                Random r = new Random();
-                j.moteur.table.carte1 = j.moteur.table.main1.main.get(r.nextInt(jouables.size()));
-
             }
-
-
-
-
-
+        } else {//pas de gagnante donc on balance une carte nulle
+            meilleure = jouables.get(0);
+            for (Carte ca : jouables) {
+                if (!ca.rangPlusFort(carteAdv)) {
+                    meilleure = ca;
+                }
+            }
         }
 
-        return aPerdu;
+        if (j.getJoueurCourant().equals(j.joueur2)) {
+            j.getMoteur().getTable().setCarte2(meilleure);
+        } else {
+            j.getMoteur().getTable().setCarte1(meilleure);
+        }
     }
 
     @Override
@@ -87,13 +88,22 @@ public class PC2 extends Joueur {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
         for (Pile p : j.moteur.table.piles) {
             if (!p.estVide()) {
+
                 piochables.add(p);
             }
         }
-
-        Random r = new Random();
-        main.add(piochables.get(r.nextInt(piochables.size())).piocher());
-
-
+        Pile meilleure = piochables.get(0);
+        for (Pile p : piochables) {
+            if (meilleure.getPile().get(meilleure.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout())) {
+                if (p.getPile().get(p.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout()) && p.getPile().get(p.getPile().size() - 1).rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                    meilleure = p;
+                }
+            } else {
+                if (p.getPile().get(p.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout()) || p.getPile().get(p.getPile().size() - 1).rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                    meilleure = p;
+                }
+            }
+        }
+        main.add(meilleure.piocher());
     }
 }

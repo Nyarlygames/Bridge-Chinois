@@ -7,79 +7,48 @@ import java.util.Random;
  */
 public class PC extends Joueur {
 
-    public PC(Jeu j, int id) {
+    public PC(Jeu j, int id, Main main, Carte carteAdv) {
         this.j = j;
         this.id = id;
-
-
-
+        nbPlis = 0;
+        score = 0;
+        aJoue = false;
+        aChoisi = false;
+        this.carteAdv = carteAdv;
+        this.main = main;
     }
 
     @Override
-    Boolean jouer() {
-        aPerdu = false;
+    void jouer() {
         ArrayList<Carte> jouables = new ArrayList<Carte>();
-        if (j.getJoueurCourant().equals(j.joueur2)) {
-            Carte c = j.moteur.table.carte1;
-            if (c != null) {
-                for (Carte ca : j.moteur.table.main2.main) {
-                    if (c.memeCouleur(ca)) {
-                        jouables.add(ca);
-                    }
+
+        if (carteAdv != null) {
+            for (Carte ca : main.getMain()) {
+                if (carteAdv.memeCouleur(ca)) {
+                    jouables.add(ca);
                 }
-                if (jouables.isEmpty()) {//pas d'atouts non plus donc bah on met tout
-                    for (Carte ca : j.moteur.table.main2.main) {
-                        jouables.add(ca);
-                    }
-                }
-
-
-                Random r = new Random();
-
-                j.moteur.table.carte2 = jouables.get(r.nextInt(jouables.size()));
-
-
-            } else {
-                Random r = new Random();
-                j.moteur.table.carte2 = j.moteur.table.main2.main.get(r.nextInt(jouables.size()));
-
             }
-        } else {//pc est joueur 1
-            Carte c = j.moteur.table.carte2;
-            if (c != null) {
-                for (Carte ca : j.moteur.table.main1.main) {
-                    if (c.memeCouleur(ca)) {
-                        jouables.add(ca);
-                    }
+            if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
+                for (Carte ca : main.getMain()) {
+                    jouables.add(ca);
                 }
-                if (jouables.isEmpty()) {//pas d'atouts non plus donc bah on met tout
-                    for (Carte ca : j.moteur.table.main1.main) {
-                        jouables.add(ca);
-                    }
-                }
-
-
-                Random r = new Random();
-
-                j.moteur.table.carte2 = jouables.get(r.nextInt(jouables.size()));
-
-
-            } else {
-                Random r = new Random();
-                j.moteur.table.carte1 = j.moteur.table.main1.main.get(r.nextInt(jouables.size()));
-
             }
-
-
-
-
-
+        } else {
+            for (Carte ca : main.getMain()) {
+                jouables.add(ca);
+            }
         }
 
-        return aPerdu;
+
+        Random r = new Random();
+        if (j.getJoueurCourant().equals(j.joueur2)) {
+            j.getMoteur().getTable().setCarte2(jouables.get(r.nextInt(jouables.size())));
+        } else {
+            j.getMoteur().getTable().setCarte1(jouables.get(r.nextInt(jouables.size())));
+        }
+
+
     }
-<<<<<<< HEAD
-=======
 
     @Override
     void choisir() {
@@ -92,8 +61,7 @@ public class PC extends Joueur {
 
         Random r = new Random();
         main.add(piochables.get(r.nextInt(piochables.size())).piocher());
-caca
+
 
     }
->>>>>>> b415317ed9940a382c9fedb3ca225a5d8bf4f423
 }

@@ -1,4 +1,4 @@
-/*
+/*!!!!!!!!!!!!
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 12/05/2012 : 00:01
 Date de Dernière modification 14/05/2012 : 04:08
@@ -52,6 +52,21 @@ public class Carte {
 			return c.couleur.getCouleur() < this.couleur.getCouleur() ;
 		}
 		
+	}
+	
+	public boolean rangSupDix()
+	{
+		return this.getRang().getRang()>=10;
+	}
+	
+	public boolean rangPlusFort(Carte c)
+	{
+		return this.getRang().getRang() > c.getRang().getRang();
+	}
+	
+	public boolean couleurPlusForte(Carte c)
+	{
+		return this.getCouleur().getCouleur() > c.getCouleur().getCouleur();
 	}
 	
 	public String toString()
