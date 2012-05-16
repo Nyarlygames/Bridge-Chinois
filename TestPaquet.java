@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 12/05/2012 : 16:32
-Date de Dernière modification 12/05/2012 : 18:54
+Date de DerniÃ¨re modification 12/05/2012 : 18:54
 */
 
 public class TestPaquet {
@@ -10,14 +10,14 @@ public class TestPaquet {
 	public static void main(String[] args) {
 		Paquet monPaquet = new Paquet();
 		
-		System.out.println("j'ai initialisé mon paquet de la plus petite carte à la plus forte : ");
+		System.out.println("j'ai initialisÃ© mon paquet de la plus petite carte Ã  la plus forte : ");
 		monPaquet.afficherPaquetConsole();
 		
-		System.out.println("je mélange les carte : ");
+		System.out.println("je mÃ©lange les carte : ");
 		monPaquet.melanger();
 		monPaquet.afficherPaquetConsole();
 		
-		System.out.println("je pioche la 11 ème carte");
+		System.out.println("je pioche la 11 Ã¨me carte");
 		Carte c = monPaquet.piocher(10);
 		System.out.println( c.getRang() + " de " + c.getCouleur());
 		
@@ -31,8 +31,8 @@ public class TestPaquet {
 			c = monPaquet.piocher();
 		}
 		
-		System.out.println("la dernière carte piocher est le " + c.getRang() + " de " + c.getCouleur());
-		System.out.println("mon paquet dois être vide mtn :");
+		System.out.println("la derniÃ¨re carte piocher est le " + c.getRang() + " de " + c.getCouleur());
+		System.out.println("mon paquet dois Ãªtre vide mtn :");
 		if(monPaquet.estVide())
 			System.out.println("VRAI");
 		else
