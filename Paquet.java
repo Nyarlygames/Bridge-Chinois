@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 12/05/2012 : 14:32
-Date de Dernière modification 15/05/2012 : 18:32
+Date de DerniÃ¨re modification 15/05/2012 : 18:32
 */
 
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class Paquet {
 		}
 	}
 	
-	// pioche et renvoie la ième carte
+	// pioche et renvoie la iÃ¨me carte
 	public Carte piocher(int i)
 	{
 		Carte resultat = paquet.remove(i);
