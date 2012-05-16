@@ -37,4 +37,15 @@ public class Humain extends Joueur {
 
 
     }
+
+    @Override
+    void choisir() {
+        while (!aChoisi) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
