@@ -188,4 +188,24 @@ public class Jeu {
             this.joueurCourant = 1;
         }
     }
+
+    //renvoie les cartes inconnues du joueur courant (dans la main de l'autre ou sous les piles
+    public ArrayList<Carte> getCartesInconnues() {
+        ArrayList<Carte> inconnues = new ArrayList<Carte>();
+
+        if (joueurCourant == 1) {
+            inconnues.addAll(moteur.getTable().getMain2().getMain());
+        } else {
+            inconnues.addAll(moteur.getTable().getMain1().getMain());
+
+        }
+        for (Pile p : moteur.getTable().getPiles()) {
+            inconnues.addAll(p.getPile());
+            if (p.getPile().size() > 1) {
+                inconnues.remove(p.getAPiocher());
+            }
+        }
+        return inconnues;
+
+    }
 }

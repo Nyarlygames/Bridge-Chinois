@@ -61,6 +61,12 @@ public class Pile {
 	{
 		return pile.remove(pile.size()-1);
 	}
+        
+        //renvoie la carte a piocher sans la retirer
+        	public Carte getAPiocher()
+	{
+		return pile.get(pile.size()-1);
+	}
 	
 	public void afficherPileConsole()
 	{
