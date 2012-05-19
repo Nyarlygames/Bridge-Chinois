@@ -38,7 +38,7 @@ public class PC3 extends Joueur {
         if (!gagnantes.isEmpty()) {
             meilleure = gagnantes.get(0);
             for (Carte ca : gagnantes) {
-                if (!ca.rangPlusFort(carteAdv)) {
+                if (!ca.rangPlusFort(meilleure)) {
                     meilleure = ca;//on met la gagnante avec le rang le plus faible
                 }
             }
@@ -80,17 +80,18 @@ public class PC3 extends Joueur {
             }
         }
 
-        if (j.getJoueurCourant().equals(j.joueur2)) {
+        if (j.getJoueurCourant().equals(j.getJoueur2())) {
             j.getMoteur().getTable().setCarte2(meilleure);
         } else {
             j.getMoteur().getTable().setCarte1(meilleure);
         }
+        main.getMain().remove(meilleure);
     }
 
     @Override
     void choisir() {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
-        for (Pile p : j.moteur.table.piles) {
+        for (Pile p : j.getMoteur().getTable().getPiles()) {
             if (!p.estVide()) {
 
                 piochables.add(p);
@@ -99,11 +100,11 @@ public class PC3 extends Joueur {
         Pile meilleure = piochables.get(0);
         for (Pile p : piochables) {
             if (meilleure.getPile().get(meilleure.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout())) {
-                if (p.getPile().get(p.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout()) && p.getPile().get(p.getPile().size() - 1).rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) && p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
                     meilleure = p;
                 }
             } else {
-                if (p.getPile().get(p.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout()) || p.getPile().get(p.getPile().size() - 1).rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) || p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
                     meilleure = p;
                 }
             }
