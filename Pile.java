@@ -29,10 +29,21 @@ public class Pile {
 	
 	// -------------------------------------Accesseur-------------------------------------
 	
+	// renvoie la taille de la pile
+	public int getSize()
+	{
+		return pile.size();
+	}
+
 	// renvoie le numero de la pile
 	public int getNumero()
 	{
 		return numero;
+	}
+
+	public Carte getCarte(int index)
+	{
+		return this.pile.get(index);
 	}
 	
 	// renvoie le contenue de la pile
