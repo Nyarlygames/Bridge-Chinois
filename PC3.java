@@ -98,17 +98,25 @@ public class PC3 extends Joueur {
             }
         }
         Pile meilleure = piochables.get(0);
+        HashMap<Pile, Integer> chances = new HashMap<Pile, Integer>();
+        ArrayList<Carte> inconnues = j.getCartesInconnues();
         for (Pile p : piochables) {
-            if (meilleure.getPile().get(meilleure.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout())) {
-                if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) && p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
-                    meilleure = p;
-                }
-            } else {
-                if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) || p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
-                    meilleure = p;
+            chances.put(p, 0);
+
+            for (Carte c2 : inconnues) {
+                if (p.getAPiocher().gagne(c2)) {
+                    chances.put(p, chances.get(p) + 1);
                 }
             }
         }
+        Integer mini = 52;
+        for (Pile c : chances.keySet()) {
+            if (chances.get(c) < mini) {
+                mini = chances.get(c);
+                meilleure = c;
+            }
+        }
+
         main.add(meilleure.piocher());
     }
 
@@ -120,13 +128,11 @@ public class PC3 extends Joueur {
                     jouables.add(ca);
                 }
             }
-
             if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
                 for (Carte ca : main.getMain()) {
                     jouables.add(ca);
                 }
             }
-
         } else {
             if (jouables.isEmpty()) {//on commence donc bah on met tout
                 for (Carte ca : main.getMain()) {

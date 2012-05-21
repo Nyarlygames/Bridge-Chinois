@@ -67,7 +67,7 @@ public class PC2 extends Joueur {
         } else {
             j.getMoteur().getTable().setCarte1(meilleure);
         }
-        
+
         main.getMain().remove(meilleure);
     }
 
@@ -102,13 +102,11 @@ public class PC2 extends Joueur {
                     jouables.add(ca);
                 }
             }
-
             if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
                 for (Carte ca : main.getMain()) {
                     jouables.add(ca);
                 }
             }
-
         } else {
             if (jouables.isEmpty()) {//on commence donc bah on met tout
                 for (Carte ca : main.getMain()) {
