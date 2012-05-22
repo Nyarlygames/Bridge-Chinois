@@ -23,9 +23,8 @@ public class Pile {
         pile = new ArrayList<Carte>(6);
         pile.addAll(p);
     }
-
     // -------------------------------------Accesseur-------------------------------------
-    // renvoie la taille de la pile
+
     public int getSize() {
         return pile.size();
     }
@@ -57,12 +56,20 @@ public class Pile {
 
     // renvoie la carte qui est au dessus de la pile (l'indice le plus grand)  et la retire de la pile
     public Carte piocher() {
-        return pile.remove(pile.size() - 1);
+        if (pile.isEmpty()) {
+            return pile.remove(pile.size() - 1);
+        } else {
+            return null;
+        }
     }
 
     //renvoie la carte a piocher sans la retirer
     public Carte getAPiocher() {
-        return pile.get(pile.size() - 1);
+        if (pile.isEmpty()) {
+            return pile.get(pile.size() - 1);
+        } else {
+            return null;
+        }
     }
 
     public void afficherPileConsole() {

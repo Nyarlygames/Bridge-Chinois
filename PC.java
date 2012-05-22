@@ -20,40 +20,22 @@ public class PC extends Joueur {
 
     @Override
     void jouer() {
-        ArrayList<Carte> jouables = new ArrayList<Carte>();
-
-        if (carteAdv != null) {
-            for (Carte ca : main.getMain()) {
-                if (carteAdv.memeCouleur(ca)) {
-                    jouables.add(ca);
-                }
-            }
-            if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
-                for (Carte ca : main.getMain()) {
-                    jouables.add(ca);
-                }
-            }
-        } else {
-            for (Carte ca : main.getMain()) {
-                jouables.add(ca);
-            }
-        }
-
+        ArrayList<Carte> jouables = getCartesJouables();
 
         Random r = new Random();
-        if (j.getJoueurCourant().equals(j.joueur2)) {
-            j.getMoteur().getTable().setCarte2(jouables.get(r.nextInt(jouables.size())));
+        Integer i = r.nextInt(jouables.size());
+        if (j.getJoueurCourant().equals(j.getJoueur2())) {
+            j.getMoteur().getTable().setCarte2(jouables.get(i));
         } else {
-            j.getMoteur().getTable().setCarte1(jouables.get(r.nextInt(jouables.size())));
+            j.getMoteur().getTable().setCarte1(jouables.get(i));
         }
-
-
+        main.getMain().remove(jouables.get(i));
     }
 
     @Override
     void choisir() {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
-        for (Pile p : j.moteur.table.piles) {
+        for (Pile p : j.getMoteur().getTable().getPiles()) {
             if (!p.estVide()) {
                 piochables.add(p);
             }
@@ -63,5 +45,30 @@ public class PC extends Joueur {
         main.add(piochables.get(r.nextInt(piochables.size())).piocher());
 
 
+    }
+
+    ArrayList<Carte> getCartesJouables() {
+        ArrayList<Carte> jouables = new ArrayList<Carte>();
+        if (carteAdv != null) {
+            for (Carte ca : main.getMain()) {
+                if (carteAdv.memeCouleur(ca)) {
+                    jouables.add(ca);
+                }
+            }
+
+            if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
+                for (Carte ca : main.getMain()) {
+                    jouables.add(ca);
+                }
+            }
+
+        } else {
+            if (jouables.isEmpty()) {//on commence donc bah on met tout
+                for (Carte ca : main.getMain()) {
+                    jouables.add(ca);
+                }
+            }
+        }
+        return jouables;
     }
 }
