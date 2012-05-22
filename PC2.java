@@ -79,19 +79,22 @@ public class PC2 extends Joueur {
                 piochables.add(p);
             }
         }
-        Pile meilleure = piochables.get(0);
-        for (Pile p : piochables) {
-            if (meilleure.getPile().get(meilleure.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout())) {
-                if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) && p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
-                    meilleure = p;
-                }
-            } else {
-                if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) || p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
-                    meilleure = p;
+        Pile meilleure = null;
+        if (!piochables.isEmpty()) {
+            meilleure = piochables.get(0);
+            for (Pile p : piochables) {
+                if (meilleure.getPile().get(meilleure.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout())) {
+                    if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) && p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                        meilleure = p;
+                    }
+                } else {
+                    if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) || p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                        meilleure = p;
+                    }
                 }
             }
+            main.add(meilleure.piocher());
         }
-        main.add(meilleure.piocher());
     }
 
     ArrayList<Carte> getCartesJouables() {

@@ -93,31 +93,33 @@ public class PC3 extends Joueur {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
         for (Pile p : j.getMoteur().getTable().getPiles()) {
             if (!p.estVide()) {
-
                 piochables.add(p);
             }
         }
-        Pile meilleure = piochables.get(0);
-        HashMap<Pile, Integer> chances = new HashMap<Pile, Integer>();
-        ArrayList<Carte> inconnues = j.getCartesInconnues();
-        for (Pile p : piochables) {
-            chances.put(p, 0);
-
-            for (Carte c2 : inconnues) {
-                if (p.getAPiocher().gagne(c2)) {
-                    chances.put(p, chances.get(p) + 1);
+        Pile meilleure = null;
+        if (!piochables.isEmpty()) {
+            meilleure = piochables.get(0);
+            HashMap<Pile, Integer> chances = new HashMap<Pile, Integer>();
+            ArrayList<Carte> inconnues = j.getCartesInconnues();
+            for (Pile p : piochables) {
+                chances.put(p, 0);
+                for (Carte c2 : inconnues) {
+                    if (p.getAPiocher().gagne(c2)) {
+                        chances.put(p, chances.get(p) + 1);
+                    }
                 }
             }
-        }
-        Integer mini = 52;
-        for (Pile c : chances.keySet()) {
-            if (chances.get(c) < mini) {
-                mini = chances.get(c);
-                meilleure = c;
+            Integer mini = 52;
+            for (Pile c : chances.keySet()) {
+                if (chances.get(c) < mini) {
+                    mini = chances.get(c);
+                    meilleure = c;
+                }
+            }
+            if (!meilleure.estVide()) {
+                main.add(meilleure.piocher());
             }
         }
-
-        main.add(meilleure.piocher());
     }
 
     ArrayList<Carte> getCartesJouables() {
