@@ -22,6 +22,12 @@ public class Moteur {
 		this.table = table;
 	}
 	
+	// --------------------------------------Methodes-------------------------------------
+	
+	public void jouer(Carte c)
+	{
+		
+	}
 
 	
 }

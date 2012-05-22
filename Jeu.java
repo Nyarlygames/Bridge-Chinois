@@ -22,13 +22,13 @@ public class Jeu {
 		joueurCourant++;
 		switch (mode) {
 			case 0:
-	            this.joueur1 = new PC(this,1);
-	            this.joueur2 = new PC(this,2);
+	            this.joueur1 = new PC(this,1,moteur.getTable().getMain1(), moteur.getTable().getCarte2());
+	            this.joueur2 = new PC(this,2,moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 	            break;
             
 	        case 1:
 	            this.joueur1 = new Humain(this,1);
-	            this.joueur2 = new PC(this,2);
+	            this.joueur2 = new PC(this,2,moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 	            break;
 	        case 2:
 	            this.joueur1 = new Humain(this,1);
@@ -240,8 +240,26 @@ public Joueur getJoueur1() {
 			this.joueurCourant = 1;
 		}
 	}
+	
+	//renvoie les cartes inconnues du joueur courant (dans la main de l'autre ou sous les piles
+    public ArrayList<Carte> getCartesInconnues() {
+        ArrayList<Carte> inconnues = new ArrayList<Carte>();
+
+        if (joueurCourant == 1) {
+            inconnues.addAll(moteur.getTable().getMain2().getMain());
+        } else {
+            inconnues.addAll(moteur.getTable().getMain1().getMain());
+
+        }
+        for (Pile p : moteur.getTable().getPiles()) {
+            inconnues.addAll(p.getPile());
+            if (p.getPile().size() > 1) {
+                inconnues.remove(p.getAPiocher());
+            }
+        }
+        return inconnues;
+
+    }
 
 	
 }
-
-

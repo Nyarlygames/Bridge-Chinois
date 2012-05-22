@@ -1,0 +1,6 @@
+# ignore les .class #
+*.class
+
+# ignore aussi le dossier ou je mets les .class #
+dotclasses/
+dotclasses/*

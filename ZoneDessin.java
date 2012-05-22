@@ -3,10 +3,12 @@ import java.awt.*;
 import javax.swing.JComponent;
 
 public class ZoneDessin extends JComponent {
-    public int i = -1;
+    
+	public int i = -1;
     public int j = -1;
     public int opt = 3;
-    public int mode = 0;
+    
+    public int mode = 2;
     Table t;
         
     /**
@@ -100,35 +102,11 @@ public class ZoneDessin extends JComponent {
                 g.drawImage(empty, (width/2) - (ch/2), height - (2*ch +10), cw, ch , this);
 
 	    }
-        
 
         // Menu
         if (mode == 0) {
             
-            Image img1 = Toolkit.getDefaultToolkit().getImage("res/test.jpg");
-            Image img2 = Toolkit.getDefaultToolkit().getImage("res/test2.jpg");
-            Image img3 = Toolkit.getDefaultToolkit().getImage("res/test3.jpg");
-            int w = img1.getWidth(null);
-            int h = img1.getHeight(null);
-            g.drawImage(img1, width/3, (height % opt) + h, this);
-            g.drawImage(img2, width/3, (height % opt) + 2*h, this);
-            g.drawImage(img3, width/3, (height % opt) + 3*h, this);
-            if (i > width/3) {
-                 drawable.setPaint(Color.red);
-            }
-            if ((j> (height % opt) + h) && (j < (height % opt) + 2*h)) {
-                drawable.drawString("test1", i, j);
-            }
-            else {
-                    if ((j> (height % opt) + 2*h) && (j < (height % opt) + 3*h)) {
-                        drawable.drawString("test2", i, j);
-                    } 
-                    else {
-                            if ((j> (height % opt) + 3*h) && (j < (height % opt) + 4*h)) {
-                            drawable.drawString("test3", i, j);
-                            }   
-                    }
-            }                  
+            // fenetre de menu de valentin et amine
         }   
                 
     }
