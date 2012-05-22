@@ -18,11 +18,12 @@ public class Graphique implements Runnable {
     
     public Graphique(Jeu j) {
         jeu = j;
-	this.frame = frame;
-	this.zoneDessin = zoneDessin;
+	    this.frame = frame;
+	    this.zoneDessin = zoneDessin;
+	    
         frame = new JFrame("Bridge chinois");
 
-	// Zone du jeu
+	    // Zone du jeu
         zoneDessin = new ZoneDessin(j.moteur.table);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
 
