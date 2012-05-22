@@ -104,7 +104,7 @@ public class PC3 extends Joueur {
             for (Pile p : piochables) {
                 chances.put(p, 0);
                 for (Carte c2 : inconnues) {
-                    if (p.getAPiocher().gagne(c2)) {
+                   if (p.getAPiocher().gagne(c2)) {
                         chances.put(p, chances.get(p) + 1);
                     }
                 }

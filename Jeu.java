@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:21
-Date de Dernière modification 16/05/2012 : 04:24
+Date de Derniere modification 16/05/2012 : 04:24
  */
 
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class Jeu {
     }
 
     // -------------------------------------Methodes-----------------------------------------
-    // distribue les cartes entre les joueurs et séparation du reste en 6 piles
+    // distribue les cartes entre les joueurs et separation du reste en 6 piles
     public void initialiser() {
         for (int i = 0; i < 11; i++) {
             moteur.table.main1.add(moteur.table.paquet.piocher());
