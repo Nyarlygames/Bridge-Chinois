@@ -19,7 +19,7 @@ public class PC extends Joueur {
     Boolean jouer() {
         aPerdu = false;
         ArrayList<Carte> jouables = new ArrayList<Carte>();
-        if (j.getJoueurCourant().equals(j.joueur2)) {
+        if (j.intVersJoueur().equals(j.joueur2)) {
             Carte c = j.moteur.table.carte1;
             if (c != null) {
                 for (Carte ca : j.moteur.table.main2.main) {
@@ -89,7 +89,7 @@ public class PC extends Joueur {
         }
 
         Random r = new Random();
-        //main.add(piochables.get(r.nextInt(piochables.size())).piocher());
+        main.add(piochables.get(r.nextInt(piochables.size())).piocher());
 
 
     }

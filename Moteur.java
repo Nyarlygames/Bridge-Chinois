@@ -11,4 +11,17 @@ public class Moteur {
 	{
 		this.table = table;
 	}
+
+	// -------------------------------------Accesseurs-------------------------------------
+
+	public Table getTable() {
+		return table;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
+	
+
+	
 }

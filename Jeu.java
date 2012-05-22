@@ -39,11 +39,58 @@ public class Jeu {
 		moteur = m;
 		
 	}
+	
+	
 
 	
+	
+	// -------------------------------------Accesseurs-------------------------------------
+
+	
+	public Moteur getMoteur() {
+		return moteur;
+	}
+
+	public void setMoteur(Moteur moteur) {
+		this.moteur = moteur;
+	}
+
+public Joueur getJoueur1() {
+		return joueur1;
+	}
+
+
+
+
+	public void setJoueur1(Joueur joueur1) {
+		this.joueur1 = joueur1;
+	}
+
+
+
+
+	public Joueur getJoueur2() {
+		return joueur2;
+	}
+
+
+
+
+	public void setJoueur2(Joueur joueur2) {
+		this.joueur2 = joueur2;
+	}
+
+
+
+
+	public void setJoueurCourant(int joueurCourant) {
+		this.joueurCourant = joueurCourant;
+	}
+
 	// -------------------------------------Methodes-----------------------------------------
-	
-	
+
+
+
 	// distribue les cartes entre les joueurs et séparation du reste en 6 piles
 	public void initialiser()
 	{
@@ -93,10 +140,83 @@ public class Jeu {
 		pile = new Pile(6,tas6);
 		moteur.table.addPile(pile);
 		
+		Carte max = carteRangFort(this.getMoteur().getTable().getPiles());
+		if(max.rangSupDix())
+		{
+			moteur.getTable().setAtout(max.getCouleur());
+		}
+		
 	}
 	
-	//renvoie le joueur courant
-	public Joueur getJoueurCourant()
+	private Carte carteRangFort(ArrayList<Pile> piles)
+	{
+		Carte carteCourante,resultat = null;
+		resultat = piles.get(0).getPile().get(4);
+		for(int i=1; i<6;i++)
+		{
+			carteCourante = piles.get(i).getPile().get(4);
+			if( carteCourante.memeRang(resultat))
+			{
+				if(carteCourante.couleurPlusForte(resultat))
+					resultat = carteCourante;
+			}
+			else
+			{
+				if( carteCourante.rangPlusFort(resultat))
+					resultat = carteCourante;
+			}
+		}
+		return resultat;
+	}
+	
+	// lance le jeu;
+		public void jouer()
+		{
+			Carte c1,c2=null;
+			
+			while(moteur.getTable().getMain1().getSize() !=0 && moteur.getTable().getMain2().getSize()!=0)
+			{
+				intVersJoueur().jouer();
+				switcher();
+				intVersJoueur().jouer();
+				if(joueurCourant == 1)
+				{
+					c1 = moteur.getTable().getCarte2();
+					c2 = moteur.getTable().getCarte1();
+				}
+				else
+				{
+					c1 = moteur.getTable().getCarte1();
+					c2 = moteur.getTable().getCarte2();
+				}
+				
+				if(c1.gagne(c2,moteur.getTable().getAtout()))
+				{
+					switcher();
+					intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+					intVersJoueur().choisir();
+					switcher();
+					intVersJoueur().choisir();
+					switcher();
+				}
+				else
+				{
+					intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+					intVersJoueur().choisir();
+					switcher();
+					intVersJoueur().choisir();
+					switcher();
+				}
+				joueur1.setaJoue(false);
+				joueur1.setaChoisi(false);
+				joueur2.setaJoue(false);
+				joueur2.setaChoisi(false);
+			}
+		}
+		
+		
+		
+	public Joueur intVersJoueur()
 	{
 		if(joueurCourant == 1)
 		{
@@ -105,6 +225,19 @@ public class Jeu {
 		else
 		{
 			return joueur2;
+		}
+	}
+	
+	
+	public void switcher()
+	{
+		if(joueurCourant == 1)
+		{
+			this.joueurCourant = 2;
+		}
+		else
+		{
+			this.joueurCourant = 1;
 		}
 	}
 

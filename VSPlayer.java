@@ -1,9 +1,7 @@
+import java.awt.Color;
+
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package bridge;
-
 import java.awt.Color;
 
 /**

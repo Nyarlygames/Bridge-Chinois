@@ -54,9 +54,65 @@ public class Carte {
 		
 	}
 	
+	public boolean couleurPlusForte(Carte c)
+	{
+		return this.getCouleur().getCouleur() > c.getCouleur().getCouleur();
+	}
+	
+	public boolean rangPlusFort(Carte c)
+	{
+		return this.getRang().getRang() > c.getRang().getRang();
+	}
+	
+	public boolean rangSupDix()
+	{
+		return this.getRang().getRang()>=10;
+	}
+	
 	public String toString()
 	{
 		return this.rang + " de " + this.couleur;
+	}
+	
+	
+	public boolean gagne(Carte c, Couleur atout)
+	{
+		if(atout != null)
+		{
+			if(this.memeCouleur(c))
+			{
+				return this.rangPlusFort(c);
+			}
+			else
+			{
+				if(this.couleur.getCouleur() == atout.getCouleur())
+				{
+					return true;
+				}
+				else
+				{
+					if(c.couleur.getCouleur() == atout.getCouleur())
+					{
+						return false;
+					}
+					else
+					{
+						return this.rangPlusFort(c);
+					}
+				}
+			}
+		}
+		else
+		{
+			if(this.memeCouleur(c))
+			{
+				return this.rangPlusFort(c);
+			}
+			else
+			{
+				return true;
+			}
+		}
 	}
 	
 	public String toFileString()
