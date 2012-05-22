@@ -1,3 +1,4 @@
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +18,7 @@ public class Humain extends Joueur {
     }
 
     @Override
-    Boolean jouer() {
+    void jouer() {
 
         aJoue = false;
 
@@ -30,10 +31,6 @@ public class Humain extends Joueur {
                 Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return aPerdu;
-
-
-
 
     }
 
@@ -48,4 +45,3 @@ public class Humain extends Joueur {
         }
     }
 }
-
