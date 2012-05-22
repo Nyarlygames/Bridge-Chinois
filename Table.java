@@ -1,7 +1,7 @@
-/*
+/*!!!!!!!!!!!!!
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 17:11
-Date de Dernière modification 15/05/2012 : 04:24
+Date de Dernière modification 15/05/2012 : 18:27
 */
 
 import java.util.ArrayList;
@@ -32,6 +32,8 @@ public class Table {
 	}
 	
 	// -------------------------------------Accesseurs-------------------------------------
+
+
 
 	public Main getMain1() {
 		return main1;
@@ -76,10 +78,14 @@ public class Table {
 	public Paquet getPaquet() {
 		return paquet;
 	}
+	
+	
 
 	public void setPaquet(Paquet paquet) {
 		this.paquet = paquet;
 	}
+	
+	
 	
 	public Couleur getAtout() {
 		return atout;
@@ -91,13 +97,10 @@ public class Table {
 	
 	// -------------------------------------Methodes-------------------------------------
 
-	
 
 	// ajoute une pile 
 	public void addPile(Pile pile)
 	{
 		piles.add(pile);
 	}
-
-	
 }

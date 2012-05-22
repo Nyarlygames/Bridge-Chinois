@@ -3,7 +3,8 @@ import java.awt.*;
 import javax.swing.JComponent;
 
 public class ZoneDessin extends JComponent {
-    public int i = -1;
+    
+	public int i = -1;
     public int j = -1;
     public int opt = 3;
     

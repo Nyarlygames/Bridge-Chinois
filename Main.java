@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:21
-Date de DerniÃ¨re modification 15/05/2012 : 18:28
+Date de Dernière modification 15/05/2012 : 18:28
 */
 
 import java.util.ArrayList;
@@ -69,7 +69,8 @@ public class Main {
 		}
 			
 	}
-	// ajoute la carte Ã  la main, la main dois rÃ©ster triÃ© 
+
+	// ajoute la carte à la main, la main dois réster trié 
 	public void add(Carte c)
 	{
 		int i=0;
@@ -92,6 +93,12 @@ public class Main {
 	public void trier()
 	{
 		main = trie_fusion(main);
+	}
+	
+	// supprime une carte de la main
+	public void supp(Carte c)
+	{
+		main.remove(c);
 	}
 	
 	// ------------------------------------Algo tri par fusion---------------------------

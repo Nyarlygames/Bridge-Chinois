@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,7 +23,7 @@ public class PC extends Joueur {
 
         Random r = new Random();
         Integer i = r.nextInt(jouables.size());
-        if (j.getJoueurCourant().equals(j.getJoueur2())) {
+        if (j.intVersJoueur().equals(j.getJoueur2())) {
             j.getMoteur().getTable().setCarte2(jouables.get(i));
         } else {
             j.getMoteur().getTable().setCarte1(jouables.get(i));

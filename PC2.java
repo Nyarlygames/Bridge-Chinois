@@ -62,7 +62,7 @@ public class PC2 extends Joueur {
             }
         }
 
-        if (j.getJoueurCourant().equals(j.joueur2)) {
+        if (j.intVersJoueur().equals(j.joueur2)) {
             j.getMoteur().getTable().setCarte2(meilleure);
         } else {
             j.getMoteur().getTable().setCarte1(meilleure);

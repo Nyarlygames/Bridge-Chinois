@@ -1,19 +1,18 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 15/05/2012 : 18:00
-Date de Derniere modification 16/05/2012 : 04:24
+Date de Dernière modification 15/05/2012 : 18:31
 */
 public class Moteur {
 
-	// -------------------------------------Attributs-----------------------------------------
-	
 	Table table;
 	
-	// -------------------------------------Constructeur-----------------------------------------
 	Moteur(Table table)
 	{
 		this.table = table;
 	}
+
+	// -------------------------------------Accesseurs-------------------------------------
 
 	public Table getTable() {
 		return table;
@@ -23,10 +22,12 @@ public class Moteur {
 		this.table = table;
 	}
 	
-	// -------------------------------------Accesseurs-----------------------------------------
+	// --------------------------------------Methodes-------------------------------------
 	
-	
-	
-	// -------------------------------------Methodes-----------------------------------------
+	public void jouer(Carte c)
+	{
+		
+	}
+
 	
 }
