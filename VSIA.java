@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bridge;
+
 
 import java.awt.Color;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -50,6 +51,11 @@ public class VSIA extends javax.swing.JFrame {
         lbDif.setBounds(27, 107, 49, 14);
 
         Launch.setText("Démarrer");
+        Launch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LaunchActionPerformed(evt);
+            }
+        });
         getContentPane().add(Launch);
         Launch.setBounds(211, 208, 100, 23);
 
@@ -106,6 +112,7 @@ public class VSIA extends javax.swing.JFrame {
         jSlider1.setMaximum(3);
         jSlider1.setMinimum(1);
         jSlider1.setMinorTickSpacing(1);
+        jSlider1.setSnapToTicks(true);
         jSlider1.setToolTipText("");
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(jSlider1);
@@ -170,6 +177,40 @@ public class VSIA extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_nbPartiesFocusLost
+
+    private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
+        // TODO add your handling code here:
+        
+        Table table = new Table();
+		Moteur moteur = new Moteur(table);
+		Jeu monJeu = new Jeu(moteur,2);
+       		Graphique gg = new Graphique(monJeu);
+	        SwingUtilities.invokeLater(gg);
+        
+		System.out.println("j'ai initialise mon paquet melange");
+		monJeu.moteur.table.paquet.afficherPaquetConsole();
+		
+		monJeu.initialiser();
+		System.out.println("apres destribution le paquet dois Ãªtre vide :");
+		if(monJeu.moteur.table.paquet.estVide())
+			System.out.println("VRAI");
+		else
+			System.out.println("FAUX");
+		
+		System.out.println("j'affiche la premiÃ¨re main");
+		monJeu.moteur.table.main1.afficherMainConsole();
+		
+		System.out.println("j'affiche la deusiÃ¨me main");
+		monJeu.moteur.table.main2.afficherMainConsole();
+		
+		System.out.println("j'affiche les 6 piles de 5 cartes :");
+		for(int i=0;i<6;i++)
+		{
+			System.out.println("j'affiche la pile num " + i);
+			monJeu.moteur.table.piles.get(i).afficherPileConsole();
+		}
+		
+    }//GEN-LAST:event_LaunchActionPerformed
 
     /**
      * @param args the command line arguments

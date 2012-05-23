@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bridge;
+
 
 /**
  *
@@ -102,11 +102,11 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(jButton4);
         jButton4.setBounds(80, 250, 185, 23);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bridge/bridge.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Val\\Documents\\NetBeansProjects\\BridgeGit\\src\\res\\bridge.png")); // NOI18N
         getContentPane().add(jLabel3);
         jLabel3.setBounds(40, 30, 260, 40);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bridge/menu.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Val\\Documents\\NetBeansProjects\\BridgeGit\\src\\res\\menu.jpg")); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 350, 390);
 
