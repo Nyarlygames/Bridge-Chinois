@@ -81,13 +81,13 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(Bquitter);
         Bquitter.setBounds(80, 300, 185, 25);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(80, 280, 185, 10);
+        jSeparator1.setBounds(80, 290, 185, 10);
 
         jButton1.setText("Jouer à 2 joueurs");
         getContentPane().add(jButton1);
         jButton1.setBounds(80, 130, 185, 25);
         getContentPane().add(jSeparator4);
-        jSeparator4.setBounds(80, 240, 185, 1);
+        jSeparator4.setBounds(80, 240, 185, 10);
 
         jButton3.setText("Charger une partie");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
