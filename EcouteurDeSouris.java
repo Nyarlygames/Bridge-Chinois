@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 16/05/2012 : 17:58
-Date de Dernière modification 16/05/2012 : 18:00
+Date de DerniÃ¨re modification 16/05/2012 : 18:00
 */
 
 import java.awt.event.*;
@@ -17,8 +17,8 @@ class EcouteurDeSouris implements MouseListener {
         this.jeu = j;
     }
 
-    /*  d'abord on vérifie si on est en attente d'un clique dans la zone où a eu le clique
-    il y a 3 zones où les clique sont permis :
+    /*  d'abord on vÃ©rifie si on est en attente d'un clique dans la zone oÃ¹ a eu le clique
+    il y a 3 zones oÃ¹ les clique sont permis :
     1 - clique sur la main1
     2 - clique sur la main2
     3 - clique sur une pile 
@@ -31,7 +31,7 @@ class EcouteurDeSouris implements MouseListener {
     	{
     		if(jeu.intVersJoueur().equals(jeu.joueur1) && !jeu.joueur1.aJoue)
     		{
-    			// dans ce cas le joueur courant est le J1 il n'as pas encore jouer et il a bien cliké sur sa main1
+    			// dans ce cas le joueur courant est le J1 il n'as pas encore jouer et il a bien clikÃ© sur sa main1
     			//en prend en compte son choix
     			Carte carte =null/* = on recupere la carte sur la quel on a clique */;
     			jeu.moteur.jouer(carte);
@@ -41,7 +41,7 @@ class EcouteurDeSouris implements MouseListener {
     	{
     		if(jeu.intVersJoueur().equals(jeu.joueur2) && !jeu.joueur2.aJoue)
     		{
-    			// dans ce cas le joueur courant est le J2 il n'as pas encore jouer et il a bien cliké sur sa main2
+    			// dans ce cas le joueur courant est le J2 il n'as pas encore jouer et il a bien clikÃ© sur sa main2
     			//en prend en compte son choix
     			Carte carte = null/* = on recupere la carte sur la quel on a clique */;
     			jeu.getMoteur().getTable().getMain2().supp(carte);
@@ -53,7 +53,7 @@ class EcouteurDeSouris implements MouseListener {
     	{
     		if(jeu.intVersJoueur().equals(jeu.joueur1) && jeu.getJoueur1().getaJoue() && !jeu.getJoueur1().getaChoisi())
     		{
-    			// dans ce cas le joueur courant est le J1 il a deja joue et il a bien cliké sur un pli
+    			// dans ce cas le joueur courant est le J1 il a deja joue et il a bien clikÃ© sur un pli
     			//en prend en compte son choix
     			Pile pile = null/* = on recupere la pile sur la quel on a clique */;
     			jeu.getMoteur().getTable().getMain1().add(pile.piocher());
@@ -61,7 +61,7 @@ class EcouteurDeSouris implements MouseListener {
     		}
     		else if(jeu.intVersJoueur().equals(jeu.joueur2) && jeu.getJoueur2().getaJoue() && !jeu.getJoueur2().getaChoisi())
     		{
-    			// dans ce cas le joueur courant est le J2 il a deja joue et il a bien cliké sur un pli
+    			// dans ce cas le joueur courant est le J2 il a deja joue et il a bien clikÃ© sur un pli
     			//en prend en compte son choix
     			Pile pile = null/* = on recupere la pile sur la quel on a clique */;
     			jeu.getMoteur().getTable().getMain2().add(pile.piocher());

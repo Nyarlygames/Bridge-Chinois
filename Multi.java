@@ -2,11 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 3c83abc30c62352707b59ee06321a3a10089ef9a
 /**
  *
  * @author Val

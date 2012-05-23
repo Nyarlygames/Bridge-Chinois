@@ -14,8 +14,9 @@ public class TestJeu {
 		Table table = new Table();
 		Moteur moteur = new Moteur(table);
 		Jeu monJeu = new Jeu(moteur,2);
-       		Graphique gg = new Graphique(monJeu);
-	        SwingUtilities.invokeLater(gg);
+		
+   		Graphique gg = new Graphique(monJeu);
+        SwingUtilities.invokeLater(gg);
         
 		System.out.println("j'ai initialise mon paquet melange");
 		monJeu.moteur.table.paquet.afficherPaquetConsole();
