@@ -4,7 +4,8 @@ Date de Creation 16/05/2012 : 17:58
 Date de Derni�re modification 16/05/2012 : 18:00
 */
 
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 class EcouteurDeSouris implements MouseListener {
 

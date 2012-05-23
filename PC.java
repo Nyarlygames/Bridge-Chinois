@@ -13,6 +13,8 @@ public class PC extends Joueur {
         score = 0;
         aJoue = false;
         aChoisi = false;
+        phaseChoisir = false;
+        phaseJouer = false;
         this.carteAdv = carteAdv;
         this.main = main;
     }

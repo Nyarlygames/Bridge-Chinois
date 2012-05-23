@@ -1,3 +1,5 @@
+import javax.swing.text.html.Option;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -212,7 +214,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
         
-        Option opt = new Option();
+    	Option opt = new Option();
         opt.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
