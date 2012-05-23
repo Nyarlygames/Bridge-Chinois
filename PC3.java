@@ -52,7 +52,7 @@ public class PC3 extends Joueur {
 
             for (Carte c1 : main.getMain()) {
                 for (Carte c2 : inconnues) {
-                    if (c1.gagne(c2)) {
+                    if (c1.gagne(c2, j.getMoteur().getTable().getAtout())) {
                         chances.put(c1, chances.get(c1) + 1);
                     }
                 }
@@ -80,7 +80,7 @@ public class PC3 extends Joueur {
             }
         }
 
-        if (j.getJoueurCourant().equals(j.getJoueur2())) {
+        if (j.intVersJoueur().equals(j.getJoueur2())) {
             j.getMoteur().getTable().setCarte2(meilleure);
         } else {
             j.getMoteur().getTable().setCarte1(meilleure);
@@ -104,7 +104,7 @@ public class PC3 extends Joueur {
             for (Pile p : piochables) {
                 chances.put(p, 0);
                 for (Carte c2 : inconnues) {
-                    if (p.getAPiocher().gagne(c2)) {
+                    if (p.getAPiocher().gagne(c2, j.getMoteur().getTable().getAtout())) {
                         chances.put(p, chances.get(p) + 1);
                     }
                 }

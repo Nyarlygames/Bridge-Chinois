@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 12/05/2012 : 04:20
-Date de Dernière modification 15/05/2012 : 18:32
+Date de Dernière modification 23/05/2012 : 14:32
  */
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class Pile {
 
     // renvoie la carte qui est au dessus de la pile (l'indice le plus grand)  et la retire de la pile
     public Carte piocher() {
-        if (pile.isEmpty()) {
+        if (!pile.isEmpty()) {
             return pile.remove(pile.size() - 1);
         } else {
             return null;
@@ -65,7 +65,7 @@ public class Pile {
 
     //renvoie la carte a piocher sans la retirer
     public Carte getAPiocher() {
-        if (pile.isEmpty()) {
+        if (!pile.isEmpty()) {
             return pile.get(pile.size() - 1);
         } else {
             return null;

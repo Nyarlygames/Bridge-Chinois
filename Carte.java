@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 12/05/2012 : 00:01
-Date de Dernière modification 14/05/2012 : 04:08
+Date de Derniere modification 23/05/2012 : 14:08
 */
 public class Carte {
 	
@@ -30,17 +30,22 @@ public class Carte {
 	
 	// -------------------------------------Methodes-------------------------------------
 	
-	// renvoi vrai si la carte est de la même couleur 
+	// renvoi vrai si la carte est de la meme couleur 
 	public boolean memeCouleur(Carte c){
 		return couleur == c.couleur;
 	}
 	
-	// renvoi vrai si la carte est du même rang
+	// renvoi vrai si la carte est du meme rang
 	public boolean memeRang(Carte c){
 			return rang == c.rang;
 	}
 
-	// renvoi vrai si la carte est plus forte que la carte c
+	/* renvoi vrai si la carte est plus forte que la carte c
+	l'ordre pris en compte dans cette méthode est le classement initial des cartes :
+	Pique > Coeur > Carreau > trêfle
+	AS > Roi > ....> trois > deux 
+	cette methode est utilisé pour le trie d'un paquet ou d'une main
+	*/
 	public boolean plusForte(Carte c)
 	{
 		if( this.memeCouleur(c))
@@ -54,27 +59,35 @@ public class Carte {
 		
 	}
 	
+	// renvoie vrai si la couleur de la carte est plus forte que la couleur de la carte c : 
+	// pique > Coeur > Carreau > trêfle
 	public boolean couleurPlusForte(Carte c)
 	{
 		return this.getCouleur().getCouleur() > c.getCouleur().getCouleur();
 	}
 	
+	
+	// renvoie vrai si le rang de la carte est plus fort que le rang de la carte c : 
+	// AS > Roi > ....> trois > deux 
 	public boolean rangPlusFort(Carte c)
 	{
 		return this.getRang().getRang() > c.getRang().getRang();
 	}
 	
+	// renvoie vrai si la carte est est un 10, un Valet, une Dame, un Roi ou un AS
 	public boolean rangSupDix()
 	{
 		return this.getRang().getRang()>=10;
 	}
+	
 	
 	public String toString()
 	{
 		return this.rang + " de " + this.couleur;
 	}
 	
-	
+	// renvoie vrai si la carte gagne sur la carte c en connaissant l'atout atout
+	// cette fonction est utilisé dans le jeu pour comparer les deux cartes posées par les joueurs
 	public boolean gagne(Carte c, Couleur atout)
 	{
 		if(atout != null)

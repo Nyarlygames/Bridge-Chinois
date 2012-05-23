@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Les r&#xe8;gles du jeu"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,18,0,0,2,53"/>
+    <SyntheticProperty name="formSizePolicy" type="int" value="0"/>
+    <SyntheticProperty name="generateSize" type="boolean" value="true"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" alignment="0" pref="529" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="79" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="424" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Annuler"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="13" style="0"/>
+            </Property>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="Les r&#xe8;gles du Bridge Chinois :&#xa;&#xa;Le bridge chinois est un jeu de cartes &#xe0; 2 joueurs.&#xa;On utilise un jeu de 52 cartes. L&apos;ordre des cartes et des couleurs est le m&#xea;me &#xa;qu&apos;au bridge (as, roi, dame, valet, dix, ...deux, et pique, coeur, carreau, tr&#xe8;fle).&#xa;Le donneur distribue 11 cartes &#xe0; chacun des 2 joueurs, puis distribue les cartes &#xa;restantes en 6 piles de 5 cartes, face cach&#xe9;e. Puis il d&#xe9;couvre les 6 cartes qui &#xa;sont au sommet de chacune des 6 piles. Si toutes les cartes visibles ont une &#xa;valeur inf&#xe9;rieure &#xe0; 10, la manche est jou&#xe9;e sans atout. Sinon, l&apos;atout est fix&#xe9; &#xa;par la carte d&#xe9;couverte la plus forte.&#xa;&#xa;Le but du jeu est de r&#xe9;aliser un nombre de plis le plus grand possible &#xa;(en particulier, plus que l&apos;adversaire). Chaque pli va consister en 2 cartes, &#xa;chacune pos&#xe9;e sur le tapis par l&apos;un des joueurs, choisie parmi les cartes &#xa;qu&apos;il a en main. Le pli est gagn&#xe9; et ramass&#xe9; (faces cach&#xe9;es, sans possibilit&#xe9; de &#xa;le consulter par la suite) par le joueur :&#xa;     qui a pos&#xe9; la carte la plus forte, si les deux cartes sont de m&#xea;me couleur,&#xa;     qui a coup&#xe9; (jou&#xe9; un atout) si l&apos;une des deux cartes est un atout,&#xa;     qui a pos&#xe9; la premi&#xe8;re carte, si les deux cartes sont de couleur diff&#xe9;rente &#xa;             et qu&apos;aucune n&apos;est un atout (on dit que le second joueur s&apos;est d&#xe9;fauss&#xe9;).&#xa;&#xa;Le donneur a initialement la main.&#xa;Le joueur qui gagne le pli prend (ou garde) la main.&#xa;Le joueur qui a la main choisit une des cartes de sa main, et la pose sur le tapis.&#xa;L&apos;autre joueur, s&apos;il le peut, doit fournir : jouer une carte de la m&#xea;me couleur.&#xa;S&apos;il ne peut pas fournir, il a le choix entre couper ou se d&#xe9;fausser.&#xa;Donc, on n&apos;est pas oblig&#xe9; de couper.&#xa;Si la manche se joue sans atout, le second joueur ne peut bien s&#xfb;r que se &#xa;d&#xe9;fausser s&apos;il ne peut fournir... dur !&#xa;Le joueur qui a gagn&#xe9; le pli le ramasse. Puis il choisit l&apos;une des cartes &#xa;d&#xe9;couvertes (s&apos;il en reste... voir plus loin) et la place dans sa main. &#xa;Il d&#xe9;couvre ensuite la carte cach&#xe9;e qu&apos;il a ainsi fait appara&#xee;tre en sommet &#xa;de pile (si la pile n&apos;est pas vide). L&apos;autre joueur choisit &#xe0; son tour une carte &#xa;d&#xe9;couverte (il y en a au moins une, puisqu&apos;il y a un nombre pair de cartes dans &#xa;les piles sur la table : c&apos;est un invariant de l&apos;it&#xe9;ration). &#xa;Puis il d&#xe9;couvre la carte cach&#xe9;e qu&apos;il a ainsi fait appara&#xee;tre en sommet de pile &#xa;(si la pile n&apos;est pas vide).&#xa;Dans la premi&#xe8;re phase de la manche, les 2 joueurs ont ainsi toujours&#xa;11 cartes en main (encore un invariant).&#xa;&#xa;Lorsque les piles sont &#xe9;puis&#xe9;es, la manche continue selon les m&#xea;mes r&#xe8;gles,&#xa;en supprimant la phase de choix/d&#xe9;couverte, bien s&#xfb;r.&#xa;Cette seconde phase s&apos;arr&#xea;te, puisque le nombre de cartes que les joueurs ont &#xa;en main d&#xe9;cro&#xee;t strictement &#xe0; chaque lev&#xe9;e. La manche se termine lorsque les&#xa;2 joueurs n&apos;ont plus de carte en main. S&apos;il reste des cartes &#xe0; l&apos;un et pas &#xe0;&#xa;l&apos;autre, c&apos;est que l&apos;un ou l&apos;autre a trich&#xe9;, ou qu&apos;il y a une erreur dans le&#xa;programme.&#xa;&#xa;&#xc0; la fin de la manche, on compte les plis de chacun (ou d&apos;un seul des deux,&#xa;les plus f&#xfb;t&#xe9;s voient pourquoi) et chacun se voit attribuer par l&apos;arbitre le&#xa;nombre de points correspondant.&#xa;En g&#xe9;n&#xe9;ral, l&apos;arbitre est l&apos;un des deux joueurs, l&apos;autre surveille simplement&#xa;les comptes.&#xa;Au cours des manches successives, chaque joueur donne tour &#xe0; tour.&#xa;La partie se joue en un nombre de points ou en un nombre de manches qui a &#xe9;t&#xe9;&#xa;fix&#xe9; &#xe0; l&apos;avance (par exemple 100 points, ou 12 manches). Dans le cas o&#xf9; le nombre&#xa;de manches est fix&#xe9;, il faut choisir un nombre pair, car le donneur a un certain&#xa;avantage. "/>
+            <Property name="wrapStyleWord" type="boolean" value="true"/>
+            <Property name="caretPosition" type="int" value="0"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Curseur par d&#xe9;faut"/>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

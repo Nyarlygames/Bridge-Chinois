@@ -24,10 +24,14 @@ public class Moteur {
 	
 	// --------------------------------------Methodes-------------------------------------
 	
-	public void jouer(Carte c)
+	public void jouer(Carte c, int joueurCourant)
 	{
 		
 	}
 
+	public void choisir(Carte c, int joueurCourant)
+	{
+		
+	}
 	
 }

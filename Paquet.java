@@ -13,8 +13,6 @@ public class Paquet {
 	// -------------------------------------Atributs-------------------------------------
 	ArrayList<Carte> paquet;
 	
-	
-	
 	// -------------------------------------Constructeur-------------------------------------
 	Paquet()
 	{
@@ -55,8 +53,7 @@ public class Paquet {
 		return resultat;
 	}
 	
-	// copie le paquet
-	
+	// copie le paquet	
 	public void copie(ArrayList<Carte> paquet)
 	{
 		this.paquet.clear();

@@ -70,7 +70,7 @@ public class Main {
 			
 	}
 
-	// ajoute la carte à la main, la main dois réster trié 
+	// ajoute la carte à la main, la main dois réster trié
 	public void add(Carte c)
 	{
 		int i=0;
