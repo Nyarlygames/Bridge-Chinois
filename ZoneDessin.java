@@ -14,7 +14,7 @@ public class ZoneDessin extends JComponent {
     
     public int mode = 2;
     Table t;
-        
+    
     /**
      * Constructeur ZoneDessin
      */
@@ -46,13 +46,13 @@ public class ZoneDessin extends JComponent {
             Image right = Toolkit.getDefaultToolkit().getImage("res/right.jpg");
             Image middle = Toolkit.getDefaultToolkit().getImage("res/middle.jpg");
             Image empty = Toolkit.getDefaultToolkit().getImage("res/empty.png");
+            
             int bw = left.getWidth(null);
             
             g.drawImage(left, 0, 0, bw, height , this);
             g.drawImage(right, width - bw , 0, bw, height, this);
             g.drawImage(middle, bw, 0, width - (2*bw), height, this);
             
-
             // Joueur non actif
             Image cback = Toolkit.getDefaultToolkit().getImage("cartes/carte-dos.jpg");
             int cw = cback.getWidth(null);
@@ -63,7 +63,11 @@ public class ZoneDessin extends JComponent {
 
 	            int mid = (int) ((width/2) - (((t.main1.getSize()+1) * (cw) / 2)* 0.5)) + (f*(cw)/2);
                 Carte c = t.main1.getCarte(f);
-            	g.drawImage(cback, mid , 0, this);
+                
+                ImageIcon cup = new ImageIcon(cback);
+                this.add(cup);
+                
+            	//g.drawImage(cback, mid , 0, this);
             }
 		
 		// Dessin du jeu du Joueur actif 

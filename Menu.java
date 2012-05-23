@@ -1,4 +1,3 @@
-import javax.swing.text.html.Option;
 
 /*
  * To change this template, choose Tools | Templates
@@ -63,7 +62,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bsolo);
-        Bsolo.setBounds(80, 100, 185, 23);
+        Bsolo.setBounds(80, 100, 185, 25);
 
         Bmulti.setText("Jouer en ligne");
         Bmulti.addActionListener(new java.awt.event.ActionListener() {
@@ -72,7 +71,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bmulti);
-        Bmulti.setBounds(80, 170, 185, 23);
+        Bmulti.setBounds(80, 170, 185, 25);
 
         Bquitter.setText("Quitter");
         Bquitter.addActionListener(new java.awt.event.ActionListener() {
@@ -81,13 +80,13 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bquitter);
-        Bquitter.setBounds(80, 300, 185, 23);
+        Bquitter.setBounds(80, 300, 185, 25);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(80, 280, 185, 10);
 
         jButton1.setText("Jouer à 2 joueurs");
         getContentPane().add(jButton1);
-        jButton1.setBounds(80, 130, 185, 23);
+        jButton1.setBounds(80, 130, 185, 25);
         getContentPane().add(jSeparator4);
         jSeparator4.setBounds(80, 240, 185, 1);
 
@@ -98,17 +97,17 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(80, 200, 185, 23);
+        jButton3.setBounds(80, 200, 185, 25);
 
         jButton4.setText("Apprendre à jouer");
         getContentPane().add(jButton4);
-        jButton4.setBounds(80, 250, 185, 23);
+        jButton4.setBounds(80, 250, 185, 25);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Val\\Documents\\NetBeansProjects\\BridgeGit\\src\\res\\bridge.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/bridge.png"))); // NOI18N
         getContentPane().add(jLabel3);
         jLabel3.setBounds(40, 30, 260, 40);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Val\\Documents\\NetBeansProjects\\BridgeGit\\src\\res\\menu.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 350, 390);
 

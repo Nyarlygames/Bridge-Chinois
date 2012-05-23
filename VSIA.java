@@ -182,11 +182,14 @@ public class VSIA extends javax.swing.JFrame {
     private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
         
+        // on ferme la fenetre de menu
+        this.dispose();
+        
         Table table = new Table();
 		Moteur moteur = new Moteur(table);
 		Jeu monJeu = new Jeu(moteur,2);
-       		Graphique gg = new Graphique(monJeu);
-	        SwingUtilities.invokeLater(gg);
+   		Graphique gg = new Graphique(monJeu);
+        SwingUtilities.invokeLater(gg);
         
 		System.out.println("j'ai initialise mon paquet melange");
 		monJeu.moteur.table.paquet.afficherPaquetConsole();

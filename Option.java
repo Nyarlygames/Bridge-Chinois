@@ -10,12 +10,7 @@
  */
 public class Option extends javax.swing.JFrame {
 
-    /**
-	 * 
-	 */
-	/**
-     * Creates new form Option
-     */
+    
     Option(){
         initComponents();
     }
