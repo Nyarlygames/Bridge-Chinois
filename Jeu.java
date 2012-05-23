@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:21
-Date de Dernière modification 15/05/2012 : 18:25
+Date de Dernière modification 23/05/2012 : 14:25
 */
 import java.util.ArrayList;
 import java.util.Random;
@@ -42,8 +42,6 @@ public class Jeu {
 	
 	
 
-	
-	
 	// -------------------------------------Accesseurs-------------------------------------
 
 	
@@ -55,37 +53,32 @@ public class Jeu {
 		this.moteur = moteur;
 	}
 
-public Joueur getJoueur1() {
+	public Joueur getJoueur1() {
 		return joueur1;
 	}
-
-
-
 
 	public void setJoueur1(Joueur joueur1) {
 		this.joueur1 = joueur1;
 	}
-
-
-
 
 	public Joueur getJoueur2() {
 		return joueur2;
 	}
 
 
-
-
 	public void setJoueur2(Joueur joueur2) {
 		this.joueur2 = joueur2;
 	}
 
-
-
+	public int getJoueurCourant() {
+		return joueurCourant;
+	}
 
 	public void setJoueurCourant(int joueurCourant) {
 		this.joueurCourant = joueurCourant;
 	}
+	
+	
 
 	// -------------------------------------Methodes-----------------------------------------
 
@@ -148,6 +141,8 @@ public Joueur getJoueur1() {
 		
 	}
 	
+	// renvoie la carte la plus forte parmis les cartes dévoilées au dessus des 6 piles. cette méthode est utilisé
+	// pour choisir l'atout 
 	private Carte carteRangFort(ArrayList<Pile> piles)
 	{
 		Carte carteCourante,resultat = null;
@@ -169,53 +164,53 @@ public Joueur getJoueur1() {
 		return resultat;
 	}
 	
-	// lance le jeu;
-		public void jouer()
+	// L'Arbitre : déroulement d'une partie entre 2 joueurs 
+	public void jouer()
+	{
+		Carte c1,c2=null;
+		
+		while(moteur.getTable().getMain1().getSize() !=0 && moteur.getTable().getMain2().getSize()!=0)
 		{
-			Carte c1,c2=null;
-			
-			while(moteur.getTable().getMain1().getSize() !=0 && moteur.getTable().getMain2().getSize()!=0)
+			intVersJoueur().jouer();
+			switcher();
+			intVersJoueur().jouer();
+			if(joueurCourant == 1)
 			{
-				intVersJoueur().jouer();
-				switcher();
-				intVersJoueur().jouer();
-				if(joueurCourant == 1)
-				{
-					c1 = moteur.getTable().getCarte2();
-					c2 = moteur.getTable().getCarte1();
-				}
-				else
-				{
-					c1 = moteur.getTable().getCarte1();
-					c2 = moteur.getTable().getCarte2();
-				}
-				
-				if(c1.gagne(c2,moteur.getTable().getAtout()))
-				{
-					switcher();
-					intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-					intVersJoueur().choisir();
-					switcher();
-					intVersJoueur().choisir();
-					switcher();
-				}
-				else
-				{
-					intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-					intVersJoueur().choisir();
-					switcher();
-					intVersJoueur().choisir();
-					switcher();
-				}
-				joueur1.setaJoue(false);
-				joueur1.setaChoisi(false);
-				joueur2.setaJoue(false);
-				joueur2.setaChoisi(false);
+				c1 = moteur.getTable().getCarte2();
+				c2 = moteur.getTable().getCarte1();
 			}
+			else
+			{
+				c1 = moteur.getTable().getCarte1();
+				c2 = moteur.getTable().getCarte2();
+			}
+			
+			if(c1.gagne(c2,moteur.getTable().getAtout()))
+			{
+				switcher();
+				intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+				intVersJoueur().choisir();
+				switcher();
+				intVersJoueur().choisir();
+				switcher();
+			}
+			else
+			{
+				intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+				intVersJoueur().choisir();
+				switcher();
+				intVersJoueur().choisir();
+				switcher();
+			}
+			joueur1.setaJoue(false);
+			joueur1.setaChoisi(false);
+			joueur2.setaJoue(false);
+			joueur2.setaChoisi(false);
 		}
+	}
 		
 		
-		
+	// renvoi le joueur courant
 	public Joueur intVersJoueur()
 	{
 		if(joueurCourant == 1)
@@ -228,7 +223,7 @@ public Joueur getJoueur1() {
 		}
 	}
 	
-	
+	// switch le joueur courant
 	public void switcher()
 	{
 		if(joueurCourant == 1)
@@ -241,7 +236,7 @@ public Joueur getJoueur1() {
 		}
 	}
 	
-	//renvoie les cartes inconnues du joueur courant (dans la main de l'autre ou sous les piles
+	//renvoie les cartes inconnues du joueur courant (dans la main de l'autre ou sous les piles)
     public ArrayList<Carte> getCartesInconnues() {
         ArrayList<Carte> inconnues = new ArrayList<Carte>();
 
@@ -253,7 +248,7 @@ public Joueur getJoueur1() {
         }
         for (Pile p : moteur.getTable().getPiles()) {
             inconnues.addAll(p.getPile());
-            if (p.getPile().size() > 1) {
+            if (p.getPile().size() >= 1) {
                 inconnues.remove(p.getAPiocher());
             }
         }

@@ -62,7 +62,7 @@ public abstract class Joueur {
         this.aChoisi = aChoisi;
     }
 
-    // -------------------------------------Constructeur-------------------------------------
+    // -------------------------------------Méthodes-------------------------------------
     abstract void jouer();
 
     abstract void choisir();
