@@ -1,7 +1,7 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:21
-Date de Derni�re modification 15/05/2012 : 18:28
+Date de Dernière modification 15/05/2012 : 18:28
 */
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class Main {
 			
 	}
 
-	// ajoute la carte à la main, la main dois r�ster tri� 
+	// ajoute la carte à la main, la main dois réster trié
 	public void add(Carte c)
 	{
 		int i=0;
