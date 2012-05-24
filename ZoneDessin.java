@@ -1,6 +1,7 @@
 
 import java.awt.*;
 import javax.swing.JComponent;
+import javax.swing.ImageIcon;
 
 public class ZoneDessin extends JComponent {
 
@@ -8,7 +9,9 @@ public class ZoneDessin extends JComponent {
     public int j = -1;
     public int opt = 3;
     public int mode = 2;
-    Table t;
+    public int cw = 0;
+    public int ch = 0;
+    public Table t;
 
     /**
      * Constructeur ZoneDessin
@@ -17,6 +20,7 @@ public class ZoneDessin extends JComponent {
 
         this.t = t;
     }
+    
 
     /**
      * Dessine la fenetre
@@ -52,21 +56,23 @@ public class ZoneDessin extends JComponent {
             Image cback = Toolkit.getDefaultToolkit().getImage("cartes/carte-dos.jpg");
             int cw = cback.getWidth(null);
             int ch = cback.getHeight(null);
+	        this.cw = cw;
+	        this.ch = ch;
 
             for (int f = 0; f < t.main1.getSize(); f++) {
 
-                int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * (cw) / 2);
+                int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
                 Carte c = t.main1.getCarte(f);
 
                 ImageIcon cup = new ImageIcon(cback);
-                this.add(cup);
+               // this.add(cup);
 
-                //g.drawImage(cback, mid , 0, this);
+		       g.drawImage(cback, mid , 0, this);
             }
 
             // Dessin du jeu du Joueur actif 
             for (int f = 0; f < t.main2.getSize(); f++) {
-                int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * (cw) / 2);
+                int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
                 Carte c = t.main2.getCarte(f);
                 // on check le type de c et on charge le graphique associe
                 System.out.println("ZONEDESSIN");
@@ -75,7 +81,6 @@ public class ZoneDessin extends JComponent {
                 Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + c.toFileString());
                 g.drawImage(cfront, mid, height - ch, cw, ch, this);
             }
-
             // Dessin des Piles
             for (int p = 0; p < 6; p++) {
                 for (int pc = 0; pc < t.piles.get(p).getSize(); pc++) {
