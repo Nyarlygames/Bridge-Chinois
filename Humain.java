@@ -23,6 +23,7 @@ public class Humain extends Joueur {
 
     @Override
     void jouer() {
+    	phaseJouer = true;
         while (!aJoue) {
             try {
                 Thread.sleep(1);
@@ -30,11 +31,13 @@ public class Humain extends Joueur {
                 Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        phaseJouer = false;
 
     }
 
     @Override
     void choisir() {
+    	phaseChoisir = true;
         while (!aChoisi) {
             try {
                 Thread.sleep(1);
@@ -42,5 +45,6 @@ public class Humain extends Joueur {
                 Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        phaseChoisir = false;
     }
 }

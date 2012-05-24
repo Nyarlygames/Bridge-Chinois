@@ -64,10 +64,9 @@ public class ZoneDessin extends JComponent {
 	            int mid = (int) ((width/2) - (((t.main1.getSize()+1) * (cw) / 2)* 0.5)) + (f*(cw)/2);
                 Carte c = t.main1.getCarte(f);
                 
-                ImageIcon cup = new ImageIcon(cback);
-                this.add(cup);
+            
                 
-            	//g.drawImage(cback, mid , 0, this);
+            	g.drawImage(cback, mid , 0, this);
             }
 		
 		// Dessin du jeu du Joueur actif 
