@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -212,7 +213,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOptionsActionPerformed
         // TODO add your handling code here:
         
-        Option opt = new Option();
+    	Option opt = new Option();
         opt.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItemOptionsActionPerformed

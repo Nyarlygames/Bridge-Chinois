@@ -4,6 +4,7 @@
  */
 
 import java.awt.Color;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -187,7 +188,7 @@ public class VSIA extends javax.swing.JFrame {
 
         Table table = new Table();
         Moteur moteur = new Moteur(table);
-                Jeu monJeu = new Jeu(moteur, 2);
+        Jeu monJeu = new Jeu(moteur, 1,0,2,0);
 //        Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem(), jSlider1.getValue());
         Graphique gg = new Graphique(monJeu);
         SwingUtilities.invokeLater(gg);

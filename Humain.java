@@ -10,18 +10,18 @@ public class Humain extends Joueur {
     public Humain(Jeu j, int id) {
         this.j = j;
         this.id = id;
+        nbPlis = 0;
+        score = 0;
         aJoue = false;
-
+        aChoisi = false;
+        phaseChoisir = false;
+        phaseJouer = false;
 
     }
 
     @Override
     void jouer() {
-
-        aJoue = false;
-
-
-
+    	phaseJouer = true;
         while (!aJoue) {
             try {
                 Thread.sleep(1);
@@ -29,11 +29,13 @@ public class Humain extends Joueur {
                 Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        phaseJouer = false;
 
     }
 
     @Override
     void choisir() {
+    	phaseChoisir = true;
         while (!aChoisi) {
             try {
                 Thread.sleep(1);
@@ -41,5 +43,6 @@ public class Humain extends Joueur {
                 Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        phaseChoisir = false;
     }
 }

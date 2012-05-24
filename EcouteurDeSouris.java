@@ -3,7 +3,8 @@ Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 16/05/2012 : 17:58
  */
 
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 class EcouteurDeSouris implements MouseListener {
 
