@@ -7,8 +7,6 @@ import java.util.logging.Logger;
  */
 public class Humain extends Joueur {
 
-    private boolean aJoue;
-
     public Humain(Jeu j, int id) {
         this.j = j;
         this.id = id;

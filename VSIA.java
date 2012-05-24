@@ -187,7 +187,8 @@ public class VSIA extends javax.swing.JFrame {
 
         Table table = new Table();
         Moteur moteur = new Moteur(table);
-        Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem(), jSlider1.getValue(););
+                Jeu monJeu = new Jeu(moteur, 2);
+//        Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem(), jSlider1.getValue());
         Graphique gg = new Graphique(monJeu);
         SwingUtilities.invokeLater(gg);
 

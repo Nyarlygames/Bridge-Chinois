@@ -38,6 +38,8 @@ class EcouteurDeSouris implements MouseListener {
     	{
     	    Carte carte = getCarte(e.getX(), e.getY());
     	    System.out.println(carte);
+            System.out.println(jeu.intVersJoueur().toString());
+            System.out.println(jeu.getJoueur1().toString());
     		if (jeu.intVersJoueur().equals(jeu.joueur1) && !jeu.joueur1.aJoue)
     		{
 
@@ -45,6 +47,7 @@ class EcouteurDeSouris implements MouseListener {
     			//en prend en compte son choix
     			/* = on recupere la carte sur la quel on a clique ;*/
     			jeu.moteur.jouer(carte, jeu.getJoueurCourant());
+                        jeu.getJoueur1().setaJoue(Boolean.TRUE);
     		}
     	}
     	else if(true/*clike sur main2*/)

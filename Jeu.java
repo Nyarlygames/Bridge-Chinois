@@ -154,6 +154,7 @@ public class Jeu {
 
         while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
             intVersJoueur().jouer();
+            System.out.println("loto");
             switcher();
             intVersJoueur().jouer();
             if (joueurCourant == 1) {

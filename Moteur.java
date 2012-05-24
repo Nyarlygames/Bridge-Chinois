@@ -2,36 +2,36 @@
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 15/05/2012 : 18:00
 Date de Dernière modification 15/05/2012 : 18:31
-*/
+ */
+
 public class Moteur {
 
-	Table table;
-	
-	Moteur(Table table)
-	{
-		this.table = table;
-	}
+    Table table;
 
-	// -------------------------------------Accesseurs-------------------------------------
+    Moteur(Table table) {
+        this.table = table;
+    }
 
-	public Table getTable() {
-		return table;
-	}
+    // -------------------------------------Accesseurs-------------------------------------
+    public Table getTable() {
+        return table;
+    }
 
-	public void setTable(Table table) {
-		this.table = table;
-	}
-	
-	// --------------------------------------Methodes-------------------------------------
-	
-	public void jouer(Carte c, int joueurCourant)
-	{
-		
-	}
+    public void setTable(Table table) {
+        this.table = table;
+    }
 
-	public void choisir(Carte c, int joueurCourant)
-	{
-		
-	}
-	
+    // --------------------------------------Methodes-------------------------------------
+    public void jouer(Carte c, int joueurCourant) {
+        if (joueurCourant == 1) {
+            table.setCarte1(table.getMain1().getCarte(table.getMain1().getMain().indexOf(c)));
+            table.getMain1().getMain().remove(c);
+        } else {
+            table.setCarte2(table.getMain2().getCarte(table.getMain2().getMain().indexOf(c)));
+            table.getMain2().getMain().remove(c);
+        }
+    }
+
+    public void choisir(Carte c, int joueurCourant) {
+    }
 }
