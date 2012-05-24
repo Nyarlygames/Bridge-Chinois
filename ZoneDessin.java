@@ -26,9 +26,6 @@ public class ZoneDessin extends JComponent {
      * Dessine la fenetre
      */
     public void paint(Graphics g) {
-        System.out.println("ZoneDessin repaint");
-
-        System.out.println(mode);
         Graphics2D drawable = (Graphics2D) g;
 
         // On reccupere quelques infos provenant de la partie JComponent
@@ -59,10 +56,10 @@ public class ZoneDessin extends JComponent {
 	        this.cw = cw;
 	        this.ch = ch;
 
-            for (int f = 0; f < t.main1.getSize(); f++) {
+            for (int f = 0; f < t.main2.getSize(); f++) {
 
-                int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
-                Carte c = t.main1.getCarte(f);
+                int mid = (int) ((width / 2) - (((t.main2.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
+                Carte c = t.main2.getCarte(f);
 
                 ImageIcon cup = new ImageIcon(cback);
                // this.add(cup);
@@ -71,13 +68,10 @@ public class ZoneDessin extends JComponent {
             }
 
             // Dessin du jeu du Joueur actif 
-            for (int f = 0; f < t.main2.getSize(); f++) {
+            for (int f = 0; f < t.main1.getSize(); f++) {
                 int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
-                Carte c = t.main2.getCarte(f);
+                Carte c = t.main1.getCarte(f);
                 // on check le type de c et on charge le graphique associe
-                System.out.println("ZONEDESSIN");
-                System.out.println("LACARTE : " + c.getCouleur().toString() + " " + c.getRang().toString());
-                System.out.println(c.toFileString());
                 Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + c.toFileString());
                 g.drawImage(cfront, mid, height - ch, cw, ch, this);
             }
@@ -87,7 +81,6 @@ public class ZoneDessin extends JComponent {
 
                     int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
 
-                    //int mid = (int) ((width/2) - (( 7 * (cw) / 2)* 0.5)) + (p*(cw)/2);
 
 
                     if (pc == (t.piles.get(p).getSize() - 1)) {

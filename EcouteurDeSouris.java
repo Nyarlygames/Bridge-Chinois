@@ -34,10 +34,15 @@ class EcouteurDeSouris implements MouseListener {
      */
     public void mousePressed(MouseEvent e) {
         
-    	if( /*clike sur main1*/ true)
+        g.getZoneDessin().repaint();
+        
+        //Carte du clic sur la main
+        Carte carte = getCarteMain(e.getX(), e.getY());
+        //Carte du clic sur pile
+        Pile clicpile = getCartePile(e.getX(), e.getY());
+        
+    	if (carte != null)
     	{
-    	    Carte carte = getCarte(e.getX(), e.getY());
-    	    System.out.println(carte);
             System.out.println(jeu.intVersJoueur().toString());
             System.out.println(jeu.getJoueur1().toString());
     		if (jeu.intVersJoueur().equals(jeu.joueur1) && !jeu.joueur1.aJoue)
@@ -50,36 +55,21 @@ class EcouteurDeSouris implements MouseListener {
                         jeu.getJoueur1().setaJoue(Boolean.TRUE);
     		}
     	}
-    	else if(true/*clike sur main2*/)
-    	{
-    	    Carte carte = getCarte(e.getX(), e.getY());
-    	    System.out.println(carte);
-    		if(jeu.intVersJoueur().equals(jeu.joueur2) && !jeu.joueur2.aJoue)
-    		{
-    			// dans ce cas le joueur courant est le J2 il n'as pas encore jouer et il a bien clik� sur sa main2
-
-    			//en prend en compte son choix
-    			jeu.getMoteur().getTable().getMain2().supp(carte);
-    			jeu.getMoteur().getTable().setCarte2(carte);
-    			jeu.intVersJoueur().setaJoue(true);
-    		}
-    	}
-    	else if(true /*clike sur pile*/)
+    	else if (true)
     	{
     		if(jeu.intVersJoueur().equals(jeu.joueur1) && jeu.getJoueur1().getaJoue() && !jeu.getJoueur1().getaChoisi())
     		{
-
-    			// dans ce cas le joueur courant est le J1 il a deja joue et il a bien clik� sur un pli
+                Pile pile = null;
+    			// dans ce cas le joueur courant est le J1 il a deja joue et il a bien clike sur un pli
     			//en prend en compte son choix
-    			Pile pile = null/* = on recupere la pile sur la quel on a clique */;
     			jeu.getMoteur().getTable().getMain1().add(pile.piocher());
     			jeu.intVersJoueur().setaChoisi(true);
     		}
     		else if(jeu.intVersJoueur().equals(jeu.joueur2) && jeu.getJoueur2().getaJoue() && !jeu.getJoueur2().getaChoisi())
     		{
-    			// dans ce cas le joueur courant est le J2 il a deja joue et il a bien clik� sur un pli
+    		    Pile pile = null;
+    			// dans ce cas le joueur courant est le J2 il a deja joue et il a bien clike sur un pli
     			//en prend en compte son choix
-    			Pile pile = null/* = on recupere la pile sur la quel on a clique */;
     			jeu.getMoteur().getTable().getMain2().add(pile.piocher());
     			jeu.intVersJoueur().setaChoisi(true);
     		}
@@ -96,25 +86,68 @@ class EcouteurDeSouris implements MouseListener {
 
     public void mouseReleased(MouseEvent e) {}
 
-    public Carte getCarte(int x, int y){
+
+// Clic carte sur pile
+    public Pile getCartePile(int x, int y){
         int width = g.getZoneDessin().getSize().width;
         int height = g.getZoneDessin().getSize().height;
         int cw = g.getZoneDessin().cw;
         int ch = g.getZoneDessin().ch;
         Table t = g.getZoneDessin().t;
         
-        double start = (double) ((width / 2) - (((t.main2.getSize() +1) * (cw) / 2) * 0.5));
+        
+        // Pixel debut affichage pile
+        double start = (double) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2));
+         
+        if ((y >= height/2 -ch/2) && (y <= height/2 + ch/2)) {
+           
+           
+            // Indice du bloc de la pile
+            double bloc = (x  - start) / (cw + 20) ;  
+            
+            // Indice interne au bloc de la pile
+            double area = (x  - start) % (cw + 20) ;
+           
+           if ((bloc < 6) && (bloc >= 0)) {
+            if ((area >= (t.piles.get((int) bloc).getSize() -1) * 3) && (area <= cw + (t.piles.get((int) bloc).getSize() -1) * 3))
+            { 
+                // Numero de la pile
+               double pile = (x  - start) / (cw + 20) ;            
+                   System.out.println((int) pile);
+                return t.piles.get((int) pile);
+            } 
+            else return null;           
+          }
+          return null;  
+        }
+        else return null;
+    }
+
+// Clic carte sur la main
+    public Carte getCarteMain(int x, int y){
+        int width = g.getZoneDessin().getSize().width;
+        int height = g.getZoneDessin().getSize().height;
+        int cw = g.getZoneDessin().cw;
+        int ch = g.getZoneDessin().ch;
+        Table t = g.getZoneDessin().t;
+        
+        // Pixel debut affichage carte
+        double start = (double) ((width / 2) - (((t.main1.getSize() +1) * (cw) / 2) * 0.5));
         
         if (y > height - ch) {
+            // Indice de la carte cliquee
             double carte = (x  - start) / ((cw/2) + 0.5);
-            if (carte < 0 || (int) carte > 11 )  {
+            
+            // Clic en dehors
+            if (carte < 0 || (int) carte > t.main1.getSize() )  {
                 return (null);
             }
-            else if ((int) carte == 11) {
-                return t.main2.getCarte(10);
+            // Deuxieme moitie derniere carte
+            else if ((int) carte == t.main1.getSize()) {
+                return t.main1.getCarte(t.main1.getSize() - 1);
                 }
             else
-                return t.main2.getCarte((int) carte);
+                return t.main1.getCarte((int) carte);
         }
         else return null;
     }
