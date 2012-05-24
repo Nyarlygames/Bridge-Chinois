@@ -1,66 +1,152 @@
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.JPopupMenu.Separator;
 
 public class Graphique implements Runnable {
-    
+
     public int LARGEUR_FEN = 800;
     public int HAUTEUR_FEN = 650;
     public int tailleFenetreX;
     public int tailleFenetreY;
     Jeu jeu;
     JFrame frame;
-    ZoneDessin zoneDessin;   
-    
+    ZoneDessin zoneDessin;
+
     public ZoneDessin getZoneDessin() {
         return zoneDessin;
     }
-    
-    
+
     public Graphique(Jeu j) {
         jeu = j;
-	    this.frame = frame;
-	    this.zoneDessin = zoneDessin;
-	    
+        this.frame = frame;
+        this.zoneDessin = zoneDessin;
+
         frame = new JFrame("Bridge chinois");
 
-	    // Zone du jeu
-        zoneDessin = new ZoneDessin(j.moteur.table);
+        // Zone du jeu
+        zoneDessin = new ZoneDessin(j.getMoteur().getTable());
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
+        JMenuBar menuBar = new javax.swing.JMenuBar();
+        JMenu fileMenu = new javax.swing.JMenu();
+        JMenuItem openMenuItem = new javax.swing.JMenuItem();
+        JMenuItem abandonnerMenuItem = new javax.swing.JMenuItem();
+        JMenuItem saveAsMenuItem = new javax.swing.JMenuItem();
+        Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        JMenuItem jMenuItem1 = new javax.swing.JMenuItem();
+        Separator jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        JMenu helpMenu = new javax.swing.JMenu();
+        JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
 
-	// Haut et bas
-	JLabel menu = new JLabel("Menu ");
-	JLabel info = new JLabel("Infos");
+        fileMenu.setMnemonic('p');
+        fileMenu.setText("Partie");
 
-	// Panel principal
-	JPanel panel = new JPanel();
-	BorderLayout layout = new BorderLayout();
-	panel.setLayout(layout);
+        openMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        openMenuItem.setMnemonic('n');
+        openMenuItem.setText("Nouvelle Partie");
+        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
-	panel.add("North", menu);
-	panel.add("Center", zoneDessin);
-	panel.add("South", info);
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            }
+        });
+        fileMenu.add(openMenuItem);
 
-	frame.setPreferredSize(new Dimension(LARGEUR_FEN, HAUTEUR_FEN));
-	frame.setContentPane(panel);
+        abandonnerMenuItem.setMnemonic('a');
+        abandonnerMenuItem.setText("Abandonner");
+        abandonnerMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //demander confirmation
+                //dire au jeu qu'on abandonne la donne
+                //a griser si on joue sur le nombre de plis
+            }
+        });
+
+        saveAsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        saveAsMenuItem.setMnemonic('s');
+        saveAsMenuItem.setText("Sauvegarder");
+
+        saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.showSaveDialog(frame);
+            }
+        });
+
+
+        fileMenu.add(saveAsMenuItem);
+        fileMenu.add(jSeparator1);
+
+        jMenuItem1.setText("Options");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Option opt = new Option();
+                opt.setVisible(true);
+            }
+        });
+        fileMenu.add(jMenuItem1);
+        fileMenu.add(jSeparator2);
+
+        exitMenuItem.setMnemonic('x');
+        exitMenuItem.setText("Quitter");
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                System.exit(0);
+            }
+        });
+        fileMenu.add(exitMenuItem);
+
+        menuBar.add(fileMenu);
+
+        helpMenu.setMnemonic('h');
+        helpMenu.setText("Aide");
+
+        aboutMenuItem.setMnemonic('a');
+        aboutMenuItem.setText("Règles");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Regle reg = new Regle(frame, true);
+                reg.setVisible(true);
+            }
+        });
+
+        helpMenu.add(aboutMenuItem);
+
+        menuBar.add(helpMenu);
+
+        frame.setJMenuBar(menuBar);
+        // Haut et bas
+        JLabel info = new JLabel("Infos");
+
+        // Panel principal
+        JPanel panel = new JPanel();
+        BorderLayout layout = new BorderLayout();
+        panel.setLayout(layout);
+
+        panel.add("Center", zoneDessin);
+        panel.add("South", info);
+
+        frame.setPreferredSize(new Dimension(LARGEUR_FEN, HAUTEUR_FEN));
+        frame.setContentPane(panel);
 
     }
-    
+
     public void run() {
 
         // Un clic sur le bouton de fermeture clos l'application
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         tailleFenetreX = LARGEUR_FEN;
         tailleFenetreY = HAUTEUR_FEN;
         // On fixe la taille et on demarre
         frame.setSize(tailleFenetreX, tailleFenetreY);
-       // frame.setResizable(false);
+        // frame.setResizable(false);
         frame.setVisible(true);
-	frame.pack();
-        
+        frame.pack();
+
     }
 }

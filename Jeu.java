@@ -1,4 +1,4 @@
-/* tetedeGland
+/* 
  Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:21
 Date de Dernière modification 23/05/2012 : 14:25
@@ -203,6 +203,7 @@ public class Jeu {
 
     // L'Arbitre : déroulement d'une partie entre 2 joueurs 
     public void jouer() {
+
     	
     	Carte c1, c2 = null;
         int nbMatche = 0;

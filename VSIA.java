@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 
-
 import java.awt.Color;
 
 import javax.swing.SwingUtilities;
@@ -49,7 +48,7 @@ public class VSIA extends javax.swing.JFrame {
 
         lbDif.setText("Difficulté :");
         getContentPane().add(lbDif);
-        lbDif.setBounds(27, 107, 49, 14);
+        lbDif.setBounds(27, 107, 58, 16);
 
         Launch.setText("Démarrer");
         Launch.addActionListener(new java.awt.event.ActionListener() {
@@ -58,7 +57,7 @@ public class VSIA extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Launch);
-        Launch.setBounds(211, 208, 100, 23);
+        Launch.setBounds(211, 208, 100, 25);
 
         Cancel.setText("Annuler");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +66,7 @@ public class VSIA extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Cancel);
-        Cancel.setBounds(46, 208, 80, 23);
+        Cancel.setBounds(46, 208, 80, 25);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -95,7 +94,7 @@ public class VSIA extends javax.swing.JFrame {
                 .addComponent(mode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nbParties, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,15 +120,15 @@ public class VSIA extends javax.swing.JFrame {
 
         facile.setText("Facile");
         getContentPane().add(facile);
-        facile.setBounds(46, 168, 59, 14);
+        facile.setBounds(46, 168, 59, 16);
 
         moyen.setText("Moyen");
         getContentPane().add(moyen);
-        moyen.setBounds(169, 168, 59, 14);
+        moyen.setBounds(169, 168, 59, 16);
 
         difficile.setText("Difficile");
         getContentPane().add(difficile);
-        difficile.setBounds(285, 168, 50, 14);
+        difficile.setBounds(285, 168, 50, 16);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-359)/2, (screenSize.height-295)/2, 359, 295);
@@ -137,14 +136,14 @@ public class VSIA extends javax.swing.JFrame {
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         // TODO add your handling code here:
-     //   Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
-     //   a.setVisible(true);
+        //   Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
+        //   a.setVisible(true);
 
-   //     if (a.getReturnStatus() == 1) {
-            Menu m = new Menu();
-            m.setVisible(true);
-            this.dispose();
-      //  }
+        //     if (a.getReturnStatus() == 1) {
+        Menu m = new Menu();
+        m.setVisible(true);
+        this.dispose();
+        //  }
     }//GEN-LAST:event_CancelActionPerformed
 
     private void modeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_modeItemStateChanged
@@ -167,7 +166,6 @@ public class VSIA extends javax.swing.JFrame {
 
     private void nbPartiesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nbPartiesFocusLost
         // TODO add your handling code here:
-        System.out.println("protu");
         if (nbParties.getSelectedItem() instanceof Integer) {
             nbParties.setBackground(Color.white);
 
@@ -181,39 +179,43 @@ public class VSIA extends javax.swing.JFrame {
 
     private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
-        
+
         // on ferme la fenetre de menu
+
+
+        
         this.dispose();
-        
+
         Table table = new Table();
-		Moteur moteur = new Moteur(table);
-		Jeu monJeu = new Jeu(moteur,2);
-   		Graphique gg = new Graphique(monJeu);
+        Moteur moteur = new Moteur(table);
+        Jeu monJeu = new Jeu(moteur, 1,0,2,0);
+//        Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem(), jSlider1.getValue());
+        Graphique gg = new Graphique(monJeu);
         SwingUtilities.invokeLater(gg);
-        
-		System.out.println("j'ai initialise mon paquet melange");
-		monJeu.moteur.table.paquet.afficherPaquetConsole();
-		
-		monJeu.initialiser();
-		System.out.println("apres destribution le paquet dois Ãªtre vide :");
-		if(monJeu.moteur.table.paquet.estVide())
-			System.out.println("VRAI");
-		else
-			System.out.println("FAUX");
-		
-		System.out.println("j'affiche la premiÃ¨re main");
-		monJeu.moteur.table.main1.afficherMainConsole();
-		
-		System.out.println("j'affiche la deusiÃ¨me main");
-		monJeu.moteur.table.main2.afficherMainConsole();
-		
-		System.out.println("j'affiche les 6 piles de 5 cartes :");
-		for(int i=0;i<6;i++)
-		{
-			System.out.println("j'affiche la pile num " + i);
-			monJeu.moteur.table.piles.get(i).afficherPileConsole();
-		}
-		
+
+        System.out.println("j'ai initialise mon paquet melange");
+        monJeu.moteur.table.paquet.afficherPaquetConsole();
+
+        monJeu.initialiser();
+        System.out.println("apres destribution le paquet dois Ãªtre vide :");
+        if (monJeu.moteur.table.paquet.estVide()) {
+            System.out.println("VRAI");
+        } else {
+            System.out.println("FAUX");
+        }
+
+        System.out.println("j'affiche la premiÃ¨re main");
+        monJeu.moteur.table.main1.afficherMainConsole();
+
+        System.out.println("j'affiche la deusiÃ¨me main");
+        monJeu.moteur.table.main2.afficherMainConsole();
+
+        System.out.println("j'affiche les 6 piles de 5 cartes :");
+        for (int i = 0; i < 6; i++) {
+            System.out.println("j'affiche la pile num " + i);
+            monJeu.moteur.table.piles.get(i).afficherPileConsole();
+        }
+
     }//GEN-LAST:event_LaunchActionPerformed
 
     /**

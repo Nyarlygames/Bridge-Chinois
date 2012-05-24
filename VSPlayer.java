@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 
-
 import java.awt.Color;
 
 /**
@@ -37,6 +36,11 @@ public class VSPlayer extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Launch.setText("Démarrer");
+        Launch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LaunchActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -90,14 +94,14 @@ public class VSPlayer extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Launch))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Launch)
                     .addComponent(Cancel))
@@ -110,7 +114,6 @@ public class VSPlayer extends javax.swing.JFrame {
 
     private void nbPartiesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nbPartiesFocusLost
         // TODO add your handling code here:
-        System.out.println("protu");
         if (nbParties.getSelectedItem() instanceof Integer) {
             nbParties.setBackground(Color.white);
 
@@ -133,6 +136,11 @@ public class VSPlayer extends javax.swing.JFrame {
         this.dispose();
         //  }
     }//GEN-LAST:event_CancelActionPerformed
+
+    private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
+        // TODO add your handling code here:
+        //    Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem());
+    }//GEN-LAST:event_LaunchActionPerformed
 
     /**
      * @param args the command line arguments
