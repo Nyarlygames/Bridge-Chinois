@@ -183,12 +183,12 @@ public class VSIA extends javax.swing.JFrame {
         // on ferme la fenetre de menu
 
 
-        
+
         this.dispose();
 
         Table table = new Table();
         Moteur moteur = new Moteur(table);
-        Jeu monJeu = new Jeu(moteur, 1,0,2,0);
+        final Jeu monJeu = new Jeu(moteur, 1, 0, 2, 0);
 //        Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem(), jSlider1.getValue());
         Graphique gg = new Graphique(monJeu);
         SwingUtilities.invokeLater(gg);
@@ -196,29 +196,35 @@ public class VSIA extends javax.swing.JFrame {
         System.out.println("j'ai initialise mon paquet melange");
         monJeu.moteur.table.paquet.afficherPaquetConsole();
 
-        monJeu.jouer();
-        
-        
-        
-                        System.out.println("kikoo");
-        System.out.println("apres destribution le paquet dois Ãªtre vide :");
-        if (monJeu.moteur.table.paquet.estVide()) {
-            System.out.println("VRAI");
-        } else {
-            System.out.println("FAUX");
-        }
+        Thread t = new Thread() {
 
-        System.out.println("j'affiche la premiÃ¨re main");
-        monJeu.moteur.table.main1.afficherMainConsole();
+            public void run() {
+                // Instanciation et lancement du traitement
+                monJeu.jouer();
+            }
+        };
+        t.start();
 
-        System.out.println("j'affiche la deusiÃ¨me main");
-        monJeu.moteur.table.main2.afficherMainConsole();
 
-        System.out.println("j'affiche les 6 piles de 5 cartes :");
-        for (int i = 0; i < 6; i++) {
-            System.out.println("j'affiche la pile num " + i);
-            monJeu.moteur.table.piles.get(i).afficherPileConsole();
-        }
+
+//        System.out.println("apres destribution le paquet dois Ãªtre vide :");
+//        if (monJeu.moteur.table.paquet.estVide()) {
+//            System.out.println("VRAI");
+//        } else {
+//            System.out.println("FAUX");
+//        }
+//
+//        System.out.println("j'affiche la premiÃ¨re main");
+//        monJeu.moteur.table.main1.afficherMainConsole();
+//
+//        System.out.println("j'affiche la deusiÃ¨me main");
+//        monJeu.moteur.table.main2.afficherMainConsole();
+//
+//        System.out.println("j'affiche les 6 piles de 5 cartes :");
+//        for (int i = 0; i < 6; i++) {
+//            System.out.println("j'affiche la pile num " + i);
+//            monJeu.moteur.table.piles.get(i).afficherPileConsole();
+//        }
 
     }//GEN-LAST:event_LaunchActionPerformed
 

@@ -41,7 +41,7 @@ class EcouteurDeSouris implements MouseListener {
         if (carte != null) {
             System.out.println(jeu.getJoueur1().getPhaseJouer());
             System.out.println(jeu.getJoueur2().getPhaseJouer());
-            if (jeu.intVersJoueur().equals(jeu.joueur1) && jeu.getJoueur1().getPhaseJouer()) {
+            if (jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer()) {
 
                 // dans ce cas le joueur courant est le J1 il n'as pas encore jouer et il a bien clikï¿½ sur sa main1
                 //en prend en compte son choix
@@ -51,13 +51,13 @@ class EcouteurDeSouris implements MouseListener {
                     jeu.getJoueur1().setaJoue(Boolean.TRUE);
                 }
             } else if (jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseChoisir()) {
-                if (jeu.intVersJoueur().equals(jeu.joueur1) && jeu.getJoueur1().getaJoue() && !jeu.getJoueur1().getaChoisi()) {
+                if (jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getaJoue() && !jeu.getJoueur1().getaChoisi()) {
                     Pile pile = null;
                     // dans ce cas le joueur courant est le J1 il a deja joue et il a bien clike sur un pli
                     //en prend en compte son choix
                     jeu.getMoteur().getTable().getMain1().add(pile.piocher());
                     jeu.intVersJoueur().setaChoisi(true);
-                } else if (jeu.intVersJoueur().equals(jeu.joueur2) && jeu.getJoueur2().getaJoue() && !jeu.getJoueur2().getaChoisi()) {
+                } else if (jeu.intVersJoueur().equals(jeu.getJoueur2()) && jeu.getJoueur2().getaJoue() && !jeu.getJoueur2().getaChoisi()) {
                     Pile pile = null;
 
                     // dans ce cas le joueur courant est le J2 il a deja joue et il a bien clike sur un pli
