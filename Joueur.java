@@ -6,7 +6,7 @@ Date de Derniere modification 16/05/2012 : 04:24
 
 public abstract class Joueur {
 
-    // -------------------------------------Atributs-------------------------------------
+    // -------------------------------------Attributs-------------------------------------
     Jeu j;
     int nbPlis, score, id;
     Boolean aJoue, aChoisi, phaseJouer, phaseChoisir;
