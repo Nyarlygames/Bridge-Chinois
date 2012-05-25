@@ -5,4 +5,6 @@ run:
 	java TestJeu
 clean:
 	rm -rf *.class
+	rm -rf \#*
+	rm -rf *~
 

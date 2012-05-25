@@ -74,7 +74,7 @@ class EcouteurDeSouris implements MouseListener {
 // Clic carte sur pile
     public Pile getCartePile(int x, int y) {
         int width = g.getZoneDessin().getSize().width;
-        int height = g.getZoneDessin().getSize().height;
+        int height = g.getZoneDessin().getSize().height - 20;
         int cw = g.getZoneDessin().cw;
         int ch = g.getZoneDessin().ch;
         Table t = g.getZoneDessin().t;
@@ -120,15 +120,17 @@ class EcouteurDeSouris implements MouseListener {
 // Clic carte sur la main
     public Carte getCarteMain(int x, int y) {
         int width = g.getZoneDessin().getSize().width;
-        int height = g.getZoneDessin().getSize().height;
+        int height = g.getZoneDessin().getSize().height - 20;
         int cw = g.getZoneDessin().cw;
         int ch = g.getZoneDessin().ch;
+        int bw = g.getZoneDessin().bw;
+        int bh = g.getZoneDessin().bh;
         Table t = g.getZoneDessin().t;
 
         // Pixel debut affichage carte
         double start = (double) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5));
 
-        if (y > height - ch) {
+        if ((y >= (height - ch - bh)) && (y <= (height - bh))) {
             // Indice de la carte cliquee
             double carte = (x - start) / ((cw / 2) + 0.5);
 

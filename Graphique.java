@@ -23,6 +23,7 @@ public class Graphique implements Runnable {
         this.zoneDessin = zoneDessin;
 
         frame = new JFrame("Bridge chinois");
+	frame.addComponentListener(new EcouteurDeFrame(frame));
 
         // Zone du jeu
         zoneDessin = new ZoneDessin(j);
@@ -171,7 +172,6 @@ public class Graphique implements Runnable {
         frame.setContentPane(panel);
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         frame.setBounds((screenSize.width - LARGEUR_FEN) / 2, (screenSize.height - HAUTEUR_FEN) / 2, LARGEUR_FEN, HAUTEUR_FEN);
-
     }
 
     public void run() {

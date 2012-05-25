@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import javax.swing.JComponent;
-import javax.swing.ImageIcon;
 
 public class ZoneDessin extends JComponent {
 
@@ -16,6 +15,8 @@ public class ZoneDessin extends JComponent {
     public int mode = 2;
     public int cw = 0;
     public int ch = 0;
+    public int bw = 0;
+    public int bh = 0;
     public Table t;
     Font f;
     Jeu jeu;
@@ -38,9 +39,7 @@ public class ZoneDessin extends JComponent {
         // On reccupere quelques infos provenant de la partie JComponent
         int width = getSize().width;
 	int dheight = getSize().height;
-
 	int height = dheight -20;
-
 
         // Mode Partie
         if (mode == 2) {
@@ -59,10 +58,6 @@ public class ZoneDessin extends JComponent {
 	    // Atout
 	    Image carreau = Toolkit.getDefaultToolkit().getImage("res/carreau.gif");
 
-
-	    // borders
-            int bw = left.getWidth(null);
-            int bh = top.getHeight(null);
 	    // corners
             int cornerh = corner.getHeight(null);
             int cornerw = corner.getWidth(null);
@@ -71,6 +66,12 @@ public class ZoneDessin extends JComponent {
             int ch = cback.getHeight(null);
             this.cw = cw;
             this.ch = ch;
+	    // borders
+            int bw = left.getWidth(null);
+            int bh = top.getHeight(null);
+            this.bw = bw;
+            this.bh = bh;
+
 
 	      // HAUT GAUCHE
             g.drawImage(corner, 0, 0, cornerw, cornerh, this);
@@ -93,11 +94,6 @@ public class ZoneDessin extends JComponent {
 
                 int mid = (int) ((width / 2) - (((t.main2.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
                 Carte c = t.main2.getCarte(f);
-
-
-                ImageIcon cup = new ImageIcon(cback);
-                // this.add(cup);
-
                 g.drawImage(cback, mid, bh, this);
 
             }
@@ -213,6 +209,10 @@ public class ZoneDessin extends JComponent {
 		String histurn = "A votre adversaire de jouer";
 		g.drawString(histurn,  width/2 - fontw.stringWidth(histurn)/2, dheight-2);
 	    }
+
+	    // Affichage des donnes
+	    String score = "Score : " + jeu.getJoueur1().score + " - " + jeu.getJoueur2().score;
+	    g.drawString(score, 0, dheight-2);
 
 
 	}
