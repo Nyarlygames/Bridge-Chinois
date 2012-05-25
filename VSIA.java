@@ -183,7 +183,7 @@ public class VSIA extends javax.swing.JFrame {
         // on ferme la fenetre de menu
 
 
-        
+
         this.dispose();
         new Thread(new Runnable() {
             public void run() {
@@ -192,6 +192,8 @@ public class VSIA extends javax.swing.JFrame {
         Moteur moteur = new Moteur(table);
         //Jeu monJeu = new Jeu(moteur, 1,0,1,0);      
         Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
+
+//        Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem(), jSlider1.getValue());
         Graphique gg = new Graphique(monJeu);
         SwingUtilities.invokeLater(gg);
         monJeu.jouer();
@@ -222,6 +224,7 @@ public class VSIA extends javax.swing.JFrame {
         
       }
   }).start();
+
     }//GEN-LAST:event_LaunchActionPerformed
 
     /**

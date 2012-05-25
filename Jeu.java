@@ -1,8 +1,8 @@
 /* 
- Auteur : ZIANE-CHERIF Mohammed-El-Amine
+Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:21
 Date de Dernière modification 23/05/2012 : 14:25
-*/
+ */
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,16 +17,15 @@ public class Jeu {
     int max;
 
     // -------------------------------------Constructeur-------------------------------------
-    
     /* le mode indique le nombre de joueur humain :
-      0 : PC vs PC
-      1 : Hum vs PC
-      2 : Hum vs Humm 
-      
-      le type indique si la partie se termine suivant un nombre de point designe par la variable max :
-      0 : matche a jouer
-      1 : score a inteindre max 
-      2 : aventure
+    0 : PC vs PC
+    1 : Hum vs PC
+    2 : Hum vs Humm 
+    
+    le type indique si la partie se termine suivant un nombre de point designe par la variable max :
+    0 : matche a jouer
+    1 : score a inteindre max 
+    2 : aventure
      */
     Jeu(Moteur m, int mode, int type, int max, int difficulte) {
         Random rand = new Random();
@@ -35,7 +34,6 @@ public class Jeu {
         joueurCourant++;
         moteur = m;
         switch (mode) {
-        
             case 0:
                 this.joueur1 = new PC(this, 1, moteur.getTable().getMain1(), moteur.getTable().getCarte2());
                 this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
@@ -43,21 +41,20 @@ public class Jeu {
 
             case 1:
                 this.joueur1 = new Humain(this, 1);
-                switch(difficulte)
-                {
-	                case 0:
-	                	this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-	                	
-	                case 1 :
-	                	this.joueur2 = new PC2(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-	                	
-	                case 2 :
-	                	this.joueur2 = new PC3(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                switch (difficulte) {
+                    case 0:
+                        this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 
-	                case 3 :
-	                	this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                    case 1:
+                        this.joueur2 = new PC2(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 
-                	
+                    case 2:
+                        this.joueur2 = new PC3(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+
+                    case 3:
+                        this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+
+
                 }
                 this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
@@ -67,15 +64,13 @@ public class Jeu {
                 break;
 
         }
-       
         this.type = type;
         this.max = max;
 
     }
-    
-    Jeu(Moteur m)
-    {
-    	type = 2;
+
+    Jeu(Moteur m) {
+        type = 2;
     }
 
     // -------------------------------------Accesseurs-------------------------------------
@@ -86,25 +81,24 @@ public class Jeu {
     public void setMoteur(Moteur moteur) {
         this.moteur = moteur;
     }
-    
 
     public int getType() {
-		return type;
-	}
+        return type;
+    }
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    public void setType(int type) {
+        this.type = type;
+    }
 
-	public int getMax() {
-		return max;
-	}
+    public int getMax() {
+        return max;
+    }
 
-	public void setMax(int max) {
-		this.max = max;
-	}
+    public void setMax(int max) {
+        this.max = max;
+    }
 
-	public Joueur getJoueur1() {
+    public Joueur getJoueur1() {
         return joueur1;
     }
 
@@ -115,7 +109,7 @@ public class Jeu {
     public Joueur getJoueur2() {
         return joueur2;
     }
-    
+
     public void setJoueur2(Joueur joueur2) {
         this.joueur2 = joueur2;
     }
@@ -278,6 +272,7 @@ public class Jeu {
 	    	   		}
 	    	   	}
 	       }
+
     }
 
     // renvoi le joueur courant

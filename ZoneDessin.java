@@ -24,7 +24,6 @@ public class ZoneDessin extends JComponent {
 
         this.t = t;
     }
-    
 
     /**
      * Dessine la fenetre
@@ -57,8 +56,8 @@ public class ZoneDessin extends JComponent {
             Image cback = Toolkit.getDefaultToolkit().getImage("cartes/carte-dos.jpg");
             int cw = cback.getWidth(null);
             int ch = cback.getHeight(null);
-	        this.cw = cw;
-	        this.ch = ch;
+            this.cw = cw;
+            this.ch = ch;
 
             for (int f = 0; f < t.main2.getSize(); f++) {
 
@@ -67,9 +66,9 @@ public class ZoneDessin extends JComponent {
 
 
                 ImageIcon cup = new ImageIcon(cback);
-               // this.add(cup);
+                // this.add(cup);
 
-		       g.drawImage(cback, mid , 0, this);
+                g.drawImage(cback, mid, 0, this);
 
             }
 

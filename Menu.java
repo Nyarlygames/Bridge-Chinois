@@ -3,8 +3,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author Val
@@ -39,12 +37,12 @@ public class Menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItemCharger = new javax.swing.JMenuItem();
+        jMenuItemOptions = new javax.swing.JMenuItem();
+        jMenuItemQuitter = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItemRegles = new javax.swing.JMenuItem();
+        jMenuItemAPropos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bridge Chinois");
@@ -113,52 +111,52 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu1.setText("Menu");
 
-        jMenuItem3.setText("Charger");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCharger.setText("Charger");
+        jMenuItemCharger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItemChargerActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jMenuItemCharger);
 
-        jMenuItem5.setText("Options");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemOptions.setText("Options");
+        jMenuItemOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jMenuItemOptionsActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        jMenu1.add(jMenuItemOptions);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setMnemonic('Q');
-        jMenuItem4.setText("Quitter");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemQuitter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemQuitter.setMnemonic('Q');
+        jMenuItemQuitter.setText("Quitter");
+        jMenuItemQuitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMenuItemQuitterActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(jMenuItemQuitter);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("?");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        jMenuItem1.setText("Règles");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemRegles.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuItemRegles.setText("Règles");
+        jMenuItemRegles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemReglesActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(jMenuItemRegles);
 
-        jMenuItem2.setText("A propos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAPropos.setText("A propos");
+        jMenuItemAPropos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemAProposActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(jMenuItemAPropos);
 
         jMenuBar1.add(jMenu2);
 
@@ -177,63 +175,65 @@ public class Menu extends javax.swing.JFrame {
 
     private void BquitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BquitterActionPerformed
         // TODO add your handling code here:
-        
-        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
+
+        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
         a.setVisible(true);
-        
-        if (a.getReturnStatus()==1)
+
+        if (a.getReturnStatus() == 1) {
             this.dispose();
-            
-        
+        }
+
+
     }//GEN-LAST:event_BquitterActionPerformed
 
     private void BmultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BmultiActionPerformed
         // TODO add your handling code here:
-        
+
         Multi mul = new Multi();
         mul.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BmultiActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemReglesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReglesActionPerformed
         // TODO add your handling code here:
-        Regle reg = new Regle(this,true);
+        Regle reg = new Regle(this, true);
         reg.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemReglesActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuitterActionPerformed
         // TODO add your handling code here:
-        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
+        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
         a.setVisible(true);
-        
-        if (a.getReturnStatus()==1)
-            this.dispose();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        if (a.getReturnStatus() == 1) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_jMenuItemQuitterActionPerformed
+
+    private void jMenuItemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOptionsActionPerformed
         // TODO add your handling code here:
-        
-    	Option opt = new Option();
+
+        Option opt = new Option();
         opt.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jMenuItemOptionsActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItemAProposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAProposActionPerformed
         // TODO add your handling code here:
-        Apropos propo = new Apropos(this,true);
+        Apropos propo = new Apropos(this, true);
         propo.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItemAProposActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuItemChargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChargerActionPerformed
         // TODO add your handling code here:
-        Charge file = new Charge(this,true);
+        Charge file = new Charge(this, true);
         file.setVisible(true);
         //this.dispose();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuItemChargerActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Charge file = new Charge(this,true);
+        Charge file = new Charge(this, true);
         file.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -290,11 +290,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItemAPropos;
+    private javax.swing.JMenuItem jMenuItemCharger;
+    private javax.swing.JMenuItem jMenuItemOptions;
+    private javax.swing.JMenuItem jMenuItemQuitter;
+    private javax.swing.JMenuItem jMenuItemRegles;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     // End of variables declaration//GEN-END:variables

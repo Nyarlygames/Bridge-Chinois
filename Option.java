@@ -25,17 +25,17 @@ public class Option extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonRetour = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Options");
 
         jLabel1.setText("ya rien encore ... va voir ailleurs si j'y suis");
 
-        jButton1.setLabel("Retour");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRetour.setLabel("Retour");
+        jButtonRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonRetourActionPerformed(evt);
             }
         });
 
@@ -51,7 +51,7 @@ public class Option extends javax.swing.JFrame {
                         .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(239, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButtonRetour)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -60,7 +60,7 @@ public class Option extends javax.swing.JFrame {
                 .addGap(171, 171, 171)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonRetour)
                 .addContainerGap())
         );
 
@@ -68,12 +68,12 @@ public class Option extends javax.swing.JFrame {
         setBounds((screenSize.width-340)/2, (screenSize.height-452)/2, 340, 452);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
         // TODO add your handling code here:
         Menu men = new Menu();
         men.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonRetourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,7 +117,7 @@ public class Option extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonRetour;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
