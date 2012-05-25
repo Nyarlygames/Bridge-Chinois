@@ -32,13 +32,15 @@ public class Graphique implements Runnable {
         JMenuItem openMenuItem = new javax.swing.JMenuItem();
         JMenuItem abandonnerMenuItem = new javax.swing.JMenuItem();
         JMenuItem saveAsMenuItem = new javax.swing.JMenuItem();
+        JMenuItem annulerMenuItem = new javax.swing.JMenuItem();
+        JMenuItem refaireMenuItem = new javax.swing.JMenuItem();
         Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         JMenuItem jMenuItem1 = new javax.swing.JMenuItem();
         Separator jSeparator2 = new javax.swing.JPopupMenu.Separator();
         JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         JMenu helpMenu = new javax.swing.JMenu();
         JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
-
+        JMenuItem hintMenuItem = new javax.swing.JMenuItem();
         fileMenu.setMnemonic('p');
         fileMenu.setText("Partie");
 
@@ -75,8 +77,34 @@ public class Graphique implements Runnable {
             }
         });
 
-
+        fileMenu.add(abandonnerMenuItem);
         fileMenu.add(saveAsMenuItem);
+
+
+        annulerMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        annulerMenuItem.setMnemonic('a');
+        annulerMenuItem.setText("Annuler");
+
+        annulerMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            }
+        });
+
+        fileMenu.add(annulerMenuItem);
+
+
+        refaireMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        refaireMenuItem.setMnemonic('r');
+        refaireMenuItem.setText("Refaire");
+
+        refaireMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            }
+        });
+
+        fileMenu.add(refaireMenuItem);
         fileMenu.add(jSeparator1);
 
         jMenuItem1.setText("Options");
@@ -114,9 +142,20 @@ public class Graphique implements Runnable {
                 reg.setVisible(true);
             }
         });
+        hintMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, 0));
+        hintMenuItem.setText("Indice");
+        hintMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //todo
+            }
+        });
+
+
+
 
         helpMenu.add(aboutMenuItem);
-
+        helpMenu.add(hintMenuItem);
         menuBar.add(helpMenu);
 
         frame.setJMenuBar(menuBar);

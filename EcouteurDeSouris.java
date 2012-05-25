@@ -53,11 +53,13 @@ class EcouteurDeSouris implements MouseListener {
 
             } else if (jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseChoisir()) {
                 if (jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getaJoue() && !jeu.getJoueur1().getaChoisi()) {
-                    Pile pile = null;
+                    Pile pile = clicpile;
                     // dans ce cas le joueur courant est le J1 il a deja joue et il a bien clike sur un pli
                     //en prend en compte son choix
-                    jeu.getMoteur().getTable().getMain1().add(pile.piocher());
-                    jeu.intVersJoueur().setaChoisi(true);
+                    if (clicpile != null) {
+                        jeu.getMoteur().getTable().getMain1().add(pile.piocher());
+                        jeu.intVersJoueur().setaChoisi(true);
+                    }
                 } else if (jeu.intVersJoueur().equals(jeu.getJoueur2()) && jeu.getJoueur2().getaJoue() && !jeu.getJoueur2().getaChoisi()) {
                     Pile pile = null;
 
@@ -70,52 +72,6 @@ class EcouteurDeSouris implements MouseListener {
 
         }
     }
-//     
-//    public void mousePressed(MouseEvent e) {
-//
-//        g.getZoneDessin().repaint();
-//
-//        //Carte du clic sur la main
-//        Carte carte = getCarteMain(e.getX(), e.getY());
-//        //Carte du clic sur pile
-//        Pile clicpile = getCartePile(e.getX(), e.getY());
-//
-//        if (carte != null) {
-//
-//            if (jeu.intVersJoueur().equals(jeu.joueur1) && jeu.getJoueur1().getPhaseJouer()) {
-//                System.out.println(jeu.intVersJoueur().toString());
-//                System.out.println(jeu.getJoueur1().toString());
-//                // dans ce cas le joueur courant est le J1 il n'as pas encore jouer et il a bien clike sur sa main1
-//                //en prend en compte son choix
-//    			/* = on recupere la carte sur la quel on a clique ;*/
-//                jeu.moteur.jouer(carte, jeu.getJoueurCourant());
-//                jeu.getJoueur1().setaJoue(true);
-//            }
-//        } else if (true/*clike sur main2*/) {
-//            if (jeu.intVersJoueur().equals(jeu.joueur2) && !jeu.joueur2.aJoue) {
-//                // dans ce cas le joueur courant est le J2 il n'as pas encore jouer et il a bien clike sur sa main2
-//                //en prend en compte son choix
-//                jeu.getMoteur().getTable().getMain2().supp(carte);
-//                jeu.getMoteur().getTable().setCarte2(carte);
-//                jeu.intVersJoueur().setaJoue(true);
-//            }
-//        } else if (true /*clic sur pile*/) {
-//            if (jeu.intVersJoueur().equals(jeu.joueur1) && jeu.getJoueur1().getaJoue() && !jeu.getJoueur1().getaChoisi()) {
-//                Pile pile = null;
-//                // dans ce cas le joueur courant est le J1 il a deja joue et il a bien clike sur un pli
-//                //en prend en compte son choix
-//                jeu.getMoteur().getTable().getMain1().add(pile.piocher());
-//                jeu.intVersJoueur().setaChoisi(true);
-//            } else if (jeu.intVersJoueur().equals(jeu.joueur2) && jeu.getJoueur2().getaJoue() && !jeu.getJoueur2().getaChoisi()) {
-//                Pile pile = null;
-//                // dans ce cas le joueur courant est le J2 il a deja joue et il a bien clike sur un pli
-//                //en prend en compte son choix
-//                jeu.getMoteur().getTable().getMain2().add(pile.piocher());
-//                jeu.intVersJoueur().setaChoisi(true);
-//            }
-//        }
-//
-//    }
 
     // Il faut aussi une implementation pour les autres methodes de l'interface
     public void mouseEntered(MouseEvent e) {
