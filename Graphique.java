@@ -25,7 +25,7 @@ public class Graphique implements Runnable {
         frame = new JFrame("Bridge chinois");
 
         // Zone du jeu
-        zoneDessin = new ZoneDessin(j.getMoteur().getTable());
+        zoneDessin = new ZoneDessin(j);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
         JMenuBar menuBar = new javax.swing.JMenuBar();
         JMenu fileMenu = new javax.swing.JMenu();

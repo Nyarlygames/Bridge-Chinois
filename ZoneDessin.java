@@ -1,9 +1,9 @@
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JComponent;
 import javax.swing.ImageIcon;
 
@@ -16,13 +16,16 @@ public class ZoneDessin extends JComponent {
     public int cw = 0;
     public int ch = 0;
     public Table t;
+    Font f;
+    Jeu jeu;
 
     /**
      * Constructeur ZoneDessin
      */
-    public ZoneDessin(Table t) {
+    public ZoneDessin(Jeu j) {
 
-        this.t = t;
+	this.jeu = j;
+        this.t = j.getMoteur().getTable();
     }
 
     /**
@@ -85,19 +88,21 @@ public class ZoneDessin extends JComponent {
                 ImageIcon cup = new ImageIcon(cback);
                 // this.add(cup);
 
-                g.drawImage(cback, mid, 0, this);
+                g.drawImage(cback, mid, bh, this);
 
             }
 
-            // Dessin du jeu du Joueur actif 
+            // Dessin du jeu du Joueur actif
             for (int f = 0; f < t.main1.getSize(); f++) {
                 int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
                 Carte c = t.main1.getCarte(f);
                 // on check le type de c et on charge le graphique associe
                 Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + c.toFileString());
-                g.drawImage(cfront, mid, height - ch, cw, ch, this);
+                g.drawImage(cfront, mid, height - ch - bh, cw, ch, this);
             }
             // Dessin des Piles
+
+
             for (int p = 0; p < 6; p++) {
                 for (int pc = 0; pc < t.piles.get(p).getSize(); pc++) {
 
@@ -108,37 +113,54 @@ public class ZoneDessin extends JComponent {
                     if (pc == (t.piles.get(p).getSize() - 1)) {
                         Carte c = t.piles.get(p).getCarte(pc);
                         Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + c.toFileString());
-                        g.drawImage(cfront, mid, (height / 2) - (ch / 2), cw, ch, this);
+                        g.drawImage(cfront, mid, (height /2) -ch/2, cw, ch, this);
 
                     } else {
-                        g.drawImage(cback, mid, (height / 2) - (ch / 2), cw, ch, this);
+                        g.drawImage(cback, mid, (height /2) -ch/2, cw, ch, this);
                     }
                 }
             }
 
-
             // Cartes jouées
+
+
+	    // hauteur carte joueur adverse
+	    int cjah = ((height /2) - (ch/2) -ch -bh)/2 +ch+bh -ch/2;
+	    // hauteur carte joueur
+	    int cjh  = ((height /2) - (ch/2) -ch -bh)/2 + height/2;
+
             if (t.getCarte1() == null) {
-                g.drawImage(empty, (width / 2) - (ch / 2), ch + 10, cw, ch, this);
+                g.drawImage(empty, (width / 2) - (ch / 2), cjh, cw, ch, this);
             } else {
                 Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + t.getCarte1().toFileString());
-                g.drawImage(cfront, (width / 2) - (ch / 2), height - (2 * ch + 10), cw, ch, this);
+                g.drawImage(cfront, (width / 2) - (ch / 2),  cjh, cw, ch, this);
             }
 
             if (t.getCarte2() == null) {
-                g.drawImage(empty, (width / 2) - (ch / 2), height - (2 * ch + 10), cw, ch, this);
+                g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
             } else {
                 Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + t.getCarte2().toFileString());
-                g.drawImage(cfront, (width / 2) - (ch / 2), ch + 10, cw, ch, this);
-               
+                g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
             }
 
-        }
+	    // Affichage des informations
 
-        // Menu
-        if (mode == 0) {
-            // fenetre de menu de valentin et amine
-        }
+	    f = new Font("sansserif", Font.BOLD, 18);
+	    g.setFont(f);
 
+	    // Nombres de plis
+
+	    // Joueur 1
+            g.drawImage(cback, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
+	    g.setColor(Color.yellow);
+	    g.drawString(String.valueOf(jeu.getJoueur1().nbPlis), width -bw -cw/2 -10 , height - bh - ch/2 +4);
+
+	    // Joueur 2 (adversaire)
+            g.drawImage(cback, width - bw - cw - 1, bh + 1, cw, ch, this);
+	    g.setColor(Color.yellow);
+	    g.drawString(String.valueOf(jeu.getJoueur2().nbPlis), width -bw - cw/2 - 10, bh + ch/2 + 9);
+
+
+	}
     }
 }
