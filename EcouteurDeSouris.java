@@ -96,14 +96,23 @@ class EcouteurDeSouris implements MouseListener {
                 if ((area >= (t.piles.get((int) bloc).getSize() - 1) * 3) && (area <= cw + (t.piles.get((int) bloc).getSize() - 1) * 3)) {
                     // Numero de la pile
                     double pile = (x - start) / (cw + 20);
-                    System.out.println((int) pile);
-                    return t.piles.get((int) pile);
-                } else {
+		    // Cas pile vide
+		    if (t.piles.get((int) pile).getSize() != 0) {
+			return t.piles.get((int) pile);
+		    }
+		    else {
+			return null;
+		    }
+                }
+		else {
                     return null;
                 }
             }
-            return null;
-        } else {
+	    else {
+		return null;
+	    }
+        }
+	else {
             return null;
         }
     }

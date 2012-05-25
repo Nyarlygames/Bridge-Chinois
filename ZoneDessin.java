@@ -41,16 +41,33 @@ public class ZoneDessin extends JComponent {
         if (mode == 2) {
 
             // Background
-            Image left = Toolkit.getDefaultToolkit().getImage("res/left.jpg");
-            Image right = Toolkit.getDefaultToolkit().getImage("res/right.jpg");
-            Image middle = Toolkit.getDefaultToolkit().getImage("res/middle.jpg");
+            Image corner = Toolkit.getDefaultToolkit().getImage("res/corner.png");
+            Image left = Toolkit.getDefaultToolkit().getImage("res/left.png");
+	    Image bottom = Toolkit.getDefaultToolkit().getImage("res/bottom.png");
+	    Image top = Toolkit.getDefaultToolkit().getImage("res/top.png");
+            Image right = Toolkit.getDefaultToolkit().getImage("res/right.png");
+            Image center = Toolkit.getDefaultToolkit().getImage("res/center.png");
             Image empty = Toolkit.getDefaultToolkit().getImage("res/empty.png");
 
             int bw = left.getWidth(null);
+            int bh = top.getHeight(null);
+            int cornerh = corner.getHeight(null);
+            int cornerw = corner.getWidth(null);
 
-            g.drawImage(left, 0, 0, bw, height, this);
-            g.drawImage(right, width - bw, 0, bw, height, this);
-            g.drawImage(middle, bw, 0, width - (2 * bw), height, this);
+	      // HAUT GAUCHE
+            g.drawImage(corner, 0, 0, cornerw, cornerh, this);
+	    // HAUT DROIT
+            g.drawImage(corner, width-cornerw, 0, cornerw, cornerh, this);
+	    // BAS GAUCHE
+            g.drawImage(corner, 0, height-cornerh, cornerw, cornerh, this);
+	    // BAS DROIT
+            g.drawImage(corner, width-cornerw, height-cornerh, cornerw, cornerh, this);
+
+            g.drawImage(left, 0, cornerh, bw, height-(2*cornerh), this);
+            g.drawImage(right, width - bw, cornerh, bw, height-(2*cornerh), this);
+            g.drawImage(bottom, cornerw, height-bh, width-(2*cornerw), bh, this);
+            g.drawImage(top, cornerw, 0, width-(2*cornerw), bh, this);
+            g.drawImage(center, bw, bh, width - (2 * bw), height-(2*bh), this);
 
             // Joueur non actif
             Image cback = Toolkit.getDefaultToolkit().getImage("cartes/carte-dos.jpg");
