@@ -21,42 +21,40 @@ public abstract class Joueur {
     public void setNbPlis(int nbPlis) {
         this.nbPlis = nbPlis;
     }
-    
-    
 
     public Boolean getPhaseJouer() {
-		return phaseJouer;
-	}
+        return phaseJouer;
+    }
 
-	public void setPhaseJouer(Boolean phaseJouer) {
-		this.phaseJouer = phaseJouer;
-	}
+    public void setPhaseJouer(Boolean phaseJouer) {
+        this.phaseJouer = phaseJouer;
+    }
 
-	public Boolean getPhaseChoisir() {
-		return phaseChoisir;
-	}
+    public Boolean getPhaseChoisir() {
+        return phaseChoisir;
+    }
 
-	public void setPhaseChoisir(Boolean phaseChoisir) {
-		this.phaseChoisir = phaseChoisir;
-	}
+    public void setPhaseChoisir(Boolean phaseChoisir) {
+        this.phaseChoisir = phaseChoisir;
+    }
 
-	public Carte getCarteAdv() {
-		return carteAdv;
-	}
+    public Carte getCarteAdv() {
+        return carteAdv;
+    }
 
-	public void setCarteAdv(Carte carteAdv) {
-		this.carteAdv = carteAdv;
-	}
+    public void setCarteAdv(Carte carteAdv) {
+        this.carteAdv = carteAdv;
+    }
 
-	public Main getMain() {
-		return main;
-	}
+    public Main getMain() {
+        return main;
+    }
 
-	public void setMain(Main main) {
-		this.main = main;
-	}
+    public void setMain(Main main) {
+        this.main = main;
+    }
 
-	public Jeu getJ() {
+    public Jeu getJ() {
         return j;
     }
 

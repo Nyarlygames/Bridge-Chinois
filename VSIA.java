@@ -196,7 +196,11 @@ public class VSIA extends javax.swing.JFrame {
         System.out.println("j'ai initialise mon paquet melange");
         monJeu.moteur.table.paquet.afficherPaquetConsole();
 
-        monJeu.initialiser();
+        monJeu.jouer();
+        
+        
+        
+                        System.out.println("kikoo");
         System.out.println("apres destribution le paquet dois Ãªtre vide :");
         if (monJeu.moteur.table.paquet.estVide()) {
             System.out.println("VRAI");

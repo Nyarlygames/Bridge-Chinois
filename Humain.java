@@ -16,12 +16,11 @@ public class Humain extends Joueur {
         aChoisi = false;
         phaseChoisir = false;
         phaseJouer = false;
-
     }
 
     @Override
     void jouer() {
-    	phaseJouer = true;
+        phaseJouer = true;
         while (!aJoue) {
             try {
                 Thread.sleep(1);
@@ -35,7 +34,7 @@ public class Humain extends Joueur {
 
     @Override
     void choisir() {
-    	phaseChoisir = true;
+        phaseChoisir = true;
         while (!aChoisi) {
             try {
                 Thread.sleep(1);

@@ -3,8 +3,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author Val
@@ -177,19 +175,20 @@ public class Menu extends javax.swing.JFrame {
 
     private void BquitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BquitterActionPerformed
         // TODO add your handling code here:
-        
-        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
+
+        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
         a.setVisible(true);
-        
-        if (a.getReturnStatus()==1)
+
+        if (a.getReturnStatus() == 1) {
             this.dispose();
-            
-        
+        }
+
+
     }//GEN-LAST:event_BquitterActionPerformed
 
     private void BmultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BmultiActionPerformed
         // TODO add your handling code here:
-        
+
         Multi mul = new Multi();
         mul.setVisible(true);
         this.dispose();
@@ -197,43 +196,44 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItemReglesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReglesActionPerformed
         // TODO add your handling code here:
-        Regle reg = new Regle(this,true);
+        Regle reg = new Regle(this, true);
         reg.setVisible(true);
     }//GEN-LAST:event_jMenuItemReglesActionPerformed
 
     private void jMenuItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuitterActionPerformed
         // TODO add your handling code here:
-        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
+        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
         a.setVisible(true);
-        
-        if (a.getReturnStatus()==1)
+
+        if (a.getReturnStatus() == 1) {
             this.dispose();
+        }
     }//GEN-LAST:event_jMenuItemQuitterActionPerformed
 
     private void jMenuItemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOptionsActionPerformed
         // TODO add your handling code here:
-        
-    	Option opt = new Option();
+
+        Option opt = new Option();
         opt.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItemOptionsActionPerformed
 
     private void jMenuItemAProposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAProposActionPerformed
         // TODO add your handling code here:
-        Apropos propo = new Apropos(this,true);
+        Apropos propo = new Apropos(this, true);
         propo.setVisible(true);
     }//GEN-LAST:event_jMenuItemAProposActionPerformed
 
     private void jMenuItemChargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChargerActionPerformed
         // TODO add your handling code here:
-        Charge file = new Charge(this,true);
+        Charge file = new Charge(this, true);
         file.setVisible(true);
         //this.dispose();
     }//GEN-LAST:event_jMenuItemChargerActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Charge file = new Charge(this,true);
+        Charge file = new Charge(this, true);
         file.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
