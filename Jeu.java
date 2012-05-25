@@ -153,12 +153,6 @@ public class Jeu {
         }
 
         Pile pile = new Pile(1, tas1);
-        System.out.println("test :");
-        for (int i = 0; i < tas1.size(); i++) {
-            System.out.println("le " + i + "eme du tas" + tas1.get(i));
-        }
-
-        pile.afficherPileConsole();
         moteur.table.addPile(pile);
 
         pile = new Pile(2, tas2);
@@ -205,12 +199,12 @@ public class Jeu {
 
     // L'Arbitre : déroulement d'une partie entre 2 joueurs 
     public void jouer() {
-
+    	
     	
     	Carte c1, c2 = null;
         int nbMatche = 0;
-	    	while( (type==1 && nbMatche != max) || (type == 2 && (joueur1.getScore()<max || joueur2.getScore()<max) ) 
-	    		   || (type ==4 && nbMatche<4))
+	    	while( (type==0 && nbMatche != max) || (type == 1 && (joueur1.getScore()<max || joueur2.getScore()<max) ) 
+	    		   || (type ==2 && nbMatche<4))
 	    	{
 	    		if(type==2)
 	    	   	{
@@ -228,7 +222,7 @@ public class Jeu {
 		                	this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
 	    		   }
 	    	   	}
-	    		initialiser();
+	    	   	initialiser();
 			   	while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
 			   		intVersJoueur().jouer();
 					switcher();
@@ -265,7 +259,7 @@ public class Jeu {
 	    	   	joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
 	    	   	joueur1.setNbPlis(0);
 	    	   	joueur2.setNbPlis(0);
-
+	    	   	
 	    	   	if(type == 2)
 	    	   	{
 	    	   		if(joueur1.getScore() > joueur2.getScore())
