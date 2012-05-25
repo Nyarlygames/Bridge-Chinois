@@ -197,81 +197,87 @@ public class Jeu {
     	
     	Carte c1, c2 = null;
         int nbMatche = 0;
-	    	while( (type==0 && nbMatche != max) || (type == 1 && (joueur1.getScore()<max || joueur2.getScore()<max) ) 
-	    		   || (type ==2 && nbMatche<4))
-	    	{
-	    		if(type==2)
-	    	   	{
-	    			switch(nbMatche){
-		    			case 0:
-		                	this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-		                	
-		                case 1 :
-		                	this.joueur2 = new PC2(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-		                	
-		                case 2 :
-		                	this.joueur2 = new PC3(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-	
-		                case 3 :
-		                	this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
-	    		   }
-	    	   	}
-	    	   	initialiser();
-			   	while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
-			   		intVersJoueur().jouer();
-					switcher();
-					intVersJoueur().jouer();
-					if (joueurCourant == 1) {
-					    c1 = moteur.getTable().getCarte2();
-					    c2 = moteur.getTable().getCarte1();
-					} else {
-					    c1 = moteur.getTable().getCarte1();
-					    c2 = moteur.getTable().getCarte2();
-					}
-					
-					if (c1.gagne(c2, moteur.getTable().getAtout())) {
-					    switcher();
-					    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-					    intVersJoueur().choisir();
-					    switcher();
-					    intVersJoueur().choisir();
-					    switcher();
-					} else {
-					    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-					    intVersJoueur().choisir();
-					    switcher();
-					    intVersJoueur().choisir();
-					    switcher();
-					}
-					joueur1.setaJoue(false);
-					joueur1.setaChoisi(false);
-					joueur2.setaJoue(false);
-					joueur2.setaChoisi(false);
-			   	}
-	    	   	nbMatche++;
-	    	   	joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
-	    	   	joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
-	    	   	joueur1.setNbPlis(0);
-	    	   	joueur2.setNbPlis(0);
-	    	   	
-	    	   	if(type == 2)
-	    	   	{
-	    	   		if(joueur1.getScore() > joueur2.getScore())
-	    	   		{
-	    	   			//gagne on passe au niveau suivant
-	    	   		}
-	    	   		else{
-	    	   			if(joueur1.getScore() == joueur2.getScore())
-	    	   			{
-	    	   				//
-	    	   			}
-	    	   			else
-	    	   			{
-	    	   				//perdu
-	    	   			}
-	    	   		}
-	    	   	}
-	       }
+    	while( (type==0 && nbMatche != max) || (type == 1 && (joueur1.getScore()<max || joueur2.getScore()<max) ) 
+    		   || (type ==2 && nbMatche<4))
+    	{
+    		if(type==2)
+    	   	{
+    			switch(nbMatche){
+	    			case 0:
+	                	this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+	                	
+	                case 1 :
+	                	this.joueur2 = new PC2(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+	                	
+	                case 2 :
+	                	this.joueur2 = new PC3(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+
+	                case 3 :
+	                	this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
+    		   }
+    	   	}
+    	   	initialiser();
+		   	while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
+		   		intVersJoueur().jouer();
+				switcher();
+				intVersJoueur().jouer();
+				if (joueurCourant == 1) {
+				    c1 = moteur.getTable().getCarte2();
+				    c2 = moteur.getTable().getCarte1();
+				    
+				} else {
+				    c1 = moteur.getTable().getCarte1();
+				    c2 = moteur.getTable().getCarte2();
+				}
+				System.out.println(c1.toString() + c2.toString());
+				moteur.getTable().setCarte1(null);
+				moteur.getTable().setCarte2(null);
+				if (c1.gagne(c2, moteur.getTable().getAtout())) {
+				    switcher();
+				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+				    intVersJoueur().choisir();
+				    switcher();
+				    intVersJoueur().choisir();
+				    switcher();
+				} else {
+				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+				    intVersJoueur().choisir();
+				    switcher();
+				    intVersJoueur().choisir();
+				    switcher();
+				}
+				joueur1.setaJoue(false);
+				joueur1.setaChoisi(false);
+				joueur2.setaJoue(false);
+				joueur2.setaChoisi(false);
+				
+				
+				
+		   	}
+    	   	nbMatche++;
+    	   	joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
+    	   	joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
+    	   	joueur1.setNbPlis(0);
+    	   	joueur2.setNbPlis(0);
+    	   	
+    	   	if(type == 2)
+    	   	{
+    	   		if(joueur1.getScore() > joueur2.getScore())
+    	   		{
+    	   			//gagne on passe au niveau suivant
+    	   		}
+    	   		else{
+    	   			if(joueur1.getScore() == joueur2.getScore())
+    	   			{
+    	   				//
+    	   			}
+    	   			else
+    	   			{
+    	   				//perdu
+    	   			}
+    	   		}
+    	   	}
+       }
 
     }
 

@@ -172,6 +172,8 @@ public class Graphique implements Runnable {
 
         frame.setPreferredSize(new Dimension(LARGEUR_FEN, HAUTEUR_FEN));
         frame.setContentPane(panel);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setBounds((screenSize.width - LARGEUR_FEN) / 2, (screenSize.height - HAUTEUR_FEN) / 2, LARGEUR_FEN, HAUTEUR_FEN);
 
     }
 

@@ -105,15 +105,17 @@ public class ZoneDessin extends JComponent {
                 g.drawImage(empty, (width / 2) - (ch / 2), ch + 10, cw, ch, this);
             } else {
                 Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + t.getCarte1().toFileString());
-                g.drawImage(cfront, (width / 2) - (ch / 2), ch + 10, cw, ch, this);
+                g.drawImage(cfront, (width / 2) - (ch / 2), height - (2 * ch + 10), cw, ch, this);
             }
 
             if (t.getCarte2() == null) {
                 g.drawImage(empty, (width / 2) - (ch / 2), height - (2 * ch + 10), cw, ch, this);
             } else {
                 Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + t.getCarte2().toFileString());
-                g.drawImage(cfront, (width / 2) - (ch / 2), height - (2 * ch + 10), cw, ch, this);
+                g.drawImage(cfront, (width / 2) - (ch / 2), ch + 10, cw, ch, this);
+               
             }
+
         }
 
         // Menu

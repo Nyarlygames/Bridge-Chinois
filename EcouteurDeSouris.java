@@ -30,7 +30,7 @@ class EcouteurDeSouris implements MouseListener {
      */
     public void mousePressed(MouseEvent e) {
 
-        g.getZoneDessin().repaint();
+        
 
         //Carte du clic sur la main
         Carte carte = getCarteMain(e.getX(), e.getY());
@@ -38,38 +38,23 @@ class EcouteurDeSouris implements MouseListener {
         Pile clicpile = getCartePile(e.getX(), e.getY());
         //en prend en compte son choix
 
-        if (carte != null) {
-            System.out.println(jeu.getJoueur1().getPhaseJouer());
-            System.out.println(jeu.getJoueur2().getPhaseJouer());
-            if (jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer()) {
+        if (carte != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer() ) {
+            System.out.println("j'ai choisi la carte " + carte.toString());
+            
+            // dans ce cas le joueur courant est l'humain il est en phase de jeu
+        	//en prend en compte son choix
+            jeu.getMoteur().jouer(carte, jeu.getJoueurCourant());
+            jeu.intVersJoueur().setaJoue(Boolean.TRUE);
+            g.getZoneDessin().repaint();          
+        }
 
-                // dans ce cas le joueur courant est le J1 il n'as pas encore jouer et il a bien clikï¿½ sur sa main1
-                //en prend en compte son choix
-     			/* = on recupere la carte sur la quel on a clique ;*/
-                {
-                    jeu.moteur.jouer(carte, jeu.getJoueurCourant());
-                    jeu.getJoueur1().setaJoue(Boolean.TRUE);
-                }
-
-            } else if (jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseChoisir()) {
-                if (jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getaJoue() && !jeu.getJoueur1().getaChoisi()) {
-                    Pile pile = clicpile;
-                    // dans ce cas le joueur courant est le J1 il a deja joue et il a bien clike sur un pli
-                    //en prend en compte son choix
-                    if (clicpile != null) {
-                        jeu.getMoteur().getTable().getMain1().add(pile.piocher());
-                        jeu.intVersJoueur().setaChoisi(true);
-                    }
-                } else if (jeu.intVersJoueur().equals(jeu.getJoueur2()) && jeu.getJoueur2().getaJoue() && !jeu.getJoueur2().getaChoisi()) {
-                    Pile pile = null;
-
-                    // dans ce cas le joueur courant est le J2 il a deja joue et il a bien clike sur un pli
-                    //en prend en compte son choix
-                    jeu.getMoteur().getTable().getMain2().add(pile.piocher());
-                    jeu.intVersJoueur().setaChoisi(true);
-                }
-            }
-
+        if(clicpile!=null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseChoisir())
+        {
+            // dans ce cas le joueur est en phase de choix de carte a piocher
+            //en prend en compte son choix
+        	jeu.getMoteur().choisir(clicpile,jeu.getJoueurCourant());
+        	jeu.intVersJoueur().setaChoisi(Boolean.TRUE);
+            g.getZoneDessin().repaint();      
         }
     }
 

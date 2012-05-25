@@ -24,14 +24,19 @@ public class Moteur {
     // --------------------------------------Methodes-------------------------------------
     public void jouer(Carte c, int joueurCourant) {
         if (joueurCourant == 1) {
-            table.setCarte1(table.getMain1().getCarte(table.getMain1().getMain().indexOf(c)));
+        	table.setCarte1(c);
             table.getMain1().getMain().remove(c);
         } else {
-            table.setCarte2(table.getMain2().getCarte(table.getMain2().getMain().indexOf(c)));
+            table.setCarte2(c);
             table.getMain2().getMain().remove(c);
         }
     }
 
-    public void choisir(Carte c, int joueurCourant) {
+    public void choisir(Pile p, int joueurCourant) {
+    	if (joueurCourant == 1) {
+            table.getMain1().add(p.piocher());
+        } else {
+            table.getMain2().add(p.piocher());
+        }
     }
 }
