@@ -1,10 +1,9 @@
-
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.InetAddress;
 
 /*
  * To change this template, choose Tools | Templates
@@ -75,11 +74,11 @@ public class Multi extends javax.swing.JFrame {
 
         IPJoueur.setFocusable(false);
         try{
-            URL whatismyip = new URL("http://api.externalip.net/ip/");
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                whatismyip.openStream()));
 
-        IPJoueur.setValue(in.readLine()); //you get the IP as a String
+	    InetAddress addr = InetAddress.getLocalHost();
+	    String ip = addr.getHostAddress();
+
+	    IPJoueur.setValue(ip); //you get the IP as a String
     }catch(Exception e)
     {
     }
@@ -261,4 +260,15 @@ public class Multi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelRejoindre;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    static String bytetostr(byte[] bArray){
+	StringBuffer buffer = new StringBuffer();
+ 
+	for(byte b : bArray) {
+	    buffer.append(Integer.toHexString(b));
+	    buffer.append(" ");
+	}
+ 
+	return buffer.toString().toUpperCase();    
+    }
 }

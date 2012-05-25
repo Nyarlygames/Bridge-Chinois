@@ -20,9 +20,7 @@ class EcouteurDeFrame implements ComponentListener {
 	if (f.getSize().width < 620) {
 	    f.setSize(new Dimension(620, f.getSize().height));
 	}
-	
-	System.out.println("H : " + f.getSize().height);
-	System.out.println("W : " + f.getSize().width);
+
     }
 
     // Il faut aussi une implementation pour les autres methodes de l'interface
