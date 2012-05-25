@@ -16,7 +16,6 @@ public class Humain extends Joueur {
         aChoisi = false;
         phaseChoisir = false;
         phaseJouer = false;
-
     }
 
     @Override

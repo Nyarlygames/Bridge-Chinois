@@ -33,7 +33,9 @@ public class Jeu {
 
         joueurCourant = rand.nextInt(2);
         joueurCourant++;
+        moteur = m;
         switch (mode) {
+        
             case 0:
                 this.joueur1 = new PC(this, 1, moteur.getTable().getMain1(), moteur.getTable().getCarte2());
                 this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
@@ -65,7 +67,7 @@ public class Jeu {
                 break;
 
         }
-        moteur = m;
+       
         this.type = type;
         this.max = max;
 

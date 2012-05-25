@@ -45,15 +45,16 @@ class EcouteurDeSouris implements MouseListener {
         
     	if (carte != null)
     	{
-            System.out.println(jeu.intVersJoueur().toString());
-            System.out.println(jeu.getJoueur1().toString());
-    		if (jeu.intVersJoueur().equals(jeu.joueur1) && !jeu.joueur1.aJoue)
+            
+    		if (jeu.intVersJoueur().equals(jeu.joueur1) && jeu.getJoueur1().getPhaseJouer())
     		{
-    			// dans ce cas le joueur courant est le J1 il n'as pas encore jouer et il a bien clik� sur sa main1
+    			System.out.println(jeu.intVersJoueur().toString());
+                System.out.println(jeu.getJoueur1().toString());
+    			// dans ce cas le joueur courant est le J1 il n'as pas encore jouer et il a bien clike sur sa main1
     			//en prend en compte son choix
     			/* = on recupere la carte sur la quel on a clique ;*/
     			jeu.moteur.jouer(carte, jeu.getJoueurCourant());
-                        jeu.getJoueur1().setaJoue(Boolean.TRUE);
+                jeu.getJoueur1().setaJoue(true);
     		}
     	}
     	else if(true/*clike sur main2*/)

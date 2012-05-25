@@ -10,6 +10,12 @@ public class Carte {
 	Rang rang;
 	
 	// -------------------------------------Constructor-------------------------------------
+	Carte()
+	{
+		couleur = null;
+		rang = null;
+	}
+	
 	Carte(Couleur couleur, Rang rang)
 	{
 		this.couleur = couleur;
