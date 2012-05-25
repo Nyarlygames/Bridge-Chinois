@@ -159,16 +159,13 @@ public class Graphique implements Runnable {
         menuBar.add(helpMenu);
 
         frame.setJMenuBar(menuBar);
-        // Haut et bas
-        JLabel info = new JLabel("Infos");
 
         // Panel principal
         JPanel panel = new JPanel();
         BorderLayout layout = new BorderLayout();
         panel.setLayout(layout);
 
-        panel.add("Center", zoneDessin);
-        panel.add("South", info);
+        panel.add(zoneDessin);
 
         frame.setPreferredSize(new Dimension(LARGEUR_FEN, HAUTEUR_FEN));
         frame.setContentPane(panel);

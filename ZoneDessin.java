@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import javax.swing.JComponent;
 import javax.swing.ImageIcon;
 
@@ -36,9 +37,10 @@ public class ZoneDessin extends JComponent {
 
         // On reccupere quelques infos provenant de la partie JComponent
         int width = getSize().width;
-        int height = getSize().height;
-        //TAILLE_CASE_X = (width - (ma_gaufre.getLargeur()-1) )/ma_gaufre.getLargeur() ;
-        //TAILLE_CASE_Y = (height - (ma_gaufre.getHauteur()-1) )/ma_gaufre.getHauteur()  ;
+	int dheight = getSize().height;
+
+	int height = dheight -20;
+
 
         // Mode Partie
         if (mode == 2) {
@@ -51,11 +53,24 @@ public class ZoneDessin extends JComponent {
             Image right = Toolkit.getDefaultToolkit().getImage("res/right.png");
             Image center = Toolkit.getDefaultToolkit().getImage("res/center.png");
             Image empty = Toolkit.getDefaultToolkit().getImage("res/empty.png");
+	    // Cartes
+            Image pli = Toolkit.getDefaultToolkit().getImage("cartes/pli.png");
+            Image cback = Toolkit.getDefaultToolkit().getImage("cartes/carte-dos.jpg");
+	    // Atout
+	    Image carreau = Toolkit.getDefaultToolkit().getImage("res/carreau.gif");
 
+
+	    // borders
             int bw = left.getWidth(null);
             int bh = top.getHeight(null);
+	    // corners
             int cornerh = corner.getHeight(null);
             int cornerw = corner.getWidth(null);
+	    // cards
+            int cw = cback.getWidth(null);
+            int ch = cback.getHeight(null);
+            this.cw = cw;
+            this.ch = ch;
 
 	      // HAUT GAUCHE
             g.drawImage(corner, 0, 0, cornerw, cornerh, this);
@@ -73,11 +88,6 @@ public class ZoneDessin extends JComponent {
             g.drawImage(center, bw, bh, width - (2 * bw), height-(2*bh), this);
 
             // Joueur non actif
-            Image cback = Toolkit.getDefaultToolkit().getImage("cartes/carte-dos.jpg");
-            int cw = cback.getWidth(null);
-            int ch = cback.getHeight(null);
-            this.cw = cw;
-            this.ch = ch;
 
             for (int f = 0; f < t.main2.getSize(); f++) {
 
@@ -146,19 +156,63 @@ public class ZoneDessin extends JComponent {
 	    // Affichage des informations
 
 	    f = new Font("sansserif", Font.BOLD, 18);
+	    FontMetrics fontw = g.getFontMetrics(f);
 	    g.setFont(f);
 
 	    // Nombres de plis
 
 	    // Joueur 1
-            g.drawImage(cback, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
+            g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
 	    g.setColor(Color.yellow);
-	    g.drawString(String.valueOf(jeu.getJoueur1().nbPlis), width -bw -cw/2 -10 , height - bh - ch/2 +4);
+	    String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
+	    g.drawString(pli1, width -bw -cw/2 - fontw.stringWidth(pli1)/2, height - bh - ch/2 +4);
 
 	    // Joueur 2 (adversaire)
-            g.drawImage(cback, width - bw - cw - 1, bh + 1, cw, ch, this);
+            g.drawImage(pli, width - bw - cw - 1, bh + 1, cw, ch, this);
 	    g.setColor(Color.yellow);
-	    g.drawString(String.valueOf(jeu.getJoueur2().nbPlis), width -bw - cw/2 - 10, bh + ch/2 + 9);
+	    String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
+	    g.drawString(pli2, width -bw - cw/2 - fontw.stringWidth(pli2)/2, bh + ch/2 + 9);
+
+
+	    // Infos du bas
+	    g.setColor(Color.black);
+	    if ((t != null) && (t.atout != null)) {
+	    switch (t.atout) {
+		case CARREAU :
+		    String atoutcx = "Atout : ♦";
+		    g.drawString(atoutcx, width - fontw.stringWidth(atoutcx), dheight-2);
+		    break;
+		case COEUR :
+		    String atoutcr = "Atout : ♥";
+		    g.drawString(atoutcr,  width - fontw.stringWidth(atoutcr), dheight-2);
+		    break;
+		case PIQUE :
+		    String atoutp = "Atout : ♠";
+		    g.drawString(atoutp,  width - fontw.stringWidth(atoutp), dheight-2);
+		    break;
+		case TREFLE :
+		    String atoutt = "Atout : ♣";
+		    g.drawString(atoutt,  width - fontw.stringWidth(atoutt), dheight-2);
+		    break;
+		default :
+		    break;
+		}
+	    }
+	    else {
+	        String noatout = "Pas d'atout ";
+		g.drawString(noatout,  width - fontw.stringWidth(noatout), dheight-2);
+	    }
+
+	    // Joueur actif
+
+	    if (jeu.getJoueurCourant() == 1) {
+		String myturn = "A vous de jouer";
+		g.drawString(myturn,  width/2 - fontw.stringWidth(myturn)/2, dheight-2);
+	    }
+	    else {
+		String histurn = "A votre adversaire de jouer";
+		g.drawString(histurn,  width/2 - fontw.stringWidth(histurn)/2, dheight-2);
+	    }
 
 
 	}
