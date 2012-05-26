@@ -113,7 +113,7 @@ public class VSPlayer extends javax.swing.JFrame {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-332)/2, (screenSize.height-220)/2, 332, 220);
+        setBounds((screenSize.width-332)/2, (screenSize.height-185)/2, 332, 185);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nbPartiesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nbPartiesFocusLost

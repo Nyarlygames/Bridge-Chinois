@@ -1,6 +1,18 @@
--Groupement des menus
--Virer le mode 2 joueurs
--Algo min-max
+-Menus
+*Groupement des menus
+*Virer le mode 2 joueurs
+*Gestion annuler chargement partie
+*Fix taille de la fenetre VSPlayer
+
+-Jeu
+*Deroulement du jeux sans piles
+*Algo min-max
+*Indices
+*Aides
+
+-Graphisme
+*Surbrillance des cartes jouables
+
 -Reseau
 * Choisir un port
 * Mode lan ou internet
