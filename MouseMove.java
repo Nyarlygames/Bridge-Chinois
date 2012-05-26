@@ -47,7 +47,7 @@ class MouseMove implements MouseMotionListener {
             } // Deuxieme moitie derniere carte
             else if (((int) carte == t.main1.getSize()) && ((int) carte > 0)) 
                 return t.main1.getCarte(t.main1.getSize() - 1);
-	    else if ((int) carte > 0)
+	    else if ((int) carte >= 0)
                 return t.main1.getCarte((int) carte);
 	    else
 		return (null);
