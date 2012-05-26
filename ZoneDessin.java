@@ -18,14 +18,16 @@ public class ZoneDessin extends JComponent {
     public int bw = 0;
     public int bh = 0;
     public Table t;
+    public Config cfg;
     Font f;
     Jeu jeu;
 
     /**
      * Constructeur ZoneDessin
      */
-    public ZoneDessin(Jeu j) {
+    public ZoneDessin(Jeu j, Config cfg) {
 
+	this.cfg = cfg;
 	this.jeu = j;
         this.t = j.getMoteur().getTable();
     }
@@ -43,20 +45,20 @@ public class ZoneDessin extends JComponent {
 
         // Mode Partie
         if (mode == 2) {
+	    String pathcartes = "cartes/" + this.cfg.deck + "/";
+	    String pathres = "res/" + this.cfg.style + "/";
 
             // Background
-            Image corner = Toolkit.getDefaultToolkit().getImage("res/corner.png");
-            Image left = Toolkit.getDefaultToolkit().getImage("res/left.png");
-	    Image bottom = Toolkit.getDefaultToolkit().getImage("res/bottom.png");
-	    Image top = Toolkit.getDefaultToolkit().getImage("res/top.png");
-            Image right = Toolkit.getDefaultToolkit().getImage("res/right.png");
-            Image center = Toolkit.getDefaultToolkit().getImage("res/center.png");
-            Image empty = Toolkit.getDefaultToolkit().getImage("res/empty.png");
+            Image corner = Toolkit.getDefaultToolkit().getImage(pathres+"corner.png");
+            Image left = Toolkit.getDefaultToolkit().getImage(pathres+"left.png");
+	    Image bottom = Toolkit.getDefaultToolkit().getImage(pathres+"bottom.png");
+	    Image top = Toolkit.getDefaultToolkit().getImage(pathres+"top.png");
+            Image right = Toolkit.getDefaultToolkit().getImage(pathres+"right.png");
+            Image center = Toolkit.getDefaultToolkit().getImage(pathres+"center.png");
+            Image empty = Toolkit.getDefaultToolkit().getImage(pathres+"empty.png");
 	    // Cartes
-            Image pli = Toolkit.getDefaultToolkit().getImage("cartes/pli.png");
-            Image cback = Toolkit.getDefaultToolkit().getImage("cartes/carte-dos.jpg");
-	    // Atout
-	    Image carreau = Toolkit.getDefaultToolkit().getImage("res/carreau.gif");
+            Image pli = Toolkit.getDefaultToolkit().getImage(pathcartes+"pli.png");
+            Image cback = Toolkit.getDefaultToolkit().getImage(pathcartes+"carte-dos.jpg");
 
 	    // corners
             int cornerh = corner.getHeight(null);
@@ -103,7 +105,7 @@ public class ZoneDessin extends JComponent {
                 int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
                 Carte c = t.main1.getCarte(f);
                 // on check le type de c et on charge le graphique associe
-                Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + c.toFileString());
+                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes+ c.toFileString());
                 g.drawImage(cfront, mid, height - ch - bh, cw, ch, this);
             }
             // Dessin des Piles
@@ -118,7 +120,7 @@ public class ZoneDessin extends JComponent {
 
                     if (pc == (t.piles.get(p).getSize() - 1)) {
                         Carte c = t.piles.get(p).getCarte(pc);
-                        Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + c.toFileString());
+                        Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + c.toFileString());
                         g.drawImage(cfront, mid, (height /2) -ch/2, cw, ch, this);
 
                     } else {
@@ -138,14 +140,14 @@ public class ZoneDessin extends JComponent {
             if (t.getCarte1() == null) {
                 g.drawImage(empty, (width / 2) - (ch / 2), cjh, cw, ch, this);
             } else {
-                Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + t.getCarte1().toFileString());
+                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte1().toFileString());
                 g.drawImage(cfront, (width / 2) - (ch / 2),  cjh, cw, ch, this);
             }
 
             if (t.getCarte2() == null) {
                 g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
             } else {
-                Image cfront = Toolkit.getDefaultToolkit().getImage("cartes/" + t.getCarte2().toFileString());
+                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
                 g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
             }
 

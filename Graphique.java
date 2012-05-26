@@ -9,6 +9,7 @@ public class Graphique implements Runnable {
     public int HAUTEUR_FEN = 650;
     public int tailleFenetreX;
     public int tailleFenetreY;
+    Config cfg;
     Jeu jeu;
     JFrame frame;
     ZoneDessin zoneDessin;
@@ -18,7 +19,10 @@ public class Graphique implements Runnable {
     }
 
     public Graphique(Jeu j) {
+	this.cfg = new Config();
         jeu = j;
+	this.LARGEUR_FEN = Config.width;
+	this.HAUTEUR_FEN = Config.height;
         this.frame = frame;
         this.zoneDessin = zoneDessin;
 
@@ -26,7 +30,7 @@ public class Graphique implements Runnable {
 	frame.addComponentListener(new EcouteurDeFrame(frame));
 
         // Zone du jeu
-        zoneDessin = new ZoneDessin(j);
+        zoneDessin = new ZoneDessin(j, this.cfg);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
         JMenuBar menuBar = new javax.swing.JMenuBar();
         JMenu fileMenu = new javax.swing.JMenu();
@@ -160,6 +164,7 @@ public class Graphique implements Runnable {
         menuBar.add(helpMenu);
 
         frame.setJMenuBar(menuBar);
+
 
         // Panel principal
         JPanel panel = new JPanel();
