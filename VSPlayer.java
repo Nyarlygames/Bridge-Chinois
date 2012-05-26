@@ -4,17 +4,21 @@
  */
 
 import java.awt.Color;
-
+import javax.swing.SwingUtilities;
 /**
  *
  * @author Val
  */
 public class VSPlayer extends javax.swing.JFrame {
+    String ip;
+    String host;
 
     /**
      * Creates new form VSPlayer
      */
-    public VSPlayer() {
+    public VSPlayer(String ip, String host) {
+	this.ip = ip;
+	this.host = host;
         initComponents();
     }
 
@@ -109,7 +113,7 @@ public class VSPlayer extends javax.swing.JFrame {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-332)/2, (screenSize.height-185)/2, 332, 185);
+        setBounds((screenSize.width-332)/2, (screenSize.height-220)/2, 332, 220);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nbPartiesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nbPartiesFocusLost
@@ -139,7 +143,13 @@ public class VSPlayer extends javax.swing.JFrame {
 
     private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
-        //    Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem());
+	// on ferme la fenetre de menu
+
+        this.dispose();
+	final int mod = mode.getSelectedIndex();
+	final int nbPart = Integer.parseInt((String)nbParties.getSelectedItem());
+	Serveur serv = new Serveur(mod, nbPart, this.ip, this.host);
+
     }//GEN-LAST:event_LaunchActionPerformed
 
     /**
@@ -179,7 +189,7 @@ public class VSPlayer extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new VSPlayer().setVisible(true);
+                new VSPlayer("","").setVisible(true);
             }
         });
     }

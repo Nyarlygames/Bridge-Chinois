@@ -18,6 +18,10 @@ import java.util.Enumeration;
  */
 public class Multi extends javax.swing.JFrame {
 
+    String ip;
+    String host;
+    // PORT int port;
+
     /**
      * Creates new form NewJFrame
      */
@@ -79,19 +83,23 @@ public class Multi extends javax.swing.JFrame {
 	    InetAddress addr = InetAddress.getLocalHost();
 
 	    Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-	    while (interfaces.hasMoreElements()) {  
-		NetworkInterface currentInterface = interfaces.nextElement(); 
+	    while (interfaces.hasMoreElements()) {
+		NetworkInterface currentInterface = interfaces.nextElement();
 		// On retrouve la bonne IP
-		Enumeration<InetAddress> addresses = currentInterface.getInetAddresses(); 
-		while (addresses.hasMoreElements()) {  
+		Enumeration<InetAddress> addresses = currentInterface.getInetAddresses();
+		while (addresses.hasMoreElements()) {
 
 		    InetAddress currentAddress = addresses.nextElement();
 		    // MODE INTERNET
 		    if (isInternetIP(currentAddress.getHostAddress())){
+			this.ip = currentAddress.getHostAddress();
+			this.host = currentAddress.getHostName();
 			IPJoueur.setValue(currentAddress.getHostAddress());
 		    }
 		    // MODE LAN
 		    if (isLANIP(currentAddress.getHostAddress())){
+			this.ip = currentAddress.getHostAddress();
+			this.host = currentAddress.getHostName();
 			IPJoueur.setValue(currentAddress.getHostAddress());
 		    }
 		}
@@ -209,8 +217,14 @@ public class Multi extends javax.swing.JFrame {
 
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
-        VSPlayer fenOp = new VSPlayer();
-        fenOp.setVisible(true);
+	if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Heberger")) {
+	    VSPlayer fenOp = new VSPlayer(this.ip, this.host);
+	    fenOp.setVisible(true);
+	}
+	else if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Rejoindre")) {
+	    Client client = new Client(this.ip, this.host);
+	}
+
         this.dispose();
     }//GEN-LAST:event_StartActionPerformed
 

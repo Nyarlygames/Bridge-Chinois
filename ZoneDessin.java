@@ -25,10 +25,11 @@ public class ZoneDessin extends JComponent {
     /**
      * Constructeur ZoneDessin
      */
-    public ZoneDessin(Jeu j, Config cfg) {
+    public ZoneDessin(Jeu j, Config cfg, int mode) {
 
 	this.cfg = cfg;
 	this.jeu = j;
+	this.mode = mode;
         this.t = j.getMoteur().getTable();
     }
 
@@ -43,8 +44,8 @@ public class ZoneDessin extends JComponent {
 	int dheight = getSize().height;
 	int height = dheight -20;
 
-        // Mode Partie
-        if (mode == 2) {
+        // Mode Solo
+        if (mode == 1) {
 	    String pathcartes = "cartes/" + this.cfg.deck + "/";
 	    String pathres = "res/" + this.cfg.style + "/";
 
@@ -218,5 +219,11 @@ public class ZoneDessin extends JComponent {
 
 
 	}
+
+	// Mode réseau
+	if (mode == 2)
+	    {
+		
+	    }
     }
 }

@@ -1,5 +1,10 @@
-Groupement des menus
-Virer le mode 2 joueurs
-Algo min-max
-Reseau
+-Groupement des menus
+-Virer le mode 2 joueurs
+-Algo min-max
+-Reseau
+* Choisir un port
+* Mode lan ou internet
+* Choisir un username
+* Envoie du jeux (piles/mains) au client
+* Gestion des actions
 ...

@@ -194,7 +194,7 @@ public class VSIA extends javax.swing.JFrame {
         Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
 
 //        Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem(), jSlider1.getValue());
-        Graphique gg = new Graphique(monJeu);
+        Graphique gg = new Graphique(monJeu, 1);
         SwingUtilities.invokeLater(gg);
         monJeu.jouer();
         //System.out.println("j'ai initialise mon paquet melange");

@@ -18,7 +18,7 @@ public class Graphique implements Runnable {
         return zoneDessin;
     }
 
-    public Graphique(Jeu j) {
+    public Graphique(Jeu j, int mode) {
 	this.cfg = new Config();
         jeu = j;
 	this.LARGEUR_FEN = Config.width;
@@ -29,8 +29,8 @@ public class Graphique implements Runnable {
         frame = new JFrame("Bridge chinois");
 	frame.addComponentListener(new EcouteurDeFrame(frame));
 
-        // Zone du jeu
-        zoneDessin = new ZoneDessin(j, this.cfg);
+	// Réseau
+	zoneDessin = new ZoneDessin(j, this.cfg, 1/*mode*/);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
         JMenuBar menuBar = new javax.swing.JMenuBar();
         JMenu fileMenu = new javax.swing.JMenu();
