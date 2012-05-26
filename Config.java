@@ -3,12 +3,19 @@ import java.lang.Integer;
 
 public class Config {
     static int width, height, deck, style = 0;
+    String FILENAME = "options.cfg";
 
     // -------------------------------------Attributs-------------------------------------
 
     // -------------------------------------Constructeur-------------------------------------
     Config() {
-	getConfigs("options.cfg");
+	if (getConfigs() == 1) {
+	    setWidth(800);
+	    setHeight(650);
+	    setDeck(1);
+	    setStyle(1);
+	    saveConfigs();
+	}
     }
 
     // -------------------------------------Accesseurs-------------------------------------
@@ -29,7 +36,22 @@ public class Config {
         return(this.style);
     }
 
+    // -------------------------------------Setters-------------------------------------
+    public void setStyle(int value) {
+        this.style = value;
+    }
+    public void setDeck(int value) {
+        this.deck = value;
+    }
+    public void setHeight(int value) {
+        this.height = value;
+    }
+    public void setWidth(int value) {
+        this.width = value;
+    }
+
     // -------------------------------------Methodes-------------------------------------
+
 
     // Retourne la valeur de la ligne de config
     public String getValue(String str) {
@@ -41,6 +63,7 @@ public class Config {
 	return (str.substring(i,str.length()));
     }
 
+    // Retourne l'option de la ligne
     public String getOpt(String str) {
 	int i = 0;
 
@@ -50,12 +73,12 @@ public class Config {
 	return (str.substring(0, i));
     }
 
-    // Parse le fichier de config
-    public void getConfigs(String filename) {
+    // Parse le fichier de config renvoie 0 si tout est bon, 1 si il échoue
+    public int getConfigs() {
 	String chaine = "";
 
 	try{
-	    InputStream file = new FileInputStream(filename); 
+	    InputStream file = new FileInputStream(FILENAME); 
 	    InputStreamReader fd = new InputStreamReader(file);
 	    BufferedReader buf = new BufferedReader(fd);
 	    String ligne;
@@ -79,10 +102,31 @@ public class Config {
 		    this.style = Integer.parseInt(getValue(ligne));
 	    }
 	    buf.close();
+	    return (0);
+	}
+	catch (Exception e){
+	    System.out.println(e.toString());
+	    return (1);
+	}
+
+    }
+
+
+    // Sauveguarde les configurations dans le fichier
+    public void saveConfigs() {
+	try {
+	    FileWriter file = new FileWriter (FILENAME);
+	    BufferedWriter fd = new BufferedWriter (file);
+	    PrintWriter buf = new PrintWriter (fd);
+	    buf.println ("width = " + this.width);
+	    buf.println ("height = " + this.height);
+    	    buf.println ("style = " + this.style);
+	    buf.println ("deck = " + this.deck);
+	    buf.close();
+	    System.out.println("Le fichier " + FILENAME + " a été créé!");
 	}
 	catch (Exception e){
 	    System.out.println(e.toString());
 	}
-
     }
 }
