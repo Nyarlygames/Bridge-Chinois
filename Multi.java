@@ -3,7 +3,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
+import java.net.*;
+import java.util.Enumeration;
 
 /*
  * To change this template, choose Tools | Templates
@@ -76,9 +77,25 @@ public class Multi extends javax.swing.JFrame {
         try{
 
 	    InetAddress addr = InetAddress.getLocalHost();
-	    String ip = addr.getHostAddress();
 
-	    IPJoueur.setValue(ip); //you get the IP as a String
+	    Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+	    while (interfaces.hasMoreElements()) {  
+		NetworkInterface currentInterface = interfaces.nextElement(); 
+		// On retrouve la bonne IP
+		Enumeration<InetAddress> addresses = currentInterface.getInetAddresses(); 
+		while (addresses.hasMoreElements()) {  
+
+		    InetAddress currentAddress = addresses.nextElement();
+		    // MODE INTERNET
+		    if (isInternetIP(currentAddress.getHostAddress())){
+			IPJoueur.setValue(currentAddress.getHostAddress());
+		    }
+		    // MODE LAN
+		    if (isLANIP(currentAddress.getHostAddress())){
+			IPJoueur.setValue(currentAddress.getHostAddress());
+		    }
+		}
+	    }
     }catch(Exception e)
     {
     }
@@ -261,14 +278,40 @@ public class Multi extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    static String bytetostr(byte[] bArray){
-	StringBuffer buffer = new StringBuffer();
- 
-	for(byte b : bArray) {
-	    buffer.append(Integer.toHexString(b));
-	    buffer.append(" ");
+    static boolean isInternetIP(String str){
+	boolean internet = true;
+	int i = 0;
+	String str2 = str.substring(0,4);
+
+	if (!str2.equals("127.") && !str2.equals("192.") && !str2.equals("168.")) {
+	    for (i = 0; i < str.length() - 1; i++){
+		char c = str.charAt(i);
+		if (c == ':')
+		    internet = false;
+	    }
 	}
- 
-	return buffer.toString().toUpperCase();    
+	else {
+	    internet = false;
+	}
+	return (internet);
+    }
+
+    static boolean isLANIP(String str){
+
+	boolean internet = true;
+	int i = 0;
+	String str2 = str.substring(0,4);
+
+	if (str2.equals("192.")) {
+	    for (i = 0; i < str.length() - 1; i++){
+		char c = str.charAt(i);
+		if (c == ':')
+		    internet = false;
+	    }
+	}
+	else {
+	    internet = false;
+	}
+	return (internet);
     }
 }
