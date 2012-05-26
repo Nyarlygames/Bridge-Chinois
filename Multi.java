@@ -147,7 +147,6 @@ public class Multi extends javax.swing.JFrame {
 
     jLabelIPDistante.setText("IP Distante : ");
 
-    IPDistante.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###:###:###:###"))));
 
     javax.swing.GroupLayout jPanelRejoindreLayout = new javax.swing.GroupLayout(jPanelRejoindre);
     jPanelRejoindre.setLayout(jPanelRejoindreLayout);
@@ -222,6 +221,7 @@ public class Multi extends javax.swing.JFrame {
 	    fenOp.setVisible(true);
 	}
 	else if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Rejoindre")) {
+	    this.ip = IPDistante.getText();
 	    Client client = new Client(this.ip, this.host);
 	}
 

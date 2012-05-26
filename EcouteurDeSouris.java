@@ -138,11 +138,12 @@ class EcouteurDeSouris implements MouseListener {
             if (carte < 0 || (int) carte > t.main1.getSize()) {
                 return (null);
             } // Deuxieme moitie derniere carte
-            else if ((int) carte == t.main1.getSize()) {
+            else if (((int) carte == t.main1.getSize()) && ((int) carte > 0))
                 return t.main1.getCarte(t.main1.getSize() - 1);
-            } else {
+            else if ((int) carte > 0)
                 return t.main1.getCarte((int) carte);
-            }
+	    else
+		return null;
         } else {
             return null;
         }

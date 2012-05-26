@@ -89,4 +89,13 @@ public class Table {
     public void addPile(Pile pile) {
         piles.add(pile);
     }
+
+    public boolean pilesVides(){
+	boolean empty = true;
+	for (int i = 0; i < 6; i++){
+	    if (!piles.get(i).estVide())
+		empty = false;
+	}
+	return (empty);
+    }
 }

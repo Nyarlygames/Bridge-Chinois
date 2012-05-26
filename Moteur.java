@@ -22,6 +22,7 @@ public class Moteur {
     }
 
     // --------------------------------------Methodes-------------------------------------
+
     public void jouer(Carte c, int joueurCourant) {
         if (joueurCourant == 1) {
         	table.setCarte1(c);
@@ -31,6 +32,7 @@ public class Moteur {
             table.getMain2().getMain().remove(c);
         }
     }
+
 
     public void choisir(Pile p, int joueurCourant) {
     	if (joueurCourant == 1) {

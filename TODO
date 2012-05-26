@@ -5,13 +5,14 @@
 *Fix taille de la fenetre VSPlayer
 
 -Jeu
-*Deroulement du jeux sans piles
+*Redonne
+*Calcul du score par donnes (apparament ca fait toujours par pli)
 *Algo min-max
 *Indices
 *Aides
 
 -Graphisme
-*Surbrillance des cartes jouables
+*Indice graphique sur les cartes
 
 -Reseau
 * Choisir un port

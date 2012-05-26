@@ -31,6 +31,7 @@ public class Graphique implements Runnable {
 
 	zoneDessin = new ZoneDessin(j, this.cfg, 1/*mode*/);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
+	zoneDessin.addMouseMotionListener(new MouseMove(this));
         JMenuBar menuBar = new javax.swing.JMenuBar();
         JMenu fileMenu = new javax.swing.JMenu();
         JMenuItem openMenuItem = new javax.swing.JMenuItem();

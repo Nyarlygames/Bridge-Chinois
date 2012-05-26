@@ -114,12 +114,43 @@ public class Jeu {
         this.joueur2 = joueur2;
     }
 
+
     public int getJoueurCourant() {
         return joueurCourant;
     }
 
+
     public void setJoueurCourant(int joueurCourant) {
         this.joueurCourant = joueurCourant;
+    }
+
+    // Retourne le joueur adverse
+    public int getJoueurAdverse(int joueur) {
+        if (joueur == 1)
+	    return 2;
+	else if (joueur == 2)
+	    return 1;
+	else return 0;
+    }
+
+    // Retourne la carte adverse du joueur
+    public Carte getCarteAdverse(int joueur) {
+	if (joueur == 1)
+	    return (moteur.table.carte2);
+	else if (joueur == 2)
+	    return (moteur.table.carte1);
+	else
+	    return (null);
+    }
+
+    // Retourne la main du joueur
+    public Main getMainJoueur (int joueur) {
+	if (joueur == 1)
+	    return moteur.table.main1;
+	else if (joueur == 2)
+	    return moteur.table.main2;
+	else
+	    return (null);
     }
 
     // -------------------------------------Methodes-----------------------------------------
@@ -235,16 +266,20 @@ public class Jeu {
 				if (c1.gagne(c2, moteur.getTable().getAtout())) {
 				    switcher();
 				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-				    intVersJoueur().choisir();
-				    switcher();
-				    intVersJoueur().choisir();
-				    switcher();
+					if (!moteur.getTable().pilesVides()){
+					    intVersJoueur().choisir();
+					    switcher();
+					    intVersJoueur().choisir();
+					    switcher();
+					}
 				} else {
 				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-				    intVersJoueur().choisir();
-				    switcher();
-				    intVersJoueur().choisir();
-				    switcher();
+					if (!moteur.getTable().pilesVides()){
+					    intVersJoueur().choisir();
+					    switcher();
+					    intVersJoueur().choisir();
+					    switcher();
+					}
 				}
 				joueur1.setaJoue(false);
 				joueur1.setaChoisi(false);
@@ -330,4 +365,71 @@ public class Jeu {
         }
         return adversaire;
     }
+
+    // Determiner si une carte est jouable
+	public boolean carteJouable(Carte c, int joueur){
+	    // A l'adversaire de jouer
+	    if (joueur != joueurCourant)
+		return (false);
+	    // A nous de jouer en premier
+	    if (getCarteAdverse(joueur) == null)
+		return (true);
+
+	    else {
+		// Si il y a de l'atout
+		if (moteur.table.atout != null) {
+		    // A nous de jouer en deuxieme
+		    Carte carteadv = getCarteAdverse(joueur);
+		    Main mainjoueur = getMainJoueur(joueur);
+		    // Si il a joué un atout
+		    if (carteadv.couleur == moteur.table.atout)
+			{
+			    boolean atout = false;
+
+			for (int i = 0; i < mainjoueur.getSize(); i++){
+			    if (mainjoueur.getCarte(i).couleur == moteur.table.atout)
+				atout = true;
+			}
+			    // Pas d'atout dans la main
+			    if (atout == false)
+				return true;
+			    // On veut jouer un atout
+			    else if (c.couleur == moteur.table.atout)
+				return true;
+			    else
+				return false;
+			}
+		    // Pas d'atout
+		    else {
+			boolean atout = false;
+			boolean defausse = true;
+			for (int i = 0; i < mainjoueur.getSize(); i++){
+			    if (mainjoueur.getCarte(i).couleur == moteur.table.atout)
+				atout = true;
+			    if (mainjoueur.getCarte(i).couleur == carteadv.couleur) {
+				defausse = false;
+			    }
+			}
+			// On ne peut pas fournir
+			if (defausse == true) {
+			    return true;
+			}
+			// On peut fournir
+			else {
+			    // Si on veut fournir
+			    if (c.couleur == carteadv.couleur)
+				return true;
+			    //Si on veut se defausser
+			    else
+				return false;
+			}
+		    }
+		}
+		// Si il n'y a pas d'atout
+		else {
+		}
+	    }
+	    return false;
+	}
+
 }

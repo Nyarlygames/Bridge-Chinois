@@ -19,6 +19,7 @@ public class ZoneDessin extends JComponent {
     public int bh = 0;
     public Table t;
     public Config cfg;
+    public Carte carteactive;
     Font f;
     Jeu jeu;
 
@@ -104,10 +105,24 @@ public class ZoneDessin extends JComponent {
             // Dessin du jeu du Joueur actif
             for (int f = 0; f < t.main1.getSize(); f++) {
                 int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
+		int up = height - ch -bh;
                 Carte c = t.main1.getCarte(f);
+
+		if (carteactive != null) {
+		    if (c == carteactive) {
+			// Carte Jouable
+			if (jeu.carteJouable(c, 1) == true){
+			    up -= 20;
+			}
+			// Carte non jouable
+			else{
+			}
+		    }
+		}
                 // on check le type de c et on charge le graphique associe
                 Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes+ c.toFileString());
-                g.drawImage(cfront, mid, height - ch - bh, cw, ch, this);
+                g.drawImage(cfront, mid, up, cw, ch, this);
+
             }
             // Dessin des Piles
 
@@ -223,7 +238,6 @@ public class ZoneDessin extends JComponent {
 	// Mode réseau
 	if (mode == 2)
 	    {
-		
 	    }
     }
 }

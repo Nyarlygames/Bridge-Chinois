@@ -12,8 +12,8 @@ public class Client {
     int port = 4242;
     Socket client;
     String message ;
-    ObjectInputStream entree;
-    ObjectOutputStream sortie;
+    ObjectInputStream in;
+    ObjectOutputStream out;
 
     // -------------------------------------Constructeur-------------------------------------
     Client(String ip, String host) {
@@ -86,9 +86,9 @@ public class Client {
 
 
     public void obtenirFlux()throws IOException{
-        this.sortie = new ObjectOutputStream( this.client.getOutputStream());
-        sortie.flush();
-        this.entree = new ObjectInputStream(this.client.getInputStream());
+        this.out = new ObjectOutputStream( this.client.getOutputStream());
+        out.flush();
+        this.in = new ObjectInputStream(this.client.getInputStream());
         System.out.println("\nJ'ai eu les flux");
     }
 
@@ -96,7 +96,7 @@ public class Client {
     public void traiterConnexion()throws IOException{
         do{
             try{
-                message=(String)entree.readObject();
+                message=(String)in.readObject();
                 System.out.println("\n" +message);
 
             }
@@ -111,16 +111,16 @@ public class Client {
     // Ferme la connection au serveur
     public void fermerConnexion()throws IOException{
         System.out.println("\nUtilisateur a fermé la connexion.");
-        sortie.close();
-        entree.close();
+        out.close();
+        in.close();
         client.close();
     }
 
     // Envoie une string au serveur
     public void envoyerDonner(String message){
         try{
-	    sortie.writeObject("CLIENT>>> " + message);
-	    sortie.flush();
+	    out.writeObject("CLIENT>>> " + message);
+	    out.flush();
         }
         catch(IOException e){
 	    // Echec de l'envoie
