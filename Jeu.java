@@ -27,8 +27,9 @@ public class Jeu {
     1 : score a inteindre max 
     2 : aventure
      */
-    Jeu(Moteur m, int mode, int type, int max, int difficulte) {
+	Jeu(Moteur m, int mode, int type, int max, int difficulte) {
         Random rand = new Random();
+
 
         joueurCourant = rand.nextInt(2);
         joueurCourant++;
@@ -228,6 +229,8 @@ public class Jeu {
     	
     	Carte c1, c2 = null;
         int nbMatche = 0;
+	    c1 = null;
+	    c2 = null;
     	while( (type==0 && nbMatche != max) || (type == 1 && (joueur1.getScore()<max || joueur2.getScore()<max) ) 
     		   || (type ==2 && nbMatche<4))
     	{
@@ -249,18 +252,29 @@ public class Jeu {
     	   	}
     	   	initialiser();
 		   	while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
-		   		intVersJoueur().jouer();
+
+				intVersJoueur().jouer();
 				switcher();
 				intVersJoueur().jouer();
-				if (joueurCourant == 1) {
-				    c1 = moteur.getTable().getCarte2();
-				    c2 = moteur.getTable().getCarte1();
-				    
-				} else {
-				    c1 = moteur.getTable().getCarte1();
-				    c2 = moteur.getTable().getCarte2();
-				}
-				System.out.println(c1.toString() + c2.toString());
+				    if (joueurCourant == 1) {
+					// (carteJouable(moteur.getTable().getCarte2(), 1) == true) && (carteJouable(moteur.getTable().getCarte1(), 2) == true)
+					// test la jouabilité des deux cartes
+					c1 = moteur.getTable().getCarte2();
+					c2 = moteur.getTable().getCarte1();
+				    }
+				    else
+					//(carteJouable(moteur.getTable().getCarte1(), 2) == true) && (carteJouable(moteur.getTable().getCarte2(), 2) == true)
+					// test la jouabilité des deux cartes
+					c1 = moteur.getTable().getCarte1();
+					c2 = moteur.getTable().getCarte2();
+				    // Attente avant de ramasser
+					try{
+					    Thread.currentThread().sleep(1000);
+					}
+					catch(InterruptedException ie){
+					    System.out.println("Echec de l'attente");
+					}
+					System.out.println(c1.toString() + c2.toString());
 				moteur.getTable().setCarte1(null);
 				moteur.getTable().setCarte2(null);
 				if (c1.gagne(c2, moteur.getTable().getAtout())) {
