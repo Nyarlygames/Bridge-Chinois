@@ -32,8 +32,9 @@ public class Jeu implements Observable{
     1 : score a inteindre max 
     2 : aventure
      */
-    Jeu(Moteur m, int mode, int type, int max, int difficulte) {
+	Jeu(Moteur m, int mode, int type, int max, int difficulte) {
         Random rand = new Random();
+
 
         joueurCourant = rand.nextInt(2);
         joueurCourant++;
@@ -233,6 +234,8 @@ public class Jeu implements Observable{
     	
     	Carte c1, c2 = null;
         int nbMatche = 0;
+	    c1 = null;
+	    c2 = null;
     	while( (type==0 && nbMatche != max) || (type == 1 && (joueur1.getScore()<max || joueur2.getScore()<max) ) 
     		   || (type ==2 && nbMatche<4))
     	{
@@ -268,8 +271,6 @@ public class Jeu implements Observable{
     		}
     		
 		   	while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
-		   		
-		   		
 		   		intVersJoueur().jouer();
 		   		this.updateObservateur();
 				switcher();
