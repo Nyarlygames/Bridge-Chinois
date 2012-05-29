@@ -29,6 +29,7 @@ public class Option extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Options");
+        setResizable(false);
 
         jLabel1.setText("ya rien encore ... va voir ailleurs si j'y suis");
 
@@ -70,8 +71,6 @@ public class Option extends javax.swing.JFrame {
 
     private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
         // TODO add your handling code here:
-        Menu men = new Menu();
-        men.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonRetourActionPerformed
 

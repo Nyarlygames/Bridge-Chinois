@@ -32,6 +32,7 @@ public class PC extends Joueur {
             j.getMoteur().getTable().setCarte1(jouables.get(i));
         }
         main.getMain().remove(jouables.get(i));
+        aJoue = true;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class PC extends Joueur {
         Random r = new Random();
         main.add(piochables.get(r.nextInt(piochables.size())).piocher());
 
-
+        aChoisi = true;
     }
 
     ArrayList<Carte> getCartesJouables() {
