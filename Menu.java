@@ -215,7 +215,7 @@ public class Menu extends javax.swing.JFrame {
 
         Option opt = new Option();
         opt.setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_jMenuItemOptionsActionPerformed
 
     private void jMenuItemAProposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAProposActionPerformed
