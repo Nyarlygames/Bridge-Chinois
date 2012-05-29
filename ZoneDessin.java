@@ -27,10 +27,9 @@ public class ZoneDessin extends JComponent {
      * Constructeur ZoneDessin
      */
     public ZoneDessin(Jeu j, Config cfg, int mode) {
-
-	this.cfg = cfg;
-	this.jeu = j;
-	this.mode = mode;
+	    this.cfg = cfg;
+	    this.jeu = j;
+	    this.mode = mode;
         this.t = j.getMoteur().getTable();
     }
 
@@ -42,48 +41,49 @@ public class ZoneDessin extends JComponent {
 
         // On reccupere quelques infos provenant de la partie JComponent
         int width = getSize().width;
-	int dheight = getSize().height;
-	int height = dheight -20;
+	    int dheight = getSize().height;
+	    int height = dheight -20;
 
         // Mode Solo
         if (mode == 1) {
-	    String pathcartes = "cartes/" + this.cfg.deck + "/";
-	    String pathres = "res/" + this.cfg.style + "/";
+        
+	        String pathcartes = "cartes/" + this.cfg.deck + "/";
+	        String pathres = "res/" + this.cfg.style + "/";
 
             // Background
             Image corner = Toolkit.getDefaultToolkit().getImage(pathres+"corner.png");
             Image left = Toolkit.getDefaultToolkit().getImage(pathres+"left.png");
-	    Image bottom = Toolkit.getDefaultToolkit().getImage(pathres+"bottom.png");
-	    Image top = Toolkit.getDefaultToolkit().getImage(pathres+"top.png");
+	        Image bottom = Toolkit.getDefaultToolkit().getImage(pathres+"bottom.png");
+	        Image top = Toolkit.getDefaultToolkit().getImage(pathres+"top.png");
             Image right = Toolkit.getDefaultToolkit().getImage(pathres+"right.png");
             Image center = Toolkit.getDefaultToolkit().getImage(pathres+"center.png");
             Image empty = Toolkit.getDefaultToolkit().getImage(pathres+"empty.png");
-	    // Cartes
+	        // Cartes
             Image pli = Toolkit.getDefaultToolkit().getImage(pathcartes+"pli.png");
             Image cback = Toolkit.getDefaultToolkit().getImage(pathcartes+"carte-dos.jpg");
 
-	    // corners
+	        // corners
             int cornerh = corner.getHeight(null);
             int cornerw = corner.getWidth(null);
-	    // cards
+	        // cards
             int cw = cback.getWidth(null);
             int ch = cback.getHeight(null);
             this.cw = cw;
             this.ch = ch;
-	    // borders
+	        // borders
             int bw = left.getWidth(null);
             int bh = top.getHeight(null);
             this.bw = bw;
             this.bh = bh;
 
 
-	      // HAUT GAUCHE
+	        // HAUT GAUCHE
             g.drawImage(corner, 0, 0, cornerw, cornerh, this);
-	    // HAUT DROIT
+	        // HAUT DROIT
             g.drawImage(corner, width-cornerw, 0, cornerw, cornerh, this);
-	    // BAS GAUCHE
+	        // BAS GAUCHE
             g.drawImage(corner, 0, height-cornerh, cornerw, cornerh, this);
-	    // BAS DROIT
+	        // BAS DROIT
             g.drawImage(corner, width-cornerw, height-cornerh, cornerw, cornerh, this);
 
             g.drawImage(left, 0, cornerh, bw, height-(2*cornerh), this);
@@ -104,29 +104,31 @@ public class ZoneDessin extends JComponent {
 
             // Dessin du jeu du Joueur actif
             for (int f = 0; f < t.main1.getSize(); f++) {
+            
                 int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
-		int up = height - ch -bh;
+		        int up = height - ch -bh;
                 Carte c = t.main1.getCarte(f);
 
-		if (carteactive != null) {
-		    if (c == carteactive) {
-			// Carte Jouable
-			if (jeu.carteJouable(c, 1) == true){
-			    up -= 20;
-			}
-			// Carte non jouable
-			else{
-			}
-		    }
-		}
+		        if (carteactive != null) {
+		        
+		            if (c == carteactive) {
+			            // Carte Jouable
+			            if (jeu.carteJouable(c, 1) == true){
+			                up -= 20;
+			            }
+			            // Carte non jouable
+			            else
+			            {
+			            }
+		            }
+		        }
+		        
                 // on check le type de c et on charge le graphique associe
                 Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes+ c.toFileString());
                 g.drawImage(cfront, mid, up, cw, ch, this);
-
             }
+            
             // Dessin des Piles
-
-
             for (int p = 0; p < 6; p++) {
                 for (int pc = 0; pc < t.piles.get(p).getSize(); pc++) {
 
