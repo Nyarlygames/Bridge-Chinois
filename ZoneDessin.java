@@ -114,7 +114,7 @@ public class ZoneDessin extends JComponent {
                 g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
             }
             
-            // Joueur non actif
+            //--- Dessin des cartes du joueur 2 ---//
 
             for (int f = 0; f < t.main2.getSize(); f++) {
 
@@ -124,7 +124,8 @@ public class ZoneDessin extends JComponent {
 
             }
 
-            // Dessin du jeu du Joueur actif
+            //--- Dessin des cartes du joueur 1 ---//
+            
             for (int f = 0; f < t.main1.getSize(); f++) {
             
                 int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
@@ -156,8 +157,6 @@ public class ZoneDessin extends JComponent {
 
                     int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
 
-
-
                     if (pc == (t.piles.get(p).getSize() - 1)) {
                         Carte c = t.piles.get(p).getCarte(pc);
                         Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + c.toFileString());
@@ -188,7 +187,6 @@ public class ZoneDessin extends JComponent {
 	        g.setColor(Color.yellow);
 	        String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
 	        g.drawString(pli2, width -bw - cw/2 - fontw.stringWidth(pli2)/2, bh + ch/2 + 9);
-
 
 	        // Infos du bas
 	        String atout = " ";
@@ -236,10 +234,10 @@ public class ZoneDessin extends JComponent {
 		        turnInfo = "A votre adversaire de Piocher";
 	        }
 	        
-            // affichage des infos sur le tour
+            // Affichage des infos sur le tour
             g.drawString(turnInfo,  width/2 - fontw.stringWidth(turnInfo)/2, dheight-2);
             
-	        // Affichage des donnes
+	        // Affichage du score
 	        String score = "Score : " + jeu.getJoueur1().score + " - " + jeu.getJoueur2().score;
 	        g.drawString(score, 0, dheight-2);
 
