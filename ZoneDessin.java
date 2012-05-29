@@ -178,62 +178,70 @@ public class ZoneDessin extends JComponent {
 	    // Nombres de plis
 
 	    // Joueur 1
-            g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
+        g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
 	    g.setColor(Color.yellow);
 	    String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
 	    g.drawString(pli1, width -bw -cw/2 - fontw.stringWidth(pli1)/2, height - bh - ch/2 +4);
 
 	    // Joueur 2 (adversaire)
-            g.drawImage(pli, width - bw - cw - 1, bh + 1, cw, ch, this);
+        g.drawImage(pli, width - bw - cw - 1, bh + 1, cw, ch, this);
 	    g.setColor(Color.yellow);
 	    String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
 	    g.drawString(pli2, width -bw - cw/2 - fontw.stringWidth(pli2)/2, bh + ch/2 + 9);
 
 
 	    // Infos du bas
+	    String atout = " ";
 	    g.setColor(Color.black);
 	    if ((t != null) && (t.atout != null)) {
-	    switch (t.atout) {
-		case CARREAU :
-		    String atoutcx = "Atout : ♦";
-		    g.drawString(atoutcx, width - fontw.stringWidth(atoutcx), dheight-2);
-		    break;
-		case COEUR :
-		    String atoutcr = "Atout : ♥";
-		    g.drawString(atoutcr,  width - fontw.stringWidth(atoutcr), dheight-2);
-		    break;
-		case PIQUE :
-		    String atoutp = "Atout : ♠";
-		    g.drawString(atoutp,  width - fontw.stringWidth(atoutp), dheight-2);
-		    break;
-		case TREFLE :
-		    String atoutt = "Atout : ♣";
-		    g.drawString(atoutt,  width - fontw.stringWidth(atoutt), dheight-2);
-		    break;
-		default :
-		    break;
-		}
+	        switch (t.atout) {
+		        case CARREAU :
+		            atout = "Atout : ♦";
+		            break;
+		        case COEUR :
+		            atout = "Atout : ♥";
+		            break;
+		        case PIQUE :
+		            atout = "Atout : ♠";
+		            break;
+		        case TREFLE :
+		            atout = "Atout : ♣";
+		            break;
+		        default :
+		            break;
+		    }
 	    }
+	    
 	    else {
-	        String noatout = "Pas d'atout ";
-		g.drawString(noatout,  width - fontw.stringWidth(noatout), dheight-2);
+	        atout = "Pas d'atout ";
 	    }
-
+        
+        // on ecrit quel est l'atout
+        g.drawString(atout,  width - fontw.stringWidth(atout), dheight-2);
+        
 	    // Joueur actif
-
-	    if (jeu.getJoueurCourant() == 1) {
-		String myturn = "A vous de jouer";
-		g.drawString(myturn,  width/2 - fontw.stringWidth(myturn)/2, dheight-2);
+	    String turnInfo = " ";
+	    if (jeu.getJoueurCourant() == 1 && !jeu.intVersJoueur().getaJoue() ) 
+	    {
+		    turnInfo = "A vous de Jouer";
+	    } 
+	    else if (jeu.getJoueurCourant() == 1 && jeu.intVersJoueur().getaJoue() ) 
+	    {
+	        turnInfo = "A vous de Piocher";
 	    }
-	    else {
-		String histurn = "A votre adversaire de jouer";
-		g.drawString(histurn,  width/2 - fontw.stringWidth(histurn)/2, dheight-2);
+	    else if (jeu.getJoueurCourant() == 2 && !jeu.intVersJoueur().getaJoue() ) {
+		    turnInfo = "A votre adversaire de Jouer";
 	    }
-
+        else if (jeu.getJoueurCourant() == 2 && jeu.intVersJoueur().getaJoue() ) {
+		    turnInfo = "A votre adversaire de Piocher";
+	    }
+	    
+        // affichage des infos sur le tour
+        g.drawString(turnInfo,  width/2 - fontw.stringWidth(turnInfo)/2, dheight-2);
+        
 	    // Affichage des donnes
 	    String score = "Score : " + jeu.getJoueur1().score + " - " + jeu.getJoueur2().score;
 	    g.drawString(score, 0, dheight-2);
-
 
 	}
 
