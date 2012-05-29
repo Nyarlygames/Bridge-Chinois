@@ -4,6 +4,8 @@
  */
 
 import java.awt.Color;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.SwingUtilities;
 
@@ -179,51 +181,49 @@ public class VSIA extends javax.swing.JFrame {
 
     private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
-
         // on ferme la fenetre de menu
-
-
-
         this.dispose();
         new Thread(new Runnable() {
-            public void run() {
+        	public void run() {
               
-        Table table = new Table();
-        Moteur moteur = new Moteur(table);
-        //Jeu monJeu = new Jeu(moteur, 1,0,1,0);      
-        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
+		        Table table = new Table();
+		        Moteur moteur = new Moteur(table);
+		        //Jeu monJeu = new Jeu(moteur, 1,0,1,0);      
+		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
+		        
+		        final Graphique gg = new Graphique(monJeu, 1);
+		        // test
+		        monJeu.addObservateur(new Observateur() {
+					public void update(Jeu jeu) {
+						gg.getZoneDessin().repaint();					
+					}
+				});
+		        SwingUtilities.invokeLater(gg);
+		        monJeu.jouer();
+		        /*monJeu.moteur.table.paquet.afficherPaquetConsole();
+		        /*System.out.println("apres destribution le paquet dois etre vide :");
+		        if (monJeu.moteur.table.paquet.estVide()) {
+		            System.out.println("VRAI");
+		        } else {
+		            System.out.println("FAUX");
+		        }
+		
+		        System.out.println("j'affiche la premiere main");
+		        monJeu.moteur.table.main1.afficherMainConsole();
+		
+		        System.out.println("j'affiche la deusiÃ¨me main");
+		        monJeu.moteur.table.main2.afficherMainConsole();
+		
+		        System.out.println("j'affiche les 6 piles de 5 cartes :");
+		        for (int i = 0; i < 6; i++) {
+		            System.out.println("j'affiche la pile num " + i);
+		            monJeu.moteur.table.piles.get(i).afficherPileConsole();
+		        }*/
+		        //System.out.println(monJeu.getMoteur().getTable().getAtout());
+		        
+		      }
+        }).start();
 
-//        Jeu monJeu = new Jeu(moteur, 2,mode.getSelectedIndex() , (Integer) nbParties.getSelectedItem(), jSlider1.getValue());
-        Graphique gg = new Graphique(monJeu, 1);
-        SwingUtilities.invokeLater(gg);
-        monJeu.jouer();
-        //System.out.println("j'ai initialise mon paquet melange");
-        //monJeu.moteur.table.paquet.afficherPaquetConsole();
-
-        //monJeu.initialiser();
-        
-        /*System.out.println("apres destribution le paquet dois etre vide :");
-        if (monJeu.moteur.table.paquet.estVide()) {
-            System.out.println("VRAI");
-        } else {
-            System.out.println("FAUX");
-        }
-
-        System.out.println("j'affiche la premiÃ¨re main");
-        monJeu.moteur.table.main1.afficherMainConsole();
-
-        System.out.println("j'affiche la deusiÃ¨me main");
-        monJeu.moteur.table.main2.afficherMainConsole();
-
-        System.out.println("j'affiche les 6 piles de 5 cartes :");
-        for (int i = 0; i < 6; i++) {
-            System.out.println("j'affiche la pile num " + i);
-            monJeu.moteur.table.piles.get(i).afficherPileConsole();
-        }*/
-        //System.out.println(monJeu.getMoteur().getTable().getAtout());
-        
-      }
-  }).start();
 
     }//GEN-LAST:event_LaunchActionPerformed
 

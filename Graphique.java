@@ -23,8 +23,7 @@ public class Graphique implements Runnable {
         jeu = j;
 	this.LARGEUR_FEN = Config.width;
 	this.HAUTEUR_FEN = Config.height;
-        this.frame = frame;
-        this.zoneDessin = zoneDessin;
+	this.zoneDessin = zoneDessin;
 
         frame = new JFrame("Bridge chinois");
 	frame.addComponentListener(new EcouteurDeFrame(frame));

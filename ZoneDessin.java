@@ -42,14 +42,13 @@ public class ZoneDessin extends JComponent {
 
         // On reccupere quelques infos provenant de la partie JComponent
         int width = getSize().width;
-	int dheight = getSize().height;
-	int height = dheight -20;
+        int dheight = getSize().height;
+        int height = dheight -20;
 
         // Mode Solo
         if (mode == 1) {
 	    String pathcartes = "cartes/" + this.cfg.deck + "/";
 	    String pathres = "res/" + this.cfg.style + "/";
-
             // Background
             Image corner = Toolkit.getDefaultToolkit().getImage(pathres+"corner.png");
             Image left = Toolkit.getDefaultToolkit().getImage(pathres+"left.png");

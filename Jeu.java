@@ -6,8 +6,10 @@ Date de Dernière modification 23/05/2012 : 14:25
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Jeu {
+public class Jeu implements Observable{
 
     // -------------------------------------Attributs-----------------------------------------
     Moteur moteur;
@@ -15,6 +17,9 @@ public class Jeu {
     int joueurCourant;
     int type;
     int max;
+    // liste des observateurs
+	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
+
 
     // -------------------------------------Constructeur-------------------------------------
     /* le mode indique le nombre de joueur humain :
@@ -231,6 +236,7 @@ public class Jeu {
     	while( (type==0 && nbMatche != max) || (type == 1 && (joueur1.getScore()<max || joueur2.getScore()<max) ) 
     		   || (type ==2 && nbMatche<4))
     	{
+    		
     		if(type==2)
     	   	{
     			switch(nbMatche){
@@ -248,10 +254,35 @@ public class Jeu {
     		   }
     	   	}
     	   	initialiser();
+    		this.updateObservateur();
+    		if(joueurCourant == 2)
+    		{
+    			System.out.println("c'est à l'ordi");
+    			try {
+    	   			Thread.sleep(1000);
+    	   		} 
+    	   		catch (InterruptedException ex) 
+    	   		{
+    	   			Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
+    	   		}
+    		}
+    		
 		   	while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
+		   		
+		   		
 		   		intVersJoueur().jouer();
+		   		this.updateObservateur();
 				switcher();
-				intVersJoueur().jouer();
+				this.updateObservateur();
+				intVersJoueur().jouer();				
+				this.updateObservateur();
+				try {
+	   				Thread.sleep(1000);
+	   			} 
+				catch (InterruptedException ex) 
+				{
+					Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
+				}
 				if (joueurCourant == 1) {
 				    c1 = moteur.getTable().getCarte2();
 				    c2 = moteur.getTable().getCarte1();
@@ -263,22 +294,31 @@ public class Jeu {
 				System.out.println(c1.toString() + c2.toString());
 				moteur.getTable().setCarte1(null);
 				moteur.getTable().setCarte2(null);
+				this.updateObservateur();
 				if (c1.gagne(c2, moteur.getTable().getAtout())) {
 				    switcher();
 				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+				    this.updateObservateur();
 					if (!moteur.getTable().pilesVides()){
 					    intVersJoueur().choisir();
+					    this.updateObservateur();
 					    switcher();
 					    intVersJoueur().choisir();
+					    this.updateObservateur();
 					    switcher();
 					}
 				} else {
 				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+				    this.updateObservateur();
 					if (!moteur.getTable().pilesVides()){
 					    intVersJoueur().choisir();
+					    this.updateObservateur();
 					    switcher();
+					    this.updateObservateur();
 					    intVersJoueur().choisir();
+					    this.updateObservateur();
 					    switcher();
+					    this.updateObservateur();
 					}
 				}
 				joueur1.setaJoue(false);
@@ -286,9 +326,10 @@ public class Jeu {
 				joueur2.setaJoue(false);
 				joueur2.setaChoisi(false);
 				
-				
+				this.updateObservateur();
 				
 		   	}
+		   	
     	   	nbMatche++;
     	   	joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
     	   	joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
@@ -312,6 +353,7 @@ public class Jeu {
     	   			}
     	   		}
     	   	}
+    	   	initialiser();
        }
 
     }
@@ -430,6 +472,21 @@ public class Jeu {
 		}
 	    }
 	    return false;
+	}
+	
+	// ajoute un observateur
+	public void addObservateur(Observateur obs) {
+		this.listObservateur.add(obs);
+	}
+	
+	// supprime un observateur
+	public void delObservateur() {
+		this.listObservateur = new ArrayList<Observateur>();
+	}
+
+	public void updateObservateur() {
+		for(Observateur obs : this.listObservateur )
+			obs.update(this);
 	}
 
 }
