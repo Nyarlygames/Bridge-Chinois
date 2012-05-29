@@ -91,7 +91,29 @@ public class ZoneDessin extends JComponent {
             g.drawImage(bottom, cornerw, height-bh, width-(2*cornerw), bh, this);
             g.drawImage(top, cornerw, 0, width-(2*cornerw), bh, this);
             g.drawImage(center, bw, bh, width - (2 * bw), height-(2*bh), this);
+            
+            
+            //--- Dessin des slots ou faut jouer les cartes ---//
+            
+	        // hauteur carte joueur adverse
+	        int cjah = ((height /2) - (ch/2) -ch -bh)/2 +ch+bh -ch/2;
+	        // hauteur carte joueur
+	        int cjh  = ((height /2) - (ch/2) -ch -bh)/2 + height/2;
 
+            if (t.getCarte1() == null) {
+                g.drawImage(empty, (width / 2) - (ch / 2), cjh, cw, ch, this);
+            } else {
+                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte1().toFileString());
+                g.drawImage(cfront, (width / 2) - (ch / 2),  cjh, cw, ch, this);
+            }
+
+            if (t.getCarte2() == null) {
+                g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
+            } else {
+                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
+                g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
+            }
+            
             // Joueur non actif
 
             for (int f = 0; f < t.main2.getSize(); f++) {
@@ -147,107 +169,86 @@ public class ZoneDessin extends JComponent {
                 }
             }
 
-            // Cartes jouées
+	        // Affichage des informations
+
+	        f = new Font("sansserif", Font.BOLD, 18);
+	        FontMetrics fontw = g.getFontMetrics(f);
+	        g.setFont(f);
+
+	        // Nombres de plis
+
+	        // Joueur 1
+            g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
+	        g.setColor(Color.yellow);
+	        String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
+	        g.drawString(pli1, width -bw -cw/2 - fontw.stringWidth(pli1)/2, height - bh - ch/2 +4);
+
+	        // Joueur 2 (adversaire)
+            g.drawImage(pli, width - bw - cw - 1, bh + 1, cw, ch, this);
+	        g.setColor(Color.yellow);
+	        String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
+	        g.drawString(pli2, width -bw - cw/2 - fontw.stringWidth(pli2)/2, bh + ch/2 + 9);
 
 
-	    // hauteur carte joueur adverse
-	    int cjah = ((height /2) - (ch/2) -ch -bh)/2 +ch+bh -ch/2;
-	    // hauteur carte joueur
-	    int cjh  = ((height /2) - (ch/2) -ch -bh)/2 + height/2;
+	        // Infos du bas
+	        String atout = " ";
+	        g.setColor(Color.black);
+	        if ((t != null) && (t.atout != null)) {
+	            switch (t.atout) {
+		            case CARREAU :
+		                atout = "Atout : ♦";
+		                break;
+		            case COEUR :
+		                atout = "Atout : ♥";
+		                break;
+		            case PIQUE :
+		                atout = "Atout : ♠";
+		                break;
+		            case TREFLE :
+		                atout = "Atout : ♣";
+		                break;
+		            default :
+		                break;
+		        }
+	        }
+	        
+	        else {
+	            atout = "Pas d'atout ";
+	        }
+            
+            // on ecrit quel est l'atout
+            g.drawString(atout,  width - fontw.stringWidth(atout), dheight-2);
+            
+	        // Joueur actif
+	        String turnInfo = " ";
+	        if (jeu.getJoueurCourant() == 1 && !jeu.intVersJoueur().getaJoue() ) 
+	        {
+		        turnInfo = "A vous de Jouer";
+	        } 
+	        else if (jeu.getJoueurCourant() == 1 && jeu.intVersJoueur().getaJoue() ) 
+	        {
+	            turnInfo = "A vous de Piocher";
+	        }
+	        else if (jeu.getJoueurCourant() == 2 && !jeu.intVersJoueur().getaJoue() ) {
+		        turnInfo = "A votre adversaire de Jouer";
+	        }
+            else if (jeu.getJoueurCourant() == 2 && jeu.intVersJoueur().getaJoue() ) {
+		        turnInfo = "A votre adversaire de Piocher";
+	        }
+	        
+            // affichage des infos sur le tour
+            g.drawString(turnInfo,  width/2 - fontw.stringWidth(turnInfo)/2, dheight-2);
+            
+	        // Affichage des donnes
+	        String score = "Score : " + jeu.getJoueur1().score + " - " + jeu.getJoueur2().score;
+	        g.drawString(score, 0, dheight-2);
 
-            if (t.getCarte1() == null) {
-                g.drawImage(empty, (width / 2) - (ch / 2), cjh, cw, ch, this);
-            } else {
-                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte1().toFileString());
-                g.drawImage(cfront, (width / 2) - (ch / 2),  cjh, cw, ch, this);
-            }
-
-            if (t.getCarte2() == null) {
-                g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
-            } else {
-                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
-                g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
-            }
-
-	    // Affichage des informations
-
-	    f = new Font("sansserif", Font.BOLD, 18);
-	    FontMetrics fontw = g.getFontMetrics(f);
-	    g.setFont(f);
-
-	    // Nombres de plis
-
-	    // Joueur 1
-        g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
-	    g.setColor(Color.yellow);
-	    String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
-	    g.drawString(pli1, width -bw -cw/2 - fontw.stringWidth(pli1)/2, height - bh - ch/2 +4);
-
-	    // Joueur 2 (adversaire)
-        g.drawImage(pli, width - bw - cw - 1, bh + 1, cw, ch, this);
-	    g.setColor(Color.yellow);
-	    String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
-	    g.drawString(pli2, width -bw - cw/2 - fontw.stringWidth(pli2)/2, bh + ch/2 + 9);
-
-
-	    // Infos du bas
-	    String atout = " ";
-	    g.setColor(Color.black);
-	    if ((t != null) && (t.atout != null)) {
-	        switch (t.atout) {
-		        case CARREAU :
-		            atout = "Atout : ♦";
-		            break;
-		        case COEUR :
-		            atout = "Atout : ♥";
-		            break;
-		        case PIQUE :
-		            atout = "Atout : ♠";
-		            break;
-		        case TREFLE :
-		            atout = "Atout : ♣";
-		            break;
-		        default :
-		            break;
-		    }
 	    }
+
+	    // Mode réseau
+	    if (mode == 2)
+        {
+        }
 	    
-	    else {
-	        atout = "Pas d'atout ";
-	    }
-        
-        // on ecrit quel est l'atout
-        g.drawString(atout,  width - fontw.stringWidth(atout), dheight-2);
-        
-	    // Joueur actif
-	    String turnInfo = " ";
-	    if (jeu.getJoueurCourant() == 1 && !jeu.intVersJoueur().getaJoue() ) 
-	    {
-		    turnInfo = "A vous de Jouer";
-	    } 
-	    else if (jeu.getJoueurCourant() == 1 && jeu.intVersJoueur().getaJoue() ) 
-	    {
-	        turnInfo = "A vous de Piocher";
-	    }
-	    else if (jeu.getJoueurCourant() == 2 && !jeu.intVersJoueur().getaJoue() ) {
-		    turnInfo = "A votre adversaire de Jouer";
-	    }
-        else if (jeu.getJoueurCourant() == 2 && jeu.intVersJoueur().getaJoue() ) {
-		    turnInfo = "A votre adversaire de Piocher";
-	    }
-	    
-        // affichage des infos sur le tour
-        g.drawString(turnInfo,  width/2 - fontw.stringWidth(turnInfo)/2, dheight-2);
-        
-	    // Affichage des donnes
-	    String score = "Score : " + jeu.getJoueur1().score + " - " + jeu.getJoueur2().score;
-	    g.drawString(score, 0, dheight-2);
-
-	}
-
-	// Mode réseau
-	if (mode == 2)
-	    {
-	    }
-    }
+    } // fin fonction paint
 }
