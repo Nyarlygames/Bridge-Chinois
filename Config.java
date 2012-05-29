@@ -9,13 +9,13 @@ public class Config {
 
     // -------------------------------------Constructeur-------------------------------------
     Config() {
-	if (getConfigs() == 1) {
-	    setWidth(800);
-	    setHeight(650);
-	    setDeck(1);
-	    setStyle(1);
-	    saveConfigs();
-	}
+		if (getConfigs() == 1) {
+		    setWidth(800);
+		    setHeight(650);
+		    setDeck(1);
+		    setStyle(1);
+		    saveConfigs();
+		}
     }
 
     // -------------------------------------Accesseurs-------------------------------------
@@ -120,7 +120,7 @@ public class Config {
 	    PrintWriter buf = new PrintWriter (fd);
 	    buf.println ("width = " + this.width);
 	    buf.println ("height = " + this.height);
-    	    buf.println ("style = " + this.style);
+	    buf.println ("style = " + this.style);
 	    buf.println ("deck = " + this.deck);
 	    buf.close();
 	    System.out.println("Le fichier " + FILENAME + " a été créé!");

@@ -45,7 +45,7 @@ class EcouteurDeSouris implements MouseListener {
         	//en prend en compte son choix
             jeu.getMoteur().jouer(carte, jeu.getJoueurCourant());
             jeu.intVersJoueur().setaJoue(Boolean.TRUE);
-            g.getZoneDessin().repaint();          
+            //g.getZoneDessin().repaint();          
         }
 
         if(clicpile!=null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseChoisir())
@@ -54,7 +54,7 @@ class EcouteurDeSouris implements MouseListener {
             //en prend en compte son choix
         	jeu.getMoteur().choisir(clicpile,jeu.getJoueurCourant());
         	jeu.intVersJoueur().setaChoisi(Boolean.TRUE);
-            g.getZoneDessin().repaint();      
+            //g.getZoneDessin().repaint();      
         }
     }
 
