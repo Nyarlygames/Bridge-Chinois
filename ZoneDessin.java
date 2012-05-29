@@ -37,14 +37,15 @@ public class ZoneDessin extends JComponent {
      * Dessine la fenetre
      */
     public void paint(Graphics g) {
+    
         Graphics2D drawable = (Graphics2D) g;
 
         // On reccupere quelques infos provenant de la partie JComponent
         int width = getSize().width;
 	    int dheight = getSize().height;
 	    int height = dheight -20;
-
-        // Mode Solo
+        
+        // Mode solo
         if (mode == 1) {
         
 	        String pathcartes = "cartes/" + this.cfg.deck + "/";
@@ -170,11 +171,11 @@ public class ZoneDessin extends JComponent {
 
 	        // Affichage des informations
 
-	        f = new Font("sansserif", Font.BOLD, 18);
+	        f = new Font("sansserif", Font.BOLD, 14);
 	        FontMetrics fontw = g.getFontMetrics(f);
 	        g.setFont(f);
 
-	        // Nombres de plis
+	        //--- Dessin du nombre de plis (score de la partie actuelle) ---//
 
 	        // Joueur 1
             g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
@@ -215,7 +216,7 @@ public class ZoneDessin extends JComponent {
 	        }
             
             // on ecrit quel est l'atout
-            g.drawString(atout,  width - fontw.stringWidth(atout), dheight-2);
+            g.drawString(atout,  width - fontw.stringWidth(atout), dheight-5);
             
 	        // Joueur actif
 	        String turnInfo = " ";
@@ -235,11 +236,11 @@ public class ZoneDessin extends JComponent {
 	        }
 	        
             // Affichage des infos sur le tour
-            g.drawString(turnInfo,  width/2 - fontw.stringWidth(turnInfo)/2, dheight-2);
+            g.drawString(turnInfo,  width/2 - fontw.stringWidth(turnInfo)/2, dheight-5);
             
 	        // Affichage du score
-	        String score = "Score : " + jeu.getJoueur1().score + " - " + jeu.getJoueur2().score;
-	        g.drawString(score, 0, dheight-2);
+	        String score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+	        g.drawString(score, 0, dheight-5);
 
 	    }
 

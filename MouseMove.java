@@ -5,26 +5,29 @@ class MouseMove implements MouseMotionListener {
 
     //-----------------------------------Attributs---------------------/
     Graphique g;
+    Jeu j;
 
     //-----------------------------------Constructeur------------------/
 
-    public MouseMove(Graphique g) {
-	this.g = g;
+    public MouseMove(Graphique g, Jeu j) {
+	    this.g = g;
+	    this.j = j;
     }
 
     //-----------------------------------Methode-----------------------/
 
     public void mouseMoved(MouseEvent e) {
-	g.getZoneDessin().carteactive = getCarteMain(e.getX(), e.getY());
-	g.getZoneDessin().repaint();
+        if (j.getJoueurCourant() == 1 && !j.intVersJoueur().getaJoue() ) 
+        {
+            g.getZoneDessin().carteactive = getCarteMain(e.getX(), e.getY());
+            g.getZoneDessin().repaint();
+        }
     }
 
     public void mouseDragged(MouseEvent e) {
     }
 
-
-
-// Clic carte sur la main
+    // Clic carte sur la main
     public Carte getCarteMain(int x, int y) {
         int width = g.getZoneDessin().getSize().width;
         int height = g.getZoneDessin().getSize().height - 20;
