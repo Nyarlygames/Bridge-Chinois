@@ -5,8 +5,9 @@ Date de Dernière modification 15/05/2012 : 18:28
  */
 
 import java.util.ArrayList;
+import java.io.*;
 
-public class Main {
+public class Main implements java.io.Serializable{
 
     // -------------------------------------Attributs-------------------------------------
     ArrayList<Carte> main;

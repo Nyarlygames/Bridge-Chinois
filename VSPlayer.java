@@ -154,8 +154,8 @@ public class VSPlayer extends javax.swing.JFrame {
 	    Moteur moteur = new Moteur(table);
 	    Jeu monJeu = new Jeu(moteur, 2, mod, nbPart, 0);
 	    monJeu.attachDistantPlayer(ip, true);
-	    				        final Graphique gg = new Graphique(monJeu, 1);
-		        // test
+	    	    System.out.println();
+	    final Graphique gg = new Graphique(monJeu, 1);
 		        monJeu.addObservateur(new Observateur() {
 					public void update(Jeu jeu) {
 						gg.getZoneDessin().repaint();					

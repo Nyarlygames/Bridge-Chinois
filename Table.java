@@ -5,8 +5,9 @@ Date de Dernière modification 15/05/2012 : 18:27
  */
 
 import java.util.ArrayList;
+import java.io.*;
 
-public class Table {
+public class Table implements java.io.Serializable{
 
     // -------------------------------------Attributs-------------------------------------
     Main main1, main2, main1connue, main2connue;
