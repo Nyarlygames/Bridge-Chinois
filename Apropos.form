@@ -38,7 +38,7 @@
     <Component class="javax.swing.JLabel" name="imageTitre">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/bridge/bridge.png"/>
+          <Image iconType="3" name="/res/bridge.png"/>
         </Property>
       </Properties>
       <Constraints>
@@ -151,7 +151,7 @@
     <Component class="javax.swing.JLabel" name="imagePoker">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/bridge/jokerprop.jpg"/>
+          <Image iconType="3" name="/res/jokerprop.jpg"/>
         </Property>
       </Properties>
       <Constraints>
@@ -163,7 +163,7 @@
     <Component class="javax.swing.JLabel" name="imageFond">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/bridge/menu.jpg"/>
+          <Image iconType="3" name="/res/menu.jpg"/>
         </Property>
       </Properties>
       <Constraints>
