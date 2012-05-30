@@ -27,6 +27,14 @@ public class Carte {
 		return couleur;
 	}
 
+	public void setCouleur(Couleur couleur) {
+		this.couleur = couleur;
+	}
+
+	public void setRang(Rang rang) {
+		this.rang = rang;
+	}
+
 	// renvoie le rang de la carte
 	public Rang getRang() {
 		return rang;
@@ -104,6 +112,14 @@ public class Carte {
 				return true;
 			}
 		}
+	}
+	
+	public Carte clone()
+	{
+		Carte c = new Carte();
+		c.setCouleur(couleur);
+		c.setRang(rang);
+		return c;
 	}
 
 	public String toFileString() {

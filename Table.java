@@ -117,4 +117,21 @@ public class Table {
         }
         return (empty);
     }
+    
+    public Table clone()
+    {
+    	Table t = new Table();
+    	t.setMain1(main1.clone());
+    	t.setMain2(main2.clone());
+    	t.setMain1connue(main1connue.clone());
+    	t.setMain2connue(main2connue.clone());
+    	t.setCarte1(carte1.clone());
+    	t.setCarte2(carte2.clone());
+    	ArrayList<Pile> p = new ArrayList<Pile>(6);
+    	for(int i=0; i<p.size(); i++)
+    	{
+    		p.set(i, piles.get(i).clone());
+    	}
+      	return t;  	
+    }
 }

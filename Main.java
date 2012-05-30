@@ -139,4 +139,14 @@ public class Main {
         }
 
     }
+    
+    public Main clone()
+    {
+    	Main m = new Main();
+    	for(int i=0; i<main.size();i++)
+    	{
+    		m.add(main.get(i));
+    	}
+    	return m;
+    }
 }
