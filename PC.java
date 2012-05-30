@@ -28,8 +28,10 @@ public class PC extends Joueur {
         Integer i = r.nextInt(jouables.size());
         if (j.intVersJoueur().equals(j.getJoueur2())) {
             j.getMoteur().getTable().setCarte2(jouables.get(i));
+            j.getMoteur().getTable().getMain2connue().getMain().remove(jouables.get(i));
         } else {
             j.getMoteur().getTable().setCarte1(jouables.get(i));
+            j.getMoteur().getTable().getMain1connue().getMain().remove(jouables.get(i));
         }
         main.getMain().remove(jouables.get(i));
         aJoue = true;
@@ -45,7 +47,13 @@ public class PC extends Joueur {
         }
 
         Random r = new Random();
-        main.add(piochables.get(r.nextInt(piochables.size())).piocher());
+        Carte c = piochables.get(r.nextInt(piochables.size())).piocher();
+        main.add(c);
+        if (j.intVersJoueur().equals(j.getJoueur2())) {
+            j.getMoteur().getTable().getMain2connue().add(c);
+        } else {
+            j.getMoteur().getTable().getMain1connue().add(c);
+        }
 
         aChoisi = true;
     }
