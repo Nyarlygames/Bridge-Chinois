@@ -162,6 +162,9 @@ public class Jeu implements Observable {
     // -------------------------------------Methodes-----------------------------------------
     // distribue les cartes entre les joueurs et séparation du reste en 6 piles
     public void initialiser() {
+        Paquet monPaquet = new Paquet();
+        monPaquet.melanger();
+        moteur.getTable().setPaquet(monPaquet);
         for (int i = 0; i < 11; i++) {
             moteur.getTable().main1.add(moteur.getTable().getPaquet().piocher());
             moteur.getTable().main2.add(moteur.getTable().getPaquet().piocher());
@@ -182,25 +185,26 @@ public class Jeu implements Observable {
             tas5.add(moteur.getTable().getPaquet().piocher());
             tas6.add(moteur.getTable().getPaquet().piocher());
         }
-
+        ArrayList<Pile> piles = new ArrayList<Pile>(6);
         Pile pile = new Pile(1, tas1);
-        moteur.getTable().addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(2, tas2);
-        moteur.getTable().addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(3, tas3);
-        moteur.getTable().addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(4, tas4);
-        moteur.getTable().addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(5, tas5);
-        moteur.getTable().addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(6, tas6);
-        moteur.getTable().addPile(pile);
+        piles.add(pile);
 
+        moteur.getTable().setPiles(piles);
         Carte max = carteRangFort(this.getMoteur().getTable().getPiles());
         if (max.rangSupDix()) {
             moteur.getTable().setAtout(max.getCouleur());
@@ -257,7 +261,6 @@ public class Jeu implements Observable {
             initialiser();
             this.updateObservateur();
             if (joueurCourant == 2) {
-                System.out.println("c'est à l'ordi");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
@@ -285,7 +288,6 @@ public class Jeu implements Observable {
                     c1 = moteur.getTable().getCarte1();
                     c2 = moteur.getTable().getCarte2();
                 }
-                System.out.println(c1.toString() + c2.toString());
                 moteur.getTable().setCarte1(null);
                 moteur.getTable().setCarte2(null);
                 this.updateObservateur();
@@ -341,7 +343,6 @@ public class Jeu implements Observable {
                     }
                 }
             }
-            initialiser();
         }
 
     }
