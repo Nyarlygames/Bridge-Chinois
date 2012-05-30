@@ -23,15 +23,39 @@ public class Moteur {
 
     // --------------------------------------Methodes-------------------------------------
 
-    public void jouer(Carte c, int joueurCourant) {
-        if (joueurCourant == 1) {
-        	table.setCarte1(c);
+    public boolean jouer(Carte c, int joueurCourant) {
+    	if(this.getTable().getCarte2() == null)
+    	{
+    		table.setCarte1(c);
             table.getMain1().getMain().remove(c);
-        } else {
-            table.setCarte2(c);
-            table.getMain2().getMain().remove(c);
-        }
+            return true;
+    	}
+    	else
+    	{
+    		if(c.memeCouleur(this.getTable().getCarte2()))
+    		{
+    			table.setCarte1(c);
+                table.getMain1().getMain().remove(c);
+                return true;
+    		}
+    		else
+    		{
+    			if(!this.getTable().getMain1().aCouleur(c))
+    			{
+    				table.setCarte1(c);
+                    table.getMain1().getMain().remove(c);
+                    return true;
+    			}
+    			else
+    			{
+    				return false;
+    			}
+    				        			
+    		}
+    		
+    	}
     }
+    
 
 
     public void choisir(Pile p, int joueurCourant) {
@@ -42,3 +66,4 @@ public class Moteur {
         }
     }
 }
+

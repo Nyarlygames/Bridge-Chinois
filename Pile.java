@@ -79,4 +79,15 @@ public class Pile implements java.io.Serializable{
             System.out.println(pile.get(i).toString());
         }
     }
+    
+    public Pile clone()
+    {
+    	Pile p = new Pile(numero);
+    	for(int i=0; i<pile.size();i++)
+    	{
+    		p.getPile().add(pile.get(i).clone());
+    	}
+    	
+    	return p;
+    }
 }
