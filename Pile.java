@@ -5,8 +5,9 @@ Date de Dernière modification 23/05/2012 : 14:32
  */
 
 import java.util.ArrayList;
+import java.io.*;
 
-public class Pile {
+public class Pile implements java.io.Serializable{
 
     // -------------------------------------Attribute-------------------------------------
     int numero;

@@ -6,8 +6,9 @@ Date de Dernière modification 15/05/2012 : 18:32
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.*;
 
-public class Paquet {
+public class Paquet implements java.io.Serializable{
 
     // -------------------------------------Attributs-------------------------------------
     ArrayList<Carte> paquet;

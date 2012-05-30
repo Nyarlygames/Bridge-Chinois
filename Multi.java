@@ -221,9 +221,8 @@ public class Multi extends javax.swing.JFrame {
 	    fenOp.setVisible(true);
 	}
 	else if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Rejoindre")) {
-	    this.dispose();
-	    final   String ip2 = this.ip;
-	       new Thread(new Runnable() {
+        this.dispose();
+        new Thread(new Runnable() {
         	public void run() {
 	    Table t = new Table();
 	    Moteur moteur = new Moteur(t);

@@ -192,22 +192,27 @@ public class Jeu implements Observable {
         String message = "";
         try {
             ServerSocket socketjeu = new ServerSocket(port);
-            this.out = new ObjectOutputStream(socketjeu.accept().getOutputStream());
-            this.in = new ObjectInputStream(socketjeu.accept().getInputStream());
+            System.out.println("Attente d'une connexion ...");
+            Socket connexion = socketjeu.accept();
+            this.out = new ObjectOutputStream(connexion.getOutputStream());
+            this.in = new ObjectInputStream(connexion.getInputStream());
+            System.out.println("Connexion Réussie");
         }
         catch (Exception e){
-        
+                    System.out.println("Echec attente");
         }
         /* Envoi de la table */
-            try{
-                message=(String)in.readObject();
-                System.out.println("\n" +message);
+        try {
+            System.out.println("Envoie table");
+            initialiser();
+            this.out.writeObject((Table) moteur.getTable());
+            System.out.println("Table envoyé");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Echec de l'envoie de la table");
+        }
 
-            }
-            catch(Exception e){
-		// Echec de la connection
-                System.out.println(e.getMessage());
-            }
     }
     
     
@@ -216,22 +221,26 @@ public class Jeu implements Observable {
         String message = "";
         try {
             Socket socketjeu = new Socket(InetAddress.getByName(this.ip), this.port);
+            System.out.println("Connexion ...");
            this.out = new ObjectOutputStream(socketjeu.getOutputStream());
            this.in = new ObjectInputStream(socketjeu.getInputStream());
+           System.out.println("Connexion réussie");
         }
         catch (Exception e){
-        
+                    System.out.println("Echec connexion");
         }
         /* Reception de la table */
-            try{
-                message=(String)in.readObject();
-                System.out.println("\n" +message);
-
-            }
-            catch(Exception e){
-		// Echec de la connection
-                System.out.println(e.getMessage());
-            }
+        try {
+            System.out.println("reception table ...");
+            this.moteur.setTable((Table) this.in.readObject());
+            System.out.println("Table recue");
+            initialiser();
+            System.out.println("Initialisation Terminée");
+        }
+        catch (Exception e) {
+            System.out.println("Echec reception de la table");
+        }
+ 
     }
     
     
@@ -239,9 +248,20 @@ public class Jeu implements Observable {
     
     // distribue les cartes entre les joueurs et séparation du reste en 6 piles
     public void initialiser() {
-        Paquet monPaquet = new Paquet();
-        monPaquet.melanger();
-        moteur.getTable().setPaquet(monPaquet);
+        //Paquet monPaquet = new Paquet();
+        
+        // on ne melange que si on est pas en mode reseau, ou si on est en mode reseau ET croupier
+        if (mode != 2) {
+            Paquet monPaquet = new Paquet();
+            monPaquet.melanger();
+            moteur.getTable().setPaquet(monPaquet);
+        }
+        else if(croupier) {
+            Paquet monPaquet = new Paquet();
+            monPaquet.melanger();
+            moteur.getTable().setPaquet(monPaquet);
+        }  
+        //moteur.getTable().setPaquet(monPaquet);
         for (int i = 0; i < 11; i++) {
             moteur.getTable().main1.add(moteur.getTable().getPaquet().piocher());
             moteur.getTable().main2.add(moteur.getTable().getPaquet().piocher());
@@ -336,7 +356,11 @@ public class Jeu implements Observable {
 	                	this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
     		   }
     	   	}
-    	   	initialiser();
+    	   	
+    	   	if(mode != 2) {
+   	            initialiser();
+    	   	}
+    	   	
     		this.updateObservateur();
     		if(joueurCourant == 2)
     		{
