@@ -6,8 +6,8 @@ import java.util.ArrayList;
  */
 public class PC2 extends Joueur {
 
-    public PC2(Jeu j, int id, Main main, Carte carteAdv) {
-        this.j = j;
+    public PC2(Table t, int id, Main main, Carte carteAdv) {
+        this.table = t;
         this.id = id;
         nbPlis = 0;
         score = 0;
@@ -25,7 +25,7 @@ public class PC2 extends Joueur {
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (ca.gagne(carteAdv, j.getMoteur().getTable().getAtout())) {
+                if (ca.gagne(carteAdv, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }
@@ -62,12 +62,12 @@ public class PC2 extends Joueur {
             }
         }
 
-        if (j.intVersJoueur().equals(j.getJoueur2())) {
-            j.getMoteur().getTable().setCarte2(meilleure);
-            j.getMoteur().getTable().getMain2connue().getMain().remove(meilleure);
+        if (id == 2) {
+            table.setCarte2(meilleure);
+            table.getMain2connue().getMain().remove(meilleure);
         } else {
-            j.getMoteur().getTable().setCarte1(meilleure);
-            j.getMoteur().getTable().getMain1connue().getMain().remove(meilleure);
+            table.setCarte1(meilleure);
+            table.getMain1connue().getMain().remove(meilleure);
         }
 
         main.getMain().remove(meilleure);
@@ -77,7 +77,7 @@ public class PC2 extends Joueur {
     @Override
     void choisir() {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
-        for (Pile p : j.getMoteur().getTable().getPiles()) {
+        for (Pile p : table.getPiles()) {
             if (!p.estVide()) {
                 piochables.add(p);
             }
@@ -86,22 +86,22 @@ public class PC2 extends Joueur {
         if (!piochables.isEmpty()) {
             meilleure = piochables.get(0);
             for (Pile p : piochables) {
-                if (meilleure.getPile().get(meilleure.getPile().size() - 1).getCouleur().equals(j.getMoteur().getTable().getAtout())) {
-                    if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) && p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                if (meilleure.getPile().get(meilleure.getPile().size() - 1).getCouleur().equals(table.getAtout())) {
+                    if (p.getAPiocher().getCouleur().equals(table.getAtout()) && p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
                         meilleure = p;
                     }
                 } else {
-                    if (p.getAPiocher().getCouleur().equals(j.getMoteur().getTable().getAtout()) || p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                    if (p.getAPiocher().getCouleur().equals(table.getAtout()) || p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
                         meilleure = p;
                     }
                 }
             }
             Carte c = meilleure.piocher();
             main.add(c);
-            if (j.intVersJoueur().equals(j.getJoueur2())) {
-                j.getMoteur().getTable().getMain2connue().add(c);
+            if (id == 2) {
+                table.getMain2connue().add(c);
             } else {
-                j.getMoteur().getTable().getMain1connue().add(c);
+                table.getMain1connue().add(c);
             }
         }
 

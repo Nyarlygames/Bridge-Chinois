@@ -7,8 +7,8 @@ import java.util.HashMap;
  */
 public class PC3 extends Joueur {
 
-    public PC3(Jeu j, int id, Main main, Carte carteAdv) {
-        this.j = j;
+    public PC3(Table t, int id, Main main, Carte carteAdv) {
+        this.table = t;
         this.id = id;
         nbPlis = 0;
         score = 0;
@@ -26,7 +26,7 @@ public class PC3 extends Joueur {
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (ca.gagne(carteAdv, j.getMoteur().getTable().getAtout())) {
+                if (ca.gagne(carteAdv, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }
@@ -44,13 +44,13 @@ public class PC3 extends Joueur {
             }
         } else {
             HashMap<Carte, Integer> chances = new HashMap<Carte, Integer>();
-            ArrayList<Carte> inconnues = j.getCartesInconnues();
-            inconnues.removeAll(j.getCartesConnuesAdversaire());
+            ArrayList<Carte> inconnues = table.getCartesInconnues(id);
+            inconnues.removeAll(table.getCartesConnuesAdversaire(id));
             ArrayList<Carte> testables = jouables;
 
             for (Carte c1 : jouables) {
-                for (Carte c2 : j.getCartesConnuesAdversaire()) {
-                    if (c2.gagne(c1, j.getMoteur().getTable().getAtout())) {
+                for (Carte c2 : table.getCartesConnuesAdversaire(id)) {
+                    if (c2.gagne(c1, table.getAtout())) {
                         testables.remove(c1);
                     }
                 }
@@ -63,7 +63,7 @@ public class PC3 extends Joueur {
 
             for (Carte c1 : testables) {
                 for (Carte c2 : inconnues) {
-                    if (c1.gagne(c2, j.getMoteur().getTable().getAtout())) {
+                    if (c1.gagne(c2, table.getAtout())) {
                         chances.put(c1, chances.get(c1) + 1);
                     }
                 }
@@ -91,13 +91,13 @@ public class PC3 extends Joueur {
             }
         }
 
-        if (j.intVersJoueur().equals(j.getJoueur2())) {
-            j.getMoteur().getTable().setCarte2(meilleure);
-            j.getMoteur().getTable().getMain2connue().getMain().remove(meilleure);
+        if (id == 2) {
+            table.setCarte2(meilleure);
+            table.getMain2connue().getMain().remove(meilleure);
 
         } else {
-            j.getMoteur().getTable().setCarte1(meilleure);
-            j.getMoteur().getTable().getMain1connue().getMain().remove(meilleure);
+            table.setCarte1(meilleure);
+            table.getMain1connue().getMain().remove(meilleure);
 
         }
         main.getMain().remove(meilleure);
@@ -107,7 +107,7 @@ public class PC3 extends Joueur {
     @Override
     void choisir() {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
-        for (Pile p : j.getMoteur().getTable().getPiles()) {
+        for (Pile p : table.getPiles()) {
             if (!p.estVide()) {
                 piochables.add(p);
             }
@@ -116,12 +116,12 @@ public class PC3 extends Joueur {
         if (!piochables.isEmpty()) {
             meilleure = piochables.get(0);
             HashMap<Pile, Integer> chances = new HashMap<Pile, Integer>();
-            ArrayList<Carte> inconnues = j.getCartesInconnues();
-            inconnues.removeAll(j.getCartesConnuesAdversaire());
+            ArrayList<Carte> inconnues = table.getCartesInconnues(id);
+            inconnues.removeAll(table.getCartesConnuesAdversaire(id));
             for (Pile p : piochables) {
                 chances.put(p, 0);
                 for (Carte c2 : inconnues) {
-                    if (p.getAPiocher().gagne(c2, j.getMoteur().getTable().getAtout())) {
+                    if (p.getAPiocher().gagne(c2, table.getAtout())) {
                         chances.put(p, chances.get(p) + 1);
                     }
                 }
@@ -135,10 +135,10 @@ public class PC3 extends Joueur {
             }
             if (!meilleure.estVide()) {
                 Carte c = meilleure.piocher();
-                if (j.intVersJoueur().equals(j.getJoueur2())) {
-                    j.getMoteur().getTable().getMain2connue().add(c);
+                if (id == 2) {
+                    table.getMain2connue().add(c);
                 } else {
-                    j.getMoteur().getTable().getMain1connue().add(c);
+                    table.getMain1connue().add(c);
                 }
                 main.add(c);
             }
