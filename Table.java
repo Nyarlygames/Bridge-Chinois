@@ -21,9 +21,9 @@ public class Table {
         main2 = new Main();
         carte1 = null;
         carte2 = null;
-        piles = new ArrayList<Pile>();
-        paquet = new Paquet();
-        paquet.melanger();
+        piles = new ArrayList<Pile>(6);
+        paquet = null;
+        //paquet.melanger();
         atout = null;
     }
 
@@ -86,9 +86,9 @@ public class Table {
 
     // -------------------------------------Methodes-------------------------------------
     // ajoute une pile 
-    public void addPile(Pile pile) {
+    /*public void addPile(Pile pile) {
         piles.add(pile);
-    }
+    }*/
 
     public boolean pilesVides(){
 	boolean empty = true;

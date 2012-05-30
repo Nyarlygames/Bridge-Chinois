@@ -1,8 +1,12 @@
 
+import javax.swing.JFileChooser;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 /**
  *
  * @author Val
@@ -29,20 +33,19 @@ public class Menu extends javax.swing.JFrame {
         Bmulti = new javax.swing.JButton();
         Bquitter = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        Bcharger = new javax.swing.JButton();
+        Btuto = new javax.swing.JButton();
+        imageTitre = new javax.swing.JLabel();
+        imageFond = new javax.swing.JLabel();
+        barMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItemCharger = new javax.swing.JMenuItem();
-        jMenuItemOptions = new javax.swing.JMenuItem();
-        jMenuItemQuitter = new javax.swing.JMenuItem();
+        menuCharge = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItemRegles = new javax.swing.JMenuItem();
-        jMenuItemAPropos = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bridge Chinois");
@@ -60,7 +63,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bsolo);
-        Bsolo.setBounds(80, 100, 185, 25);
+        Bsolo.setBounds(80, 120, 185, 23);
 
         Bmulti.setText("Jouer en ligne");
         Bmulti.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +72,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bmulti);
-        Bmulti.setBounds(80, 170, 185, 25);
+        Bmulti.setBounds(80, 150, 185, 23);
 
         Bquitter.setText("Quitter");
         Bquitter.addActionListener(new java.awt.event.ActionListener() {
@@ -78,89 +81,85 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bquitter);
-        Bquitter.setBounds(80, 300, 185, 25);
+        Bquitter.setBounds(80, 270, 185, 23);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(80, 290, 185, 10);
-
-        jButton1.setText("Jouer à 2 joueurs");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(80, 130, 185, 25);
+        jSeparator1.setBounds(80, 260, 185, 10);
         getContentPane().add(jSeparator4);
-        jSeparator4.setBounds(80, 240, 185, 10);
+        jSeparator4.setBounds(80, 220, 185, 10);
 
-        jButton3.setText("Charger une partie");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Bcharger.setText("Charger une partie");
+        Bcharger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BchargerActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(80, 200, 185, 25);
+        getContentPane().add(Bcharger);
+        Bcharger.setBounds(80, 180, 185, 23);
 
-        jButton4.setText("Apprendre à jouer");
-        getContentPane().add(jButton4);
-        jButton4.setBounds(80, 250, 185, 25);
+        Btuto.setText("Apprendre à jouer");
+        getContentPane().add(Btuto);
+        Btuto.setBounds(80, 230, 185, 23);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/bridge.png"))); // NOI18N
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(40, 30, 260, 40);
+        imageTitre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/bridge.png"))); // NOI18N
+        getContentPane().add(imageTitre);
+        imageTitre.setBounds(40, 30, 260, 40);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 350, 390);
+        imageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
+        getContentPane().add(imageFond);
+        imageFond.setBounds(0, 0, 350, 390);
 
         jMenu1.setText("Menu");
 
-        jMenuItemCharger.setText("Charger");
-        jMenuItemCharger.addActionListener(new java.awt.event.ActionListener() {
+        menuCharge.setText("Charger");
+        menuCharge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemChargerActionPerformed(evt);
+                menuChargeActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemCharger);
+        jMenu1.add(menuCharge);
 
-        jMenuItemOptions.setText("Options");
-        jMenuItemOptions.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem5.setText("Options");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemOptionsActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemOptions);
+        jMenu1.add(jMenuItem5);
 
-        jMenuItemQuitter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemQuitter.setMnemonic('Q');
-        jMenuItemQuitter.setText("Quitter");
-        jMenuItemQuitter.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setMnemonic('Q');
+        jMenuItem4.setText("Quitter");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemQuitterActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemQuitter);
+        jMenu1.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu1);
+        barMenu.add(jMenu1);
 
         jMenu2.setText("?");
 
-        jMenuItemRegles.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        jMenuItemRegles.setText("Règles");
-        jMenuItemRegles.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuItem1.setText("Règles");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemReglesActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemRegles);
+        jMenu2.add(jMenuItem1);
 
-        jMenuItemAPropos.setText("A propos");
-        jMenuItemAPropos.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setText("A propos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAProposActionPerformed(evt);
+                jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemAPropos);
+        jMenu2.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu2);
+        barMenu.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(barMenu);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-349)/2, (screenSize.height-432)/2, 349, 432);
@@ -175,67 +174,88 @@ public class Menu extends javax.swing.JFrame {
 
     private void BquitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BquitterActionPerformed
         // TODO add your handling code here:
-
-        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
+        
+        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
         a.setVisible(true);
-
-        if (a.getReturnStatus() == 1) {
+        
+        if (a.getReturnStatus()==1)
             this.dispose();
-        }
-
-
+            
+        
     }//GEN-LAST:event_BquitterActionPerformed
 
     private void BmultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BmultiActionPerformed
         // TODO add your handling code here:
-
+        
         Multi mul = new Multi();
         mul.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BmultiActionPerformed
 
-    private void jMenuItemReglesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReglesActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        Regle reg = new Regle(this, true);
+        Regle reg = new Regle(this,true);
         reg.setVisible(true);
-    }//GEN-LAST:event_jMenuItemReglesActionPerformed
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuitterActionPerformed
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
+        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
         a.setVisible(true);
-
-        if (a.getReturnStatus() == 1) {
+        
+        if (a.getReturnStatus()==1)
             this.dispose();
-        }
-    }//GEN-LAST:event_jMenuItemQuitterActionPerformed
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOptionsActionPerformed
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-
-        Option opt = new Option();
+        
+        Options opt = new Options(this,true);
         opt.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItemOptionsActionPerformed
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItemAProposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAProposActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        Apropos propo = new Apropos(this, true);
+        Apropos propo = new Apropos(this,true);
         propo.setVisible(true);
-    }//GEN-LAST:event_jMenuItemAProposActionPerformed
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItemChargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChargerActionPerformed
+    private void menuChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChargeActionPerformed
         // TODO add your handling code here:
-        Charge file = new Charge(this, true);
-        file.setVisible(true);
+        JFileChooser choix = new JFileChooser();
+        int result = choix.showOpenDialog(null);
+        switch (result) {
+        case JFileChooser.APPROVE_OPTION:
+        System.out.println("ouvrir");
+        break;
+        case JFileChooser.CANCEL_OPTION:
+            System.out.println("Annuler");
+            break;
+        case JFileChooser.ERROR_OPTION:
+        System.out.println("Erreur");
+        break;
+        }
         //this.dispose();
-    }//GEN-LAST:event_jMenuItemChargerActionPerformed
+    }//GEN-LAST:event_menuChargeActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void BchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BchargerActionPerformed
         // TODO add your handling code here:
-        Charge file = new Charge(this, true);
-        file.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        int result = chooser.showOpenDialog(null);
+        switch (result) {
+        case JFileChooser.APPROVE_OPTION:
+        System.out.println("ouvrir");
+        break;
+        case JFileChooser.CANCEL_OPTION:
+            System.out.println("Annuler");
+            break;
+        case JFileChooser.ERROR_OPTION:
+        System.out.println("Erreur");
+        break;
+    }
+       /* Charge file = new Charge(this,true);
+        file.setVisible(true);*/
+    }//GEN-LAST:event_BchargerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,23 +299,22 @@ public class Menu extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bcharger;
     private javax.swing.JButton Bmulti;
     private javax.swing.JButton Bquitter;
     private javax.swing.JButton Bsolo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton Btuto;
+    private javax.swing.JMenuBar barMenu;
+    private javax.swing.JLabel imageFond;
+    private javax.swing.JLabel imageTitre;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItemAPropos;
-    private javax.swing.JMenuItem jMenuItemCharger;
-    private javax.swing.JMenuItem jMenuItemOptions;
-    private javax.swing.JMenuItem jMenuItemQuitter;
-    private javax.swing.JMenuItem jMenuItemRegles;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JMenuItem menuCharge;
     // End of variables declaration//GEN-END:variables
 }
