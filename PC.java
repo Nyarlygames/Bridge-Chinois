@@ -7,8 +7,8 @@ import java.util.Random;
  */
 public class PC extends Joueur {
 
-    public PC(Jeu j, int id, Main main, Carte carteAdv) {
-        this.j = j;
+    public PC(Table t, int id, Main main, Carte carteAdv) {
+        this.table = t;
         this.id = id;
         nbPlis = 0;
         score = 0;
@@ -26,12 +26,12 @@ public class PC extends Joueur {
 
         Random r = new Random();
         Integer i = r.nextInt(jouables.size());
-        if (j.intVersJoueur().equals(j.getJoueur2())) {
-            j.getMoteur().getTable().setCarte2(jouables.get(i));
-            j.getMoteur().getTable().getMain2connue().getMain().remove(jouables.get(i));
+        if (id == 2) {
+            table.setCarte2(jouables.get(i));
+            table.getMain2connue().getMain().remove(jouables.get(i));
         } else {
-            j.getMoteur().getTable().setCarte1(jouables.get(i));
-            j.getMoteur().getTable().getMain1connue().getMain().remove(jouables.get(i));
+            table.setCarte1(jouables.get(i));
+            table.getMain1connue().getMain().remove(jouables.get(i));
         }
         main.getMain().remove(jouables.get(i));
         aJoue = true;
@@ -40,7 +40,7 @@ public class PC extends Joueur {
     @Override
     void choisir() {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
-        for (Pile p : j.getMoteur().getTable().getPiles()) {
+        for (Pile p : table.getPiles()) {
             if (!p.estVide()) {
                 piochables.add(p);
             }
@@ -49,10 +49,10 @@ public class PC extends Joueur {
         Random r = new Random();
         Carte c = piochables.get(r.nextInt(piochables.size())).piocher();
         main.add(c);
-        if (j.intVersJoueur().equals(j.getJoueur2())) {
-            j.getMoteur().getTable().getMain2connue().add(c);
+        if (id == 2) {
+            table.getMain2connue().add(c);
         } else {
-            j.getMoteur().getTable().getMain1connue().add(c);
+            table.getMain1connue().add(c);
         }
 
         aChoisi = true;

@@ -7,8 +7,8 @@ import java.util.logging.Logger;
  */
 public class Humain extends Joueur {
 
-    public Humain(Jeu j, int id) {
-        this.j = j;
+    public Humain(Table t, int id) {
+        this.table = t;
         this.id = id;
         nbPlis = 0;
         score = 0;
