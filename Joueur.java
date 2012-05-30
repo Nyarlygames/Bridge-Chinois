@@ -98,4 +98,5 @@ public abstract class Joueur {
     abstract void jouer();
 
     abstract void choisir();
+
 }

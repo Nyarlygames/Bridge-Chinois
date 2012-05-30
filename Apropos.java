@@ -47,7 +47,7 @@ public class Apropos extends javax.swing.JDialog {
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(40, 90, 270, 2);
 
-        imageTitre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bridge/bridge.png"))); // NOI18N
+        imageTitre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/bridge.png"))); // NOI18N
         getContentPane().add(imageTitre);
         imageTitre.setBounds(40, 20, 260, 40);
 
@@ -94,11 +94,11 @@ public class Apropos extends javax.swing.JDialog {
         getContentPane().add(Bcancel);
         Bcancel.setBounds(250, 280, 80, 23);
 
-        imagePoker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bridge/jokerprop.jpg"))); // NOI18N
+        imagePoker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/jokerprop.jpg"))); // NOI18N
         getContentPane().add(imagePoker);
         imagePoker.setBounds(220, 110, 90, 120);
 
-        imageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bridge/menu.jpg"))); // NOI18N
+        imageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
         getContentPane().add(imageFond);
         imageFond.setBounds(0, 0, 360, 330);
 

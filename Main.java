@@ -78,6 +78,20 @@ public class Main {
     public void supp(Carte c) {
         main.remove(c);
     }
+    
+  //renvoie vrai si il y a la couleur de la carte c dans la main
+    public boolean aCouleur(Carte c)
+    {
+    	boolean resultat = false;
+    	for (Carte ca : main) {
+    		if(ca.memeCouleur(c))
+    		{
+    			resultat = true;
+    		}
+    	}
+    	return resultat;
+            
+    }
 
     // ------------------------------------Algo tri par fusion---------------------------
     public ArrayList<Carte> fusion(ArrayList<Carte> m1, ArrayList<Carte> m2) {

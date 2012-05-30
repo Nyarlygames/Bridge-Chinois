@@ -19,15 +19,7 @@ class EcouteurDeSouris implements MouseListener {
     }
 
     // -------------------------------------Methodes-------------------------------------
-    /*  d'abord on vérifie si on est en attente d'un clique dans la zone ou a eu le clique
     
-    il y a 3 zones où les clique sont permis :
-    1 - clique sur la main1
-    2 - clique sur la main2
-    3 - clique sur une pile 
-    
-    on connais les conditions d'un clique attendu grace aux attribut aJoue et aChoisi de chaque joueurs
-     */
     public void mousePressed(MouseEvent e) {
 
         
@@ -38,14 +30,14 @@ class EcouteurDeSouris implements MouseListener {
         Pile clicpile = getCartePile(e.getX(), e.getY());
         //en prend en compte son choix
 
-        if (carte != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer() ) {
-            System.out.println("j'ai choisi la carte " + carte.toString());
-            
+        if (carte != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer() ) {            
             // dans ce cas le joueur courant est l'humain il est en phase de jeu
         	//en prend en compte son choix
-            jeu.getMoteur().jouer(carte, jeu.getJoueurCourant());
-            jeu.intVersJoueur().setaJoue(Boolean.TRUE);
-            //g.getZoneDessin().repaint();          
+            if(jeu.getMoteur().jouer(carte, jeu.getJoueurCourant()))
+            {
+            	jeu.intVersJoueur().setaJoue(Boolean.TRUE);
+            }
+            
         }
 
         if(clicpile!=null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseChoisir())
@@ -54,7 +46,6 @@ class EcouteurDeSouris implements MouseListener {
             //en prend en compte son choix
         	jeu.getMoteur().choisir(clicpile,jeu.getJoueurCourant());
         	jeu.intVersJoueur().setaChoisi(Boolean.TRUE);
-            //g.getZoneDessin().repaint();      
         }
     }
 

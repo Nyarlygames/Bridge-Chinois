@@ -287,6 +287,8 @@ public class Jeu implements Observable{
 				{
 					Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
 				}
+				
+				// c1 représente la premiere carte qui a été posée et c2 la deuxieme
 				if (joueurCourant == 1) {
 				    c1 = moteur.getTable().getCarte2();
 				    c2 = moteur.getTable().getCarte1();
@@ -295,6 +297,8 @@ public class Jeu implements Observable{
 				    c1 = moteur.getTable().getCarte1();
 				    c2 = moteur.getTable().getCarte2();
 				}
+				
+				
 				moteur.getTable().setCarte1(null);
 				moteur.getTable().setCarte2(null);
 				this.updateObservateur();
