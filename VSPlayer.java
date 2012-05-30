@@ -6,17 +6,24 @@
 
 import java.awt.Color;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Val
  */
 public class VSPlayer extends javax.swing.JFrame {
 
+	String ip;
+	String host;
     /**
      * Creates new form VSPlayer
      */
-    public VSPlayer() {
+    public VSPlayer(String ip, String host) {
+    	this.ip = ip;
+        this.host = host;
         initComponents();
+        
     }
 
     /**
@@ -131,10 +138,32 @@ public class VSPlayer extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        Menu men = new Menu();
-        men.setVisible(true);
-    }//GEN-LAST:event_formWindowClosing
 
+	// on ferme la fenetre de menu
+
+    this.dispose();
+    new Thread(new Runnable() {
+    public void run() {
+	    final int mod = mode.getSelectedIndex();
+	    final int nbPart = Integer.parseInt((String)nbParties.getSelectedItem());
+	    Table table = new Table();
+	    Moteur moteur = new Moteur(table);
+	    Jeu monJeu = new Jeu(moteur, 2, mod, nbPart, 0);
+	    monJeu.attachDistantPlayer(ip, true);
+	    	    System.out.println();
+	    final Graphique gg = new Graphique(monJeu, 1);
+		        monJeu.addObservateur(new Observateur() {
+					public void update(Jeu jeu) {
+						gg.getZoneDessin().repaint();					
+					}
+				});
+		        SwingUtilities.invokeLater(gg);
+		        monJeu.jouer();
+		      }
+        }).start();
+
+
+    }//GEN-LAST:event_LaunchActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -172,7 +201,7 @@ public class VSPlayer extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new VSPlayer().setVisible(true);
+                new VSPlayer(null,null).setVisible(true);
             }
         });
     }

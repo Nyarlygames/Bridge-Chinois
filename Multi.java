@@ -1,3 +1,5 @@
+import javax.swing.SwingUtilities;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -10,6 +12,8 @@
  */
 public class Multi extends javax.swing.JFrame {
 
+	String ip;
+	String host;
     /**
      * Creates new form NewJFrame
      */
@@ -169,8 +173,32 @@ public class Multi extends javax.swing.JFrame {
 
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
-        VSPlayer fenOp = new VSPlayer();
-        fenOp.setVisible(true);
+
+	if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Heberger")) {
+	    VSPlayer fenOp = new VSPlayer(this.ip, this.host);
+	    fenOp.setVisible(true);
+	}
+	else if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Rejoindre")) {
+        this.dispose();
+        new Thread(new Runnable() {
+        	public void run() {
+	    Table t = new Table();
+	    Moteur moteur = new Moteur(t);
+		Jeu monJeu = new Jeu(moteur, 2, 0, 1, 0);
+		monJeu.attachDistantPlayer(ip, false);
+				        final Graphique gg = new Graphique(monJeu, 1);
+		        // test
+		        monJeu.addObservateur(new Observateur() {
+					public void update(Jeu jeu) {
+						gg.getZoneDessin().repaint();					
+					}
+				});
+		        SwingUtilities.invokeLater(gg);
+		        monJeu.jouer();
+		      }
+        }).start();
+	}
+
         this.dispose();
     }//GEN-LAST:event_StartActionPerformed
 
