@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.*;
+import java.net.*;
 
 public class Jeu implements Observable{
 
@@ -19,7 +21,14 @@ public class Jeu implements Observable{
     int max;
     // liste des observateurs
 	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
-
+    int mode = -1;
+    
+    // Attributs réseau
+    boolean croupier;
+    int port = -1;
+    String ip;
+    ObjectOutputStream out;
+    ObjectInputStream in;
 
     // -------------------------------------Constructeur-------------------------------------
     /* le mode indique le nombre de joueur humain :
@@ -34,17 +43,17 @@ public class Jeu implements Observable{
      */
 	Jeu(Moteur m, int mode, int type, int max, int difficulte) {
         Random rand = new Random();
-
-
+        this.mode = mode;
         joueurCourant = rand.nextInt(2);
         joueurCourant++;
         moteur = m;
         switch (mode) {
+          /* Mode IA vs IA */
             case 0:
                 this.joueur1 = new PC(this, 1, moteur.getTable().getMain1(), moteur.getTable().getCarte2());
                 this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
-
+                /* Mode Humain vs PC */
             case 1:
                 this.joueur1 = new Humain(this, 1);
                 switch (difficulte) {
@@ -64,11 +73,11 @@ public class Jeu implements Observable{
                 }
                 this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
+                /* Mode Réseau */
             case 2:
+
                 this.joueur1 = new Humain(this, 1);
                 this.joueur2 = new Humain(this, 2);
-                break;
-
         }
         this.type = type;
         this.max = max;
@@ -160,6 +169,69 @@ public class Jeu implements Observable{
     }
 
     // -------------------------------------Methodes-----------------------------------------
+    
+    public void attachDistantPlayer(String ip, boolean croupier) {
+        this.ip = ip;
+        this.croupier = croupier;
+        this.port = 4242;
+        if (croupier == true) {
+		    attenteConnexion();
+		  }
+		 else {
+		    attenteJeuDistant();
+		 }
+    }
+    
+    /* Herbergement d'une partie et attente client */
+    public void attenteConnexion(){
+        String message = "";
+        try {
+            ServerSocket socketjeu = new ServerSocket(port);
+            this.out = new ObjectOutputStream(socketjeu.accept().getOutputStream());
+            this.in = new ObjectInputStream(socketjeu.accept().getInputStream());
+        }
+        catch (Exception e){
+        
+        }
+        /* Envoi de la table */
+            try{
+                message=(String)in.readObject();
+                System.out.println("\n" +message);
+
+            }
+            catch(Exception e){
+		// Echec de la connection
+                System.out.println(e.getMessage());
+            }
+    }
+    
+    
+    /* Rejoindre la partie et attente de la Table par le croupier */
+    public void attenteJeuDistant() {
+        String message = "";
+        try {
+            Socket socketjeu = new Socket(InetAddress.getByName(this.ip), this.port);
+           this.out = new ObjectOutputStream(socketjeu.getOutputStream());
+           this.in = new ObjectInputStream(socketjeu.getInputStream());
+        }
+        catch (Exception e){
+        
+        }
+        /* Reception de la table */
+            try{
+                message=(String)in.readObject();
+                System.out.println("\n" +message);
+
+            }
+            catch(Exception e){
+		// Echec de la connection
+                System.out.println(e.getMessage());
+            }
+    }
+    
+    
+    
+    
     // distribue les cartes entre les joueurs et séparation du reste en 6 piles
     public void initialiser() {
     	Paquet monPaquet = new Paquet();
@@ -278,7 +350,7 @@ public class Jeu implements Observable{
 		   		this.updateObservateur();
 				switcher();
 				this.updateObservateur();
-				intVersJoueur().jouer();				
+				intVersJoueur().jouer();			
 				this.updateObservateur();
 				try {
 	   				Thread.sleep(1000);
