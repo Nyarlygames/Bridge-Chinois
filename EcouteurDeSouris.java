@@ -129,28 +129,29 @@ class EcouteurDeSouris implements MouseListener {
 
         // Pixel debut affichage carte
         double start = (double) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5));
-	if (t.main1.getSize() > 0) {
-	    if ((y >= (height - ch - bh)) && (y <= (height - bh))) {
-		// Indice de la carte cliquee
-		double carte = (x - start) / ((cw / 2) + 0.5);
+        
+	    if (t.main1.getSize() > 0) {
+	        if ((y >= (height - ch - bh)) && (y <= (height - bh))) {
+		        // Indice de la carte cliquee
+		        double carte = (x - start) / ((cw / 2) + 0.5);
 
-		// Clic en dehors
-		if (carte < 0 || (int) carte > t.main1.getSize()) {
-		    return (null);
-		} // Deuxieme moitie derniere carte
-		else if (((int) carte == t.main1.getSize()) && ((int) carte > 0))
-		    return t.main1.getCarte(t.main1.getSize() - 1);
-		else if ((int) carte >= 0)
-		    return t.main1.getCarte((int) carte);
-		else
-		    return null;
+		        // Clic en dehors
+		        if (carte < 0 || (int) carte > t.main1.getSize()) {
+		            return (null);
+		        } // Deuxieme moitie derniere carte
+		        else if (((int) carte == t.main1.getSize()) && ((int) carte > 0))
+		            return t.main1.getCarte(t.main1.getSize() - 1);
+		        else if ((int) carte >= 0)
+		            return t.main1.getCarte((int) carte);
+		        else
+		            return null;
+            } else {
+		        return null;
+	        }
+	        
+	    } else {
+	        return null;
 	    }
-	    else {
-		return null;
-	    }
-	}
-	else {
-	    return null;
-	}
     }
+    
 }

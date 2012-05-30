@@ -69,6 +69,7 @@ public class PC2 extends Joueur {
         }
 
         main.getMain().remove(meilleure);
+        aJoue = true;
     }
 
     @Override
@@ -95,6 +96,7 @@ public class PC2 extends Joueur {
             }
             main.add(meilleure.piocher());
         }
+        aChoisi = true;
     }
 
     ArrayList<Carte> getCartesJouables() {
