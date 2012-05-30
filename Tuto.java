@@ -37,7 +37,7 @@ public class Tuto extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Ya rien à voir retourne au menu principale");
+        jLabel1.setText("Ya rien à voir retourne au menu principal");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

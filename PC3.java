@@ -86,6 +86,7 @@ public class PC3 extends Joueur {
             j.getMoteur().getTable().setCarte1(meilleure);
         }
         main.getMain().remove(meilleure);
+        aJoue = true;
     }
 
     @Override
@@ -120,6 +121,7 @@ public class PC3 extends Joueur {
                 main.add(meilleure.piocher());
             }
         }
+        aChoisi = true;
     }
 
     ArrayList<Carte> getCartesJouables() {

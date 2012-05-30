@@ -33,6 +33,7 @@ public class Regle extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Les règles du jeu");
+        setResizable(false);
 
         jButton1.setText("Annuler");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

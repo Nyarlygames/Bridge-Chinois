@@ -1,15 +1,15 @@
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:15
-Date de Dernière modification 16/05/2012 : 04:24
+Date de Derniere modification 16/05/2012 : 04:24
  */
 
 public abstract class Joueur {
 
-    // -------------------------------------Atributs-------------------------------------
+    // -------------------------------------Attributs-------------------------------------
     Jeu j;
     int nbPlis, score, id;
-    Boolean aJoue, aChoisi;
+    Boolean aJoue, aChoisi, phaseJouer, phaseChoisir;
     Carte carteAdv;
     Main main;
 
@@ -20,6 +20,38 @@ public abstract class Joueur {
 
     public void setNbPlis(int nbPlis) {
         this.nbPlis = nbPlis;
+    }
+
+    public Boolean getPhaseJouer() {
+        return phaseJouer;
+    }
+
+    public void setPhaseJouer(Boolean phaseJouer) {
+        this.phaseJouer = phaseJouer;
+    }
+
+    public Boolean getPhaseChoisir() {
+        return phaseChoisir;
+    }
+
+    public void setPhaseChoisir(Boolean phaseChoisir) {
+        this.phaseChoisir = phaseChoisir;
+    }
+
+    public Carte getCarteAdv() {
+        return carteAdv;
+    }
+
+    public void setCarteAdv(Carte carteAdv) {
+        this.carteAdv = carteAdv;
+    }
+
+    public Main getMain() {
+        return main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 
     public Jeu getJ() {
@@ -62,9 +94,8 @@ public abstract class Joueur {
         this.aChoisi = aChoisi;
     }
 
-    // -------------------------------------Constructeur-------------------------------------
+    // -------------------------------------Méthodes-------------------------------------
     abstract void jouer();
 
     abstract void choisir();
 }
-

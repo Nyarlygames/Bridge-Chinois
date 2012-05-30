@@ -1,0 +1,4 @@
+Ceci est un jeu de Bridge Chinois. 
+pour compiler : javac *.java
+pour run : java TestJeu
+

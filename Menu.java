@@ -1,3 +1,6 @@
+
+import javax.swing.JFileChooser;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -30,15 +33,14 @@ public class Menu extends javax.swing.JFrame {
         Bmulti = new javax.swing.JButton();
         Bquitter = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        Bcharger = new javax.swing.JButton();
+        Btuto = new javax.swing.JButton();
+        imageTitre = new javax.swing.JLabel();
+        imageFond = new javax.swing.JLabel();
+        barMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        menuCharge = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -61,7 +63,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bsolo);
-        Bsolo.setBounds(80, 100, 185, 25);
+        Bsolo.setBounds(80, 120, 185, 23);
 
         Bmulti.setText("Jouer en ligne");
         Bmulti.addActionListener(new java.awt.event.ActionListener() {
@@ -70,7 +72,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bmulti);
-        Bmulti.setBounds(80, 170, 185, 25);
+        Bmulti.setBounds(80, 150, 185, 23);
 
         Bquitter.setText("Quitter");
         Bquitter.addActionListener(new java.awt.event.ActionListener() {
@@ -79,46 +81,42 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Bquitter);
-        Bquitter.setBounds(80, 300, 185, 25);
+        Bquitter.setBounds(80, 270, 185, 23);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(80, 280, 185, 10);
-
-        jButton1.setText("Jouer à 2 joueurs");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(80, 130, 185, 25);
+        jSeparator1.setBounds(80, 260, 185, 10);
         getContentPane().add(jSeparator4);
-        jSeparator4.setBounds(80, 240, 185, 1);
+        jSeparator4.setBounds(80, 220, 185, 10);
 
-        jButton3.setText("Charger une partie");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Bcharger.setText("Charger une partie");
+        Bcharger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BchargerActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(80, 200, 185, 25);
+        getContentPane().add(Bcharger);
+        Bcharger.setBounds(80, 180, 185, 23);
 
-        jButton4.setText("Apprendre à jouer");
-        getContentPane().add(jButton4);
-        jButton4.setBounds(80, 250, 185, 25);
+        Btuto.setText("Apprendre à jouer");
+        getContentPane().add(Btuto);
+        Btuto.setBounds(80, 230, 185, 23);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/bridge.png"))); // NOI18N
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(40, 30, 260, 40);
+        imageTitre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/bridge.png"))); // NOI18N
+        getContentPane().add(imageTitre);
+        imageTitre.setBounds(40, 30, 260, 40);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 350, 390);
+        imageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
+        getContentPane().add(imageFond);
+        imageFond.setBounds(0, 0, 350, 390);
 
         jMenu1.setText("Menu");
 
-        jMenuItem3.setText("Charger");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuCharge.setText("Charger");
+        menuCharge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuChargeActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(menuCharge);
 
         jMenuItem5.setText("Options");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +136,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu1);
+        barMenu.add(jMenu1);
 
         jMenu2.setText("?");
 
@@ -159,9 +157,9 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu2);
+        barMenu.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(barMenu);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-349)/2, (screenSize.height-432)/2, 349, 432);
@@ -212,9 +210,8 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
         
-        Option opt = new Option();
+        Options opt = new Options(this,true);
         opt.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -223,18 +220,42 @@ public class Menu extends javax.swing.JFrame {
         propo.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void menuChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChargeActionPerformed
         // TODO add your handling code here:
-        Charge file = new Charge(this,true);
-        file.setVisible(true);
+        JFileChooser choix = new JFileChooser();
+        int result = choix.showOpenDialog(null);
+        switch (result) {
+        case JFileChooser.APPROVE_OPTION:
+        System.out.println("ouvrir");
+        break;
+        case JFileChooser.CANCEL_OPTION:
+            System.out.println("Annuler");
+            break;
+        case JFileChooser.ERROR_OPTION:
+        System.out.println("Erreur");
+        break;
+        }
         //this.dispose();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_menuChargeActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void BchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BchargerActionPerformed
         // TODO add your handling code here:
-        Charge file = new Charge(this,true);
-        file.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        int result = chooser.showOpenDialog(null);
+        switch (result) {
+        case JFileChooser.APPROVE_OPTION:
+        System.out.println("ouvrir");
+        break;
+        case JFileChooser.CANCEL_OPTION:
+            System.out.println("Annuler");
+            break;
+        case JFileChooser.ERROR_OPTION:
+        System.out.println("Erreur");
+        break;
+    }
+       /* Charge file = new Charge(this,true);
+        file.setVisible(true);*/
+    }//GEN-LAST:event_BchargerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,23 +299,22 @@ public class Menu extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bcharger;
     private javax.swing.JButton Bmulti;
     private javax.swing.JButton Bquitter;
     private javax.swing.JButton Bsolo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton Btuto;
+    private javax.swing.JMenuBar barMenu;
+    private javax.swing.JLabel imageFond;
+    private javax.swing.JLabel imageTitre;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JMenuItem menuCharge;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,4 @@
-/*
+/* 
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:21
 Date de Dernière modification 23/05/2012 : 14:25
@@ -6,20 +6,40 @@ Date de Dernière modification 23/05/2012 : 14:25
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Jeu {
+public class Jeu implements Observable{
 
     // -------------------------------------Attributs-----------------------------------------
     Moteur moteur;
     Joueur joueur1, joueur2;
     int joueurCourant;
+    int type;
+    int max;
+    Historique hist = new Historique();
+    // liste des observateurs
+	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();        
+
 
     // -------------------------------------Constructeur-------------------------------------
-    Jeu(Moteur m, int mode) {
+    /* le mode indique le nombre de joueur humain :
+    0 : PC vs PC
+    1 : Hum vs PC
+    2 : Hum vs Humm 
+    
+    le type indique si la partie se termine suivant un nombre de point designe par la variable max :
+    0 : matche a jouer
+    1 : score a inteindre max 
+    2 : aventure
+     */
+	Jeu(Moteur m, int mode, int type, int max, int difficulte) {
         Random rand = new Random();
+
 
         joueurCourant = rand.nextInt(2);
         joueurCourant++;
+        moteur = m;
         switch (mode) {
             case 0:
                 this.joueur1 = new PC(this, 1, moteur.getTable().getMain1(), moteur.getTable().getCarte2());
@@ -28,6 +48,21 @@ public class Jeu {
 
             case 1:
                 this.joueur1 = new Humain(this, 1);
+                switch (difficulte) {
+                    case 0:
+                        this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+
+                    case 1:
+                        this.joueur2 = new PC2(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+
+                    case 2:
+                        this.joueur2 = new PC3(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+
+                    case 3:
+                        this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+
+
+                }
                 this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
             case 2:
@@ -36,17 +71,46 @@ public class Jeu {
                 break;
 
         }
-        moteur = m;
+        this.type = type;
+        this.max = max;
 
+    }
+
+    Jeu(Moteur m) {
+        type = 2;
     }
 
     // -------------------------------------Accesseurs-------------------------------------
     public Moteur getMoteur() {
         return moteur;
     }
+    
+    public Historique getHist(){
+        return this.hist;
+    }
 
     public void setMoteur(Moteur moteur) {
         this.moteur = moteur;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+    
+    public void setHist(Historique his){
+        this.hist=his;
     }
 
     public Joueur getJoueur1() {
@@ -65,17 +129,51 @@ public class Jeu {
         this.joueur2 = joueur2;
     }
 
+
     public int getJoueurCourant() {
         return joueurCourant;
     }
+
 
     public void setJoueurCourant(int joueurCourant) {
         this.joueurCourant = joueurCourant;
     }
 
+    // Retourne le joueur adverse
+    public int getJoueurAdverse(int joueur) {
+        if (joueur == 1)
+	    return 2;
+	else if (joueur == 2)
+	    return 1;
+	else return 0;
+    }
+
+    // Retourne la carte adverse du joueur
+    public Carte getCarteAdverse(int joueur) {
+	if (joueur == 1)
+	    return (moteur.table.carte2);
+	else if (joueur == 2)
+	    return (moteur.table.carte1);
+	else
+	    return (null);
+    }
+
+    // Retourne la main du joueur
+    public Main getMainJoueur (int joueur) {
+	if (joueur == 1)
+	    return moteur.table.main1;
+	else if (joueur == 2)
+	    return moteur.table.main2;
+	else
+	    return (null);
+    }
+
     // -------------------------------------Methodes-----------------------------------------
     // distribue les cartes entre les joueurs et séparation du reste en 6 piles
     public void initialiser() {
+    	Paquet monPaquet = new Paquet();
+    	monPaquet.melanger();
+    	moteur.getTable().setPaquet(monPaquet);
         for (int i = 0; i < 11; i++) {
             moteur.table.main1.add(moteur.table.paquet.piocher());
             moteur.table.main2.add(moteur.table.paquet.piocher());
@@ -96,31 +194,26 @@ public class Jeu {
             tas5.add(moteur.table.paquet.piocher());
             tas6.add(moteur.table.paquet.piocher());
         }
-
+        ArrayList<Pile> piles = new ArrayList<Pile>(6);
         Pile pile = new Pile(1, tas1);
-        System.out.println("test :");
-        for (int i = 0; i < tas1.size(); i++) {
-            System.out.println("le " + i + "eme du tas" + tas1.get(i));
-        }
-
-        pile.afficherPileConsole();
-        moteur.table.addPile(pile);
-
+        piles.add(pile);
+        
         pile = new Pile(2, tas2);
-        moteur.table.addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(3, tas3);
-        moteur.table.addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(4, tas4);
-        moteur.table.addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(5, tas5);
-        moteur.table.addPile(pile);
+        piles.add(pile);
 
         pile = new Pile(6, tas6);
-        moteur.table.addPile(pile);
+        piles.add(pile);
 
+        moteur.getTable().setPiles(piles);
         Carte max = carteRangFort(this.getMoteur().getTable().getPiles());
         if (max.rangSupDix()) {
             moteur.getTable().setAtout(max.getCouleur());
@@ -150,39 +243,130 @@ public class Jeu {
 
     // L'Arbitre : déroulement d'une partie entre 2 joueurs 
     public void jouer() {
-        Carte c1, c2 = null;
+    	
+    	
+    	Carte c1, c2 = null;
+        int nbMatche = 0;
+	    c1 = null;
+	    c2 = null;
+    	while( (type==0 && nbMatche != max) || (type == 1 && (joueur1.getScore()<max || joueur2.getScore()<max) ) 
+    		   || (type ==2 && nbMatche<4))
+    	{
+    		
+    		if(type==2)
+    	   	{
+    			switch(nbMatche){
+	    			case 0:
+	                	this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+	                	
+	                case 1 :
+	                	this.joueur2 = new PC2(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+	                	
+	                case 2 :
+	                	this.joueur2 = new PC3(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 
-        while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
-            intVersJoueur().jouer();
-            switcher();
-            intVersJoueur().jouer();
-            if (joueurCourant == 1) {
-                c1 = moteur.getTable().getCarte2();
-                c2 = moteur.getTable().getCarte1();
-            } else {
-                c1 = moteur.getTable().getCarte1();
-                c2 = moteur.getTable().getCarte2();
-            }
+	                case 3 :
+	                	this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
+    		   }
+    	   	}
+    	   	initialiser();
+    		this.updateObservateur();
+    		if(joueurCourant == 2)
+    		{
+    			try {
+    	   			Thread.sleep(1000);
+    	   		} 
+    	   		catch (InterruptedException ex) 
+    	   		{
+    	   			Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
+    	   		}
+    		}
+    		
+		   	while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
+		   		intVersJoueur().jouer();
+		   		this.updateObservateur();
+				switcher();
+				this.updateObservateur();
+				intVersJoueur().jouer();				
+				this.updateObservateur();
+				try {
+	   				Thread.sleep(1000);
+	   			} 
+				catch (InterruptedException ex) 
+				{
+					Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
+				}
+				if (joueurCourant == 1) {
+				    c1 = moteur.getTable().getCarte2();
+				    c2 = moteur.getTable().getCarte1();
+				    
+				} else {
+				    c1 = moteur.getTable().getCarte1();
+				    c2 = moteur.getTable().getCarte2();
+				}
+				moteur.getTable().setCarte1(null);
+				moteur.getTable().setCarte2(null);
+				this.updateObservateur();
+				if (c1.gagne(c2, moteur.getTable().getAtout())) {
+				    switcher();
+				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+				    this.updateObservateur();
+					if (!moteur.getTable().pilesVides()){
+					    intVersJoueur().choisir();
+					    this.updateObservateur();
+					    switcher();
+					    intVersJoueur().choisir();
+					    this.updateObservateur();
+					    switcher();
+					}
+				} else {
+				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+				    this.updateObservateur();
+					if (!moteur.getTable().pilesVides()){
+					    intVersJoueur().choisir();
+					    this.updateObservateur();
+					    switcher();
+					    this.updateObservateur();
+					    intVersJoueur().choisir();
+					    this.updateObservateur();
+					    switcher();
+					    this.updateObservateur();
+					}
+				}
+				joueur1.setaJoue(false);
+				joueur1.setaChoisi(false);
+				joueur2.setaJoue(false);
+				joueur2.setaChoisi(false);
+				
+				this.updateObservateur();
+				
+		   	}
+		   	
+    	   	nbMatche++;
+    	   	joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
+    	   	joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
+    	   	joueur1.setNbPlis(0);
+    	   	joueur2.setNbPlis(0);
+    	   	
+    	   	if(type == 2)
+    	   	{
+    	   		if(joueur1.getScore() > joueur2.getScore())
+    	   		{
+    	   			//gagne on passe au niveau suivant
+    	   		}
+    	   		else{
+    	   			if(joueur1.getScore() == joueur2.getScore())
+    	   			{
+    	   				//
+    	   			}
+    	   			else
+    	   			{
+    	   				//perdu
+    	   			}
+    	   		}
+    	   	}
+       }
 
-            if (c1.gagne(c2, moteur.getTable().getAtout())) {
-                switcher();
-                intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-                intVersJoueur().choisir();
-                switcher();
-                intVersJoueur().choisir();
-                switcher();
-            } else {
-                intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-                intVersJoueur().choisir();
-                switcher();
-                intVersJoueur().choisir();
-                switcher();
-            }
-            joueur1.setaJoue(false);
-            joueur1.setaChoisi(false);
-            joueur2.setaJoue(false);
-            joueur2.setaChoisi(false);
-        }
     }
 
     // renvoi le joueur courant
@@ -234,4 +418,88 @@ public class Jeu {
         }
         return adversaire;
     }
+
+    // Determiner si une carte est jouable
+	public boolean carteJouable(Carte c, int joueur){
+	    // A l'adversaire de jouer
+	    if (joueur != joueurCourant)
+		return (false);
+	    // A nous de jouer en premier
+	    if (getCarteAdverse(joueur) == null)
+		return (true);
+
+	    else {
+		// Si il y a de l'atout
+		if (moteur.table.atout != null) {
+		    // A nous de jouer en deuxieme
+		    Carte carteadv = getCarteAdverse(joueur);
+		    Main mainjoueur = getMainJoueur(joueur);
+		    // Si il a joué un atout
+		    if (carteadv.couleur == moteur.table.atout)
+			{
+			    boolean atout = false;
+
+			for (int i = 0; i < mainjoueur.getSize(); i++){
+			    if (mainjoueur.getCarte(i).couleur == moteur.table.atout)
+				atout = true;
+			}
+			    // Pas d'atout dans la main
+			    if (atout == false)
+				return true;
+			    // On veut jouer un atout
+			    else if (c.couleur == moteur.table.atout)
+				return true;
+			    else
+				return false;
+			}
+		    // Pas d'atout
+		    else {
+			boolean atout = false;
+			boolean defausse = true;
+			for (int i = 0; i < mainjoueur.getSize(); i++){
+			    if (mainjoueur.getCarte(i).couleur == moteur.table.atout)
+				atout = true;
+			    if (mainjoueur.getCarte(i).couleur == carteadv.couleur) {
+				defausse = false;
+			    }
+			}
+			// On ne peut pas fournir
+			if (defausse == true) {
+			    return true;
+			}
+			// On peut fournir
+			else {
+			    // Si on veut fournir
+			    if (c.couleur == carteadv.couleur)
+				return true;
+			    //Si on veut se defausser
+			    else
+				return false;
+			}
+		    }
+		}
+		// Si il n'y a pas d'atout
+		else {
+		}
+	    }
+	    return false;
+	}
+	
+	// ajoute un observateur
+	public void addObservateur(Observateur obs) {
+		this.listObservateur.add(obs);
+	}
+	
+	// supprime un observateur
+	public void delObservateur() {
+		this.listObservateur = new ArrayList<Observateur>();
+	}
+
+	public void updateObservateur() {
+		for(Observateur obs : this.listObservateur )
+			obs.update(this);
+	}
+        
+
+
 }
