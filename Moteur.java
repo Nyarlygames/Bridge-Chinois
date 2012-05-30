@@ -35,7 +35,7 @@ public class Moteur {
                 table.getMain1connue().getMain().remove(c);
                 return true;
             } else {
-                if (!this.getTable().getMain1().aCouleur(c)) {
+                if (!this.getTable().getMain1().aCouleur(this.getTable().getCarte2())) {
                     table.setCarte1(c);
                     table.getMain1().getMain().remove(c);
                     table.getMain1connue().getMain().remove(c);
