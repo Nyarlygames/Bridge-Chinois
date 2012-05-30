@@ -1,9 +1,10 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
 import java.awt.Color;
+import javax.swing.SwingUtilities;
 /**
  *
  * @author Val
@@ -144,10 +145,27 @@ public class VSPlayer extends javax.swing.JFrame {
         // TODO add your handling code here:
 	// on ferme la fenetre de menu
 
-        this.dispose();
-	final int mod = mode.getSelectedIndex();
-	final int nbPart = Integer.parseInt((String)nbParties.getSelectedItem());
-	Serveur serv = new Serveur(mod, nbPart, this.ip, this.host);
+    this.dispose();
+    new Thread(new Runnable() {
+    public void run() {
+	    final int mod = mode.getSelectedIndex();
+	    final int nbPart = Integer.parseInt((String)nbParties.getSelectedItem());
+	    Table table = new Table();
+	    Moteur moteur = new Moteur(table);
+	    Jeu monJeu = new Jeu(moteur, 2, mod, nbPart, 0);
+	    monJeu.attachDistantPlayer(ip, true);
+	    				        final Graphique gg = new Graphique(monJeu, 1);
+		        // test
+		        monJeu.addObservateur(new Observateur() {
+					public void update(Jeu jeu) {
+						gg.getZoneDessin().repaint();					
+					}
+				});
+		        SwingUtilities.invokeLater(gg);
+		        monJeu.jouer();
+		      }
+        }).start();
+
 
     }//GEN-LAST:event_LaunchActionPerformed
 
