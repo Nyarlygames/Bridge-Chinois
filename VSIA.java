@@ -190,7 +190,7 @@ public class VSIA extends javax.swing.JFrame {
 		        Moteur moteur = new Moteur(table);
 		        //Jeu monJeu = new Jeu(moteur, 1,0,1,0);      
 		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
-		        
+
 		        final Graphique gg = new Graphique(monJeu, 1);
 		        // test
 		        monJeu.addObservateur(new Observateur() {
@@ -220,7 +220,7 @@ public class VSIA extends javax.swing.JFrame {
 		            monJeu.moteur.table.piles.get(i).afficherPileConsole();
 		        }*/
 		        //System.out.println(monJeu.getMoteur().getTable().getAtout());
-		        
+
 		      }
         }).start();
 
