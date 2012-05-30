@@ -95,6 +95,11 @@ public abstract class Joueur {
     }
 
     // -------------------------------------Méthodes-------------------------------------
+    
+   /* public Joueur clone()
+    {
+    	
+    }*/
     abstract void jouer();
 
     abstract void choisir();
