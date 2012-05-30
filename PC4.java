@@ -77,12 +77,6 @@ public class PC4 extends Joueur {
                         gagnantes.add(c);
                     }
                 }
-                meilleure = gagnantes.get(0);
-                for (Carte ca : gagnantes) {
-                    if (!ca.rangPlusFort(meilleure)) {
-                        meilleure = ca;//on met la gagnante avec le rang le plus faible
-                    }
-                }
 
                 if (gagnantes.isEmpty()) {//pas de gagnante donc on balance la carte ayant le plus de chance de se faire battre
                     Integer maxi = 0;
@@ -90,6 +84,13 @@ public class PC4 extends Joueur {
                         if (chances.get(c) > maxi) {
                             maxi = chances.get(c);
                             meilleure = c;
+                        }
+                    }
+                } else {
+                    meilleure = gagnantes.get(0);
+                    for (Carte ca : gagnantes) {
+                        if (!ca.rangPlusFort(meilleure)) {
+                            meilleure = ca;//on met la gagnante avec le rang le plus faible
                         }
                     }
                 }
