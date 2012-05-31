@@ -23,49 +23,44 @@ public class Moteur {
 
     // --------------------------------------Methodes-------------------------------------
 
-
     public boolean jouer(Carte c, int joueurCourant) {
-    	if(this.getTable().getCarte2() == null)
-    	{
-    		table.setCarte1(c);
+        if (this.getTable().getCarte2() == null) {
+            table.setCarte1(c);
             table.getMain1().getMain().remove(c);
+            table.getMain1connue().getMain().remove(c);
             return true;
-    	}
-    	else
-    	{
-    		if(c.memeCouleur(this.getTable().getCarte2()))
-    		{
-    			table.setCarte1(c);
+        } else {
+            if (c.memeCouleur(this.getTable().getCarte2())) {
+                table.setCarte1(c);
                 table.getMain1().getMain().remove(c);
+                table.getMain1connue().getMain().remove(c);
                 return true;
-    		}
-    		else
-    		{
-    			if(!this.getTable().getMain1().aCouleur(c))
-    			{
-    				table.setCarte1(c);
+            } else {
+                if (!this.getTable().getMain1().aCouleur(this.getTable().getCarte2())) {
+                    table.setCarte1(c);
                     table.getMain1().getMain().remove(c);
+                    table.getMain1connue().getMain().remove(c);
                     return true;
-    			}
-    			else
-    			{
-    				return false;
-    			}
-    				        			
-    		}
-    		
-    	}
-    }
-    
+                } else {
+                    return false;
+                }
 
+            }
+
+        }
+    }
 
 
     public void choisir(Pile p, int joueurCourant) {
-    	if (joueurCourant == 1) {
-            table.getMain1().add(p.piocher());
+        Carte c = p.piocher();
+        if (joueurCourant == 1) {
+            table.getMain1().add(c);
+            table.getMain1connue().add(c);
+
         } else {
-            table.getMain2().add(p.piocher());
+            table.getMain2().add(c);
+            table.getMain1connue().add(c);
+
         }
     }
 }
-

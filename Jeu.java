@@ -60,34 +60,34 @@ public class Jeu implements Observable {
         switch (mode) {
           /* Mode IA vs IA */
             case 0:
-                this.joueur1 = new PC(this, 1, moteur.getTable().getMain1(), moteur.getTable().getCarte2());
-                this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                this.joueur1 = new PC(moteur.getTable(), 1, moteur.getTable().getMain1(), moteur.getTable().getCarte2());
+                this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
                 /* Mode Humain vs PC */
             case 1:
-                this.joueur1 = new Humain(this, 1);
+                this.joueur1 = new Humain(moteur.getTable(), 1);
                 switch (difficulte) {
                     case 0:
-                        this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 
                     case 1:
-                        this.joueur2 = new PC2(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC2(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 
                     case 2:
-                        this.joueur2 = new PC3(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC3(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 
                     case 3:
-                        this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC4(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 
 
                 }
-                this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
                 /* Mode Réseau */
             case 2:
 
-                this.joueur1 = new Humain(this, 1);
-                this.joueur2 = new Humain(this, 2);
+                this.joueur1 = new Humain(moteur.getTable(), 1);
+                this.joueur2 = new Humain(moteur.getTable(), 2);
         }
         this.type = type;
         this.max = max;
@@ -371,16 +371,16 @@ public class Jeu implements Observable {
     	   	{
     			switch(nbMatche){
 	    			case 0:
-	                	this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+	                	this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 	                	
 	                case 1 :
-	                	this.joueur2 = new PC2(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+	                	this.joueur2 = new PC2(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 	                	
 	                case 2 :
-	                	this.joueur2 = new PC3(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+	                	this.joueur2 = new PC3(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
 
 	                case 3 :
-	                	this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
+	                	this.joueur2 = new PC4(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
     		   }
     	   	}
 

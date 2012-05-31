@@ -53,13 +53,15 @@ public class Multi extends javax.swing.JFrame {
         jPanelRejoindre = new javax.swing.JPanel();
         jLabelIPDistante = new javax.swing.JLabel();
         IPDistante = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
         jLabel1.setText("IP distante :");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(null);
 
         Start.setText("Jouer");
         Start.addActionListener(new java.awt.event.ActionListener() {
@@ -67,6 +69,8 @@ public class Multi extends javax.swing.JFrame {
                 StartActionPerformed(evt);
             }
         });
+        getContentPane().add(Start);
+        Start.setBounds(230, 160, 80, 23);
 
         Cancel.setText("Annuler");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -74,38 +78,21 @@ public class Multi extends javax.swing.JFrame {
                 CancelActionPerformed(evt);
             }
         });
+        getContentPane().add(Cancel);
+        Cancel.setBounds(10, 160, 80, 23);
 
         jPanelHeberger.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelHeberger.setOpaque(false);
 
         jLabelVotreIP.setText("Votre IP : ");
 
         IPJoueur.setFocusable(false);
         try{
+            URL whatismyip = new URL("http://api.externalip.net/ip/");
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                whatismyip.openStream()));
 
-	    InetAddress addr = InetAddress.getLocalHost();
-
-	    Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-	    while (interfaces.hasMoreElements()) {
-		NetworkInterface currentInterface = interfaces.nextElement();
-		// On retrouve la bonne IP
-		Enumeration<InetAddress> addresses = currentInterface.getInetAddresses();
-		while (addresses.hasMoreElements()) {
-
-		    InetAddress currentAddress = addresses.nextElement();
-		    // MODE INTERNET
-		    if (isInternetIP(currentAddress.getHostAddress())){
-			this.ip = currentAddress.getHostAddress();
-			this.host = currentAddress.getHostName();
-			IPJoueur.setValue(currentAddress.getHostAddress());
-		    }
-		    // MODE LAN
-		    if (isLANIP(currentAddress.getHostAddress())){
-			this.ip = currentAddress.getHostAddress();
-			this.host = currentAddress.getHostName();
-			IPJoueur.setValue(currentAddress.getHostAddress());
-		    }
-		}
-	    }
+        IPJoueur.setValue(in.readLine()); //you get the IP as a String
     }catch(Exception e)
     {
     }
@@ -122,33 +109,39 @@ public class Multi extends javax.swing.JFrame {
     jPanelHebergerLayout.setHorizontalGroup(
         jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanelHebergerLayout.createSequentialGroup()
-            .addGap(52, 52, 52)
-            .addComponent(jLabelVotreIP, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(60, Short.MAX_VALUE))
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHebergerLayout.createSequentialGroup()
-            .addContainerGap(136, Short.MAX_VALUE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(copierIP)
-            .addGap(119, 119, 119))
+            .addGap(110, 110, 110))
+        .addGroup(jPanelHebergerLayout.createSequentialGroup()
+            .addGroup(jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelHebergerLayout.createSequentialGroup()
+                    .addGap(23, 23, 23)
+                    .addComponent(jLabelVotreIP, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelHebergerLayout.createSequentialGroup()
+                    .addGap(71, 71, 71)
+                    .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(73, Short.MAX_VALUE))
     );
     jPanelHebergerLayout.setVerticalGroup(
         jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanelHebergerLayout.createSequentialGroup()
-            .addGap(24, 24, 24)
-            .addGroup(jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabelVotreIP)
-                .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(copierIP))
+            .addContainerGap()
+            .addComponent(jLabelVotreIP)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(copierIP)
+            .addGap(0, 15, Short.MAX_VALUE))
     );
 
     Rejoindre.addTab("Heberger", jPanelHeberger);
 
     jPanelRejoindre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    jPanelRejoindre.setOpaque(false);
 
     jLabelIPDistante.setText("IP Distante : ");
 
+    IPDistante.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###:###:###:###"))));
 
 
     javax.swing.GroupLayout jPanelRejoindreLayout = new javax.swing.GroupLayout(jPanelRejoindre);
@@ -156,55 +149,36 @@ public class Multi extends javax.swing.JFrame {
     jPanelRejoindreLayout.setHorizontalGroup(
         jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanelRejoindreLayout.createSequentialGroup()
-            .addGap(52, 52, 52)
-            .addComponent(jLabelIPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(60, Short.MAX_VALUE))
+            .addGroup(jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelRejoindreLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabelIPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelRejoindreLayout.createSequentialGroup()
+                    .addGap(71, 71, 71)
+                    .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(73, Short.MAX_VALUE))
     );
     jPanelRejoindreLayout.setVerticalGroup(
         jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanelRejoindreLayout.createSequentialGroup()
-            .addGap(24, 24, 24)
-            .addGroup(jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabelIPDistante)
-                .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(32, Short.MAX_VALUE))
+            .addContainerGap()
+            .addComponent(jLabelIPDistante)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(49, Short.MAX_VALUE))
     );
 
     Rejoindre.addTab("Rejoindre", jPanelRejoindre);
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(Cancel)
-                    .addGap(190, 190, 190)
-                    .addComponent(Start, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(Rejoindre, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-            .addContainerGap())
-    );
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(Rejoindre)
-            .addGap(18, 18, 18)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(Start)
-                .addComponent(Cancel))
-            .addGap(27, 27, 27))
-    );
+    getContentPane().add(Rejoindre);
+    Rejoindre.setBounds(10, 11, 300, 130);
+
+    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
+    getContentPane().add(jLabel2);
+    jLabel2.setBounds(0, 0, 370, 210);
 
     java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-    setBounds((screenSize.width-383)/2, (screenSize.height-220)/2, 383, 220);
+    setBounds((screenSize.width-353)/2, (screenSize.height-238)/2, 353, 238);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
@@ -306,6 +280,7 @@ public class Multi extends javax.swing.JFrame {
     private javax.swing.JButton Start;
     private javax.swing.JButton copierIP;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelIPDistante;
     private javax.swing.JLabel jLabelVotreIP;
     private javax.swing.JPanel jPanelHeberger;

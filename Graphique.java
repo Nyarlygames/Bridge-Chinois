@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.JPopupMenu.Separator;
@@ -127,8 +126,8 @@ public class Graphique implements Runnable {
 
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Option opt = new Option();
-                opt.setVisible(true);
+                //Options opt = new Options(this,true;);
+                //opt.setVisible(true);
             }
         });
         fileMenu.add(jMenuItem1);

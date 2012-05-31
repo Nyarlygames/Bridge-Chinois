@@ -145,4 +145,60 @@ public class Table implements java.io.Serializable{
       	return t;  	
 
     }
+    
+        public Carte getCarteAdverse(int joueur) {
+        if (joueur == 1) {
+            return (carte2);
+        } else if (joueur == 2) {
+            return (carte1);
+        } else {
+            return (null);
+        }
+    }
+        
+        
+           //renvoie les cartes inconnues du joueur courant (dans la main de l'autre ou sous les piles)
+    public ArrayList<Carte> getCartesInconnues(Integer joueurCourant) {
+        ArrayList<Carte> inconnues = new ArrayList<Carte>();
+
+        if (joueurCourant == 1) {
+            inconnues.addAll(getMain2().getMain());
+        } else {
+            inconnues.addAll(getMain1().getMain());
+
+        }
+        for (Pile p : getPiles()) {
+            inconnues.addAll(p.getPile());
+            if (p.getPile().size() >= 1) {
+                inconnues.remove(p.getAPiocher());
+            }
+        }
+        return inconnues;
+    }
+
+    //renvoie les cartes de l'adversaire du joueur courant (time to cheat)
+    public ArrayList<Carte> getCartesAdversaire(Integer joueurCourant) {
+        ArrayList<Carte> adversaire = new ArrayList<Carte>();
+
+        if (joueurCourant == 1) {
+            adversaire.addAll(getMain2().getMain());
+        } else {
+            adversaire.addAll(getMain1().getMain());
+
+        }
+        return adversaire;
+    }
+
+    //renvoie les cartes connues de l'adversaire du joueur courant
+    public ArrayList<Carte> getCartesConnuesAdversaire(Integer joueurCourant) {
+        ArrayList<Carte> adversaire = new ArrayList<Carte>();
+
+        if (joueurCourant == 1) {
+            adversaire.addAll(getMain2connue().getMain());
+        } else {
+            adversaire.addAll(getMain1connue().getMain());
+
+        }
+        return adversaire;
+    }
 }

@@ -11,8 +11,8 @@ public class PC4 extends Joueur {
      * @author Samy
      */
     // PC qui connait les cartes de l'adversaire
-    public PC4(Jeu j, int id, Main main, Carte carteAdv) {
-        this.j = j;
+    public PC4(Table t, int id, Main main, Carte carteAdv) {
+        this.table = t;
         this.id = id;
         nbPlis = 0;
         score = 0;
@@ -30,7 +30,7 @@ public class PC4 extends Joueur {
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (ca.gagne(carteAdv, j.getMoteur().getTable().getAtout())) {
+                if (ca.gagne(carteAdv, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }
@@ -48,7 +48,7 @@ public class PC4 extends Joueur {
             }
         } else {
             HashMap<Carte, Integer> chances = new HashMap<Carte, Integer>();
-            ArrayList<Carte> adversaire = j.getCartesAdversaire();
+            ArrayList<Carte> adversaire = table.getCartesAdversaire(id);
 
             for (Carte c : main.getMain()) {
                 chances.put(c, 0);
@@ -56,7 +56,7 @@ public class PC4 extends Joueur {
 
             for (Carte c1 : main.getMain()) {
                 for (Carte c2 : adversaire) {
-                    if (c1.gagne(c2, j.getMoteur().getTable().getAtout())) {
+                    if (c1.gagne(c2, table.getAtout())) {
                         chances.put(c1, chances.get(c1) + 1);
                     }
                 }
@@ -77,12 +77,6 @@ public class PC4 extends Joueur {
                         gagnantes.add(c);
                     }
                 }
-                meilleure = gagnantes.get(0);
-                for (Carte ca : gagnantes) {
-                    if (!ca.rangPlusFort(meilleure)) {
-                        meilleure = ca;//on met la gagnante avec le rang le plus faible
-                    }
-                }
 
                 if (gagnantes.isEmpty()) {//pas de gagnante donc on balance la carte ayant le plus de chance de se faire battre
                     Integer maxi = 0;
@@ -92,16 +86,23 @@ public class PC4 extends Joueur {
                             meilleure = c;
                         }
                     }
+                } else {
+                    meilleure = gagnantes.get(0);
+                    for (Carte ca : gagnantes) {
+                        if (!ca.rangPlusFort(meilleure)) {
+                            meilleure = ca;//on met la gagnante avec le rang le plus faible
+                        }
+                    }
                 }
             }
         }
-        if (j.intVersJoueur().equals(j.getJoueur2())) {
-            j.getMoteur().getTable().setCarte2(meilleure);
-            j.getMoteur().getTable().getMain2connue().getMain().remove(meilleure);
+        if (id == 2) {
+            table.setCarte2(meilleure);
+            table.getMain2connue().getMain().remove(meilleure);
 
         } else {
-            j.getMoteur().getTable().setCarte1(meilleure);
-            j.getMoteur().getTable().getMain1connue().getMain().remove(meilleure);
+            table.setCarte1(meilleure);
+            table.getMain1connue().getMain().remove(meilleure);
 
         }
         main.getMain().remove(meilleure);
@@ -111,7 +112,7 @@ public class PC4 extends Joueur {
     @Override
     void choisir() {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
-        for (Pile p : j.getMoteur().getTable().getPiles()) {
+        for (Pile p : table.getPiles()) {
             if (!p.estVide()) {
                 piochables.add(p);
             }
@@ -120,11 +121,11 @@ public class PC4 extends Joueur {
         if (!piochables.isEmpty()) {
             meilleure = piochables.get(0);
             HashMap<Pile, Integer> chances = new HashMap<Pile, Integer>();
-            ArrayList<Carte> adversaire = j.getCartesAdversaire();
+            ArrayList<Carte> adversaire = table.getCartesAdversaire(id);
             for (Pile p : piochables) {
                 chances.put(p, 0);
                 for (Carte c2 : adversaire) {
-                    if (p.getAPiocher().gagne(c2, j.getMoteur().getTable().getAtout())) {
+                    if (p.getAPiocher().gagne(c2, table.getAtout())) {
                         chances.put(p, chances.get(p) + 1);
                     }
                 }
@@ -138,10 +139,10 @@ public class PC4 extends Joueur {
             }
             if (!meilleure.estVide()) {
                 Carte c = meilleure.piocher();
-                if (j.intVersJoueur().equals(j.getJoueur2())) {
-                    j.getMoteur().getTable().getMain2connue().add(c);
+                if (id == 2) {
+                    table.getMain2connue().add(c);
                 } else {
-                    j.getMoteur().getTable().getMain1connue().add(c);
+                    table.getMain1connue().add(c);
                 }
                 main.add(c);
             }

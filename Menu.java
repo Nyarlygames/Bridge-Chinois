@@ -55,50 +55,106 @@ public class Menu extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        Bsolo.setText("Jouer contre l'ordinateur");
+        Bsolo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bordi.png"))); // NOI18N
+        Bsolo.setBorderPainted(false);
+        Bsolo.setContentAreaFilled(false);
         Bsolo.setMaximumSize(new java.awt.Dimension(125, 23));
+        Bsolo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Bordi_entered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Bsolo_exit(evt);
+            }
+        });
         Bsolo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BsoloActionPerformed(evt);
             }
         });
         getContentPane().add(Bsolo);
-        Bsolo.setBounds(80, 120, 185, 23);
+        Bsolo.setBounds(100, 110, 140, 40);
 
-        Bmulti.setText("Jouer en ligne");
+        Bmulti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bligne.png"))); // NOI18N
+        Bmulti.setBorderPainted(false);
+        Bmulti.setContentAreaFilled(false);
+        Bmulti.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Bligne_entered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Bligne_exited(evt);
+            }
+        });
         Bmulti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BmultiActionPerformed(evt);
             }
         });
         getContentPane().add(Bmulti);
-        Bmulti.setBounds(80, 150, 185, 23);
+        Bmulti.setBounds(100, 150, 140, 40);
 
-        Bquitter.setText("Quitter");
+        Bquitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bexit.png"))); // NOI18N
+        Bquitter.setBorderPainted(false);
+        Bquitter.setContentAreaFilled(false);
+        Bquitter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Bexit_entered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Bexit_exited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                change_image(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                reset_image(evt);
+            }
+        });
         Bquitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BquitterActionPerformed(evt);
             }
         });
         getContentPane().add(Bquitter);
-        Bquitter.setBounds(80, 270, 185, 23);
+        Bquitter.setBounds(100, 310, 140, 40);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(80, 260, 185, 10);
+        jSeparator1.setBounds(80, 300, 185, 10);
         getContentPane().add(jSeparator4);
-        jSeparator4.setBounds(80, 220, 185, 10);
+        jSeparator4.setBounds(80, 240, 185, 10);
 
-        Bcharger.setText("Charger une partie");
+        Bcharger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bcharger.png"))); // NOI18N
+        Bcharger.setBorderPainted(false);
+        Bcharger.setContentAreaFilled(false);
+        Bcharger.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Bcharger_entered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Bcharger_exited(evt);
+            }
+        });
         Bcharger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BchargerActionPerformed(evt);
             }
         });
         getContentPane().add(Bcharger);
-        Bcharger.setBounds(80, 180, 185, 23);
+        Bcharger.setBounds(100, 190, 140, 50);
 
-        Btuto.setText("Apprendre à jouer");
+        Btuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Btuto.png"))); // NOI18N
+        Btuto.setBorderPainted(false);
+        Btuto.setContentAreaFilled(false);
+        Btuto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btuto_entered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btuto_exited(evt);
+            }
+        });
         getContentPane().add(Btuto);
-        Btuto.setBounds(80, 230, 185, 23);
+        Btuto.setBounds(100, 250, 140, 40);
 
         imageTitre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/bridge.png"))); // NOI18N
         getContentPane().add(imageTitre);
@@ -256,6 +312,66 @@ public class Menu extends javax.swing.JFrame {
        /* Charge file = new Charge(this,true);
         file.setVisible(true);*/
     }//GEN-LAST:event_BchargerActionPerformed
+
+    private void change_image(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_change_image
+        // TODO add your handling code here:
+        Bquitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bexit_click.png")));
+    }//GEN-LAST:event_change_image
+
+    private void reset_image(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reset_image
+        // TODO add your handling code here:
+        Bquitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bexit.png")));
+    }//GEN-LAST:event_reset_image
+
+    private void Bexit_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bexit_entered
+        // TODO add your handling code here:
+        Bquitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bexit_entered.png")));
+    }//GEN-LAST:event_Bexit_entered
+
+    private void Bexit_exited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bexit_exited
+        // TODO add your handling code here:
+        Bquitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bexit.png")));
+    }//GEN-LAST:event_Bexit_exited
+
+    private void Bordi_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bordi_entered
+        // TODO add your handling code here:
+        Bsolo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bordi_entered.png")));
+    }//GEN-LAST:event_Bordi_entered
+
+    private void Bsolo_exit(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bsolo_exit
+        // TODO add your handling code here:
+        Bsolo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bordi.png")));
+    }//GEN-LAST:event_Bsolo_exit
+
+    private void Bligne_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bligne_entered
+        // TODO add your handling code here:
+        Bmulti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bligne_entered.png")));
+    }//GEN-LAST:event_Bligne_entered
+
+    private void Bligne_exited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bligne_exited
+        // TODO add your handling code here:
+        Bmulti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bligne.png")));
+    }//GEN-LAST:event_Bligne_exited
+
+    private void Bcharger_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bcharger_entered
+        // TODO add your handling code here:
+        Bcharger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bcharger_entered.png")));
+    }//GEN-LAST:event_Bcharger_entered
+
+    private void Btuto_entered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btuto_entered
+        // TODO add your handling code here:
+        Btuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Btuto_entered.png")));
+    }//GEN-LAST:event_Btuto_entered
+
+    private void Btuto_exited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btuto_exited
+        // TODO add your handling code here:
+        Btuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Btuto.png")));
+    }//GEN-LAST:event_Btuto_exited
+
+    private void Bcharger_exited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bcharger_exited
+        // TODO add your handling code here:
+        Bcharger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bcharger.png")));
+    }//GEN-LAST:event_Bcharger_exited
 
     /**
      * @param args the command line arguments

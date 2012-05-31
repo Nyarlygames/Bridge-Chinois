@@ -8,7 +8,7 @@ Date de Derniere modification 16/05/2012 : 04:24
 public abstract class Joueur {
 
     // -------------------------------------Attributs-------------------------------------
-    Jeu j;
+    Table table;
     int nbPlis, score, id;
     Boolean aJoue, aChoisi, phaseJouer, phaseChoisir;
     Carte carteAdv;
@@ -55,14 +55,6 @@ public abstract class Joueur {
         this.main = main;
     }
 
-    public Jeu getJ() {
-        return j;
-    }
-
-    public void setJ(Jeu j) {
-        this.j = j;
-    }
-
     public int getScore() {
         return score;
     }
@@ -95,10 +87,22 @@ public abstract class Joueur {
         this.aChoisi = aChoisi;
     }
 
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
+    }
+
     // -------------------------------------Méthodes-------------------------------------
+    
+   /* public Joueur clone()
+    {
+    	
+    }*/
     abstract void jouer();
 
     abstract void choisir();
-
 }
 
