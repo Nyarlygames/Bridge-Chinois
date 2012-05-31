@@ -100,7 +100,7 @@ public abstract class Joueur {
     {
     	
     }*/
-    protected abstract Joueur clone();    
+    public abstract Joueur clone();    
     abstract void jouer();
     abstract void choisir();
 }

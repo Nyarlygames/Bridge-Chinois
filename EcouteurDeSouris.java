@@ -60,10 +60,10 @@ class EcouteurDeSouris implements MouseListener {
             // dans ce cas le joueur est en phase de choix de carte a piocher
             //en prend en compte son choix
 
-                EntreeHistorique ent= new EntreeHistorique(jeu.getJoueur1(),jeu.getJoueur2(),jeu.getMoteur().getTable().clone());
+          //      EntreeHistorique ent= new EntreeHistorique(jeu.getJoueur1().clone(),jeu.getJoueur2().clone(),jeu.getMoteur().getTable().clone());
                 //////////////////////!!!!!!!
-                jeu.getHist().addEntree(ent);
-        	jeu.getMoteur().choisir(clicpile,jeu.getJoueurCourant());
+          //      jeu.getHist().addEntree(ent);
+        //	jeu.getMoteur().choisir(clicpile,jeu.getJoueurCourant());
         	jeu.intVersJoueur().setaChoisi(Boolean.TRUE);
             //g.getZoneDessin().repaint();      
 

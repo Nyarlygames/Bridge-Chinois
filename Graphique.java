@@ -96,6 +96,7 @@ public class Graphique implements Runnable {
                 jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
+                jeu.updateObservateur();
 
 
             }
@@ -114,6 +115,7 @@ public class Graphique implements Runnable {
                 jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
+                jeu.updateObservateur();
                 
             }
         });
