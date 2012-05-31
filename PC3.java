@@ -6,7 +6,8 @@ import java.util.HashMap;
  * @author Samy
  */
 public class PC3 extends Joueur {
-
+	
+	public PC3(){}
     public PC3(Table t, int id, Main main, Carte carteAdv) {
         this.table = t;
         this.id = id;
@@ -17,7 +18,7 @@ public class PC3 extends Joueur {
         this.carteAdv = carteAdv;
         this.main = main;
     }
-
+    
     @Override
     void jouer() {
         ArrayList<Carte> jouables = getCartesJouables();
@@ -149,6 +150,23 @@ public class PC3 extends Joueur {
 
 
     }
+    
+    protected Joueur clone()
+    {
+    	Joueur j = new PC();
+    	j.setTable(table);
+    	j.setId(id);
+    	j.setNbPlis(nbPlis);
+        j.setScore(score);
+        j.setaJoue(aJoue);
+        j.setaChoisi(aChoisi);
+        j.setPhaseChoisir(phaseChoisir);
+        j.setPhaseJouer(phaseJouer);
+        j.setCarteAdv(carteAdv);
+        j.setMain(main);
+    	return j;
+    }
+
 
     ArrayList<Carte> getCartesJouables() {
         ArrayList<Carte> jouables = new ArrayList<Carte>();

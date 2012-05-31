@@ -7,6 +7,10 @@ import java.util.logging.Logger;
  */
 public class Humain extends Joueur {
 
+	public Humain()
+	{
+		
+	}
     public Humain(Table t, int id) {
         this.table = t;
         this.id = id;
@@ -18,6 +22,20 @@ public class Humain extends Joueur {
         phaseJouer = false;
     }
 
+    protected Joueur clone()
+    {
+    	Joueur j = new Humain();
+    	j.setTable(table);
+    	j.setId(id);
+    	j.setNbPlis(nbPlis);
+        j.setScore(score);
+        j.setaJoue(aJoue);
+        j.setaChoisi(aChoisi);
+        j.setPhaseChoisir(phaseChoisir);
+        j.setPhaseJouer(phaseJouer);
+    	return j;
+    }
+    
     @Override
     void jouer() {
         phaseJouer = true;

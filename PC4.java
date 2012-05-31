@@ -11,6 +11,8 @@ public class PC4 extends Joueur {
      * @author Samy
      */
     // PC qui connait les cartes de l'adversaire
+	
+	public PC4(){}
     public PC4(Table t, int id, Main main, Carte carteAdv) {
         this.table = t;
         this.id = id;
@@ -149,6 +151,23 @@ public class PC4 extends Joueur {
         }
         aChoisi = true;
     }
+    
+    protected Joueur clone()
+    {
+    	Joueur j = new PC();
+    	j.setTable(table);
+    	j.setId(id);
+    	j.setNbPlis(nbPlis);
+        j.setScore(score);
+        j.setaJoue(aJoue);
+        j.setaChoisi(aChoisi);
+        j.setPhaseChoisir(phaseChoisir);
+        j.setPhaseJouer(phaseJouer);
+        j.setCarteAdv(carteAdv);
+        j.setMain(main);
+    	return j;
+    }
+
 
     ArrayList<Carte> getCartesJouables() {
         ArrayList<Carte> jouables = new ArrayList<Carte>();

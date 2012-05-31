@@ -7,6 +7,7 @@ import java.util.Random;
  */
 public class PC extends Joueur {
 
+	public PC(){}
     public PC(Table t, int id, Main main, Carte carteAdv) {
         this.table = t;
         this.id = id;
@@ -56,6 +57,22 @@ public class PC extends Joueur {
         }
 
         aChoisi = true;
+    }
+    
+    protected Joueur clone()
+    {
+    	Joueur j = new PC();
+    	j.setTable(table);
+    	j.setId(id);
+    	j.setNbPlis(nbPlis);
+        j.setScore(score);
+        j.setaJoue(aJoue);
+        j.setaChoisi(aChoisi);
+        j.setPhaseChoisir(phaseChoisir);
+        j.setPhaseJouer(phaseJouer);
+        j.setCarteAdv(carteAdv);
+        j.setMain(main);
+    	return j;
     }
 
     ArrayList<Carte> getCartesJouables() {
