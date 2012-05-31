@@ -48,14 +48,15 @@ public class ZoneDessin extends JComponent {
         // Mode solo
         if (mode == 1) {
         
-	        String pathcartes = "cartes/" + this.cfg.deck + "/";
-	        String pathres = "res/" + this.cfg.style + "/";
+	        String pathcartes = "cartes/" + "1" + "/";
+	        String pathres = "res/" + "1" + "/";
 
             // Background
+                
             Image corner = Toolkit.getDefaultToolkit().getImage(pathres+"corner.png");
             Image left = Toolkit.getDefaultToolkit().getImage(pathres+"left.png");
-	        Image bottom = Toolkit.getDefaultToolkit().getImage(pathres+"bottom.png");
-	        Image top = Toolkit.getDefaultToolkit().getImage(pathres+"top.png");
+	    Image bottom = Toolkit.getDefaultToolkit().getImage(pathres+"bottom.png");
+	    Image top = Toolkit.getDefaultToolkit().getImage(pathres+"top.png");
             Image right = Toolkit.getDefaultToolkit().getImage(pathres+"right.png");
             Image center = Toolkit.getDefaultToolkit().getImage(pathres+"center.png");
             Image empty = Toolkit.getDefaultToolkit().getImage(pathres+"empty.png");
