@@ -81,7 +81,6 @@ public class Jeu implements Observable {
 
 
                 }
-                this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
                 /* Mode Réseau */
             case 2:

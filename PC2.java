@@ -19,13 +19,18 @@ public class PC2 extends Joueur {
 
     @Override
     void jouer() {
+        if (id == 2) {
+            carteAdv = table.getCarte1();
+        } else {
+            carteAdv = table.getCarte2();
+        }
         ArrayList<Carte> jouables = getCartesJouables();
         ArrayList<Carte> gagnantes = new ArrayList<Carte>();
         Boolean prems;
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (ca.gagne(carteAdv, table.getAtout())) {
+                if (carteAdv.gagne(ca, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }

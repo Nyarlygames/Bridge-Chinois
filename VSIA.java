@@ -211,6 +211,7 @@ public class VSIA extends javax.swing.JFrame {
 		        Table table = new Table();
 		        Moteur moteur = new Moteur(table);
 		        //Jeu monJeu = new Jeu(moteur, 1,0,1,0);      
+                        System.out.println("jslider" + jSlider1.getValue());
 		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
 		        
 		        final Graphique gg = new Graphique(monJeu, 1);
