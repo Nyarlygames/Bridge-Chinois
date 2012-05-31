@@ -52,17 +52,17 @@ public class ZoneDessin extends JComponent {
 	        String pathres = "res/" + this.cfg.style + "/";
 
             // Background
-            Image corner = Toolkit.getDefaultToolkit().getImage(pathres+"corner.png");
-            Image left = Toolkit.getDefaultToolkit().getImage(pathres+"left.png");
-	        Image bottom = Toolkit.getDefaultToolkit().getImage(pathres+"bottom.png");
-	        Image top = Toolkit.getDefaultToolkit().getImage(pathres+"top.png");
-            Image right = Toolkit.getDefaultToolkit().getImage(pathres+"right.png");
-            Image center = Toolkit.getDefaultToolkit().getImage(pathres+"center.png");
-            Image empty = Toolkit.getDefaultToolkit().getImage(pathres+"empty.png");
+            Image corner = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner.png"));
+            Image left = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"left.png"));
+	        Image bottom = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"bottom.png"));
+	        Image top = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"top.png"));
+            Image right = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"right.png"));
+            Image center = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"center.png"));
+            Image empty = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"empty.png"));
 	        // Cartes
-            Image pli = Toolkit.getDefaultToolkit().getImage(pathcartes+"pli.png");
+            Image pli = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes+"pli.png"));
 
-            Image cback = Toolkit.getDefaultToolkit().getImage(pathcartes+"carte-dos.png");
+            Image cback = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes+"carte-dos.png"));
 
 
 	        // corners
@@ -106,14 +106,14 @@ public class ZoneDessin extends JComponent {
             if (t.getCarte1() == null) {
                 g.drawImage(empty, (width / 2) - (ch / 2), cjh, cw, ch, this);
             } else {
-                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte1().toFileString());
+                Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + t.getCarte1().toFileString()));
                 g.drawImage(cfront, (width / 2) - (ch / 2),  cjh, cw, ch, this);
             }
 
             if (t.getCarte2() == null) {
                 g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
             } else {
-                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
+                Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + t.getCarte2().toFileString()));
                 g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
             }
             
@@ -150,7 +150,7 @@ public class ZoneDessin extends JComponent {
 		        }
 		        
                 // on check le type de c et on charge le graphique associe
-                Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes+ c.toFileString());
+                Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes+ c.toFileString()));
                 g.drawImage(cfront, mid, up, cw, ch, this);
             }
             
@@ -162,7 +162,7 @@ public class ZoneDessin extends JComponent {
 
                     if (pc == (t.piles.get(p).getSize() - 1)) {
                         Carte c = t.piles.get(p).getCarte(pc);
-                        Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + c.toFileString());
+                        Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
                         g.drawImage(cfront, mid, (height /2) -ch/2, cw, ch, this);
 
                     } else {
