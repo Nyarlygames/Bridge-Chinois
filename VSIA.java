@@ -4,9 +4,10 @@
  */
 
 import java.awt.Color;
-import javax.swing.SwingUtilities;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -37,7 +38,7 @@ public class VSIA extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         nbParties = new javax.swing.JComboBox();
         mode = new javax.swing.JComboBox();
-        Slide = new javax.swing.JSlider();
+        jSlider1 = new javax.swing.JSlider();
         facile = new javax.swing.JLabel();
         moyen = new javax.swing.JLabel();
         difficile = new javax.swing.JLabel();
@@ -46,17 +47,13 @@ public class VSIA extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Jouer");
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
         getContentPane().setLayout(null);
 
         lbDif.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbDif.setForeground(new java.awt.Color(0, 255, 255));
         lbDif.setText("Difficulté :");
         getContentPane().add(lbDif);
-        lbDif.setBounds(27, 107, 60, 14);
+        lbDif.setBounds(27, 107, 56, 14);
 
         Launch.setText("Démarrer");
         Launch.addActionListener(new java.awt.event.ActionListener() {
@@ -116,65 +113,99 @@ public class VSIA extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(27, 26, 240, 42);
+        jPanel1.setBounds(50, 40, 240, 42);
 
-        Slide.setMaximum(3);
-        Slide.setMinimum(1);
-        Slide.setMinorTickSpacing(1);
-        Slide.setSnapToTicks(true);
-        Slide.setToolTipText("");
-        Slide.setValue(2);
-        Slide.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(Slide);
-        Slide.setBounds(46, 139, 273, 18);
+        jSlider1.setMaximum(3);
+        jSlider1.setMinimum(1);
+        jSlider1.setMinorTickSpacing(1);
+        jSlider1.setSnapToTicks(true);
+        jSlider1.setToolTipText("");
+        jSlider1.setValue(2);
+        jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jSlider1);
+        jSlider1.setBounds(46, 139, 273, 18);
 
         facile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        facile.setForeground(new java.awt.Color(0, 255, 255));
         facile.setText("Facile");
         getContentPane().add(facile);
         facile.setBounds(46, 168, 59, 14);
 
         moyen.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        moyen.setForeground(new java.awt.Color(0, 255, 255));
         moyen.setText("Moyen");
         getContentPane().add(moyen);
         moyen.setBounds(169, 168, 59, 14);
 
         difficile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        difficile.setForeground(new java.awt.Color(0, 255, 255));
         difficile.setText("Difficile");
         getContentPane().add(difficile);
         difficile.setBounds(285, 168, 50, 14);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 350, 270);
+        jLabel1.setBounds(0, 0, 350, 260);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-354)/2, (screenSize.height-295)/2, 354, 295);
+        setBounds((screenSize.width-354)/2, (screenSize.height-284)/2, 354, 284);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         // TODO add your handling code here:
-     //   Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
-     //   a.setVisible(true);
+        //   Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
+        //   a.setVisible(true);
 
-   //     if (a.getReturnStatus() == 1) {
-            Menu m = new Menu();
-            m.setVisible(true);
-            this.dispose();
-      //  }
+        //     if (a.getReturnStatus() == 1) {
+        Menu m = new Menu();
+        m.setVisible(true);
+        this.dispose();
+        //  }
     }//GEN-LAST:event_CancelActionPerformed
+
+    private void modeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_modeItemStateChanged
+        // TODO add your handling code here:
+
+        if (mode.getSelectedItem() == "Aventure") {
+            facile.setEnabled(false);
+            moyen.setEnabled(false);
+            difficile.setEnabled(false);
+            nbParties.setEnabled(false);
+            lbDif.setEnabled(false);
+        } else {
+            facile.setEnabled(true);
+            moyen.setEnabled(true);
+            difficile.setEnabled(true);
+            nbParties.setEnabled(true);
+            lbDif.setEnabled(true);
+        }
+    }//GEN-LAST:event_modeItemStateChanged
+
+    private void nbPartiesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nbPartiesFocusLost
+        // TODO add your handling code here:
+        if (nbParties.getSelectedItem() instanceof Integer) {
+            nbParties.setBackground(Color.white);
+
+
+        } else {
+            nbParties.setBackground(Color.red);
+
+
+        }
+    }//GEN-LAST:event_nbPartiesFocusLost
 
     private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
         // on ferme la fenetre de menu
-    	this.dispose();
+        this.dispose();
         new Thread(new Runnable() {
         	public void run() {
               
 		        Table table = new Table();
 		        Moteur moteur = new Moteur(table);
 		        //Jeu monJeu = new Jeu(moteur, 1,0,1,0);      
-		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), Slide.getValue());
-
+		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
+		        
 		        final Graphique gg = new Graphique(monJeu, 1);
 		        // test
 		        monJeu.addObservateur(new Observateur() {
@@ -204,50 +235,12 @@ public class VSIA extends javax.swing.JFrame {
 		            monJeu.moteur.table.piles.get(i).afficherPileConsole();
 		        }*/
 		        //System.out.println(monJeu.getMoteur().getTable().getAtout());
-
+		        
 		      }
         }).start();
-		
+
+
     }//GEN-LAST:event_LaunchActionPerformed
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-        Menu m = new Menu();
-        m.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_formWindowClosing
-
-    private void modeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_modeItemStateChanged
-        // TODO add your handling code here:
-
-        if (mode.getSelectedItem() == "Aventure") {
-            facile.setEnabled(false);
-            moyen.setEnabled(false);
-            difficile.setEnabled(false);
-            nbParties.setEnabled(false);
-            lbDif.setEnabled(false);
-        } else {
-            facile.setEnabled(true);
-            moyen.setEnabled(true);
-            difficile.setEnabled(true);
-            nbParties.setEnabled(true);
-            lbDif.setEnabled(true);
-        }
-    }//GEN-LAST:event_modeItemStateChanged
-
-    private void nbPartiesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nbPartiesFocusLost
-        // TODO add your handling code here:
-        System.out.println("protu");
-        if (nbParties.getSelectedItem() instanceof Integer) {
-            nbParties.setBackground(Color.white);
-
-
-        } else {
-            nbParties.setBackground(Color.red);
-
-
-        }
-    }//GEN-LAST:event_nbPartiesFocusLost
 
     /**
      * @param args the command line arguments
@@ -293,12 +286,12 @@ public class VSIA extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel;
     private javax.swing.JButton Launch;
-    private javax.swing.JSlider Slide;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel difficile;
     private javax.swing.JLabel facile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSlider jSlider1;
     private javax.swing.JLabel lbDif;
     private javax.swing.JComboBox mode;
     private javax.swing.JLabel moyen;
