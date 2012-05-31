@@ -6,6 +6,7 @@ import java.util.ArrayList;
  */
 public class PC2 extends Joueur {
 
+	public PC2(){}
     public PC2(Table t, int id, Main main, Carte carteAdv) {
         this.table = t;
         this.id = id;
@@ -19,13 +20,18 @@ public class PC2 extends Joueur {
 
     @Override
     void jouer() {
+        if (id == 2) {
+            carteAdv = table.getCarte1();
+        } else {
+            carteAdv = table.getCarte2();
+        }
         ArrayList<Carte> jouables = getCartesJouables();
         ArrayList<Carte> gagnantes = new ArrayList<Carte>();
         Boolean prems;
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (ca.gagne(carteAdv, table.getAtout())) {
+                if (carteAdv.gagne(ca, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }
@@ -53,8 +59,8 @@ public class PC2 extends Joueur {
                     }
                 }
             } else {//si on commence a jouer alors on met la plus grosse carte possible
-                meilleure = gagnantes.get(0);
-                for (Carte ca : gagnantes) {
+                meilleure = jouables.get(0);
+                for (Carte ca : jouables) {
                     if (ca.rangPlusFort(meilleure)) {
                         meilleure = ca;
                     }
@@ -105,9 +111,25 @@ public class PC2 extends Joueur {
             }
         }
 
-
         aChoisi = true;
     }
+    
+    protected Joueur clone()
+    {
+    	Joueur j = new PC();
+    	j.setTable(table);
+    	j.setId(id);
+    	j.setNbPlis(nbPlis);
+        j.setScore(score);
+        j.setaJoue(aJoue);
+        j.setaChoisi(aChoisi);
+        j.setPhaseChoisir(phaseChoisir);
+        j.setPhaseJouer(phaseJouer);
+        j.setCarteAdv(carteAdv);
+        j.setMain(main);
+    	return j;
+    }
+
 
     ArrayList<Carte> getCartesJouables() {
         ArrayList<Carte> jouables = new ArrayList<Carte>();

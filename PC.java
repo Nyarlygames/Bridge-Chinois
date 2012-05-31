@@ -7,6 +7,7 @@ import java.util.Random;
  */
 public class PC extends Joueur {
 
+	public PC(){}
     public PC(Table t, int id, Main main, Carte carteAdv) {
         this.table = t;
         this.id = id;
@@ -22,6 +23,11 @@ public class PC extends Joueur {
 
     @Override
     void jouer() {
+        if (id == 2) {
+            carteAdv = table.getCarte1();
+        } else {
+            carteAdv = table.getCarte2();
+        }
         ArrayList<Carte> jouables = getCartesJouables();
 
         Random r = new Random();
@@ -47,6 +53,7 @@ public class PC extends Joueur {
         }
 
         Random r = new Random();
+
         Carte c = piochables.get(r.nextInt(piochables.size())).piocher();
         main.add(c);
         if (id == 2) {
@@ -56,6 +63,22 @@ public class PC extends Joueur {
         }
 
         aChoisi = true;
+    }
+    
+    protected Joueur clone()
+    {
+    	Joueur j = new PC();
+    	j.setTable(table);
+    	j.setId(id);
+    	j.setNbPlis(nbPlis);
+        j.setScore(score);
+        j.setaJoue(aJoue);
+        j.setaChoisi(aChoisi);
+        j.setPhaseChoisir(phaseChoisir);
+        j.setPhaseJouer(phaseJouer);
+        j.setCarteAdv(carteAdv);
+        j.setMain(main);
+    	return j;
     }
 
     ArrayList<Carte> getCartesJouables() {

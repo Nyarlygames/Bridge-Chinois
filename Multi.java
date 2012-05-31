@@ -5,7 +5,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Enumeration;
+
 import javax.swing.SwingUtilities;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -154,6 +156,7 @@ public class Multi extends javax.swing.JFrame {
 
     IPDistante.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###:###:###:###"))));
 
+
     javax.swing.GroupLayout jPanelRejoindreLayout = new javax.swing.GroupLayout(jPanelRejoindre);
     jPanelRejoindre.setLayout(jPanelRejoindreLayout);
     jPanelRejoindreLayout.setHorizontalGroup(
@@ -203,6 +206,7 @@ public class Multi extends javax.swing.JFrame {
 
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
+
 	    if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Heberger")) {
 	        VSPlayer fenOp = new VSPlayer(this.ip, this.host);
 	        fenOp.setVisible(true);

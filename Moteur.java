@@ -22,7 +22,9 @@ public class Moteur {
     }
 
     // --------------------------------------Methodes-------------------------------------
+
     public boolean jouer(Carte c) {
+
         if (this.getTable().getCarte2() == null) {
             table.setCarte1(c);
             table.getMain1().getMain().remove(c);

@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import java.io.*;
 import java.net.*;
 
 public class Jeu implements Observable {
+
 
     // -------------------------------------Attributs-----------------------------------------
     Moteur moteur;
@@ -19,6 +21,11 @@ public class Jeu implements Observable {
     int joueurCourant;
     int type;
     int max;
+
+    Historique hist = new Historique();
+     
+
+
     // liste des observateurs
 	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
     int mode = -1;
@@ -29,6 +36,7 @@ public class Jeu implements Observable {
     String ip;
     ObjectOutputStream out;
     ObjectInputStream in;
+
 
     // -------------------------------------Constructeur-------------------------------------
     /* le mode indique le nombre de joueur humain :
@@ -41,9 +49,11 @@ public class Jeu implements Observable {
     1 : score a inteindre max 
     2 : aventure
      */
+
     Jeu(Moteur m, int mode, int type, int max, int difficulte) {
         Random rand = new Random();
         this.mode = mode;
+
         joueurCourant = rand.nextInt(2);
         joueurCourant++;
         moteur = m;
@@ -57,21 +67,20 @@ public class Jeu implements Observable {
             case 1:
                 this.joueur1 = new Humain(moteur.getTable(), 1);
                 switch (difficulte) {
-                    case 0:
-                        this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-
                     case 1:
-                        this.joueur2 = new PC2(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-
+                        this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        break;
                     case 2:
-                        this.joueur2 = new PC3(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-
+                        this.joueur2 = new PC2(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        break;
                     case 3:
+                        this.joueur2 = new PC3(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        break;
+                    case 4:
                         this.joueur2 = new PC4(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-
+                        break;
 
                 }
-                this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
                 /* Mode Réseau */
             case 2:
@@ -91,6 +100,10 @@ public class Jeu implements Observable {
     // -------------------------------------Accesseurs-------------------------------------
     public Moteur getMoteur() {
         return moteur;
+    }
+    
+    public Historique getHist(){
+        return this.hist;
     }
 
     public void setMoteur(Moteur moteur) {
@@ -121,6 +134,12 @@ public class Jeu implements Observable {
         this.max = max;
     }
 
+    
+    public void setHist(Historique his){
+        this.hist=his;
+    }
+
+
     public Joueur getJoueur1() {
         return joueur1;
     }
@@ -150,6 +169,7 @@ public class Jeu implements Observable {
     // Retourne le joueur adverse
     public int getJoueurAdverse(int joueur) {
 
+
         if (joueur == 1) {
             return 2;
         } else if (joueur == 2) {
@@ -157,10 +177,12 @@ public class Jeu implements Observable {
         } else {
             return 0;
         }
+
     }
 
     // Retourne la carte adverse du joueur
     public Carte getCarteAdverse(int joueur) {
+
         if (joueur == 1) {
             return (moteur.getTable().carte2);
         } else if (joueur == 2) {
@@ -179,6 +201,7 @@ public class Jeu implements Observable {
         } else {
             return (null);
         }
+
     }
     
     // --------------------------------- Methodes MODE RESEAU --------------------------------
@@ -263,6 +286,8 @@ public class Jeu implements Observable {
     
     // distribue les cartes entre les joueurs et séparation du reste en 6 piles
     public void initialiser() {
+
+        //Paquet monPaquet = new Paquet();
         
         // on ne melange si on est pas en mode reseau,
         if (mode != 2) {
@@ -283,6 +308,7 @@ public class Jeu implements Observable {
         if(mode == 2 && !croupier) {
             return;
         }
+
 
         for (int i = 0; i < 11; i++) {
             moteur.getTable().main1.add(moteur.getTable().getPaquet().piocher());
@@ -354,6 +380,7 @@ public class Jeu implements Observable {
     // L'Arbitre : déroulement d'une partie entre 2 joueurs 
     public void jouer() {
     	
+
     	Carte c1, c2 = null;
         int nbMatche = 0;
 	    c1 = null;
@@ -378,12 +405,14 @@ public class Jeu implements Observable {
 	                	this.joueur2 = new PC4(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
     		   }
     	   	}
+
     	   	
     	   	// si on est en mode reseau on init pas ici, mais avant ( a la negociation de la connexion )
     	   	if(mode != 2) {
    	            initialiser();
     	   	}
     	   	
+
     		this.updateObservateur();
     		if(joueurCourant == 2)
     		{
@@ -411,8 +440,10 @@ public class Jeu implements Observable {
 				{
 					Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
 				}
+
 				
 				// c1 représente la premiere carte qui a été posée et c2 la deuxieme
+
 				if (joueurCourant == 1) {
 				    c1 = moteur.getTable().getCarte2();
 				    c2 = moteur.getTable().getCarte1();
@@ -624,6 +655,7 @@ public class Jeu implements Observable {
         return adversaire;
     }
 
+
     //renvoie les cartes connues de l'adversaire du joueur courant
     public ArrayList<Carte> getCartesConnuesAdversaire() {
         ArrayList<Carte> adversaire = new ArrayList<Carte>();
@@ -719,3 +751,4 @@ public class Jeu implements Observable {
         }
     }
 }
+
