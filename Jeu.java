@@ -9,7 +9,11 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Jeu implements Observable{
+import java.io.*;
+import java.net.*;
+
+public class Jeu implements Observable {
+
 
     // -------------------------------------Attributs-----------------------------------------
     Moteur moteur;
@@ -17,9 +21,21 @@ public class Jeu implements Observable{
     int joueurCourant;
     int type;
     int max;
+
     Historique hist = new Historique();
+     
+
+
     // liste des observateurs
-	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();        
+	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
+    int mode = -1;
+    
+    // Attributs réseau
+    boolean croupier;
+    int port = -1;
+    String ip;
+    ObjectOutputStream out;
+    ObjectInputStream in;
 
 
     // -------------------------------------Constructeur-------------------------------------
@@ -33,19 +49,21 @@ public class Jeu implements Observable{
     1 : score a inteindre max 
     2 : aventure
      */
-	Jeu(Moteur m, int mode, int type, int max, int difficulte) {
-        Random rand = new Random();
 
+    Jeu(Moteur m, int mode, int type, int max, int difficulte) {
+        Random rand = new Random();
+        this.mode = mode;
 
         joueurCourant = rand.nextInt(2);
         joueurCourant++;
         moteur = m;
         switch (mode) {
+          /* Mode IA vs IA */
             case 0:
                 this.joueur1 = new PC(this, 1, moteur.getTable().getMain1(), moteur.getTable().getCarte2());
                 this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
-
+                /* Mode Humain vs PC */
             case 1:
                 this.joueur1 = new Humain(this, 1);
                 switch (difficulte) {
@@ -65,11 +83,11 @@ public class Jeu implements Observable{
                 }
                 this.joueur2 = new PC(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
+                /* Mode Réseau */
             case 2:
+
                 this.joueur1 = new Humain(this, 1);
                 this.joueur2 = new Humain(this, 2);
-                break;
-
         }
         this.type = type;
         this.max = max;
@@ -108,10 +126,12 @@ public class Jeu implements Observable{
     public void setMax(int max) {
         this.max = max;
     }
+
     
     public void setHist(Historique his){
         this.hist=his;
     }
+
 
     public Joueur getJoueur1() {
         return joueur1;
@@ -141,42 +161,136 @@ public class Jeu implements Observable{
 
     // Retourne le joueur adverse
     public int getJoueurAdverse(int joueur) {
-        if (joueur == 1)
-	    return 2;
-	else if (joueur == 2)
-	    return 1;
-	else return 0;
+
+
+        if (joueur == 1) {
+            return 2;
+        } else if (joueur == 2) {
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 
     // Retourne la carte adverse du joueur
     public Carte getCarteAdverse(int joueur) {
-	if (joueur == 1)
-	    return (moteur.table.carte2);
-	else if (joueur == 2)
-	    return (moteur.table.carte1);
-	else
-	    return (null);
+
+        if (joueur == 1) {
+            return (moteur.getTable().carte2);
+        } else if (joueur == 2) {
+            return (moteur.getTable().carte1);
+        } else {
+            return (null);
+        }
     }
 
     // Retourne la main du joueur
-    public Main getMainJoueur (int joueur) {
-	if (joueur == 1)
-	    return moteur.table.main1;
-	else if (joueur == 2)
-	    return moteur.table.main2;
-	else
-	    return (null);
+    public Main getMainJoueur(int joueur) {
+        if (joueur == 1) {
+            return moteur.getTable().getMain1();
+        } else if (joueur == 2) {
+            return moteur.getTable().getMain2();
+        } else {
+            return (null);
+        }
+
     }
 
     // -------------------------------------Methodes-----------------------------------------
+    
+    public void attachDistantPlayer(String ip, boolean croupier) {
+        this.ip = ip;
+        this.croupier = croupier;
+        this.port = 4242;
+        if (croupier == true) {
+		    attenteConnexion();
+		  }
+		 else {
+		    attenteJeuDistant();
+		 }
+    }
+    
+    /* Herbergement d'une partie et attente client */
+    public void attenteConnexion(){
+        String message = "";
+        try {
+            ServerSocket socketjeu = new ServerSocket(port);
+            System.out.println("Attente d'une connexion ...");
+            Socket connexion = socketjeu.accept();
+            this.out = new ObjectOutputStream(connexion.getOutputStream());
+            this.in = new ObjectInputStream(connexion.getInputStream());
+            System.out.println("Connexion Réussie");
+        }
+        catch (Exception e){
+                    System.out.println("Echec attente");
+        }
+        /* Envoi de la table */
+        try {
+            System.out.println("Envoie table");
+            initialiser();
+            this.out.writeObject((Table) moteur.getTable());
+            System.out.println("Table envoyé");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Echec de l'envoie de la table");
+        }
+
+    }
+    
+    
+    /* Rejoindre la partie et attente de la Table par le croupier */
+    public void attenteJeuDistant() {
+        String message = "";
+        try {
+            Socket socketjeu = new Socket(InetAddress.getByName(this.ip), this.port);
+            System.out.println("Connexion ...");
+           this.out = new ObjectOutputStream(socketjeu.getOutputStream());
+           this.in = new ObjectInputStream(socketjeu.getInputStream());
+           System.out.println("Connexion réussie");
+        }
+        catch (Exception e){
+                    System.out.println("Echec connexion");
+        }
+        /* Reception de la table */
+        try {
+            System.out.println("reception table ...");
+            this.moteur.setTable((Table) this.in.readObject());
+            System.out.println("Table recue");
+            initialiser();
+            System.out.println("Initialisation Terminée");
+        }
+        catch (Exception e) {
+            System.out.println("Echec reception de la table");
+        }
+ 
+    }
+    
+    
+    
+    
     // distribue les cartes entre les joueurs et séparation du reste en 6 piles
     public void initialiser() {
-    	Paquet monPaquet = new Paquet();
-    	monPaquet.melanger();
-    	moteur.getTable().setPaquet(monPaquet);
+
+        //Paquet monPaquet = new Paquet();
+        
+        // on ne melange que si on est pas en mode reseau, ou si on est en mode reseau ET croupier
+        if (mode != 2) {
+            Paquet monPaquet = new Paquet();
+            monPaquet.melanger();
+            moteur.getTable().setPaquet(monPaquet);
+        }
+        else if(croupier) {
+            Paquet monPaquet = new Paquet();
+            monPaquet.melanger();
+            moteur.getTable().setPaquet(monPaquet);
+        }  
+        //moteur.getTable().setPaquet(monPaquet);
+
         for (int i = 0; i < 11; i++) {
-            moteur.table.main1.add(moteur.table.paquet.piocher());
-            moteur.table.main2.add(moteur.table.paquet.piocher());
+            moteur.getTable().main1.add(moteur.getTable().getPaquet().piocher());
+            moteur.getTable().main2.add(moteur.getTable().getPaquet().piocher());
         }
 
         ArrayList<Carte> tas1 = new ArrayList<Carte>(5);
@@ -187,17 +301,17 @@ public class Jeu implements Observable{
         ArrayList<Carte> tas6 = new ArrayList<Carte>(5);
 
         for (int i = 0; i < 5; i++) {
-            tas1.add(moteur.table.paquet.piocher());
-            tas2.add(moteur.table.paquet.piocher());
-            tas3.add(moteur.table.paquet.piocher());
-            tas4.add(moteur.table.paquet.piocher());
-            tas5.add(moteur.table.paquet.piocher());
-            tas6.add(moteur.table.paquet.piocher());
+            tas1.add(moteur.getTable().getPaquet().piocher());
+            tas2.add(moteur.getTable().getPaquet().piocher());
+            tas3.add(moteur.getTable().getPaquet().piocher());
+            tas4.add(moteur.getTable().getPaquet().piocher());
+            tas5.add(moteur.getTable().getPaquet().piocher());
+            tas6.add(moteur.getTable().getPaquet().piocher());
         }
         ArrayList<Pile> piles = new ArrayList<Pile>(6);
         Pile pile = new Pile(1, tas1);
         piles.add(pile);
-        
+
         pile = new Pile(2, tas2);
         piles.add(pile);
 
@@ -244,7 +358,7 @@ public class Jeu implements Observable{
     // L'Arbitre : déroulement d'une partie entre 2 joueurs 
     public void jouer() {
     	
-    	
+
     	Carte c1, c2 = null;
         int nbMatche = 0;
 	    c1 = null;
@@ -269,7 +383,13 @@ public class Jeu implements Observable{
 	                	this.joueur2 = new PC4(this, 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());	
     		   }
     	   	}
-    	   	initialiser();
+
+    	   	
+    	   	if(mode != 2) {
+   	            initialiser();
+    	   	}
+    	   	
+
     		this.updateObservateur();
     		if(joueurCourant == 2)
     		{
@@ -287,7 +407,9 @@ public class Jeu implements Observable{
 		   		this.updateObservateur();
 				switcher();
 				this.updateObservateur();
-				intVersJoueur().jouer();				
+
+				intVersJoueur().jouer();			
+
 				this.updateObservateur();
 				try {
 	   				Thread.sleep(1000);
@@ -296,6 +418,10 @@ public class Jeu implements Observable{
 				{
 					Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
 				}
+
+				
+				// c1 représente la premiere carte qui a été posée et c2 la deuxieme
+
 				if (joueurCourant == 1) {
 				    c1 = moteur.getTable().getCarte2();
 				    c2 = moteur.getTable().getCarte1();
@@ -419,87 +545,100 @@ public class Jeu implements Observable{
         return adversaire;
     }
 
+
+    //renvoie les cartes connues de l'adversaire du joueur courant
+    public ArrayList<Carte> getCartesConnuesAdversaire() {
+        ArrayList<Carte> adversaire = new ArrayList<Carte>();
+
+        if (joueurCourant == 1) {
+            adversaire.addAll(moteur.getTable().getMain2connue().getMain());
+        } else {
+            adversaire.addAll(moteur.getTable().getMain1connue().getMain());
+
+        }
+        return adversaire;
+    }
     // Determiner si une carte est jouable
-	public boolean carteJouable(Carte c, int joueur){
-	    // A l'adversaire de jouer
-	    if (joueur != joueurCourant)
-		return (false);
-	    // A nous de jouer en premier
-	    if (getCarteAdverse(joueur) == null)
-		return (true);
 
-	    else {
-		// Si il y a de l'atout
-		if (moteur.table.atout != null) {
-		    // A nous de jouer en deuxieme
-		    Carte carteadv = getCarteAdverse(joueur);
-		    Main mainjoueur = getMainJoueur(joueur);
-		    // Si il a joué un atout
-		    if (carteadv.couleur == moteur.table.atout)
-			{
-			    boolean atout = false;
+    public boolean carteJouable(Carte c, int joueur) {
+        // A l'adversaire de jouer
+        if (joueur != joueurCourant) {
+            return (false);
+        }
+        // A nous de jouer en premier
+        if (getCarteAdverse(joueur) == null) {
+            return (true);
+        } else {
+            // Si il y a de l'atout
+            if (moteur.getTable().atout != null) {
+                // A nous de jouer en deuxieme
+                Carte carteadv = getCarteAdverse(joueur);
+                Main mainjoueur = getMainJoueur(joueur);
+                // Si il a joué un atout
+                if (carteadv.couleur == moteur.getTable().atout) {
+                    boolean atout = false;
 
-			for (int i = 0; i < mainjoueur.getSize(); i++){
-			    if (mainjoueur.getCarte(i).couleur == moteur.table.atout)
-				atout = true;
-			}
-			    // Pas d'atout dans la main
-			    if (atout == false)
-				return true;
-			    // On veut jouer un atout
-			    else if (c.couleur == moteur.table.atout)
-				return true;
-			    else
-				return false;
-			}
-		    // Pas d'atout
-		    else {
-			boolean atout = false;
-			boolean defausse = true;
-			for (int i = 0; i < mainjoueur.getSize(); i++){
-			    if (mainjoueur.getCarte(i).couleur == moteur.table.atout)
-				atout = true;
-			    if (mainjoueur.getCarte(i).couleur == carteadv.couleur) {
-				defausse = false;
-			    }
-			}
-			// On ne peut pas fournir
-			if (defausse == true) {
-			    return true;
-			}
-			// On peut fournir
-			else {
-			    // Si on veut fournir
-			    if (c.couleur == carteadv.couleur)
-				return true;
-			    //Si on veut se defausser
-			    else
-				return false;
-			}
-		    }
-		}
-		// Si il n'y a pas d'atout
-		else {
-		}
-	    }
-	    return false;
-	}
-	
-	// ajoute un observateur
-	public void addObservateur(Observateur obs) {
-		this.listObservateur.add(obs);
-	}
-	
-	// supprime un observateur
-	public void delObservateur() {
-		this.listObservateur = new ArrayList<Observateur>();
-	}
+                    for (int i = 0; i < mainjoueur.getSize(); i++) {
+                        if (mainjoueur.getCarte(i).couleur == moteur.getTable().atout) {
+                            atout = true;
+                        }
+                    }
+                    // Pas d'atout dans la main
+                    if (atout == false) {
+                        return true;
+                    } // On veut jouer un atout
+                    else if (c.couleur == moteur.getTable().atout) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } // Pas d'atout
+                else {
+                    boolean atout = false;
+                    boolean defausse = true;
+                    for (int i = 0; i < mainjoueur.getSize(); i++) {
+                        if (mainjoueur.getCarte(i).couleur == moteur.getTable().atout) {
+                            atout = true;
+                        }
+                        if (mainjoueur.getCarte(i).couleur == carteadv.couleur) {
+                            defausse = false;
+                        }
+                    }
+                    // On ne peut pas fournir
+                    if (defausse == true) {
+                        return true;
+                    } // On peut fournir
+                    else {
+                        // Si on veut fournir
+                        if (c.couleur == carteadv.couleur) {
+                            return true;
+                        } //Si on veut se defausser
+                        else {
+                            return false;
+                        }
+                    }
+                }
+            } // Si il n'y a pas d'atout
+            else {
+            }
+        }
+        return false;
+    }
 
-	public void updateObservateur() {
-		for(Observateur obs : this.listObservateur )
-			obs.update(this);
-	}
-        
+    // ajoute un observateur
+    public void addObservateur(Observateur obs) {
+        this.listObservateur.add(obs);
+    }
 
+    // supprime un observateur
+    public void delObservateur() {
+        this.listObservateur = new ArrayList<Observateur>();
+    }
 
+    public void updateObservateur() {
+        for (Observateur obs : this.listObservateur) {
+            obs.update(this);
+        }
+    }
 }
+

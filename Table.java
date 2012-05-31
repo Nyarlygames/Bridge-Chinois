@@ -6,19 +6,26 @@ Date de Dernière modification 15/05/2012 : 18:27
 
 import java.util.ArrayList;
 
-public class Table {
+import java.io.*;
+
+public class Table implements java.io.Serializable{
 
     // -------------------------------------Attributs-------------------------------------
-    Main main1, main2;
+    Main main1, main2, main1connue, main2connue;
+
     Carte carte1, carte2;
     ArrayList<Pile> piles;
     Paquet paquet;
     Couleur atout;
 
     // -------------------------------------Constructeur-------------------------------------
+
     Table() {
         main1 = new Main();
         main2 = new Main();
+        main1connue = new Main();
+        main2connue = new Main();
+
         carte1 = null;
         carte2 = null;
         piles = new ArrayList<Pile>(6);
@@ -84,18 +91,58 @@ public class Table {
         this.atout = atout;
     }
 
+
+    public Main getMain1connue() {
+        return main1connue;
+    }
+
+    public Main getMain2connue() {
+        return main2connue;
+    }
+
+    public void setMain1connue(Main main1connue) {
+        this.main1connue = main1connue;
+    }
+
+    public void setMain2connue(Main main2connue) {
+        this.main2connue = main2connue;
+    }
+
+
     // -------------------------------------Methodes-------------------------------------
     // ajoute une pile 
     /*public void addPile(Pile pile) {
         piles.add(pile);
     }*/
 
-    public boolean pilesVides(){
-	boolean empty = true;
-	for (int i = 0; i < 6; i++){
-	    if (!piles.get(i).estVide())
-		empty = false;
-	}
-	return (empty);
+
+    public boolean pilesVides() {
+        boolean empty = true;
+        for (int i = 0; i < 6; i++) {
+            if (!piles.get(i).estVide()) {
+                empty = false;
+            }
+        }
+        return (empty);
+    }
+    
+    public Table clone()
+    {
+    	Table t = new Table();
+    	t.setMain1(main1.clone());
+    	t.setMain2(main2.clone());
+    	t.setMain1connue(main1connue.clone());
+    	t.setMain2connue(main2connue.clone());
+        if (carte1!=null)
+            t.setCarte1(carte1.clone());
+        if (carte2!=null)
+            t.setCarte2(carte2.clone());
+    	ArrayList<Pile> p = new ArrayList<Pile>(6);
+    	for(int i=0; i<p.size(); i++)
+    	{
+    		p.set(i, piles.get(i).clone());
+    	}
+      	return t;  	
+
     }
 }

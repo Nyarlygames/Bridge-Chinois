@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Enumeration;
 
+import javax.swing.SwingUtilities;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -148,6 +150,7 @@ public class Multi extends javax.swing.JFrame {
     jLabelIPDistante.setText("IP Distante : ");
 
 
+
     javax.swing.GroupLayout jPanelRejoindreLayout = new javax.swing.GroupLayout(jPanelRejoindre);
     jPanelRejoindre.setLayout(jPanelRejoindreLayout);
     jPanelRejoindreLayout.setHorizontalGroup(
@@ -221,8 +224,26 @@ public class Multi extends javax.swing.JFrame {
 	    fenOp.setVisible(true);
 	}
 	else if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Rejoindre")) {
-	    this.ip = IPDistante.getText();
-	    Client client = new Client(this.ip, this.host);
+
+        this.dispose();
+        new Thread(new Runnable() {
+        	public void run() {
+	    Table t = new Table();
+	    Moteur moteur = new Moteur(t);
+		Jeu monJeu = new Jeu(moteur, 2, 0, 1, 0);
+		monJeu.attachDistantPlayer(ip, false);
+				        final Graphique gg = new Graphique(monJeu, 1);
+		        // test
+		        monJeu.addObservateur(new Observateur() {
+					public void update(Jeu jeu) {
+						gg.getZoneDessin().repaint();					
+					}
+				});
+		        SwingUtilities.invokeLater(gg);
+		        monJeu.jouer();
+		      }
+        }).start();
+
 	}
 
         this.dispose();

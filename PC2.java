@@ -62,10 +62,12 @@ public class PC2 extends Joueur {
             }
         }
 
-        if (j.intVersJoueur().equals(j.joueur2)) {
+        if (j.intVersJoueur().equals(j.getJoueur2())) {
             j.getMoteur().getTable().setCarte2(meilleure);
+            j.getMoteur().getTable().getMain2connue().getMain().remove(meilleure);
         } else {
             j.getMoteur().getTable().setCarte1(meilleure);
+            j.getMoteur().getTable().getMain1connue().getMain().remove(meilleure);
         }
 
         main.getMain().remove(meilleure);
@@ -94,8 +96,15 @@ public class PC2 extends Joueur {
                     }
                 }
             }
-            main.add(meilleure.piocher());
+            Carte c = meilleure.piocher();
+            main.add(c);
+            if (j.intVersJoueur().equals(j.getJoueur2())) {
+                j.getMoteur().getTable().getMain2connue().add(c);
+            } else {
+                j.getMoteur().getTable().getMain1connue().add(c);
+            }
         }
+
         aChoisi = true;
     }
 

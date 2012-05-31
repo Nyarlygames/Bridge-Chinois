@@ -5,8 +5,9 @@ Date de Dernière modification 23/05/2012 : 14:32
  */
 
 import java.util.ArrayList;
+import java.io.*;
 
-public class Pile {
+public class Pile implements java.io.Serializable{
 
     // -------------------------------------Attribute-------------------------------------
     int numero;
@@ -77,5 +78,16 @@ public class Pile {
         for (int i = 0; i < pile.size(); i++) {
             System.out.println(pile.get(i).toString());
         }
+    }
+    
+    public Pile clone()
+    {
+    	Pile p = new Pile(numero);
+    	for(int i=0; i<pile.size();i++)
+    	{
+    		p.getPile().add(pile.get(i).clone());
+    	}
+    	
+    	return p;
     }
 }

@@ -61,7 +61,9 @@ public class ZoneDessin extends JComponent {
             Image empty = Toolkit.getDefaultToolkit().getImage(pathres+"empty.png");
 	        // Cartes
             Image pli = Toolkit.getDefaultToolkit().getImage(pathcartes+"pli.png");
-            Image cback = Toolkit.getDefaultToolkit().getImage(pathcartes+"carte-dos.jpg");
+
+            Image cback = Toolkit.getDefaultToolkit().getImage(pathcartes+"carte-dos.png");
+
 
 	        // corners
             int cornerh = corner.getHeight(null);

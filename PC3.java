@@ -45,12 +45,23 @@ public class PC3 extends Joueur {
         } else {
             HashMap<Carte, Integer> chances = new HashMap<Carte, Integer>();
             ArrayList<Carte> inconnues = j.getCartesInconnues();
+            inconnues.removeAll(j.getCartesConnuesAdversaire());
+            ArrayList<Carte> testables = jouables;
 
-            for (Carte c : main.getMain()) {
+            for (Carte c1 : jouables) {
+                for (Carte c2 : j.getCartesConnuesAdversaire()) {
+                    if (c2.gagne(c1, j.getMoteur().getTable().getAtout())) {
+                        testables.remove(c1);
+                    }
+                }
+            }
+
+
+            for (Carte c : testables) {
                 chances.put(c, 0);
             }
 
-            for (Carte c1 : main.getMain()) {
+            for (Carte c1 : testables) {
                 for (Carte c2 : inconnues) {
                     if (c1.gagne(c2, j.getMoteur().getTable().getAtout())) {
                         chances.put(c1, chances.get(c1) + 1);
@@ -60,16 +71,6 @@ public class PC3 extends Joueur {
             //chances contient le nombre de cartes pouvant battre chacune des cartes de la main
 
             if (!prems) {//pas de gagnante donc on balance la carte ayant le plus de chance de se faire battre
-                Integer maxi = 0;
-                for (Carte c : chances.keySet()) {
-                    if (chances.get(c) > maxi) {
-                        maxi = chances.get(c);
-                        meilleure = c;
-                    }
-                }
-            } else {//si on commence a jouer alors on met la carte ayant le plus de chance de gagner
-
-
                 Integer mini = 52;
                 for (Carte c : chances.keySet()) {
                     if (chances.get(c) < mini) {
@@ -77,13 +78,27 @@ public class PC3 extends Joueur {
                         meilleure = c;
                     }
                 }
+            } else {//si on commence a jouer alors on met la carte ayant le plus de chance de gagner
+
+                Integer maxi = 0;
+                for (Carte c : chances.keySet()) {
+                    if (chances.get(c) > maxi) {
+                        maxi = chances.get(c);
+                        meilleure = c;
+                    }
+                }
+
             }
         }
 
         if (j.intVersJoueur().equals(j.getJoueur2())) {
             j.getMoteur().getTable().setCarte2(meilleure);
+            j.getMoteur().getTable().getMain2connue().getMain().remove(meilleure);
+
         } else {
             j.getMoteur().getTable().setCarte1(meilleure);
+            j.getMoteur().getTable().getMain1connue().getMain().remove(meilleure);
+
         }
         main.getMain().remove(meilleure);
         aJoue = true;
@@ -102,6 +117,7 @@ public class PC3 extends Joueur {
             meilleure = piochables.get(0);
             HashMap<Pile, Integer> chances = new HashMap<Pile, Integer>();
             ArrayList<Carte> inconnues = j.getCartesInconnues();
+            inconnues.removeAll(j.getCartesConnuesAdversaire());
             for (Pile p : piochables) {
                 chances.put(p, 0);
                 for (Carte c2 : inconnues) {
@@ -118,10 +134,17 @@ public class PC3 extends Joueur {
                 }
             }
             if (!meilleure.estVide()) {
-                main.add(meilleure.piocher());
+                Carte c = meilleure.piocher();
+                if (j.intVersJoueur().equals(j.getJoueur2())) {
+                    j.getMoteur().getTable().getMain2connue().add(c);
+                } else {
+                    j.getMoteur().getTable().getMain1connue().add(c);
+                }
+                main.add(c);
             }
         }
         aChoisi = true;
+
     }
 
     ArrayList<Carte> getCartesJouables() {

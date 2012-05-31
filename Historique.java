@@ -26,16 +26,16 @@ public class Historique {
     
         //Decale la position d'un vers la gauche
     void annuler() {
-        if (position > 1) {
-            position -= 2;
+        if (position > 0) {
+            position -= 1;
         }
 
     }
     
        //Decale la position d'un vers la droite
     void refaire() {
-        if (position < hist.size() - 3) {
-            position += 2;
+        if (position < hist.size() - 2) {
+            position += 1;
         }
     }
     

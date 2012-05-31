@@ -92,17 +92,17 @@ public class Graphique implements Runnable {
         annulerMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
+                jeu.getHist().annuler();
                 jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
-                jeu.getHist().annuler();
 
-                
+
             }
         });
 
         fileMenu.add(annulerMenuItem);
-
 
         refaireMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         refaireMenuItem.setMnemonic('r');
@@ -124,6 +124,7 @@ public class Graphique implements Runnable {
 
         jMenuItem1.setText("Options");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Option opt = new Option();
