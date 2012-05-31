@@ -1,4 +1,3 @@
-
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:15
@@ -101,8 +100,7 @@ public abstract class Joueur {
     {
     	
     }*/
+    protected abstract Joueur clone();    
     abstract void jouer();
-
     abstract void choisir();
 }
-

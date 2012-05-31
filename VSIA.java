@@ -90,6 +90,11 @@ public class VSIA extends javax.swing.JFrame {
                 modeItemStateChanged(evt);
             }
         });
+        mode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -205,7 +210,6 @@ public class VSIA extends javax.swing.JFrame {
               
 		        Table table = new Table();
 		        Moteur moteur = new Moteur(table);
-		        //Jeu monJeu = new Jeu(moteur, 1,0,1,0);      
 		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
 		        
 		        final Graphique gg = new Graphique(monJeu, 1);
@@ -243,6 +247,10 @@ public class VSIA extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_LaunchActionPerformed
+
+    private void modeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modeActionPerformed
 
     /**
      * @param args the command line arguments

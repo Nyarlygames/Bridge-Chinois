@@ -67,21 +67,20 @@ public class Jeu implements Observable {
             case 1:
                 this.joueur1 = new Humain(moteur.getTable(), 1);
                 switch (difficulte) {
-                    case 0:
-                        this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-
                     case 1:
-                        this.joueur2 = new PC2(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-
+                        this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        break;
                     case 2:
-                        this.joueur2 = new PC3(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-
+                        this.joueur2 = new PC2(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        break;
                     case 3:
+                        this.joueur2 = new PC3(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        break;
+                    case 4:
                         this.joueur2 = new PC4(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
-
+                        break;
 
                 }
-                this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
                 break;
                 /* Mode Réseau */
             case 2:
