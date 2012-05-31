@@ -5,16 +5,19 @@ Date de Dernière modification 15/05/2012 : 18:27
  */
 
 import java.util.ArrayList;
+
 import java.io.*;
 
 public class Table implements java.io.Serializable{
 
     // -------------------------------------Attributs-------------------------------------
     Main main1, main2, main1connue, main2connue;
+
     Carte carte1, carte2;
     ArrayList<Pile> piles;
     Paquet paquet;
     Couleur atout;
+
     // -------------------------------------Constructeur-------------------------------------
 
     Table() {
@@ -22,6 +25,7 @@ public class Table implements java.io.Serializable{
         main2 = new Main();
         main1connue = new Main();
         main2connue = new Main();
+
         carte1 = null;
         carte2 = null;
         piles = new ArrayList<Pile>(6);
@@ -87,6 +91,7 @@ public class Table implements java.io.Serializable{
         this.atout = atout;
     }
 
+
     public Main getMain1connue() {
         return main1connue;
     }
@@ -103,11 +108,13 @@ public class Table implements java.io.Serializable{
         this.main2connue = main2connue;
     }
 
+
     // -------------------------------------Methodes-------------------------------------
     // ajoute une pile 
     /*public void addPile(Pile pile) {
         piles.add(pile);
     }*/
+
 
     public boolean pilesVides() {
         boolean empty = true;
@@ -126,14 +133,17 @@ public class Table implements java.io.Serializable{
     	t.setMain2(main2.clone());
     	t.setMain1connue(main1connue.clone());
     	t.setMain2connue(main2connue.clone());
-    	t.setCarte1(carte1.clone());
-    	t.setCarte2(carte2.clone());
+        if (carte1!=null)
+            t.setCarte1(carte1.clone());
+        if (carte2!=null)
+            t.setCarte2(carte2.clone());
     	ArrayList<Pile> p = new ArrayList<Pile>(6);
     	for(int i=0; i<p.size(); i++)
     	{
     		p.set(i, piles.get(i).clone());
     	}
       	return t;  	
+
     }
     
         public Carte getCarteAdverse(int joueur) {

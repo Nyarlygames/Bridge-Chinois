@@ -7,6 +7,7 @@ Date de Dernière modification 15/05/2012 : 18:28
 import java.util.ArrayList;
 import java.io.*;
 
+
 public class Main implements java.io.Serializable{
 
     // -------------------------------------Attributs-------------------------------------
@@ -79,6 +80,7 @@ public class Main implements java.io.Serializable{
     public void supp(Carte c) {
         main.remove(c);
     }
+
     
   //renvoie vrai si il y a la couleur de la carte c dans la main
     public boolean aCouleur(Carte c)
@@ -93,6 +95,7 @@ public class Main implements java.io.Serializable{
     	return resultat;
             
     }
+
 
     // ------------------------------------Algo tri par fusion---------------------------
     public ArrayList<Carte> fusion(ArrayList<Carte> m1, ArrayList<Carte> m2) {
@@ -140,6 +143,7 @@ public class Main implements java.io.Serializable{
         }
 
     }
+
     
     public Main clone()
     {
@@ -150,4 +154,5 @@ public class Main implements java.io.Serializable{
     	}
     	return m;
     }
+
 }

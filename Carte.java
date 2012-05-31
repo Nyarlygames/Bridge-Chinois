@@ -1,8 +1,4 @@
-/*
-Auteur : ZIANE-CHERIF Mohammed-El-Amine
-Date de Creation 12/05/2012 : 00:01
-Date de Derniere modification 23/05/2012 : 14:08
- */
+
  
 import java.io.*;
 

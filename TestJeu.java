@@ -7,9 +7,8 @@ Date de Derniere modification 12/05/2012 : 18:54
 public class TestJeu {
 
     public static void main(String[] args) {
-        /*Menu m = new Menu();
-        m.setVisible(true);*/
-    	try {
+
+        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -37,5 +36,6 @@ public class TestJeu {
                 new Menu().setVisible(true);
             }
         });
+
     }
 }

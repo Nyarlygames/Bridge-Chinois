@@ -23,6 +23,11 @@ public class PC extends Joueur {
 
     @Override
     void jouer() {
+        if (id == 2) {
+            carteAdv = table.getCarte1();
+        } else {
+            carteAdv = table.getCarte2();
+        }
         ArrayList<Carte> jouables = getCartesJouables();
 
         Random r = new Random();
@@ -48,6 +53,7 @@ public class PC extends Joueur {
         }
 
         Random r = new Random();
+
         Carte c = piochables.get(r.nextInt(piochables.size())).piocher();
         main.add(c);
         if (id == 2) {
