@@ -7,7 +7,7 @@ Date de Dernière modification 15/05/2012 : 18:27
 import java.util.ArrayList;
 import java.io.*;
 
-public class Table implements java.io.Serializable{
+public class Table implements java.io.Serializable {
 
     // -------------------------------------Attributs-------------------------------------
     Main main1, main2, main1connue, main2connue;
@@ -129,14 +129,14 @@ public class Table implements java.io.Serializable{
     	t.setCarte1(carte1.clone());
     	t.setCarte2(carte2.clone());
     	ArrayList<Pile> p = new ArrayList<Pile>(6);
-    	for(int i=0; i<p.size(); i++)
+    	for(int i=0; i<piles.size(); i++)
     	{
     		p.set(i, piles.get(i).clone());
     	}
       	return t;  	
     }
     
-        public Carte getCarteAdverse(int joueur) {
+    public Carte getCarteAdverse(int joueur) {
         if (joueur == 1) {
             return (carte2);
         } else if (joueur == 2) {

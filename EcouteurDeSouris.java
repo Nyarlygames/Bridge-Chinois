@@ -33,7 +33,7 @@ class EcouteurDeSouris implements MouseListener {
         if (carte != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer() ) {            
             // dans ce cas le joueur courant est l'humain il est en phase de jeu
         	//en prend en compte son choix
-            if(jeu.getMoteur().jouer(carte, jeu.getJoueurCourant()))
+            if(jeu.getMoteur().jouer(carte))
             {
             	jeu.intVersJoueur().setaJoue(Boolean.TRUE);
             }
