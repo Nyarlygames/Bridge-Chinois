@@ -42,15 +42,18 @@ public class VSIA extends javax.swing.JFrame {
         facile = new javax.swing.JLabel();
         moyen = new javax.swing.JLabel();
         difficile = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Jouer");
         setResizable(false);
         getContentPane().setLayout(null);
 
+        lbDif.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbDif.setForeground(new java.awt.Color(0, 255, 255));
         lbDif.setText("Difficulté :");
         getContentPane().add(lbDif);
-        lbDif.setBounds(27, 107, 58, 16);
+        lbDif.setBounds(27, 107, 56, 14);
 
         Launch.setText("Démarrer");
         Launch.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +62,7 @@ public class VSIA extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Launch);
-        Launch.setBounds(211, 208, 100, 25);
+        Launch.setBounds(211, 208, 100, 23);
 
         Cancel.setText("Annuler");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -68,9 +71,10 @@ public class VSIA extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Cancel);
-        Cancel.setBounds(46, 208, 80, 25);
+        Cancel.setBounds(46, 208, 80, 23);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setOpaque(false);
 
         nbParties.setEditable(true);
         nbParties.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "3", "5", "10" }));
@@ -96,7 +100,7 @@ public class VSIA extends javax.swing.JFrame {
                 .addComponent(mode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nbParties, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,31 +113,42 @@ public class VSIA extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(27, 26, 260, 42);
+        jPanel1.setBounds(50, 40, 240, 42);
 
         jSlider1.setMaximum(3);
         jSlider1.setMinimum(1);
         jSlider1.setMinorTickSpacing(1);
         jSlider1.setSnapToTicks(true);
         jSlider1.setToolTipText("");
+        jSlider1.setValue(2);
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(jSlider1);
         jSlider1.setBounds(46, 139, 273, 18);
 
+        facile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        facile.setForeground(new java.awt.Color(0, 255, 255));
         facile.setText("Facile");
         getContentPane().add(facile);
-        facile.setBounds(46, 168, 59, 16);
+        facile.setBounds(46, 168, 59, 14);
 
+        moyen.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        moyen.setForeground(new java.awt.Color(0, 255, 255));
         moyen.setText("Moyen");
         getContentPane().add(moyen);
-        moyen.setBounds(169, 168, 59, 16);
+        moyen.setBounds(169, 168, 59, 14);
 
+        difficile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        difficile.setForeground(new java.awt.Color(0, 255, 255));
         difficile.setText("Difficile");
         getContentPane().add(difficile);
-        difficile.setBounds(285, 168, 50, 16);
+        difficile.setBounds(285, 168, 50, 14);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 350, 260);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-359)/2, (screenSize.height-295)/2, 359, 295);
+        setBounds((screenSize.width-354)/2, (screenSize.height-284)/2, 354, 284);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
@@ -190,7 +205,7 @@ public class VSIA extends javax.swing.JFrame {
 		        Moteur moteur = new Moteur(table);
 		        //Jeu monJeu = new Jeu(moteur, 1,0,1,0);      
 		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
-
+		        
 		        final Graphique gg = new Graphique(monJeu, 1);
 		        // test
 		        monJeu.addObservateur(new Observateur() {
@@ -220,7 +235,7 @@ public class VSIA extends javax.swing.JFrame {
 		            monJeu.moteur.table.piles.get(i).afficherPileConsole();
 		        }*/
 		        //System.out.println(monJeu.getMoteur().getTable().getAtout());
-
+		        
 		      }
         }).start();
 
@@ -274,6 +289,7 @@ public class VSIA extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel difficile;
     private javax.swing.JLabel facile;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JLabel lbDif;

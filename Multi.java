@@ -1,5 +1,11 @@
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.*;
+import java.util.Enumeration;
 import javax.swing.SwingUtilities;
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -12,8 +18,10 @@ import javax.swing.SwingUtilities;
  */
 public class Multi extends javax.swing.JFrame {
 
-	String ip;
-	String host;
+    String ip;
+    String host;
+    // PORT int port;
+
     /**
      * Creates new form NewJFrame
      */
@@ -36,26 +44,21 @@ public class Multi extends javax.swing.JFrame {
         Start = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
         Rejoindre = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanelHeberger = new javax.swing.JPanel();
+        jLabelVotreIP = new javax.swing.JLabel();
         IPJoueur = new javax.swing.JFormattedTextField();
         copierIP = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanelRejoindre = new javax.swing.JPanel();
+        jLabelIPDistante = new javax.swing.JLabel();
         IPDistante = new javax.swing.JFormattedTextField();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
         jLabel1.setText("IP distante :");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
         getContentPane().setLayout(null);
 
         Start.setText("Jouer");
@@ -65,7 +68,7 @@ public class Multi extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Start);
-        Start.setBounds(230, 170, 78, 23);
+        Start.setBounds(230, 160, 80, 23);
 
         Cancel.setText("Annuler");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -74,91 +77,105 @@ public class Multi extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Cancel);
-        Cancel.setBounds(20, 170, 80, 23);
+        Cancel.setBounds(10, 160, 80, 23);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setOpaque(false);
+        jPanelHeberger.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelHeberger.setOpaque(false);
 
-        jLabel3.setText("Votre IP : ");
+        jLabelVotreIP.setText("Votre IP : ");
 
-        IPJoueur.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###:###:###:###"))));
         IPJoueur.setFocusable(false);
+        try{
+            URL whatismyip = new URL("http://api.externalip.net/ip/");
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                whatismyip.openStream()));
 
-        copierIP.setText("Copier l'IP");
+        IPJoueur.setValue(in.readLine()); //you get the IP as a String
+    }catch(Exception e)
+    {
+    }
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(copierIP)
-                        .addGap(107, 107, 107))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(copierIP)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
+    copierIP.setText("Copier l'IP");
+    copierIP.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            copierIPActionPerformed(evt);
+        }
+    });
 
-        Rejoindre.addTab("Heberger", jPanel2);
+    javax.swing.GroupLayout jPanelHebergerLayout = new javax.swing.GroupLayout(jPanelHeberger);
+    jPanelHeberger.setLayout(jPanelHebergerLayout);
+    jPanelHebergerLayout.setHorizontalGroup(
+        jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanelHebergerLayout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(copierIP)
+            .addGap(110, 110, 110))
+        .addGroup(jPanelHebergerLayout.createSequentialGroup()
+            .addGroup(jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelHebergerLayout.createSequentialGroup()
+                    .addGap(23, 23, 23)
+                    .addComponent(jLabelVotreIP, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelHebergerLayout.createSequentialGroup()
+                    .addGap(71, 71, 71)
+                    .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(73, Short.MAX_VALUE))
+    );
+    jPanelHebergerLayout.setVerticalGroup(
+        jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanelHebergerLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jLabelVotreIP)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(copierIP)
+            .addGap(0, 15, Short.MAX_VALUE))
+    );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setOpaque(false);
+    Rejoindre.addTab("Heberger", jPanelHeberger);
 
-        jLabel2.setText("IP Distante : ");
+    jPanelRejoindre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    jPanelRejoindre.setOpaque(false);
 
-        IPDistante.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###:###:###:###"))));
+    jLabelIPDistante.setText("IP Distante : ");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
-        );
+    IPDistante.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###:###:###:###"))));
 
-        Rejoindre.addTab("Rejoindre", jPanel1);
+    javax.swing.GroupLayout jPanelRejoindreLayout = new javax.swing.GroupLayout(jPanelRejoindre);
+    jPanelRejoindre.setLayout(jPanelRejoindreLayout);
+    jPanelRejoindreLayout.setHorizontalGroup(
+        jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanelRejoindreLayout.createSequentialGroup()
+            .addGroup(jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelRejoindreLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabelIPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelRejoindreLayout.createSequentialGroup()
+                    .addGap(71, 71, 71)
+                    .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(73, Short.MAX_VALUE))
+    );
+    jPanelRejoindreLayout.setVerticalGroup(
+        jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanelRejoindreLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jLabelIPDistante)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(49, Short.MAX_VALUE))
+    );
 
-        getContentPane().add(Rejoindre);
-        Rejoindre.setBounds(10, 20, 310, 130);
+    Rejoindre.addTab("Rejoindre", jPanelRejoindre);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(0, 0, 370, 230);
+    getContentPane().add(Rejoindre);
+    Rejoindre.setBounds(10, 11, 300, 130);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-356)/2, (screenSize.height-247)/2, 356, 247);
+    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
+    getContentPane().add(jLabel2);
+    jLabel2.setBounds(0, 0, 370, 210);
+
+    java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+    setBounds((screenSize.width-353)/2, (screenSize.height-238)/2, 353, 238);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
@@ -173,7 +190,6 @@ public class Multi extends javax.swing.JFrame {
 
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
-
 	if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Heberger")) {
 	    VSPlayer fenOp = new VSPlayer(this.ip, this.host);
 	    fenOp.setVisible(true);
@@ -202,12 +218,12 @@ public class Multi extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_StartActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    private void copierIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copierIPActionPerformed
         // TODO add your handling code here:
-        //Menu men = new Menu();
-        //men.setVisible(true);
-        //this.dispose();
-    }//GEN-LAST:event_formWindowClosing
+        StringSelection contents = new StringSelection(IPJoueur.getValue().toString());
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(contents, null);
+    }//GEN-LAST:event_copierIPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,10 +276,47 @@ public class Multi extends javax.swing.JFrame {
     private javax.swing.JButton copierIP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabelIPDistante;
+    private javax.swing.JLabel jLabelVotreIP;
+    private javax.swing.JPanel jPanelHeberger;
+    private javax.swing.JPanel jPanelRejoindre;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    static boolean isInternetIP(String str){
+	boolean internet = true;
+	int i = 0;
+	String str2 = str.substring(0,4);
+
+	if (!str2.equals("127.") && !str2.equals("192.") && !str2.equals("168.")) {
+	    for (i = 0; i < str.length() - 1; i++){
+		char c = str.charAt(i);
+		if (c == ':')
+		    internet = false;
+	    }
+	}
+	else {
+	    internet = false;
+	}
+	return (internet);
+    }
+
+    static boolean isLANIP(String str){
+
+	boolean internet = true;
+	int i = 0;
+	String str2 = str.substring(0,4);
+
+	if (str2.equals("192.")) {
+	    for (i = 0; i < str.length() - 1; i++){
+		char c = str.charAt(i);
+		if (c == ':')
+		    internet = false;
+	    }
+	}
+	else {
+	    internet = false;
+	}
+	return (internet);
+    }
 }

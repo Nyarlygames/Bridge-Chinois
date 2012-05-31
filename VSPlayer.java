@@ -1,29 +1,25 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
-
 import java.awt.Color;
-
 import javax.swing.SwingUtilities;
-
 /**
  *
  * @author Val
  */
 public class VSPlayer extends javax.swing.JFrame {
+    String ip;
+    String host;
 
-	String ip;
-	String host;
     /**
      * Creates new form VSPlayer
      */
     public VSPlayer(String ip, String host) {
-    	this.ip = ip;
-        this.host = host;
+	this.ip = ip;
+	this.host = host;
         initComponents();
-        
     }
 
     /**
@@ -43,20 +39,18 @@ public class VSPlayer extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
         getContentPane().setLayout(null);
 
         Launch.setText("Démarrer");
+        Launch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LaunchActionPerformed(evt);
+            }
+        });
         getContentPane().add(Launch);
-        Launch.setBounds(227, 100, 90, 23);
+        Launch.setBounds(230, 100, 90, 23);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setOpaque(false);
 
         nbParties.setEditable(true);
@@ -76,9 +70,9 @@ public class VSPlayer extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(mode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(nbParties, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +85,7 @@ public class VSPlayer extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(33, 23, 290, 42);
+        jPanel1.setBounds(20, 30, 310, 42);
 
         Cancel.setText("Annuler");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -100,19 +94,18 @@ public class VSPlayer extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Cancel);
-        Cancel.setBounds(33, 100, 80, 23);
+        Cancel.setBounds(40, 100, 80, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 350, 150);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-353)/2, (screenSize.height-175)/2, 353, 175);
+        setBounds((screenSize.width-364)/2, (screenSize.height-182)/2, 364, 182);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nbPartiesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nbPartiesFocusLost
         // TODO add your handling code here:
-        System.out.println("protu");
         if (nbParties.getSelectedItem() instanceof Integer) {
             nbParties.setBackground(Color.white);
 
@@ -136,9 +129,8 @@ public class VSPlayer extends javax.swing.JFrame {
         //  }
     }//GEN-LAST:event_CancelActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
-
 	// on ferme la fenetre de menu
 
     this.dispose();
@@ -164,6 +156,7 @@ public class VSPlayer extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_LaunchActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,7 +194,7 @@ public class VSPlayer extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new VSPlayer(null,null).setVisible(true);
+                new VSPlayer("","").setVisible(true);
             }
         });
     }

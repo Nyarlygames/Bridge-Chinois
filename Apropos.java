@@ -56,31 +56,37 @@ public class Apropos extends javax.swing.JDialog {
         Copyright.setBounds(10, 290, 230, 14);
 
         SG.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        SG.setForeground(new java.awt.Color(0, 255, 255));
         SG.setText("Santos Gabriel");
         getContentPane().add(SG);
         SG.setBounds(50, 180, 140, 15);
 
         ZA.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ZA.setForeground(new java.awt.Color(0, 255, 255));
         ZA.setText("Ziane Cherif Amine");
         getContentPane().add(ZA);
         ZA.setBounds(50, 220, 140, 15);
 
         FP.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        FP.setForeground(new java.awt.Color(0, 255, 255));
         FP.setText("Fiat Paul");
         getContentPane().add(FP);
         FP.setBounds(50, 140, 140, 15);
 
         SS.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        SS.setForeground(new java.awt.Color(0, 255, 255));
         SS.setText("Sassi Samy");
         getContentPane().add(SS);
         SS.setBounds(50, 200, 140, 15);
 
         RV.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        RV.setForeground(new java.awt.Color(0, 255, 255));
         RV.setText("Robert Valentin");
         getContentPane().add(RV);
         RV.setBounds(50, 160, 140, 15);
 
         CA.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        CA.setForeground(new java.awt.Color(0, 255, 255));
         CA.setText("Chennaoui Amine");
         getContentPane().add(CA);
         CA.setBounds(50, 120, 140, 15);
