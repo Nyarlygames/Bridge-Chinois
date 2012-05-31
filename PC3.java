@@ -23,10 +23,18 @@ public class PC3 extends Joueur {
         ArrayList<Carte> jouables = getCartesJouables();
         ArrayList<Carte> gagnantes = new ArrayList<Carte>();
         Boolean prems;
+        if (id == 2) {
+            carteAdv = table.getCarte1();
+        } else {
+            carteAdv = table.getCarte2();
+        }
         if (carteAdv != null) {
             prems = false;
+            System.out.println("j'aime manger des bananes ");
+
             for (Carte ca : jouables) {
-                if (ca.gagne(carteAdv, table.getAtout())) {
+                if (!carteAdv.gagne(ca, table.getAtout())) {
+                    System.out.println("j'aime manger des bananes " + ca.toString());
                     gagnantes.add(ca);
                 }
             }

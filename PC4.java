@@ -30,7 +30,7 @@ public class PC4 extends Joueur {
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (ca.gagne(carteAdv, table.getAtout())) {
+                if (carteAdv.gagne(ca, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }
