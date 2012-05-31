@@ -172,12 +172,14 @@ public class VSIA extends javax.swing.JFrame {
             difficile.setEnabled(false);
             nbParties.setEnabled(false);
             lbDif.setEnabled(false);
+            jSlider1.setEnabled(false);
         } else {
             facile.setEnabled(true);
             moyen.setEnabled(true);
             difficile.setEnabled(true);
             nbParties.setEnabled(true);
             lbDif.setEnabled(true);
+            jSlider1.setEnabled(true);
         }
     }//GEN-LAST:event_modeItemStateChanged
 
