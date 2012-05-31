@@ -24,6 +24,12 @@ public class PC4 extends Joueur {
 
     @Override
     void jouer() {
+        System.out.println("caca1");
+        if (id == 2) {
+            carteAdv = table.getCarte1();
+        } else {
+            carteAdv = table.getCarte2();
+        }
         ArrayList<Carte> jouables = getCartesJouables();
         ArrayList<Carte> gagnantes = new ArrayList<Carte>();
         Boolean prems;
