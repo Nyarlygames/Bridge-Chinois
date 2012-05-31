@@ -59,8 +59,8 @@ public class PC2 extends Joueur {
                     }
                 }
             } else {//si on commence a jouer alors on met la plus grosse carte possible
-                meilleure = gagnantes.get(0);
-                for (Carte ca : gagnantes) {
+                meilleure = jouables.get(0);
+                for (Carte ca : jouables) {
                     if (ca.rangPlusFort(meilleure)) {
                         meilleure = ca;
                     }
