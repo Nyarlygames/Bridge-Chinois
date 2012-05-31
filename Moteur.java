@@ -22,6 +22,7 @@ public class Moteur {
     }
 
     // --------------------------------------Methodes-------------------------------------
+
     public boolean jouer(Carte c, int joueurCourant) {
         if (this.getTable().getCarte2() == null) {
             table.setCarte1(c);
@@ -48,6 +49,7 @@ public class Moteur {
 
         }
     }
+
 
     public void choisir(Pile p, int joueurCourant) {
         Carte c = p.piocher();

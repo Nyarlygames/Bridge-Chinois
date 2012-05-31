@@ -110,7 +110,6 @@ public class PC2 extends Joueur {
             }
         }
 
-
         aChoisi = true;
     }
 

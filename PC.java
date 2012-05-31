@@ -52,6 +52,7 @@ public class PC extends Joueur {
         }
 
         Random r = new Random();
+
         Carte c = piochables.get(r.nextInt(piochables.size())).piocher();
         main.add(c);
         if (id == 2) {

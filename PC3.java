@@ -155,9 +155,6 @@ public class PC3 extends Joueur {
         }
         aChoisi = true;
 
-
-
-
     }
 
     ArrayList<Carte> getCartesJouables() {

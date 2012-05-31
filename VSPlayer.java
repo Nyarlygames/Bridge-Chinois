@@ -4,7 +4,9 @@
  */
 
 import java.awt.Color;
+
 import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Val
@@ -132,6 +134,7 @@ public class VSPlayer extends javax.swing.JFrame {
     private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
 	// on ferme la fenetre de menu
+
 
     this.dispose();
     new Thread(new Runnable() {

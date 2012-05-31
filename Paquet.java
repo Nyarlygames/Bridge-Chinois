@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.io.*;
 
+
 public class Paquet implements java.io.Serializable{
+
 
     // -------------------------------------Attributs-------------------------------------
     ArrayList<Carte> paquet;
