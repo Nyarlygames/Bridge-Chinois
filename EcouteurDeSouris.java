@@ -34,16 +34,15 @@ class EcouteurDeSouris implements MouseListener {
             //en prend en compte son choix
             if (jeu.getMoteur().jouer(carte)) {
                 System.out.println("j'ai choisi la carte " + carte.toString());
+            
+            
+            // dans ce cas le joueur courant est l'humain il est en phase de jeu
+        	//en prend en compte son choix
+            
+            
+            //jeu.getMoteur().jouer(carte);
 
-
-                // dans ce cas le joueur courant est l'humain il est en phase de jeu
-                //en prend en compte son choix
-
-                EntreeHistorique ent = new EntreeHistorique(jeu.getJoueur1(), jeu.getJoueur2(), jeu.getMoteur().getTable().clone());
-                jeu.getHist().addEntree(ent);
-                //System.out.println("nouvel hist");
-                //jeu.getMoteur().jouer(carte);
-                jeu.intVersJoueur().setaJoue(Boolean.TRUE);
+            jeu.intVersJoueur().setaJoue(Boolean.TRUE);
             }
         }
 

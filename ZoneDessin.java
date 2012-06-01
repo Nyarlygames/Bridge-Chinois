@@ -45,6 +45,7 @@ public class ZoneDessin extends JComponent {
         int dheight = getSize().height;
         int height = dheight - 20;
 
+
         String pathcartes = "cartes/" + this.cfg.deck + "/";
         String pathres = "res/" + this.cfg.style + "/";
         // Background
@@ -109,6 +110,7 @@ public class ZoneDessin extends JComponent {
             Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + t.getCarte1().toFileString()));
             g.drawImage(cfront, (width / 2) - (ch / 2),  cjh, cw, ch, this);
         }
+
 
         if (t.getCarte2() == null) {
             g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);

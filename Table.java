@@ -128,6 +128,7 @@ public class Table implements java.io.Serializable, Cloneable {
                 empty = false;
             }
         }
+
         return empty;
     }
 
@@ -165,6 +166,7 @@ public class Table implements java.io.Serializable, Cloneable {
 
 
     }
+
 
     public Carte getCarteAdverse(int joueur) {
         if (joueur == 1) {

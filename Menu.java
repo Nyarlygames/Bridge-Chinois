@@ -386,8 +386,7 @@ public class Menu extends javax.swing.JFrame {
          * default look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-    	
-        
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bcharger;
