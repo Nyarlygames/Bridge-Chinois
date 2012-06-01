@@ -156,7 +156,7 @@ public class Table implements java.io.Serializable, Cloneable {
         table.main2connue = (Main) getMain2connue().clone();
         table.paquet = (Paquet) getPaquet().clone();
         table.piles = (ArrayList<Pile>) getPiles().clone();
-
+         
         // on renvoie le clone
         return table;
 

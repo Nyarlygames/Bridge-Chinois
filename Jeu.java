@@ -484,49 +484,50 @@ public class Jeu implements Observable {
     public void etapeJouer() {
         try {
 
-        
-       		if (mode == 2 && getJoueurCourant() == 1)
-       		{
-           		intVersJoueur().jouer();
-           		
-           		//envoi de la table
-           		this.out.writeObject((Table) moteur.getTable());
-           		System.out.println("TABLE ENVOYEE (JOUER)");
-           		if (this.moteur.getTable().getCarte1() != null)
-           			System.out.println("Carte1 : " + this.moteur.getTable().getCarte1().toString());
-           		if (this.moteur.getTable().getCarte2() != null)
-       				System.out.println("Carte2 : " + this.moteur.getTable().getCarte2().toString());
-           		
-       		}
-       		if (mode == 2 && getJoueurCourant() == 2)
-       		{
-       			System.out.println("ON S'APPRETE A RECEVOIR");
-       		    // on attend de recevoir la table
-       		    this.moteur.setTable(
-       		    	swapTableRecueReseau( (Table) this.in.readObject() )
-       		    );
-       			System.out.println("TABLE RECUE ET SWAPEE (JOUER)");
-       			
-       			if (this.moteur.getTable().getCarte1() != null)
-       				System.out.println("Carte1 : " + this.moteur.getTable().getCarte1().toString());
-       			
-       			if (this.moteur.getTable().getCarte2() != null)
-       				System.out.println("Carte2 : " + this.moteur.getTable().getCarte2().toString());
-       		}
-       		if (mode != 2)
-       		{
-           if (getJoueurCourant() == 1) {
-           EntreeHistorique ent= new EntreeHistorique(this.getJoueur1().clone(),this.getJoueur2().clone(),this.getJoueur2().getTable().clone());
-           this.getHist().addEntree(ent);
-            System.out.println("nouvel hist");
-                   }
-                    
-       			intVersJoueur().jouer();
-       		}
-       	} catch (Exception e) {
-       	    System.out.println("SOUCI DANS ETAPE JOUER");
-       	    e.printStackTrace();
-       	}
+
+            if (mode == 2 && getJoueurCourant() == 1) {
+                intVersJoueur().jouer();
+
+                //envoi de la table
+                this.out.writeObject((Table) moteur.getTable());
+                System.out.println("TABLE ENVOYEE (JOUER)");
+                if (this.moteur.getTable().getCarte1() != null) {
+                    System.out.println("Carte1 : " + this.moteur.getTable().getCarte1().toString());
+                }
+                if (this.moteur.getTable().getCarte2() != null) {
+                    System.out.println("Carte2 : " + this.moteur.getTable().getCarte2().toString());
+                }
+
+            }
+            if (mode == 2 && getJoueurCourant() == 2) {
+                System.out.println("ON S'APPRETE A RECEVOIR");
+                // on attend de recevoir la table
+                this.moteur.setTable(
+                        swapTableRecueReseau((Table) this.in.readObject()));
+                this.updateObservateur();
+                System.out.println("TABLE RECUE ET SWAPEE (JOUER)");
+
+                if (this.moteur.getTable().getCarte1() != null) {
+                    System.out.println("Carte1 : " + this.moteur.getTable().getCarte1().toString());
+                }
+
+                if (this.moteur.getTable().getCarte2() != null) {
+                    System.out.println("Carte2 : " + this.moteur.getTable().getCarte2().toString());
+                }
+            }
+            if (mode != 2) {
+                if (getJoueurCourant() == 1) {
+                    EntreeHistorique ent = new EntreeHistorique(this.getJoueur1().clone(), this.getJoueur2().clone(), this.getJoueur2().getTable().clone());
+                    this.getHist().addEntree(ent);
+                    System.out.println("nouvel hist");
+                }
+
+                intVersJoueur().jouer();
+            }
+        } catch (Exception e) {
+            System.out.println("SOUCI DANS ETAPE JOUER");
+            e.printStackTrace();
+        }
 
     }
 
@@ -546,6 +547,7 @@ public class Jeu implements Observable {
                 // et on la switch
                 this.moteur.setTable(
                         swapTableRecueReseau((Table) this.in.readObject()));
+                this.updateObservateur();
                 System.out.println("TABLE RECUE ET SWAPEE (CHOISIR)");
             }
             if (mode != 2) {
@@ -578,8 +580,8 @@ public class Jeu implements Observable {
 
             System.out.println("c'est la faute a val car la carte1 est nulle (comme val)");
         }
-        t.setPaquet((Paquet)table.getPaquet().clone());
-        t.setPiles((ArrayList<Pile>)table.getPiles().clone());
+        t.setPaquet((Paquet) table.getPaquet().clone());
+        t.setPiles((ArrayList<Pile>) table.getPiles().clone());
         return t;
     }
 
