@@ -20,9 +20,6 @@ class EcouteurDeSouris implements MouseListener {
 
     // -------------------------------------Methodes-------------------------------------
     public void mousePressed(MouseEvent e) {
-
-
-
         //Carte du clic sur la main
         Carte carte = getCarteMain(e.getX(), e.getY());
         //Carte du clic sur pile
@@ -34,15 +31,15 @@ class EcouteurDeSouris implements MouseListener {
             //en prend en compte son choix
             if (jeu.getMoteur().jouer(carte)) {
                 System.out.println("j'ai choisi la carte " + carte.toString());
-            
-            
-            // dans ce cas le joueur courant est l'humain il est en phase de jeu
-        	//en prend en compte son choix
-            
-            
-            //jeu.getMoteur().jouer(carte);
 
-            jeu.intVersJoueur().setaJoue(Boolean.TRUE);
+
+                // dans ce cas le joueur courant est l'humain il est en phase de jeu
+                //en prend en compte son choix
+
+
+                //jeu.getMoteur().jouer(carte);
+
+                jeu.intVersJoueur().setaJoue(Boolean.TRUE);
             }
         }
 
