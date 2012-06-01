@@ -6,11 +6,10 @@ Date de Dernière modification 15/05/2012 : 18:32
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
-public class Paquet implements java.io.Serializable{
-
+public class Paquet implements java.io.Serializable, Cloneable {
 
     // -------------------------------------Attributs-------------------------------------
     ArrayList<Carte> paquet;
@@ -39,10 +38,14 @@ public class Paquet implements java.io.Serializable{
 
     // -------------------------------------Methodes----------------------------------------
     // clone un paquet
-    public Paquet clone() {
-        Paquet resultat = new Paquet();
-        resultat.copie(paquet);
-
+    public Object clone() {
+        Paquet resultat = null;
+        try {
+            resultat = (Paquet) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Paquet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        resultat.paquet = (ArrayList<Carte>) paquet.clone();
         return resultat;
     }
 
@@ -70,7 +73,7 @@ public class Paquet implements java.io.Serializable{
     // melange un paquet
     public void melanger() {
 
-        Paquet resultat = this.clone();
+        Paquet resultat = (Paquet) this.clone();
         Random rand;
         Carte c;
 

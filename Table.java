@@ -6,20 +6,16 @@ Date de Dernière modification 15/05/2012 : 18:27
 
 import java.util.ArrayList;
 
-import java.io.*;
-
-public class Table implements java.io.Serializable {
+public class Table implements java.io.Serializable, Cloneable {
 
     // -------------------------------------Attributs-------------------------------------
     Main main1, main2, main1connue, main2connue;
-
     Carte carte1, carte2;
     ArrayList<Pile> piles;
     Paquet paquet;
     Couleur atout;
 
     // -------------------------------------Constructeur-------------------------------------
-
     Table() {
         main1 = new Main();
         main2 = new Main();
@@ -34,7 +30,20 @@ public class Table implements java.io.Serializable {
         atout = null;
     }
 
+    Table(Table t) {
+        this.atout = t.getAtout();
+        this.carte1 = t.getCarte1();
+        this.carte2 = t.getCarte2();
+        this.main1 = t.getMain1();
+        this.main1connue = t.getMain1connue();
+        this.main2 = t.getMain2();
+        this.main2connue = t.getMain2connue();
+        this.paquet = t.getPaquet();
+        this.piles = t.getPiles();
+
+    }
     // -------------------------------------Accesseurs-------------------------------------
+
     public Main getMain1() {
         return main1;
     }
@@ -91,7 +100,6 @@ public class Table implements java.io.Serializable {
         this.atout = atout;
     }
 
-
     public Main getMain1connue() {
         return main1connue;
     }
@@ -108,14 +116,11 @@ public class Table implements java.io.Serializable {
         this.main2connue = main2connue;
     }
 
-
     // -------------------------------------Methodes-------------------------------------
     // ajoute une pile 
     /*public void addPile(Pile pile) {
-        piles.add(pile);
+    piles.add(pile);
     }*/
-
-
     public boolean pilesVides() {
         boolean empty = true;
         for (int i = 0; i < 6; i++) {
@@ -123,43 +128,57 @@ public class Table implements java.io.Serializable {
                 empty = false;
             }
         }
-        return (empty);
+
+        return empty;
     }
-    
-    public Table clone()
-    {
-    	Table t = new Table();
-    	t.setMain1(main1.clone());
-    	t.setMain2(main2.clone());
-    	t.setMain1connue(main1connue.clone());
-    	t.setMain2connue(main2connue.clone());
-        if (carte1!=null)
-            t.setCarte1(carte1.clone());
-        if (carte2!=null)
-            t.setCarte2(carte2.clone());
-    	ArrayList<Pile> p = new ArrayList<Pile>(6);
-    	for(int i=0; i<piles.size(); i++)
-    	{
 
-    		p.add(piles.get(i).clone());
+    @Override
+    public Table clone() {
+        Table table = null;
+        try {
+            // On récupère l'instance à renvoyer par l'appel de la 
+            // méthode super.clone()
+            table = (Table) super.clone();
+        } catch (CloneNotSupportedException cnse) {
+            // Ne devrait jamais arriver car nous implémentons 
+            // l'interface Cloneable
+            cnse.printStackTrace(System.err);
+        }
+        if (getCarte1() != null) {
+            table.carte1 = (Carte) getCarte1().clone();
+        }
+        if (getCarte2() != null) {
+            table.carte2 = (Carte) getCarte2().clone();
+        }
+        table.main1 = (Main) getMain1().clone();
+        table.main1connue = (Main) getMain1connue().clone();
+        table.main2 = (Main) getMain2().clone();
+        table.main2connue = (Main) getMain2connue().clone();
+        table.paquet = (Paquet) getPaquet().clone();
+        table.piles = (ArrayList<Pile>) getPiles().clone();
 
-    	}
-      	return t;  	
+        // on renvoie le clone
+        return table;
+
+
+
+
+
 
     }
-    
+
+
     public Carte getCarteAdverse(int joueur) {
         if (joueur == 1) {
             return (carte2);
         } else if (joueur == 2) {
             return (carte1);
         } else {
-            return (null);
+            return null;
         }
     }
-        
-        
-           //renvoie les cartes inconnues du joueur courant (dans la main de l'autre ou sous les piles)
+
+    //renvoie les cartes inconnues du joueur courant (dans la main de l'autre ou sous les piles)
     public ArrayList<Carte> getCartesInconnues(Integer joueurCourant) {
         ArrayList<Carte> inconnues = new ArrayList<Carte>();
 

@@ -253,7 +253,6 @@ public class Jeu implements Observable {
                     swapTableRecueReseau((Table) this.in.readObject()));
 
             System.out.println("Table recue");
-            System.out.println("Initialisation Terminée");
         } catch (Exception e) {
             System.out.println("Echec reception de la table");
         }
@@ -560,23 +559,27 @@ public class Jeu implements Observable {
 
     public Table swapTableRecueReseau(Table table) {
 
-        Table t = table;
-        Main m = t.getMain1().clone();
-        t.setMain1(t.getMain2().clone());
-        t.setMain2(m);
-        m = table.getMain1connue().clone();
-        t.setMain1connue(table.getMain2connue().clone());
-        t.setMain2connue(m);
+        Table t = new Table();
+        t.setMain1((Main) table.getMain2().clone());
+        t.setMain2((Main) table.getMain1().clone());
 
-        Carte c = t.getCarte1();
+        t.setMain1connue((Main) table.getMain2connue().clone());
+        t.setMain2connue((Main) table.getMain1connue().clone());
+
         if (table.getCarte2() != null) {
-            t.setCarte1(table.getCarte2().clone());
+            t.setCarte1((Carte) table.getCarte2().clone());
+        } else {
 
+            System.out.println("c'est la faute a val car la carte2 est nulle (comme val)");
         }
-        if (c != null) {
-            t.setCarte2(c.clone());
-        }
+        if (table.getCarte1() != null) {
+            t.setCarte2((Carte) table.getCarte1().clone());
+        } else {
 
+            System.out.println("c'est la faute a val car la carte1 est nulle (comme val)");
+        }
+        t.setPaquet((Paquet)table.getPaquet().clone());
+        t.setPiles((ArrayList<Pile>)table.getPiles().clone());
         return t;
     }
 
