@@ -149,7 +149,14 @@ public class Graphique implements Runnable {
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                System.exit(0);
+                Frame confirm = null;
+                //demander confirmation
+                Confirmation a = new Confirmation(confirm,true,"Voulez vous vraiment quitter ?");
+                a.setVisible(true);
+                if (a.getReturnStatus()==1)
+                {
+                    frame.dispose();
+                }
             }
         });
         fileMenu.add(exitMenuItem);
