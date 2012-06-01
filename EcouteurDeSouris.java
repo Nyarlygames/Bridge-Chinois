@@ -44,7 +44,7 @@ class EcouteurDeSouris implements MouseListener {
             
             EntreeHistorique ent= new EntreeHistorique(jeu.getJoueur1(),jeu.getJoueur2(),jeu.getMoteur().getTable().clone());
            jeu.getHist().addEntree(ent);
-            System.out.println("nouvel hist");
+            System.out.println(jeu.getHist().position);
             jeu.getMoteur().jouer(carte, jeu.getJoueurCourant());
             jeu.intVersJoueur().setaJoue(Boolean.TRUE);
             }

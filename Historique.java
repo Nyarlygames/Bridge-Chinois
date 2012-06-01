@@ -26,6 +26,7 @@ public class Historique {
     
         //Decale la position d'un vers la gauche
     void annuler() {
+        System.out.println("taille" + hist.size());
         if (position > 0) {
             position -= 1;
         }
