@@ -1,4 +1,6 @@
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import javax.swing.JFileChooser;
 
 /*
@@ -223,6 +225,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void BsoloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BsoloActionPerformed
         // TODO add your handling code here:
+        
+        Son player = new Son("Bcarte.wav");
+        InputStream stream = new ByteArrayInputStream(player.getSamples());
+        player.play(stream);
+        //System.exit(0);
+        
         VSIA fenOp = new VSIA();
         fenOp.setVisible(true);
         this.dispose();
