@@ -158,7 +158,7 @@ public class PC3 extends Joueur {
 
     }
     
-    protected Joueur clone()
+    public Joueur clone()
     {
     	Joueur j = new PC();
     	j.setTable(table);
