@@ -6,6 +6,8 @@
 import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 
@@ -203,6 +205,12 @@ public class VSIA extends javax.swing.JFrame {
 
     private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
+        //Son au clique de souris sur le bouton
+        try {
+            Son s = new Son("Bdemarrer.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // on ferme la fenetre de menu
         this.dispose();
         new Thread(new Runnable() {
