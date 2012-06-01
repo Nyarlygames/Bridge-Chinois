@@ -7,7 +7,7 @@ Date de Dernière modification 12/05/2012 : 18:54
  
 import java.io.*;
 
-enum Rang implements java.io.Serializable{
+enum Rang implements java.io.Serializable {
 
 
     DEUX(2), TROIS(3), QUATRE(4), CINQ(5), SIX(6), SEPT(7), HUIT(8),

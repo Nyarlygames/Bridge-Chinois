@@ -2,7 +2,7 @@
  
 import java.io.*;
 
-public class Carte implements java.io.Serializable{
+public class Carte implements java.io.Serializable {
 
 	// -------------------------------------Attribute-------------------------------------
 	Couleur couleur;

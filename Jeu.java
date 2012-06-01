@@ -114,6 +114,14 @@ public class Jeu implements Observable {
         return type;
     }
 
+    public int getMode() {
+        return mode;
+    }
+    
+    public boolean getIsCroupier() {
+        return croupier;
+    }
+    
     public void setType(int type) {
         this.type = type;
     }
@@ -195,8 +203,8 @@ public class Jeu implements Observable {
         }
 
     }
-
-    // -------------------------------------Methodes-----------------------------------------
+    
+    // --------------------------------- Methodes MODE RESEAU --------------------------------
     
     public void attachDistantPlayer(String ip, boolean croupier) {
         this.ip = ip;
@@ -219,21 +227,23 @@ public class Jeu implements Observable {
             Socket connexion = socketjeu.accept();
             this.out = new ObjectOutputStream(connexion.getOutputStream());
             this.in = new ObjectInputStream(connexion.getInputStream());
-            System.out.println("Connexion Réussie");
+            System.out.println("Connexion du Joueur Distant...");
         }
         catch (Exception e){
-                    System.out.println("Echec attente");
+            System.out.println("Echec attente de connexion");
         }
         /* Envoi de la table */
         try {
-            System.out.println("Envoie table");
+            System.out.println("Envoi de la table");
+            /* Initialisation de la table */
             initialiser();
-            this.out.writeObject((Table) moteur.getTable());
-            System.out.println("Table envoyé");
+            
+            this.out.writeObject(moteur.getTable());
+            System.out.println("Table envoyée");
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Echec de l'envoie de la table");
+            System.out.println("Echec de l'envoi de la table");
         }
 
     }
@@ -243,21 +253,25 @@ public class Jeu implements Observable {
     public void attenteJeuDistant() {
         String message = "";
         try {
-            Socket socketjeu = new Socket(InetAddress.getByName(this.ip), this.port);
-            System.out.println("Connexion ...");
-           this.out = new ObjectOutputStream(socketjeu.getOutputStream());
-           this.in = new ObjectInputStream(socketjeu.getInputStream());
-           System.out.println("Connexion réussie");
+			Socket socketjeu = new Socket(InetAddress.getByName(this.ip), this.port);
+			System.out.println("Connexion ...");
+			this.out = new ObjectOutputStream(socketjeu.getOutputStream());
+			this.in = new ObjectInputStream(socketjeu.getInputStream());
+			System.out.println("Connexion réussie");
         }
-        catch (Exception e){
-                    System.out.println("Echec connexion");
+        catch (Exception e) {
+        	System.out.println("Echec connexion");
         }
         /* Reception de la table */
         try {
             System.out.println("reception table ...");
-            this.moteur.setTable((Table) this.in.readObject());
+            
+            // on recoit la table et on la swap
+            this.moteur.setTable(
+            	swapTableRecueReseau( (Table) this.in.readObject() )
+            );
+            
             System.out.println("Table recue");
-            initialiser();
             System.out.println("Initialisation Terminée");
         }
         catch (Exception e) {
@@ -268,24 +282,33 @@ public class Jeu implements Observable {
     
     
     
+    // -------------------------------------Methodes-----------------------------------------
     
     // distribue les cartes entre les joueurs et séparation du reste en 6 piles
     public void initialiser() {
 
         //Paquet monPaquet = new Paquet();
         
-        // on ne melange que si on est pas en mode reseau, ou si on est en mode reseau ET croupier
+        // on ne melange si on est pas en mode reseau,
         if (mode != 2) {
             Paquet monPaquet = new Paquet();
             monPaquet.melanger();
             moteur.getTable().setPaquet(monPaquet);
         }
-        else if(croupier) {
+        
+        // on melange ou si on est en mode reseau ET qu'on est le croupier
+        // de la partie
+        if( mode == 2 && croupier) {
             Paquet monPaquet = new Paquet();
             monPaquet.melanger();
             moteur.getTable().setPaquet(monPaquet);
-        }  
-        //moteur.getTable().setPaquet(monPaquet);
+        }
+        
+        // si on est en mode reseau et qu'on est pas croupier, on fait rien...
+        if(mode == 2 && !croupier) {
+            return;
+        }
+
 
         for (int i = 0; i < 11; i++) {
             moteur.getTable().main1.add(moteur.getTable().getPaquet().piocher());
@@ -384,6 +407,7 @@ public class Jeu implements Observable {
     	   	}
 
     	   	
+    	   	// si on est en mode reseau on init pas ici, mais avant ( a la negociation de la connexion )
     	   	if(mode != 2) {
    	            initialiser();
     	   	}
@@ -402,13 +426,12 @@ public class Jeu implements Observable {
     		}
     		
 		   	while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
-		   		intVersJoueur().jouer();
+		   		
+		   		etapeJouer();
 		   		this.updateObservateur();
 				switcher();
 				this.updateObservateur();
-
-				intVersJoueur().jouer();			
-
+				etapeJouer();		
 				this.updateObservateur();
 				try {
 	   				Thread.sleep(1000);
@@ -437,10 +460,10 @@ public class Jeu implements Observable {
 				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
 				    this.updateObservateur();
 					if (!moteur.getTable().pilesVides()){
-					    intVersJoueur().choisir();
+                    	etapeChoisir();
 					    this.updateObservateur();
 					    switcher();
-					    intVersJoueur().choisir();
+                    	etapeChoisir();
 					    this.updateObservateur();
 					    switcher();
 					}
@@ -448,11 +471,12 @@ public class Jeu implements Observable {
 				    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
 				    this.updateObservateur();
 					if (!moteur.getTable().pilesVides()){
-					    intVersJoueur().choisir();
+                    	etapeChoisir();
 					    this.updateObservateur();
 					    switcher();
 					    this.updateObservateur();
-					    intVersJoueur().choisir();
+		   		
+                    	etapeChoisir();
 					    this.updateObservateur();
 					    switcher();
 					    this.updateObservateur();
@@ -493,7 +517,100 @@ public class Jeu implements Observable {
        }
 
     }
-
+    
+    public void etapeJouer() {
+        try {
+        
+       		if (mode == 2 && getJoueurCourant() == 1)
+       		{
+           		intVersJoueur().jouer();
+           		
+           		//envoi de la table
+           		this.out.writeObject((Table) moteur.getTable());
+           		System.out.println("TABLE ENVOYEE (JOUER)");
+           		if (this.moteur.getTable().getCarte1() != null)
+           			System.out.println("Carte1 : " + this.moteur.getTable().getCarte1().toString());
+           		if (this.moteur.getTable().getCarte2() != null)
+       				System.out.println("Carte2 : " + this.moteur.getTable().getCarte2().toString());
+           		
+       		}
+       		if (mode == 2 && getJoueurCourant() == 2)
+       		{
+       			System.out.println("ON S'APPRETE A RECEVOIR");
+       		    // on attend de recevoir la table
+       		    this.moteur.setTable(
+       		    	swapTableRecueReseau( (Table) this.in.readObject() )
+       		    );
+       			System.out.println("TABLE RECUE ET SWAPEE (JOUER)");
+       			
+       			if (this.moteur.getTable().getCarte1() != null)
+       				System.out.println("Carte1 : " + this.moteur.getTable().getCarte1().toString());
+       			
+       			if (this.moteur.getTable().getCarte2() != null)
+       				System.out.println("Carte2 : " + this.moteur.getTable().getCarte2().toString());
+       		}
+       		if (mode != 2)
+       		{
+           if (getJoueurCourant() == 1) {
+           EntreeHistorique ent= new EntreeHistorique(this.getJoueur1().clone(),this.getJoueur2().clone(),this.getJoueur2().getTable().clone());
+           this.getHist().addEntree(ent);
+            System.out.println("nouvel hist");
+                   }
+                    
+       			intVersJoueur().jouer();
+       		}
+       	} catch (Exception e) {
+       	    System.out.println("SOUCI DANS ETAPE JOUER");
+       	    e.printStackTrace();
+       	}
+    }
+    
+    public void etapeChoisir() {
+    
+        try {
+       		if (mode == 2 && getJoueurCourant() == 1)
+       		{
+           		intVersJoueur().choisir();
+           		
+           		//envoi de la table
+           		this.out.writeObject((Table) moteur.getTable());
+           		System.out.println("TABLE ENVOYEE (CHOISIR)");
+           		
+       		}
+       		if (mode == 2 && getJoueurCourant() == 2)
+       		{
+       		    // on attend de recevoir la table,
+       		    // et on la switch
+       		    this.moteur.setTable(
+       		    	swapTableRecueReseau( (Table) this.in.readObject() )
+       		   	);
+       		   	System.out.println("TABLE RECUE ET SWAPEE (CHOISIR)");
+       		}
+       		if (mode != 2)
+       		{
+       			intVersJoueur().choisir();
+       		}
+       	} catch (Exception e) {
+       	    System.out.println("SOUCI DANS ETAPE CHOISIR");
+       	    e.printStackTrace();
+       	}
+    }
+    
+    public Table swapTableRecueReseau(Table table) {
+    	
+		Table t = table.clone();
+		
+		t.setMain1(table.getMain2());
+		t.setMain2(table.getMain1());
+		
+		t.setMain1connue(table.getMain2connue());
+		t.setMain2connue(table.getMain1connue());
+		
+		t.setCarte1(table.getCarte2());
+		t.setCarte2(table.getCarte1());
+		return t;
+    }
+    
     // renvoi le joueur courant
     public Joueur intVersJoueur() {
         if (joueurCourant == 1) {

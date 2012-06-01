@@ -30,11 +30,10 @@ class EcouteurDeSouris implements MouseListener {
         Pile clicpile = getCartePile(e.getX(), e.getY());
         //en prend en compte son choix
 
-
-        if (carte != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer() ) {
-            
-            
-            if(jeu.getMoteur().jouer(carte, jeu.getJoueurCourant()))
+        if (carte != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer() ) {            
+            // dans ce cas le joueur courant est l'humain il est en phase de jeu
+        	//en prend en compte son choix
+            if(jeu.getMoteur().jouer(carte))
             {
                 System.out.println("j'ai choisi la carte " + carte.toString());
             
@@ -42,28 +41,24 @@ class EcouteurDeSouris implements MouseListener {
             // dans ce cas le joueur courant est l'humain il est en phase de jeu
         	//en prend en compte son choix
             
-            EntreeHistorique ent= new EntreeHistorique(jeu.getJoueur1(),jeu.getJoueur2(),jeu.getMoteur().getTable().clone());
-           jeu.getHist().addEntree(ent);
-            System.out.println(jeu.getHist().position);
-            jeu.getMoteur().jouer(carte, jeu.getJoueurCourant());
+            
+            //jeu.getMoteur().jouer(carte);
+
             jeu.intVersJoueur().setaJoue(Boolean.TRUE);
             }
         }
-            //g.getZoneDessin().repaint();          
-
-            
-
-        
 
         if(clicpile!=null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseChoisir())
         {
             // dans ce cas le joueur est en phase de choix de carte a piocher
             //en prend en compte son choix
 
+
           //      EntreeHistorique ent= new EntreeHistorique(jeu.getJoueur1().clone(),jeu.getJoueur2().clone(),jeu.getMoteur().getTable().clone());
                 //////////////////////!!!!!!!
           //      jeu.getHist().addEntree(ent);
         //	jeu.getMoteur().choisir(clicpile,jeu.getJoueurCourant());
+
         	jeu.intVersJoueur().setaChoisi(Boolean.TRUE);
             //g.getZoneDessin().repaint();      
 
@@ -84,7 +79,7 @@ class EcouteurDeSouris implements MouseListener {
     public void mouseReleased(MouseEvent e) {
     }
 
-// Clic carte sur pile
+	// Clic carte sur pile
     public Pile getCartePile(int x, int y) {
         int width = g.getZoneDessin().getSize().width;
         int height = g.getZoneDessin().getSize().height - 20;
@@ -132,7 +127,7 @@ class EcouteurDeSouris implements MouseListener {
         }
     }
 
-// Clic carte sur la main
+	// Clic carte sur la main
     public Carte getCarteMain(int x, int y) {
         int width = g.getZoneDessin().getSize().width;
         int height = g.getZoneDessin().getSize().height - 20;
