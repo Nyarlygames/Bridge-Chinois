@@ -25,10 +25,9 @@ public class ZoneDessin extends JComponent {
     /**
      * Constructeur ZoneDessin
      */
-
     public ZoneDessin(Jeu j, Config cfg) {
-	    this.cfg = cfg;
-	    this.jeu = j;
+        this.cfg = cfg;
+        this.jeu = j;
         this.t = j.getMoteur().getTable();
     }
 
@@ -36,7 +35,7 @@ public class ZoneDessin extends JComponent {
      * Dessine la fenetre
      */
     public void paint(Graphics g) {
-
+        this.t = jeu.getMoteur().getTable();
         Graphics2D drawable = (Graphics2D) g;
 
         // On reccupere quelques infos provenant de la partie JComponent
@@ -49,20 +48,20 @@ public class ZoneDessin extends JComponent {
         String pathcartes = "cartes/" + this.cfg.deck + "/";
         String pathres = "res/" + this.cfg.style + "/";
         // Background
-        Image corner_trefle = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner_trefle.png"));
-        Image corner_pique = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner_pique.png"));
-        Image corner_coeur = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner_coeur.png"));
-        Image corner_carreau = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner_carreau.png"));
-        Image left = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"left.png"));
-        Image bottom = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"bottom.png"));
-        Image top = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"top.png"));
-        Image right = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"right.png"));
-        Image center = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"center.png"));
-        Image empty = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"empty.png"));
+        Image corner_trefle = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "corner_trefle.png"));
+        Image corner_pique = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "corner_pique.png"));
+        Image corner_coeur = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "corner_coeur.png"));
+        Image corner_carreau = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "corner_carreau.png"));
+        Image left = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "left.png"));
+        Image bottom = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "bottom.png"));
+        Image top = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "top.png"));
+        Image right = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "right.png"));
+        Image center = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "center.png"));
+        Image empty = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "empty.png"));
         // Cartes
-        Image pli = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes+"pli.png"));
+        Image pli = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + "pli.png"));
 
-        Image cback = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes+"carte-dos.png"));
+        Image cback = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + "carte-dos.png"));
 
 
         // corners
@@ -108,7 +107,7 @@ public class ZoneDessin extends JComponent {
         } else {
 
             Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + t.getCarte1().toFileString()));
-            g.drawImage(cfront, (width / 2) - (ch / 2),  cjh, cw, ch, this);
+            g.drawImage(cfront, (width / 2) - (ch / 2), cjh, cw, ch, this);
         }
 
 
@@ -121,13 +120,13 @@ public class ZoneDessin extends JComponent {
 
         //--- Dessin des cartes du joueur 2 ---//
 
-	    if (t.getCarte2() == null) {
-	        g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
-	    } else {
-	        Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
-	        g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
-	    }
-    
+        if (t.getCarte2() == null) {
+            g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
+        } else {
+            Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
+            g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
+        }
+
         //--- Dessin des cartes du joueur distant ou du joueur PC (IA) ---//
 
         for (int f = 0; f < t.main2.getSize(); f++) {
@@ -160,7 +159,7 @@ public class ZoneDessin extends JComponent {
 
             // on check le type de c et on charge le graphique associe
 
-            Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes+ c.toFileString()));
+            Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
             g.drawImage(cfront, mid, up, cw, ch, this);
         }
 
@@ -168,94 +167,90 @@ public class ZoneDessin extends JComponent {
         for (int p = 0; p < 6; p++) {
             for (int pc = 0; pc < t.piles.get(p).getSize(); pc++) {
 
-            int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
+                int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
 
                 if (pc == (t.piles.get(p).getSize() - 1)) {
                     Carte c = t.piles.get(p).getCarte(pc);
                     Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
-                    g.drawImage(cfront, mid, (height /2) -ch/2, cw, ch, this);
+                    g.drawImage(cfront, mid, (height / 2) - ch / 2, cw, ch, this);
 
                 } else {
                     g.drawImage(cback, mid, (height / 2) - ch / 2, cw, ch, this);
                 }
             }
         }
-    
 
-		// Affichage des informations
 
-		f = new Font("sansserif", Font.BOLD, 14);
-		FontMetrics fontw = g.getFontMetrics(f);
-		g.setFont(f);
+        // Affichage des informations
 
-		//--- Dessin du nombre de plis (score de la partie actuelle) ---//
+        f = new Font("sansserif", Font.BOLD, 14);
+        FontMetrics fontw = g.getFontMetrics(f);
+        g.setFont(f);
 
-		// Joueur 1
-                g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
-                g.setColor(Color.black);
-                String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
-                g.drawString(pli1, width - bw - cw / 2 - fontw.stringWidth(pli1) / 2, height - bh - ch / 2 + 4);
+        //--- Dessin du nombre de plis (score de la partie actuelle) ---//
 
-                // Joueur 2 (adversaire)
-                g.drawImage(pli, bw + 1, bh + 1, cw, ch, this);
-                g.setColor(Color.black);
-                String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
-                g.drawString(pli2, bh + ch / 2 - fontw.stringWidth(pli2) / 2 - 12, bh + ch / 2 + 5);
+        // Joueur 1
+        g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
+        g.setColor(Color.black);
+        String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
+        g.drawString(pli1, width - bw - cw / 2 - fontw.stringWidth(pli1) / 2, height - bh - ch / 2 + 4);
 
-                // Infos du bas
-                String atout = " ";
-                g.setColor(Color.black);
-                if ((t != null) && (t.atout != null)) {
-                    switch (t.atout) {
-                        case CARREAU:
-                            atout = "Atout : ♦";
-                            break;
-                        case COEUR:
-                            atout = "Atout : ♥";
-                            break;
-                        case PIQUE:
-                            atout = "Atout : ♠";
-                            break;
-                        case TREFLE:
-                            atout = "Atout : ♣";
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-                    atout = "Pas d'atout ";
-                }
+        // Joueur 2 (adversaire)
+        g.drawImage(pli, bw + 1, bh + 1, cw, ch, this);
+        g.setColor(Color.black);
+        String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
+        g.drawString(pli2, bh + ch / 2 - fontw.stringWidth(pli2) / 2 - 12, bh + ch / 2 + 5);
 
-		// on ecrit quel est l'atout
-                if(atout == "Atout : ♦" ||  atout == "Atout : ♥")
-                {
-                    g.setColor(Color.red);
-                    g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
-                    g.setColor(Color.black);
-                }
-                else
-                {
-                    g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
-                }
-		// Joueur actif
-		String turnInfo = " ";
-		if (jeu.getJoueurCourant() == 1 && !jeu.intVersJoueur().getaJoue()) {
-		    turnInfo = "A vous de Jouer";
-		} else if (jeu.getJoueurCourant() == 1 && jeu.intVersJoueur().getaJoue()) {
-		    turnInfo = "A vous de Piocher";
-		} else if (jeu.getJoueurCourant() == 2 && !jeu.intVersJoueur().getaJoue()) {
-		    turnInfo = "A votre adversaire de Jouer";
-		} else if (jeu.getJoueurCourant() == 2 && jeu.intVersJoueur().getaJoue()) {
-		    turnInfo = "A votre adversaire de Piocher";
-		}
+        // Infos du bas
+        String atout = " ";
+        g.setColor(Color.black);
+        if ((t != null) && (t.atout != null)) {
+            switch (t.atout) {
+                case CARREAU:
+                    atout = "Atout : ♦";
+                    break;
+                case COEUR:
+                    atout = "Atout : ♥";
+                    break;
+                case PIQUE:
+                    atout = "Atout : ♠";
+                    break;
+                case TREFLE:
+                    atout = "Atout : ♣";
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            atout = "Pas d'atout ";
+        }
 
-		// Affichage des infos sur le tour
-		g.drawString(turnInfo, width / 2 - fontw.stringWidth(turnInfo) / 2, dheight - 5);
+        // on ecrit quel est l'atout
+        if (atout == "Atout : ♦" || atout == "Atout : ♥") {
+            g.setColor(Color.red);
+            g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
+            g.setColor(Color.black);
+        } else {
+            g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
+        }
+        // Joueur actif
+        String turnInfo = " ";
+        if (jeu.getJoueurCourant() == 1 && !jeu.intVersJoueur().getaJoue()) {
+            turnInfo = "A vous de Jouer";
+        } else if (jeu.getJoueurCourant() == 1 && jeu.intVersJoueur().getaJoue()) {
+            turnInfo = "A vous de Piocher";
+        } else if (jeu.getJoueurCourant() == 2 && !jeu.intVersJoueur().getaJoue()) {
+            turnInfo = "A votre adversaire de Jouer";
+        } else if (jeu.getJoueurCourant() == 2 && jeu.intVersJoueur().getaJoue()) {
+            turnInfo = "A votre adversaire de Piocher";
+        }
 
-		// Affichage du score
-		String score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
-		g.drawString(score, 0, dheight - 5);
+        // Affichage des infos sur le tour
+        g.drawString(turnInfo, width / 2 - fontw.stringWidth(turnInfo) / 2, dheight - 5);
+
+        // Affichage du score
+        String score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+        g.drawString(score, 0, dheight - 5);
 
     } // fin fonction paint
 }
-
