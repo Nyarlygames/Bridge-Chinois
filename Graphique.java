@@ -62,8 +62,19 @@ public class Graphique implements Runnable {
         abandonnerMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Frame confirm = null;
                 //demander confirmation
+                Confirmation a = new Confirmation(confirm,true,"Voulez vous vraiment quitter ?");
+                a.setVisible(true);
+                if (a.getReturnStatus()==1)
+                {
+                    frame.dispose();
+                    Menu m = new Menu();
+                    m.setVisible(true);
+                }
+                //else a.setVisible(false);
                 //dire au jeu qu'on abandonne la donne
+                //-> il ferme la fenetre donc pas de sauvegarde ou autre => cette étape sert à rien
                 //a griser si on joue sur le nombre de plis
             }
         });
