@@ -196,7 +196,7 @@ public class Jeu implements Observable {
     public void attachDistantPlayer(String ip, boolean croupier) {
         this.ip = ip;
         this.croupier = croupier;
-        this.port = 4242;
+        this.port = 3128;
         if (croupier == true) {
             attenteConnexion();
         } else {
@@ -225,6 +225,9 @@ public class Jeu implements Observable {
 
             this.out.writeObject(moteur.getTable());
             System.out.println("Table envoyée");
+            this.out.writeObject(joueurCourant);
+
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Echec de l'envoi de la table");
@@ -253,6 +256,9 @@ public class Jeu implements Observable {
                     swapTableRecueReseau((Table) this.in.readObject()));
 
             System.out.println("Table recue");
+            joueurCourant = (Integer) this.in.readObject();
+            switcher();
+
         } catch (Exception e) {
             System.out.println("Echec reception de la table");
         }
@@ -582,6 +588,7 @@ public class Jeu implements Observable {
         }
         t.setPaquet((Paquet) table.getPaquet().clone());
         t.setPiles((ArrayList<Pile>) table.getPiles().clone());
+        t.setAtout(table.getAtout());
         return t;
     }
 
