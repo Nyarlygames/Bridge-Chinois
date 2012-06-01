@@ -48,7 +48,10 @@ public class ZoneDessin extends JComponent {
         String pathcartes = "cartes/" + this.cfg.deck + "/";
         String pathres = "res/" + this.cfg.style + "/";
         // Background
-        Image corner = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner.png"));
+        Image corner_trefle = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner_trefle.png"));
+        Image corner_pique = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner_pique.png"));
+        Image corner_coeur = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner_coeur.png"));
+        Image corner_carreau = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"corner_carreau.png"));
         Image left = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"left.png"));
         Image bottom = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"bottom.png"));
         Image top = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres+"top.png"));
@@ -62,8 +65,8 @@ public class ZoneDessin extends JComponent {
 
 
         // corners
-        int cornerh = corner.getHeight(null);
-        int cornerw = corner.getWidth(null);
+        int cornerh = corner_trefle.getHeight(null);
+        int cornerw = corner_trefle.getWidth(null);
         // cards
         int cw = cback.getWidth(null);
         int ch = cback.getHeight(null);
@@ -77,13 +80,13 @@ public class ZoneDessin extends JComponent {
 
 
         // HAUT GAUCHE
-        g.drawImage(corner, 0, 0, cornerw, cornerh, this);
+        g.drawImage(corner_coeur, 0, 0, cornerw, cornerh, this);
         // HAUT DROIT
-        g.drawImage(corner, width - cornerw, 0, cornerw, cornerh, this);
+        g.drawImage(corner_trefle, width - cornerw, 0, cornerw, cornerh, this);
         // BAS GAUCHE
-        g.drawImage(corner, 0, height - cornerh, cornerw, cornerh, this);
+        g.drawImage(corner_pique, 0, height - cornerh, cornerw, cornerh, this);
         // BAS DROIT
-        g.drawImage(corner, width - cornerw, height - cornerh, cornerw, cornerh, this);
+        g.drawImage(corner_carreau, width - cornerw, height - cornerh, cornerw, cornerh, this);
 
         g.drawImage(left, 0, cornerh, bw, height - (2 * cornerh), this);
         g.drawImage(right, width - bw, cornerh, bw, height - (2 * cornerh), this);
@@ -186,44 +189,52 @@ public class ZoneDessin extends JComponent {
 		//--- Dessin du nombre de plis (score de la partie actuelle) ---//
 
 		// Joueur 1
-		g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
-		g.setColor(Color.yellow);
-		String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
-		g.drawString(pli1, width - bw - cw / 2 - fontw.stringWidth(pli1) / 2, height - bh - ch / 2 + 4);
+                g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
+                g.setColor(Color.black);
+                String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
+                g.drawString(pli1, width - bw - cw / 2 - fontw.stringWidth(pli1) / 2, height - bh - ch / 2 + 4);
 
-		// Joueur 2 (adversaire)
-		g.drawImage(pli, width - bw - cw - 1, bh + 1, cw, ch, this);
-		g.setColor(Color.yellow);
-		String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
-		g.drawString(pli2, width - bw - cw / 2 - fontw.stringWidth(pli2) / 2, bh + ch / 2 + 9);
+                // Joueur 2 (adversaire)
+                g.drawImage(pli, bw + 1, bh + 1, cw, ch, this);
+                g.setColor(Color.black);
+                String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
+                g.drawString(pli2, bh + ch / 2 - fontw.stringWidth(pli2) / 2 - 12, bh + ch / 2 + 5);
 
-		// Infos du bas
-		String atout = " ";
-		g.setColor(Color.black);
-		if ((t != null) && (t.atout != null)) {
-		    switch (t.atout) {
-		        case CARREAU:
-		            atout = "Atout : ♦";
-		            break;
-		        case COEUR:
-		            atout = "Atout : ♥";
-		            break;
-		        case PIQUE:
-		            atout = "Atout : ♠";
-		            break;
-		        case TREFLE:
-		            atout = "Atout : ♣";
-		            break;
-		        default:
-		            break;
-		    }
-		} else {
-		    atout = "Pas d'atout ";
-		}
+                // Infos du bas
+                String atout = " ";
+                g.setColor(Color.black);
+                if ((t != null) && (t.atout != null)) {
+                    switch (t.atout) {
+                        case CARREAU:
+                            atout = "Atout : ♦";
+                            break;
+                        case COEUR:
+                            atout = "Atout : ♥";
+                            break;
+                        case PIQUE:
+                            atout = "Atout : ♠";
+                            break;
+                        case TREFLE:
+                            atout = "Atout : ♣";
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    atout = "Pas d'atout ";
+                }
 
 		// on ecrit quel est l'atout
-		g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
-
+                if(atout == "Atout : ♦" ||  atout == "Atout : ♥")
+                {
+                    g.setColor(Color.red);
+                    g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
+                    g.setColor(Color.black);
+                }
+                else
+                {
+                    g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
+                }
 		// Joueur actif
 		String turnInfo = " ";
 		if (jeu.getJoueurCourant() == 1 && !jeu.intVersJoueur().getaJoue()) {
@@ -242,8 +253,6 @@ public class ZoneDessin extends JComponent {
 		// Affichage du score
 		String score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
 		g.drawString(score, 0, dheight - 5);
-
-
 
     } // fin fonction paint
 }
