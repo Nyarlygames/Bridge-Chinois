@@ -140,7 +140,7 @@ public class Table implements java.io.Serializable {
     	ArrayList<Pile> p = new ArrayList<Pile>(6);
     	for(int i=0; i<piles.size(); i++)
     	{
-    		p.set(i, piles.get(i).clone());
+    		p.add(piles.get(i).clone());
     	}
       	return t;  	
 
