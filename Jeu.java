@@ -33,8 +33,8 @@ public class Jeu implements Observable {
 
     // -------------------------------------Constructeur-------------------------------------
     /* le mode indique le nombre de joueur humain :
-    0 : PC vs PC
-    1 : Hum vs PC
+    0 : PCRandom vs PCRandom
+    1 : Hum vs PCRandom
     2 : Hum vs Humm 
     
     le type indique si la partie se termine suivant un nombre de point designe par la variable max :
@@ -52,24 +52,24 @@ public class Jeu implements Observable {
         switch (mode) {
             /* Mode IA vs IA */
             case 0:
-                this.joueur1 = new PC(moteur.getTable(), 1, moteur.getTable().getMain1(), moteur.getTable().getCarte2());
-                this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                this.joueur1 = new PCRandom(moteur.getTable(), 1);
+                this.joueur2 = new PCRandom(moteur.getTable(), 2);
                 break;
-            /* Mode Humain vs PC */
+            /* Mode Humain vs PCRandom */
             case 1:
                 this.joueur1 = new Humain(moteur.getTable(), 1);
                 switch (difficulte) {
                     case 1:
-                        this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PCRandom(moteur.getTable(), 2);
                         break;
                     case 2:
-                        this.joueur2 = new PC2(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC2(moteur.getTable(), 2);
                         break;
                     case 3:
-                        this.joueur2 = new PC3(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC3(moteur.getTable(), 2);
                         break;
                     case 4:
-                        this.joueur2 = new PC4(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC4(moteur.getTable(), 2);
                         break;
 
                 }
@@ -373,16 +373,16 @@ public class Jeu implements Observable {
             if (type == 2) {
                 switch (nbMatche) {
                     case 0:
-                        this.joueur2 = new PC(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PCRandom(moteur.getTable(), 2);
 
                     case 1:
-                        this.joueur2 = new PC2(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC2(moteur.getTable(), 2);
 
                     case 2:
-                        this.joueur2 = new PC3(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC3(moteur.getTable(), 2);
 
                     case 3:
-                        this.joueur2 = new PC4(moteur.getTable(), 2, moteur.getTable().getMain2(), moteur.getTable().getCarte1());
+                        this.joueur2 = new PC4(moteur.getTable(), 2);
                 }
             }
 
@@ -720,7 +720,7 @@ public class Jeu implements Observable {
         }
         return false;
     }
-
+    
     // ajoute un observateur
     public void addObservateur(Observateur obs) {
         this.listObservateur.add(obs);

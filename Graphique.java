@@ -139,8 +139,8 @@ public class Graphique implements Runnable {
 
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //Options opt = new Options(this,true;);
-                //opt.setVisible(true);
+                Options opt = new Options(frame,true);
+                opt.setVisible(true);
             }
         });
         fileMenu.add(jMenuItem1);
@@ -182,7 +182,7 @@ public class Graphique implements Runnable {
         hintMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //todo
+                
             }
         });
 

@@ -10,8 +10,6 @@ public abstract class Joueur {
     Table table;
     int nbPlis, score, id;
     Boolean aJoue, aChoisi, phaseJouer, phaseChoisir;
-    Carte carteAdv;
-    Main main;
 
     // -------------------------------------Accesseurs-------------------------------------
     public int getNbPlis() {
@@ -36,22 +34,6 @@ public abstract class Joueur {
 
     public void setPhaseChoisir(Boolean phaseChoisir) {
         this.phaseChoisir = phaseChoisir;
-    }
-
-    public Carte getCarteAdv() {
-        return carteAdv;
-    }
-
-    public void setCarteAdv(Carte carteAdv) {
-        this.carteAdv = carteAdv;
-    }
-
-    public Main getMain() {
-        return main;
-    }
-
-    public void setMain(Main main) {
-        this.main = main;
     }
 
     public int getScore() {
