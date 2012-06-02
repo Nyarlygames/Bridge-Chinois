@@ -181,9 +181,9 @@ public class Graphique implements Runnable {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == false) {
-                    System.out.println(((Humain) jeu.getJoueur1()).hintJouer().toString());
+                    jeu.setHintCarte(((Humain) jeu.getJoueur1()).hintJouer());
                 } else if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == true) {
-                    System.out.println(((Humain) jeu.getJoueur1()).hintChoisir().toString());
+                    jeu.setHintPile(((Humain) jeu.getJoueur1()).hintChoisir());
                 }
 
             }
