@@ -40,7 +40,7 @@ public class PC4 extends PC {
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (carteAdv.gagne(ca, table.getAtout())) {
+                if (ca.gagne(carteAdv, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }

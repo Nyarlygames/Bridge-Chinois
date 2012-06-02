@@ -30,6 +30,9 @@ public class Jeu implements Observable {
     String ip;
     ObjectOutputStream out;
     ObjectInputStream in;
+    //pour la gestion des hints
+    Integer hintPile;
+    Carte hintCarte;
 
     // -------------------------------------Constructeur-------------------------------------
     /* le mode indique le nombre de joueur humain :
@@ -152,6 +155,22 @@ public class Jeu implements Observable {
 
     public void setJoueurCourant(int joueurCourant) {
         this.joueurCourant = joueurCourant;
+    }
+
+    public Carte getHintCarte() {
+        return hintCarte;
+    }
+
+    public void setHintCarte(Carte hintCarte) {
+        this.hintCarte = hintCarte;
+    }
+
+    public Integer getHintPile() {
+        return hintPile;
+    }
+
+    public void setHintPile(Integer hintPile) {
+        this.hintPile = hintPile;
     }
 
     // Retourne le joueur adverse
@@ -534,7 +553,7 @@ public class Jeu implements Observable {
             System.out.println("SOUCI DANS ETAPE JOUER");
             e.printStackTrace();
         }
-
+        hintCarte = null;
     }
 
     public void etapeChoisir() {
@@ -563,6 +582,7 @@ public class Jeu implements Observable {
             System.out.println("SOUCI DANS ETAPE CHOISIR");
             e.printStackTrace();
         }
+        hintPile = null;
     }
 
     public Table swapTableRecueReseau(Table table) {
@@ -720,7 +740,7 @@ public class Jeu implements Observable {
         }
         return false;
     }
-    
+
     // ajoute un observateur
     public void addObservateur(Observateur obs) {
         this.listObservateur.add(obs);

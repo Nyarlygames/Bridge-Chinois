@@ -35,27 +35,24 @@ public class PC2 extends PC {
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (carteAdv.gagne(ca, table.getAtout())) {
+                if (ca.gagne(carteAdv, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }
-
         } else {
             prems = true;
         }
 
         Carte meilleure = null;
         if (!gagnantes.isEmpty()) {
-
             meilleure = gagnantes.get(0);
             for (Carte ca : gagnantes) {
                 if (!ca.rangPlusFort(meilleure)) {
                     meilleure = ca;
                 }
             }
-
-        } else {//pas de gagnante donc on balance une carte nulle
-            if (!prems) {
+        } else {
+            if (!prems) {//pas de gagnante donc on balance une carte nulle
                 meilleure = jouables.get(0);
                 for (Carte ca : jouables) {
                     if (!ca.rangPlusFort(meilleure)) {
@@ -79,7 +76,6 @@ public class PC2 extends PC {
             table.setCarte1(meilleure);
             table.getMain1connue().getMain().remove(meilleure);
         }
-
         main.getMain().remove(meilleure);
         aJoue = true;
     }

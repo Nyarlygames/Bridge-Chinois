@@ -62,12 +62,81 @@ public class Humain extends Joueur {
         phaseChoisir = false;
     }
 
-    public Carte hintPoser() {
+    public Carte hintJouer() {
+        Carte carteAdv;
+        if (id == 2) {
+            carteAdv = table.getCarte1();
+        } else {
+            carteAdv = table.getCarte2();
+        }
+
         Carte c = null;
+        ArrayList<Carte> jouables = getCartesJouables();
+        ArrayList<Carte> gagnantes = new ArrayList<Carte>();
+        Boolean prems;
+        if (carteAdv != null) {
+            prems = false;
+            for (Carte ca : jouables) {
+                if (ca.gagne(carteAdv, table.getAtout())) {
+                    gagnantes.add(ca);
+                }
+            }
+        } else {
+            prems = true;
+        }
 
-
+        if (!gagnantes.isEmpty()) {
+            c = gagnantes.get(0);
+            for (Carte ca : gagnantes) {
+                if (!ca.rangPlusFort(c)) {
+                    c = ca;
+                }
+            }
+        } else {
+            if (!prems) {//pas de gagnante donc on balance une carte nulle
+                c = jouables.get(0);
+                for (Carte ca : jouables) {
+                    if (!ca.rangPlusFort(c)) {
+                        c = ca;
+                    }
+                }
+            } else {//si on commence a jouer alors on met la plus grosse carte possible
+                c = jouables.get(0);
+                for (Carte ca : jouables) {
+                    if (ca.rangPlusFort(c)) {
+                        c = ca;
+                    }
+                }
+            }
+        }
 
         return c;
+    }
+
+    public Integer hintChoisir() {
+        ArrayList<Pile> piochables = new ArrayList<Pile>();
+
+        for (Pile p : table.getPiles()) {
+            if (!p.estVide()) {
+                piochables.add(p);
+            }
+        }
+        Pile meilleure = null;
+        if (!piochables.isEmpty()) {
+            meilleure = piochables.get(0);
+            for (Pile p : piochables) {
+                if (meilleure.getPile().get(meilleure.getPile().size() - 1).getCouleur().equals(table.getAtout())) {
+                    if (p.getAPiocher().getCouleur().equals(table.getAtout()) && p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                        meilleure = p;
+                    }
+                } else {
+                    if (p.getAPiocher().getCouleur().equals(table.getAtout()) || p.getAPiocher().rangPlusFort(meilleure.getPile().get(meilleure.getPile().size() - 1))) {
+                        meilleure = p;
+                    }
+                }
+            }
+        }
+        return meilleure.getNumero();
     }
 
     ArrayList<Carte> getCartesJouables() {

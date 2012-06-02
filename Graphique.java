@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.JPopupMenu.Separator;
@@ -18,18 +19,18 @@ public class Graphique implements Runnable {
     }
 
     public Graphique(Jeu j) {
-	    this.cfg = new Config();
+        this.cfg = new Config();
         jeu = j;
-	    this.LARGEUR_FEN = Config.width;
-	    this.HAUTEUR_FEN = Config.height;
-	    this.zoneDessin = zoneDessin;
+        this.LARGEUR_FEN = Config.width;
+        this.HAUTEUR_FEN = Config.height;
+        this.zoneDessin = zoneDessin;
 
         frame = new JFrame("Bridge chinois");
-	    frame.addComponentListener(new EcouteurDeFrame(frame));
+        frame.addComponentListener(new EcouteurDeFrame(frame));
 
-	    zoneDessin = new ZoneDessin(j, this.cfg);
+        zoneDessin = new ZoneDessin(j, this.cfg);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
-	    zoneDessin.addMouseMotionListener(new MouseMove(this, jeu));
+        zoneDessin.addMouseMotionListener(new MouseMove(this, jeu));
         JMenuBar menuBar = new javax.swing.JMenuBar();
         JMenu fileMenu = new javax.swing.JMenu();
         JMenuItem openMenuItem = new javax.swing.JMenuItem();
@@ -64,10 +65,9 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Frame confirm = null;
                 //demander confirmation
-                Confirmation a = new Confirmation(confirm,true,"Voulez vous vraiment quitter ?");
+                Confirmation a = new Confirmation(confirm, true, "Voulez vous vraiment quitter ?");
                 a.setVisible(true);
-                if (a.getReturnStatus()==1)
-                {
+                if (a.getReturnStatus() == 1) {
                     frame.dispose();
                     Menu m = new Menu();
                     m.setVisible(true);
@@ -102,7 +102,7 @@ public class Graphique implements Runnable {
         annulerMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
+
                 jeu.getHist().annuler();
                 jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
@@ -127,7 +127,7 @@ public class Graphique implements Runnable {
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
                 jeu.updateObservateur();
-                
+
             }
         });
 
@@ -137,9 +137,8 @@ public class Graphique implements Runnable {
         jMenuItem1.setText("Options");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
 
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Options opt = new Options(frame,true);
+                Options opt = new Options(frame, true);
                 opt.setVisible(true);
             }
         });
@@ -153,10 +152,9 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Frame confirm = null;
                 //demander confirmation
-                Confirmation a = new Confirmation(confirm,true,"Voulez vous vraiment quitter ?");
+                Confirmation a = new Confirmation(confirm, true, "Voulez vous vraiment quitter ?");
                 a.setVisible(true);
-                if (a.getReturnStatus()==1)
-                {
+                if (a.getReturnStatus() == 1) {
                     frame.dispose();
                 }
             }
@@ -182,7 +180,12 @@ public class Graphique implements Runnable {
         hintMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
+                if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == false) {
+                    System.out.println(((Humain) jeu.getJoueur1()).hintJouer().toString());
+                } else if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == true) {
+                    System.out.println(((Humain) jeu.getJoueur1()).hintChoisir().toString());
+                }
+
             }
         });
 
@@ -224,4 +227,3 @@ public class Graphique implements Runnable {
 
     }
 }
-
