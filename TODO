@@ -1,11 +1,8 @@
 -Menus
 *Groupement des menus
-*Virer le mode 2 joueurs
 *Gestion annuler chargement partie
-*Fix taille de la fenetre VSPlayer
 
 -Jeu
-*Redonne
 *Calcul du score par donnes (apparament ca fait toujours par pli)
 *Algo min-max
 *Indices
@@ -15,9 +12,5 @@
 *Indice graphique sur les cartes
 
 -Reseau
-* Choisir un port
 * Mode lan ou internet
 * Choisir un username
-* Envoie du jeux (piles/mains) au client
-* Gestion des actions
-...

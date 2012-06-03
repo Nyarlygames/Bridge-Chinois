@@ -7,8 +7,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import javax.swing.JComponent;
+import java.util.concurrent.TimeUnit;
 
-public class ZoneDessin extends JComponent {
+public class ZoneDessin extends JComponent{
 
     public int i = -1;
     public int j = -1;
@@ -19,7 +20,14 @@ public class ZoneDessin extends JComponent {
     public Table t;
     public Config cfg;
     public Carte carteactive;
+    public Carte hintCarte;
+    public int hintPile = -1;
+    int width;
+    int dheight;
+    int height;
     Font f;
+    Graphics2D draw;
+    Graphics g;
     Jeu jeu;
 
     /**
@@ -37,6 +45,11 @@ public class ZoneDessin extends JComponent {
     public void paint(Graphics g) {
         this.t = jeu.getMoteur().getTable();
         Graphics2D drawable = (Graphics2D) g;
+	this.draw = drawable;
+	this.g = g;
+	this.dheight = getSize().height;
+	this.width = getSize().width;
+	this.height = dheight - 20;
 
         // On reccupere quelques infos provenant de la partie JComponent
         int width = getSize().width;
@@ -145,8 +158,15 @@ public class ZoneDessin extends JComponent {
             int up = height - ch - bh;
             Carte c = t.main1.getCarte(f);
 
+	    // Affichage indices des cartes
+	    if ((hintCarte != null) && (c.rang == hintCarte.rang)
+		&& (c.couleur == hintCarte.couleur)){
+	    Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
+	    int hw = hintarrow.getWidth(null);
+	    int hh = hintarrow.getHeight(null);
+	    g.drawImage(hintarrow, mid, up - hh - 20, hw, hh, this);
+	    }
             if (carteactive != null) {
-
                 if (c == carteactive) {
                     // Carte Jouable
                     if (jeu.carteJouable(c, 1) == true) {
@@ -181,6 +201,21 @@ public class ZoneDessin extends JComponent {
         }
 
 
+	//Affichage des indices piles
+	if (hintPile > -1) {
+	    int p = hintPile;
+            int pc = t.piles.get(p).getSize();
+	    int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
+	    Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintpiles.png"));
+	    int hw = hintarrow.getWidth(null);
+	    int hh = hintarrow.getHeight(null);
+	    g.drawImage(hintarrow, mid, (height / 2) + ch/2, hw, hh, this);
+	    hintPile = -1;
+	}
+
+
+
+
         // Affichage des informations
 
         f = new Font("sansserif", Font.BOLD, 14);
@@ -200,6 +235,7 @@ public class ZoneDessin extends JComponent {
         g.setColor(Color.black);
         String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
         g.drawString(pli2, bh + ch / 2 - fontw.stringWidth(pli2) / 2 - 12, bh + ch / 2 + 5);
+
 
         // Infos du bas
         String atout = " ";
@@ -253,4 +289,59 @@ public class ZoneDessin extends JComponent {
         g.drawString(score, 0, dheight - 5);
 
     } // fin fonction paint
+
+
+	// Animation carte jouee
+	public void jouerCarte(Carte c) {
+	    int start= 0;
+	    int end = 1000;
+	    // hauteur arrivee
+	    int ha = ((height / 2) - (ch / 2) - ch - bh) / 2 + height / 2;
+	    // hauteur départ
+	    int hd = height - ch -bh - 20;
+	    // largeur arrivee
+	    int la = (width/2) - (ch/2);
+	    // largeur depart
+	    int ld = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (1 * cw) / 2;
+	    // hauteur mouvement
+	    int hm = hd;
+	    // largeur mouvement
+	    int lm = ld;
+	    Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource("cartes/1/" + c.toFileString()));
+	    int i = 0;
+
+	    while ((hm != ha) && (lm != la)) {
+		hm = hd + (int) ((double) ((ha - hd) *i / 100));
+		lm = ld + (int) ((double) ((la - ld) *i / 100));
+		g.drawImage(cfront, lm, hm, cw, ch, this);
+		this.repaint();
+		i += 1;
+		try {
+		    Thread.sleep(10);
+		}
+		catch (Exception e){
+		    System.out.println("lol");
+		}
+	    }
+	}
+
+	// Affichage de l'indice carte
+	public void printHintCarte(Carte c) {
+	    
+	}
+
+	// Affichage de l'indice pile
+	public void printHintPile(int p) {
+	    String pathres = "res/";
+            int pc = t.piles.get(p).getSize();
+	    int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
+	    Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintarrow.png"));
+	    int hw = hintarrow.getWidth(null);
+	    int hh = hintarrow.getHeight(null);
+
+	    g.drawImage(hintarrow, mid, (height / 2) - hh / 2, hw, hh, this);
+	}
+
+
+
 }

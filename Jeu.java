@@ -441,7 +441,6 @@ public class Jeu implements Observable {
                 if (joueurCourant == 1) {
                     c1 = moteur.getTable().getCarte2();
                     c2 = moteur.getTable().getCarte1();
-
                 } else {
                     c1 = moteur.getTable().getCarte1();
                     c2 = moteur.getTable().getCarte2();
@@ -685,12 +684,12 @@ public class Jeu implements Observable {
         if (getCarteAdverse(joueur) == null) {
             return (true);
         } else {
-            // Si il y a de l'atout
+	    // A nous de jouer en deuxieme
+	    Carte carteadv = getCarteAdverse(joueur);
+	    Main mainjoueur = getMainJoueur(joueur);
+            // Si il y a de l'atout dans la partie
             if (moteur.getTable().atout != null) {
-                // A nous de jouer en deuxieme
-                Carte carteadv = getCarteAdverse(joueur);
-                Main mainjoueur = getMainJoueur(joueur);
-                // Si il a joué un atout
+                // Si il a joue un atout
                 if (carteadv.couleur == moteur.getTable().atout) {
                     boolean atout = false;
 
@@ -708,7 +707,7 @@ public class Jeu implements Observable {
                     } else {
                         return false;
                     }
-                } // Pas d'atout
+                } // S'il n'a pas joue d'atout
                 else {
                     boolean atout = false;
                     boolean defausse = true;
@@ -734,11 +733,30 @@ public class Jeu implements Observable {
                         }
                     }
                 }
-            } // Si il n'y a pas d'atout
+            }
+	    // Si il n'y a pas d'atout dans la partie
             else {
+                    boolean defausse = true;
+                    for (int i = 0; i < mainjoueur.getSize(); i++) {
+                        if (mainjoueur.getCarte(i).couleur == carteadv.couleur) {
+                            defausse = false;
+                        }
+                    }
+                    // On ne peut pas fournir
+                    if (defausse == true) {
+                        return true;
+                    } // On peut fournir
+                    else {
+                        // Si on veut fournir
+                        if (c.couleur == carteadv.couleur) {
+                            return true;
+                        } //Si on veut se defausser
+                        else {
+                            return false;
+                        }
+                    }
             }
         }
-        return false;
     }
 
     // ajoute un observateur

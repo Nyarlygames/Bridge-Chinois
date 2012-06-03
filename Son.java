@@ -53,10 +53,10 @@ public class Son extends Object implements LineListener {
       System.exit(0);
     } else if (type == LineEvent.Type.START) {
       //System.out.println("DEBUT");
-      playingDialog.setVisible(true);
+	//  playingDialog.setVisible(true);
     } else if (type == LineEvent.Type.STOP) {
       //System.out.println("FIN");
-      playingDialog.setVisible(false);
+      //playingDialog.setVisible(false);
       clip.close();
     }
   }
