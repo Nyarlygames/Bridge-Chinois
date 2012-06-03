@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import javax.swing.JComponent;
-import java.util.concurrent.TimeUnit;
 
 public class ZoneDessin extends JComponent{
 
@@ -26,7 +25,6 @@ public class ZoneDessin extends JComponent{
     int dheight;
     int height;
     Font f;
-    Graphics2D draw;
     Graphics g;
     Jeu jeu;
 
@@ -45,7 +43,6 @@ public class ZoneDessin extends JComponent{
     public void paint(Graphics g) {
         this.t = jeu.getMoteur().getTable();
         Graphics2D drawable = (Graphics2D) g;
-	this.draw = drawable;
 	this.g = g;
 	this.dheight = getSize().height;
 	this.width = getSize().width;
@@ -213,9 +210,6 @@ public class ZoneDessin extends JComponent{
 	    hintPile = -1;
 	}
 
-
-
-
         // Affichage des informations
 
         f = new Font("sansserif", Font.BOLD, 14);
@@ -320,28 +314,8 @@ public class ZoneDessin extends JComponent{
 		    Thread.sleep(10);
 		}
 		catch (Exception e){
-		    System.out.println("lol");
+		    System.out.println("Echec de l'echellonage du deplacement");
 		}
 	    }
 	}
-
-	// Affichage de l'indice carte
-	public void printHintCarte(Carte c) {
-	    
-	}
-
-	// Affichage de l'indice pile
-	public void printHintPile(int p) {
-	    String pathres = "res/";
-            int pc = t.piles.get(p).getSize();
-	    int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
-	    Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintarrow.png"));
-	    int hw = hintarrow.getWidth(null);
-	    int hh = hintarrow.getHeight(null);
-
-	    g.drawImage(hintarrow, mid, (height / 2) - hh / 2, hw, hh, this);
-	}
-
-
-
 }
