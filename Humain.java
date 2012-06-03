@@ -135,8 +135,11 @@ public class Humain extends Joueur {
                     }
                 }
             }
+	    return meilleure.getNumero();
         }
-        return meilleure.getNumero();
+	else
+	    return(-1);
+
     }
 
     ArrayList<Carte> getCartesJouables() {

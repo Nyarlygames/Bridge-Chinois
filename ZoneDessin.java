@@ -158,10 +158,10 @@ public class ZoneDessin extends JComponent{
 	    // Affichage indices des cartes
 	    if ((hintCarte != null) && (c.rang == hintCarte.rang)
 		&& (c.couleur == hintCarte.couleur)){
-	    Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
-	    int hw = hintarrow.getWidth(null);
-	    int hh = hintarrow.getHeight(null);
-	    g.drawImage(hintarrow, mid, up - hh - 20, hw, hh, this);
+		Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
+		int hw = hintarrow.getWidth(null);
+		int hh = hintarrow.getHeight(null);
+		g.drawImage(hintarrow, mid, up - hh - 20, hw, hh, this);
 	    }
             if (carteactive != null) {
                 if (c == carteactive) {
