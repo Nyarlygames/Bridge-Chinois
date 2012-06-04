@@ -18,7 +18,7 @@ public class Historique {
     }
     
     public EntreeHistorique getCourant(){
-        System.out.println("position " + position + "taille " + hist.size());
+        System.out.println("position " + position + " taille " + hist.size());
         return hist.get(position);
     }
     
@@ -35,7 +35,7 @@ public class Historique {
     
        //Decale la position d'un vers la droite
     void refaire() {
-        if (position < hist.size() -1 ) {
+        if (position < hist.size() -1) {
             position += 1;
         }
         else
@@ -45,7 +45,7 @@ public class Historique {
     
         //Ajoute la gaufre g apres la position courante de l'historique. Supprime les eventuelles gaufres apres la position actuelle
     void addEntree(EntreeHistorique eg) {
-        if (position < hist.size() - 1) {
+        if (position < hist.size() -1) {
             ArrayList<EntreeHistorique> resultat = new ArrayList<EntreeHistorique>();
             for (int i = 0; i <= position; i++) {
                 resultat.add(hist.get(i));
