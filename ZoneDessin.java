@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -20,6 +19,7 @@ public class ZoneDessin extends JComponent {
     public Config cfg;
     public Carte carteactive;
     public Carte hintCarte;
+    public Carte lastcarte1 = null;
     public int hintPile = -1;
     int width;
     int dheight;
@@ -137,7 +137,7 @@ public class ZoneDessin extends JComponent {
             Carte c = t.main2.getCarte(f);
 	    if (cfg.isVoitCartes()) {
 		Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
-		g.drawImage(cfront, mid, bh, this);
+		g.drawImage(cfront, mid, bh, cw, ch, this);
 	    }
 	    else {
 		g.drawImage(cback, mid, bh, this);
@@ -207,11 +207,36 @@ public class ZoneDessin extends JComponent {
             hintPile = -1;
         }
 
-        // Affichage des informations
-
         f = new Font("sansserif", Font.BOLD, 14);
         FontMetrics fontw = g.getFontMetrics(f);
         g.setFont(f);
+
+
+        // Affichage dernier pli
+	if (cfg.isVoitPlis() && (jeu.getHist().position > 0)) {
+            Image separateur = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/testseparateur.png"));
+	    int sw = separateur.getWidth(null);
+	    int sh = separateur.getHeight(null);
+	    String str = "Dernier pli :";
+
+
+	    g.setColor(Color.red);
+	    // Affichage "Dernier pli"
+	    g.drawString(str, width - bw - fontw.stringWidth(str), (height/2) - (sh/2) - ch - fontw.getHeight());
+	    // Affichage du séparateur
+	    g.drawImage(separateur, width - bw - sw, (height/2) - (sh/2), sw, sh, this);
+
+	    // Affichage des cartes
+	    if (jeu.lastcarte1 != null) {
+		Image c1 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte1.toFileString()));
+		g.drawImage(c1, width - bw - cw - ((sw-cw) / 2), (height/2) + (sh/2), cw, ch, this);
+	    }
+	    if (jeu.lastcarte2 != null) {
+		Image c2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte2.toFileString()));
+		g.drawImage(c2, width - bw - cw - ((sw-cw) / 2), (height/2) - (sh/2) - ch, cw, ch, this);
+	    }
+	}
+
 
         //--- Dessin du nombre de plis (score de la partie actuelle) ---//
 

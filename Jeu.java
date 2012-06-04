@@ -33,6 +33,8 @@ public class Jeu implements Observable {
     //pour la gestion des hints
     Integer hintPile;
     Carte hintCarte;
+    Carte lastcarte1 = null;
+    Carte lastcarte2 = null;
 
     // -------------------------------------Constructeur-------------------------------------
     /* le mode indique le nombre de joueur humain :
@@ -445,6 +447,8 @@ public class Jeu implements Observable {
                     c1 = moteur.getTable().getCarte1();
                     c2 = moteur.getTable().getCarte2();
                 }
+	        lastcarte1 = moteur.getTable().getCarte1();
+		lastcarte2 = moteur.getTable().getCarte2();
                 moteur.getTable().setCarte1(null);
                 moteur.getTable().setCarte2(null);
                 this.updateObservateur();
