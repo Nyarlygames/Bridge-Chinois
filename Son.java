@@ -7,7 +7,6 @@
  *
  * @author Amine
  */
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -29,17 +28,19 @@ public class Son extends Object implements LineListener {
     public Son(String fileAudio) throws Exception {
 
         //fileAudio = new File("Bcarte.wav");
+        cfg = new Config();
+        if (cfg.isSon()) {
+            System.out.println("morceau : " + fileAudio);
 
-        System.out.println("morceau : " + fileAudio);
-
-        Line.Info linfo = new Line.Info(Clip.class);
-        Line line = AudioSystem.getLine(linfo);
-        clip = (Clip) line;
-        clip.addLineListener(this);
-        String pathres = "res/";
-        AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(pathres + fileAudio));
-        clip.open(ais);
-        clip.start();
+            Line.Info linfo = new Line.Info(Clip.class);
+            Line line = AudioSystem.getLine(linfo);
+            clip = (Clip) line;
+            clip.addLineListener(this);
+            String pathres = "res/";
+            AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(pathres + fileAudio));
+            clip.open(ais);
+            clip.start();
+        }
     }
 
     public void update(LineEvent le) {

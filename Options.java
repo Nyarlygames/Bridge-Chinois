@@ -123,13 +123,13 @@ public class Options extends javax.swing.JDialog {
         buttonGroupTheme.add(jRadioButtonTheme2);
         jRadioButtonTheme2.setText("Bleu");
         if (conf.getStyle() == 2)
-        jRadioButtonTheme1.setSelected(true);
+        jRadioButtonTheme2.setSelected(true);
 
         jLabelTheme.setText("Theme");
 
         buttonGroupTheme.add(jRadioButtonTheme3);
         if (conf.getStyle() == 3)
-        jRadioButtonTheme1.setSelected(true);
+        jRadioButtonTheme3.setSelected(true);
         jRadioButtonTheme3.setText("Metal");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -224,9 +224,9 @@ public class Options extends javax.swing.JDialog {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         // TODO add your handling code here:
         if (jRadioButtonCartes1.isSelected()) {
-            conf.setDeck(1);
-        } else if (jRadioButtonCartes2.isSelected()) {
             conf.setDeck(2);
+        } else if (jRadioButtonCartes2.isSelected()) {
+            conf.setDeck(1);
         }
         if (jRadioButtonTheme1.isSelected()) {
             conf.setStyle(1);
@@ -239,7 +239,7 @@ public class Options extends javax.swing.JDialog {
         conf.setVoitPlis(jCheckBoxAnciensPlis.isSelected());
         conf.setSon(jCheckBoxSon.isSelected());
         conf.saveConfigs();
-
+        this.dispose();
 
     }//GEN-LAST:event_jButtonOKActionPerformed
 

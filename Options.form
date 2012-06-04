@@ -219,7 +219,7 @@
             <Property name="text" type="java.lang.String" value="Bleu"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (conf.getStyle() == 2)&#xa;    jRadioButtonTheme1.setSelected(true);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (conf.getStyle() == 2)&#xa;    jRadioButtonTheme2.setSelected(true);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTheme">
@@ -229,7 +229,7 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonTheme3">
           <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor" postCode="if (conf.getStyle() == 3)&#xa;    jRadioButtonTheme1.setSelected(true);">
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor" postCode="if (conf.getStyle() == 3)&#xa;    jRadioButtonTheme3.setSelected(true);">
               <ComponentRef name="buttonGroupTheme"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Metal"/>
