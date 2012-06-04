@@ -30,8 +30,8 @@ class EcouteurDeSouris implements MouseListener {
             // dans ce cas le joueur courant est l'humain il est en phase de jeu
             //en prend en compte son choix
             if (jeu.getMoteur().jouer(carte)) {
+		g.getZoneDessin().hintCarte = null;
                 System.out.println("j'ai choisi la carte " + carte.toString());
-
 		// Animation de la carte jouee
 		//g.getZoneDessin().jouerCarte(carte);
 
