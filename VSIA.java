@@ -207,7 +207,7 @@ public class VSIA extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Son au clique de souris sur le bouton
         try {
-	    //       Son s = new Son("Bdemarrer.wav");
+	           Son s = new Son("Bdemarrer.wav");
 	} catch (Exception ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
