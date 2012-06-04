@@ -19,7 +19,6 @@ public class ZoneDessin extends JComponent {
     public Config cfg;
     public Carte carteactive;
     public Carte hintCarte;
-    public Carte lastcarte1 = null;
     public int hintPile = -1;
     int width;
     int dheight;
@@ -207,6 +206,8 @@ public class ZoneDessin extends JComponent {
             hintPile = -1;
         }
 
+
+	// Chargement de la police d'ecriture
         f = new Font("sansserif", Font.BOLD, 14);
         FontMetrics fontw = g.getFontMetrics(f);
         g.setFont(f);
@@ -219,9 +220,8 @@ public class ZoneDessin extends JComponent {
 	    int sh = separateur.getHeight(null);
 	    String str = "Dernier pli :";
 
-
-	    g.setColor(Color.red);
 	    // Affichage "Dernier pli"
+	    g.setColor(Color.red);
 	    g.drawString(str, width - bw - fontw.stringWidth(str), (height/2) - (sh/2) - ch - fontw.getHeight());
 	    // Affichage du séparateur
 	    g.drawImage(separateur, width - bw - sw, (height/2) - (sh/2), sw, sh, this);
@@ -301,7 +301,15 @@ public class ZoneDessin extends JComponent {
         g.drawString(turnInfo, width / 2 - fontw.stringWidth(turnInfo) / 2, dheight - 5);
 
         // Affichage du score
-        String score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+	String score = "";
+	// Partie par nombre de donnes ou pli
+	if ((jeu.type == 0) || (jeu.type ==1)) {
+	    score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+	}
+	// Partie aventure
+	else {
+	    score = "Aventure";
+	}
         g.drawString(score, 0, dheight - 5);
 
     } // fin fonction paint

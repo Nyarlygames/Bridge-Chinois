@@ -489,8 +489,20 @@ public class Jeu implements Observable {
             }
 
             nbMatche++;
-            joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
-            joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
+
+
+	    // Update du score par donnes
+	    if (type == 0) {
+		if (joueur1.getNbPlis() >= 13)
+		    joueur1.setScore(joueur1.getScore() + 1);
+		else
+		    joueur2.setScore(joueur2.getScore() + 1);
+	    }
+	    // Update score par plis
+	    if (type == 1) {
+		joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
+		joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
+	    }
             joueur1.setNbPlis(0);
             joueur2.setNbPlis(0);
 

@@ -2,12 +2,12 @@
 * Groupement des menus
 
 -Jeu
-* Calcul du score par donnes (apparament ca fait toujours par pli)
 * Algo min-max
 * Gestion chargement des parties/Sauveguardes
 * Pouvoir jouer apres annuler/refaire
 * Gestion nouvelle partie
 * Mode apprendre a jouer
+* Mode aventure
 
 -Graphisme
 
