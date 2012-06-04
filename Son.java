@@ -50,7 +50,7 @@ public class Son extends Object implements LineListener {
       //System.out.println("OUVERT");
     } else if (type == LineEvent.Type.CLOSE) {
       //System.out.println("FERME");
-      System.exit(0);
+      //System.exit(0);
     } else if (type == LineEvent.Type.START) {
       //System.out.println("DEBUT");
 	//  playingDialog.setVisible(true);
