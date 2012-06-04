@@ -128,14 +128,6 @@ public class ZoneDessin extends JComponent {
             g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
         }
 
-        //--- Dessin des cartes du joueur 2 ---//
-
-        if (t.getCarte2() == null) {
-            g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
-        } else {
-            Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
-            g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
-        }
 
         //--- Dessin des cartes du joueur distant ou du joueur PC (IA) ---//
 
@@ -143,8 +135,13 @@ public class ZoneDessin extends JComponent {
 
             int mid = (int) ((width / 2) - (((t.main2.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
             Carte c = t.main2.getCarte(f);
-            g.drawImage(cback, mid, bh, this);
-
+	    if (cfg.isVoitCartes()) {
+		Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
+		g.drawImage(cfront, mid, bh, this);
+	    }
+	    else {
+		g.drawImage(cback, mid, bh, this);
+	    }
         }
 
         //--- Dessin des cartes du joueur 1 ---//
