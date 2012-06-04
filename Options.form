@@ -53,9 +53,12 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Son"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jCheckBoxSon.setSelected(conf.isSon());"/>
+      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="250" y="270" width="-1" height="-1"/>
+          <AbsoluteConstraints x="180" y="300" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -82,7 +85,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="90" y="380" width="270" height="110"/>
+          <AbsoluteConstraints x="50" y="380" width="270" height="110"/>
         </Constraint>
       </Constraints>
 
@@ -123,11 +126,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Voir anciens plis"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jCheckBoxAnciensPlis.setSelected(conf.isVoitPlis());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxCartesAdv">
           <Properties>
             <Property name="text" type="java.lang.String" value="Voir cartes adversaire"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jCheckBoxCartesAdv.setSelected(conf.isVoitCartes());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelCheat">
           <Properties>

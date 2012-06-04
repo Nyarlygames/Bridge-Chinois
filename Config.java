@@ -4,6 +4,7 @@ import java.io.*;
 public class Config {
 
     static int width, height, deck, style = 0;
+    static boolean voitCartes, voitPlis, son = false;
     String FILENAME = "options.cfg";
 
     // -------------------------------------Attributs-------------------------------------
@@ -35,6 +36,18 @@ public class Config {
         return (this.style);
     }
 
+    public boolean isVoitCartes() {
+        return voitCartes;
+    }
+
+    public boolean isVoitPlis() {
+        return voitPlis;
+    }
+
+    public boolean isSon() {
+        return son;
+    }
+
     // -------------------------------------Setters-------------------------------------
     public void setStyle(int value) {
         this.style = value;
@@ -50,6 +63,18 @@ public class Config {
 
     public void setWidth(int value) {
         this.width = value;
+    }
+
+    public void setVoitCartes(boolean voitCartes) {
+        Config.voitCartes = voitCartes;
+    }
+
+    public void setVoitPlis(boolean voitPlis) {
+        Config.voitPlis = voitPlis;
+    }
+
+    public void setSon(boolean son) {
+        Config.son = son;
     }
 
     // -------------------------------------Methodes-------------------------------------
@@ -77,15 +102,12 @@ public class Config {
 
     // Parse le fichier de config renvoie 0 si tout est bon, 1 si il échoue
     public int getConfigs() {
-        String chaine = "";
-
         try {
             InputStream file = new FileInputStream(FILENAME);
             InputStreamReader fd = new InputStreamReader(file);
             BufferedReader buf = new BufferedReader(fd);
             String ligne;
             String opt;
-            String value;
 
             while ((ligne = buf.readLine()) != null) {
                 opt = getOpt(ligne);
@@ -106,7 +128,15 @@ public class Config {
                 if (opt.equals("style")) {
                     this.style = Integer.parseInt(getValue(ligne));
                 }
-
+                if (opt.equals("voitCartes")) {
+                    this.voitCartes = Boolean.parseBoolean(getValue(ligne));
+                }
+                if (opt.equals("voitPlis")) {
+                    this.voitPlis = Boolean.parseBoolean(getValue(ligne));
+                }
+                if (opt.equals("son")) {
+                    this.son = Boolean.parseBoolean(getValue(ligne));
+                }
             }
             buf.close();
             return (0);
@@ -127,6 +157,9 @@ public class Config {
             buf.println("height = " + this.height);
             buf.println("style = " + this.style);
             buf.println("deck = " + this.deck);
+            buf.println("voitCartes = " + this.voitCartes);
+            buf.println("voitPlis = " + this.voitPlis);
+            buf.println("son = " + this.son);
             buf.close();
             System.out.println("Le fichier " + FILENAME + " a été créé!");
         } catch (Exception e) {

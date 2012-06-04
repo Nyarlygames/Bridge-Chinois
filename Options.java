@@ -60,8 +60,9 @@ public class Options extends javax.swing.JDialog {
         jButtonAnnuler.setBounds(20, 510, 78, 25);
 
         jCheckBoxSon.setText("Son");
+        jCheckBoxSon.setSelected(conf.isSon());
         getContentPane().add(jCheckBoxSon);
-        jCheckBoxSon.setBounds(250, 270, 51, 25);
+        jCheckBoxSon.setBounds(180, 300, 51, 25);
 
         jButtonOK.setText("OK");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -75,8 +76,10 @@ public class Options extends javax.swing.JDialog {
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jCheckBoxAnciensPlis.setText("Voir anciens plis");
+        jCheckBoxAnciensPlis.setSelected(conf.isVoitPlis());
 
         jCheckBoxCartesAdv.setText("Voir cartes adversaire");
+        jCheckBoxCartesAdv.setSelected(conf.isVoitCartes());
 
         jLabelCheat.setText("Triche:");
 
@@ -108,7 +111,7 @@ public class Options extends javax.swing.JDialog {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(90, 380, 270, 110);
+        jPanel1.setBounds(50, 380, 270, 110);
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
@@ -232,6 +235,9 @@ public class Options extends javax.swing.JDialog {
         } else if (jRadioButtonTheme3.isSelected()) {
             conf.setStyle(3);
         }
+        conf.setVoitCartes(jCheckBoxCartesAdv.isSelected());
+        conf.setVoitPlis(jCheckBoxAnciensPlis.isSelected());
+        conf.setSon(jCheckBoxSon.isSelected());
         conf.saveConfigs();
 
 
