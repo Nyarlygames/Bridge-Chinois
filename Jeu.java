@@ -86,7 +86,7 @@ public class Jeu implements Observable {
                 this.joueur1 = new Humain(moteur.getTable(), 1);
                 this.joueur2 = new Humain(moteur.getTable(), 2);
         }
-	this.diff = difficulte;
+        this.diff = difficulte;
         this.type = type;
         this.max = max;
 
@@ -449,8 +449,8 @@ public class Jeu implements Observable {
                     c1 = moteur.getTable().getCarte1();
                     c2 = moteur.getTable().getCarte2();
                 }
-	        lastcarte1 = moteur.getTable().getCarte1();
-		lastcarte2 = moteur.getTable().getCarte2();
+                lastcarte1 = moteur.getTable().getCarte1();
+                lastcarte2 = moteur.getTable().getCarte2();
                 moteur.getTable().setCarte1(null);
                 moteur.getTable().setCarte2(null);
                 this.updateObservateur();
@@ -493,18 +493,19 @@ public class Jeu implements Observable {
             nbMatche++;
 
 
-	    // Update du score par donnes
-	    if (type == 0) {
-		if (joueur1.getNbPlis() >= 13)
-		    joueur1.setScore(joueur1.getScore() + 1);
-		else
-		    joueur2.setScore(joueur2.getScore() + 1);
-	    }
-	    // Update score par plis
-	    if (type == 1) {
-		joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
-		joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
-	    }
+            // Update du score par donnes
+            if (type == 0) {
+                if (joueur1.getNbPlis() >= 13) {
+                    joueur1.setScore(joueur1.getScore() + 1);
+                } else {
+                    joueur2.setScore(joueur2.getScore() + 1);
+                }
+            }
+            // Update score par plis
+            if (type == 1) {
+                joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
+                joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
+            }
             joueur1.setNbPlis(0);
             joueur2.setNbPlis(0);
 
@@ -571,6 +572,11 @@ public class Jeu implements Observable {
             e.printStackTrace();
         }
         hintCarte = null;
+        try {
+            Son s = new Son("Bcarte.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void etapeChoisir() {
@@ -600,6 +606,11 @@ public class Jeu implements Observable {
             e.printStackTrace();
         }
         hintPile = null;
+        try {
+            Son s = new Son("Bcarte.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Table swapTableRecueReseau(Table table) {
@@ -702,9 +713,9 @@ public class Jeu implements Observable {
         if (getCarteAdverse(joueur) == null) {
             return (true);
         } else {
-	    // A nous de jouer en deuxieme
-	    Carte carteadv = getCarteAdverse(joueur);
-	    Main mainjoueur = getMainJoueur(joueur);
+            // A nous de jouer en deuxieme
+            Carte carteadv = getCarteAdverse(joueur);
+            Main mainjoueur = getMainJoueur(joueur);
             // Si il y a de l'atout dans la partie
             if (moteur.getTable().atout != null) {
                 // Si il a joue un atout
@@ -751,28 +762,27 @@ public class Jeu implements Observable {
                         }
                     }
                 }
-            }
-	    // Si il n'y a pas d'atout dans la partie
+            } // Si il n'y a pas d'atout dans la partie
             else {
-                    boolean defausse = true;
-                    for (int i = 0; i < mainjoueur.getSize(); i++) {
-                        if (mainjoueur.getCarte(i).couleur == carteadv.couleur) {
-                            defausse = false;
-                        }
+                boolean defausse = true;
+                for (int i = 0; i < mainjoueur.getSize(); i++) {
+                    if (mainjoueur.getCarte(i).couleur == carteadv.couleur) {
+                        defausse = false;
                     }
-                    // On ne peut pas fournir
-                    if (defausse == true) {
+                }
+                // On ne peut pas fournir
+                if (defausse == true) {
+                    return true;
+                } // On peut fournir
+                else {
+                    // Si on veut fournir
+                    if (c.couleur == carteadv.couleur) {
                         return true;
-                    } // On peut fournir
+                    } //Si on veut se defausser
                     else {
-                        // Si on veut fournir
-                        if (c.couleur == carteadv.couleur) {
-                            return true;
-                        } //Si on veut se defausser
-                        else {
-                            return false;
-                        }
+                        return false;
                     }
+                }
             }
         }
     }
