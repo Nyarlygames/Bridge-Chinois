@@ -240,7 +240,7 @@ public class Multi extends javax.swing.JFrame {
         Menu m = new Menu();
         m.setVisible(true);
         this.dispose();
-        // }
+        //}
     }//GEN-LAST:event_formWindowClosing
 
     /**
