@@ -50,6 +50,11 @@ public class VSIA extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Jouer");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         lbDif.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -266,6 +271,18 @@ public class VSIA extends javax.swing.JFrame {
     private void modeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modeActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
+        a.setVisible(true);
+
+        if (a.getReturnStatus() == 1){
+            Menu m = new Menu();
+            m.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
