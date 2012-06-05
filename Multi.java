@@ -59,6 +59,11 @@ public class Multi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         Start.setText("Jouer");
@@ -85,28 +90,15 @@ public class Multi extends javax.swing.JFrame {
         jLabelVotreIP.setText("Votre IP : ");
 
         IPJoueur.setFocusable(false);
-        
-        // recuperation de l'ip publique du joueur par une interface web */
         try{
-            /*
-            System.out.println("Retrieving your external IP");
             URL whatismyip = new URL("http://api.externalip.net/ip/");
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(whatismyip.openStream())
-                );
-            IPJoueur.setValue(in.readLine()); //you get the IP as a String
-            System.out.println("IP Retrieved");
-            */
-            
-            String privateIP = java.net.InetAddress.getLocalHost().getHostAddress();
-            IPJoueur.setValue(privateIP);
-            
-        }catch(Exception e) {
-            
-            System.out.println("Error while retrieving the IP");
-            e.printStackTrace();
-            
-        }
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                whatismyip.openStream()));
+
+        IPJoueur.setValue(in.readLine()); //you get the IP as a String
+    }catch(Exception e)
+    {
+    }
 
     copierIP.setText("Copier l'IP");
     copierIP.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +145,6 @@ public class Multi extends javax.swing.JFrame {
     jLabelIPDistante.setText("IP Distante : ");
 
     IPDistante.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###:###:###:###"))));
-
 
     javax.swing.GroupLayout jPanelRejoindreLayout = new javax.swing.GroupLayout(jPanelRejoindre);
     jPanelRejoindre.setLayout(jPanelRejoindreLayout);
@@ -239,6 +230,18 @@ public class Multi extends javax.swing.JFrame {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(contents, null);
     }//GEN-LAST:event_copierIPActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        // Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
+        // a.setVisible(true);
+
+        // if (a.getReturnStatus() == 1) {
+        Menu m = new Menu();
+        m.setVisible(true);
+        this.dispose();
+        // }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
