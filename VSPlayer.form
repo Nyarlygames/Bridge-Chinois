@@ -22,7 +22,6 @@
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
   </AuxValues>
 
-<<<<<<< HEAD
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
@@ -54,10 +53,6 @@
           </Group>
       </Group>
     </DimensionLayout>
-=======
-  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-    <Property name="useNullLayout" type="boolean" value="true"/>
->>>>>>> d26ec79163e060316aa3881dd1bf59801f1f4a90
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JButton" name="Launch">
