@@ -81,6 +81,12 @@ public class Main implements java.io.Serializable, Cloneable {
         main.remove(c);
     }
 
+    //renvoie vrai si la carte c est dans la main
+    public boolean appartient(Carte c)
+    {
+    	return this.getMain().contains(c);
+    }
+
     //renvoie vrai si il y a la couleur de la carte c dans la main
     public boolean aCouleur(Carte c) {
         boolean resultat = false;
@@ -90,7 +96,6 @@ public class Main implements java.io.Serializable, Cloneable {
             }
         }
         return resultat;
-
     }
 
     // ------------------------------------Algo tri par fusion---------------------------
@@ -139,6 +144,7 @@ public class Main implements java.io.Serializable, Cloneable {
         }
 
     }
+
 
     public Object clone() {
         Main m = null;
