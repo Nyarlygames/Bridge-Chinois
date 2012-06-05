@@ -53,6 +53,7 @@ public class Options extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Options");
         setResizable(false);
         getContentPane().setLayout(null);
 
