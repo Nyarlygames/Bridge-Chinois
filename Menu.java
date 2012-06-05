@@ -256,7 +256,6 @@ public class Menu extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
         a.setVisible(true);
         
@@ -339,6 +338,7 @@ public class Menu extends javax.swing.JFrame {
         switch (result) {
         case JFileChooser.APPROVE_OPTION:
         System.out.println("ouvrir");
+        Sauvegarde.loadGame(chooser.getName(chooser.getSelectedFile()), this);
         break;
         case JFileChooser.CANCEL_OPTION:
             System.out.println("Annuler");

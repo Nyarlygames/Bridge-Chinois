@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * @author Samy
  */
-public class PC5 extends PC{
+public class PC5 extends PC implements java.io.Serializable{
 
 	public PC5(){}
     public PC5(Table t, int id, Main main, Carte carteAdv) {

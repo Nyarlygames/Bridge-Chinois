@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * @author Samy
  */
-public class PC3 extends PC {
+public class PC3 extends PC implements java.io.Serializable{
 
     public PC3() {
     }
