@@ -5,7 +5,6 @@ Date de Dernière modification 15/05/2012 : 18:28
  */
 
 import java.util.ArrayList;
-import java.io.*;
 
 
 public class Main implements java.io.Serializable{
@@ -81,8 +80,12 @@ public class Main implements java.io.Serializable{
         main.remove(c);
     }
 
-    
-  //renvoie vrai si il y a la couleur de la carte c dans la main
+    //renvoie vrai si la carte c est dans la main
+    public boolean appartient(Carte c)
+    {
+    	return this.getMain().contains(c);
+    }
+    //renvoie vrai si il y a la couleur de la carte c dans la main
     public boolean aCouleur(Carte c)
     {
     	boolean resultat = false;
@@ -94,6 +97,17 @@ public class Main implements java.io.Serializable{
     	}
     	return resultat;
             
+    }
+    
+
+    public Main clone()
+    {
+    	Main m = new Main();
+    	for(int i=0; i<main.size();i++)
+    	{
+    		m.add(main.get(i));
+    	}
+    	return m;
     }
 
 
@@ -145,14 +159,5 @@ public class Main implements java.io.Serializable{
     }
 
     
-    public Main clone()
-    {
-    	Main m = new Main();
-    	for(int i=0; i<main.size();i++)
-    	{
-    		m.add(main.get(i));
-    	}
-    	return m;
-    }
 
 }

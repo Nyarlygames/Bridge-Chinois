@@ -12,6 +12,8 @@ public abstract class Joueur {
     Boolean aJoue, aChoisi, phaseJouer, phaseChoisir;
     Carte carteAdv;
     Main main;
+    Carte bestCarteJouer, bestCarteChoisir;
+   
 
     // -------------------------------------Accesseurs-------------------------------------
     public int getNbPlis() {
@@ -38,7 +40,23 @@ public abstract class Joueur {
         this.phaseChoisir = phaseChoisir;
     }
 
-    public Carte getCarteAdv() {
+    public Carte getBestCarteJouer() {
+		return bestCarteJouer;
+	}
+
+	public void setBestCarteJouer(Carte bestCarteJouer) {
+		this.bestCarteJouer = bestCarteJouer;
+	}
+
+	public Carte getBestCarteChoisir() {
+		return bestCarteChoisir;
+	}
+
+	public void setBestCarteChoisir(Carte bestCarteChoisir) {
+		this.bestCarteChoisir = bestCarteChoisir;
+	}
+
+	public Carte getCarteAdv() {
         return carteAdv;
     }
 
@@ -100,7 +118,7 @@ public abstract class Joueur {
     {
     	
     }*/
-    protected abstract Joueur clone();    
+    public abstract Joueur clone();    
     abstract void jouer();
     abstract void choisir();
 }

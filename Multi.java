@@ -4,8 +4,6 @@ import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
-import java.util.Enumeration;
-
 import javax.swing.SwingUtilities;
 
 /*

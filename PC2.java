@@ -17,7 +17,10 @@ public class PC2 extends Joueur {
         this.carteAdv = carteAdv;
         this.main = main;
     }
+    
+    
 
+       
     @Override
     void jouer() {
         if (id == 2) {
@@ -114,7 +117,7 @@ public class PC2 extends Joueur {
         aChoisi = true;
     }
     
-    protected Joueur clone()
+    public Joueur clone()
     {
     	Joueur j = new PC();
     	j.setTable(table);

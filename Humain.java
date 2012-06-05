@@ -22,7 +22,7 @@ public class Humain extends Joueur {
         phaseJouer = false;
     }
 
-    protected Joueur clone()
+    public Joueur clone()
     {
     	Joueur j = new Humain();
     	j.setTable(table);
