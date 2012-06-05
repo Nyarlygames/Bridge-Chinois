@@ -54,12 +54,17 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Bridge Chinois");
         setBackground(new java.awt.Color(255, 204, 204));
         setBounds(new java.awt.Rectangle(200, 200, 0, 0));
         setForeground(new java.awt.Color(255, 204, 204));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         Bsolo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bordi.png"))); // NOI18N
@@ -420,6 +425,15 @@ public class Menu extends javax.swing.JFrame {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BtutoActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
+        a.setVisible(true);
+        
+        if (a.getReturnStatus()==1)
+            this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
