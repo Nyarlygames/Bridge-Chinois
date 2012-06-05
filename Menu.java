@@ -358,7 +358,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void change_image(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_change_image
         // TODO add your handling code here:
-        Bquitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bexit_click.png")));
+        Bquitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bexit_entered.png")));
     }//GEN-LAST:event_change_image
 
     private void reset_image(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reset_image
