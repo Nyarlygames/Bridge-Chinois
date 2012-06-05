@@ -1,8 +1,10 @@
+
+import javax.swing.SwingUtilities;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Amine
@@ -110,7 +112,25 @@ public class Tuto extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new Tuto().setVisible(true);
+                Table table = new Table();
+                Moteur moteur = new Moteur(table);
+
+                Jeu monJeu = new Jeu(moteur, 0, 1, 10000, 0);
+                final Graphique gg = new Graphique(monJeu);
+                // test
+                monJeu.addObservateur(new Observateur() {
+
+                    public void update(Jeu jeu) {
+                        gg.getZoneDessin().repaint();
+                        if (jeu.fin) {
+   //                         System.out.println("gagné");
+           //                 FinPartie f = new FinPartie(gg.frame, true, jeu.fin, jeu.gg);
+           //                 f.setVisible(true);
+                        }
+                    }
+                });
+                SwingUtilities.invokeLater(gg);
+                monJeu.jouer();
             }
         });
     }

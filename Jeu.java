@@ -1,7 +1,7 @@
 /* 
- Auteur : ZIANE-CHERIF Mohammed-El-Amine
- Date de Creation 14/05/2012 : 03:21
- Date de Dernière modification 23/05/2012 : 14:25
+Auteur : ZIANE-CHERIF Mohammed-El-Amine
+Date de Creation 14/05/2012 : 03:21
+Date de Dernière modification 23/05/2012 : 14:25
  */
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class Jeu implements Observable {
              */
             case 0:
                 this.joueur1 = new PCRandom(moteur.getTable(), 1);
-                this.joueur2 = new PCRandom(moteur.getTable(), 2);
+                this.joueur2 = new PC2(moteur.getTable(), 2);
                 break;
             /*
              * Mode Humain vs PCRandom
@@ -405,7 +405,7 @@ public class Jeu implements Observable {
         int nbMatche = 0;
         c1 = null;
         c2 = null;
-        while ((type == 0 && nbMatche != max) || (type == 1 && (joueur1.getScore() < max || joueur2.getScore() < max))
+        while ((type == 0 && nbMatche != max) || (type == 1 && (joueur1.getScore() < max && joueur2.getScore() < max))
                 || (type == 2 && nbMatche < 4)) {
             fin = false;
             if (type == 2) {
@@ -432,7 +432,7 @@ public class Jeu implements Observable {
 
 
             this.updateObservateur();
-            if (joueurCourant == 2) {
+            if (joueurCourant == 2 && intVersJoueur() instanceof PC && !(joueur1 instanceof PC)) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
@@ -448,11 +448,14 @@ public class Jeu implements Observable {
                 this.updateObservateur();
                 etapeJouer();
                 this.updateObservateur();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
+                if (!(joueur2 instanceof PC && joueur1 instanceof PC)) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+
 
 
                 // c1 représente la premiere carte qui a été posée et c2 la deuxieme
@@ -590,14 +593,11 @@ public class Jeu implements Observable {
                 }
             }
             if (mode != 2) {
-                if (getJoueurCourant() == 1) {
+                if (getJoueurCourant() == 1 && intVersJoueur() instanceof Humain) {
 
 
                     EntreeHistorique ent = new EntreeHistorique(this.getJoueur1().clone(), this.getJoueur2().clone(), this.getMoteur().getTable().clone());
                     this.getHist().addEntree(ent);
-
-
-
 
                     System.out.println("nouvel hist");
                 }
@@ -690,13 +690,13 @@ public class Jeu implements Observable {
 
             System.out.println("c'est la faute a val car la carte1 est nulle (comme val)");
         }
-        
+
         t.setPaquet((Paquet) table.getPaquet().clone());
-        
-       	t.setPiles((ArrayList<Pile>) table.getPiles().clone());
-       	
+
+        t.setPiles((ArrayList<Pile>) table.getPiles().clone());
+
         t.setAtout(table.getAtout());
-        
+
         return t;
     }
 
