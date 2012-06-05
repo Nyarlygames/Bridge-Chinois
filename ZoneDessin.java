@@ -16,6 +16,11 @@ public class ZoneDessin extends JComponent {
     public int ch = 0;
     public int bw = 0;
     public int bh = 0;
+    public int aw = 0;
+    public int ah = 0;
+    public int rw = 0;
+    public int rh = 0;
+    public int bouton = -1;
     public Table t;
     public Config cfg;
     int width;
@@ -75,6 +80,13 @@ public class ZoneDessin extends JComponent {
 		Image hintArrowCartes = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
 		Image hintArrowPiles = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintpiles.png"));
 		
+		// Annuler/refaire graphique
+		Image annuler = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Bannuler.png"));
+		Image annuler_mo = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Bannuler_entered.png"));
+		
+		Image refaire = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Brefaire.png"));
+		Image refaire_mo = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Brefaire_entered.png"));
+		
         // corners
         int cornerh = corner_trefle.getHeight(null);
         int cornerw = corner_trefle.getWidth(null);
@@ -88,6 +100,15 @@ public class ZoneDessin extends JComponent {
         int bh = top.getHeight(null);
         this.bw = bw;
         this.bh = bh;
+        // annuler/refaire
+        int aw = annuler.getWidth(null);
+        int ah = annuler.getHeight(null);
+        this.aw = aw;
+        this.ah = ah;
+        int rw = refaire.getWidth(null);
+        int rh = refaire.getHeight(null);
+        this.rw = rw;
+        this.rh = rh;
 
 
         // HAUT GAUCHE
@@ -105,6 +126,20 @@ public class ZoneDessin extends JComponent {
         g.drawImage(top, cornerw, 0, width - (2 * cornerw), bh, this);
         g.drawImage(center, bw, bh, width - (2 * bw), height - (2 * bh), this);
 
+
+        //Annuler/refaire
+        if (bouton == 0) {
+            g.drawImage(annuler_mo, bw, height - bh - rh - ah, aw,ah, this);
+            g.drawImage(refaire, bw, height - bh - rh, rw, rh, this);
+            }
+        if (bouton == 1) {
+            g.drawImage(refaire_mo, bw, height - bh - rh, rw, rh, this);
+            g.drawImage(annuler, bw, height - bh - rh - ah, aw,ah, this);
+        }
+        else {
+            g.drawImage(annuler, bw, height - bh - rh - ah, aw,ah, this);
+            g.drawImage(refaire, width - bw - aw, height - bh - rh, rw, rh, this);
+        }
 
         //--- Dessin des slots ou faut jouer les cartes ---//
 
@@ -169,7 +204,7 @@ public class ZoneDessin extends JComponent {
             {
                 int hw = hintArrowCartes.getWidth(null);
                 int hh = hintArrowCartes.getHeight(null);
-                g.drawImage(hintArrowCartes, mid, up - hh - 20, hw, hh, this);
+                g.drawImage(hintArrowCartes, mid, up - hh, hw, hh, this);
             }
             // on check le type de c et on charge le graphique associe
 
@@ -212,25 +247,20 @@ public class ZoneDessin extends JComponent {
 
         // Affichage dernier pli
         if (cfg.isVoitPlis() && (jeu.getHist().position > 0)) {
-            Image separateur = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/testseparateur.png"));
-            int sw = separateur.getWidth(null);
-            int sh = separateur.getHeight(null);
             String str = "Dernier pli :";
 
             // Affichage "Dernier pli"
             g.setColor(Color.red);
-            g.drawString(str, width - bw - fontw.stringWidth(str), (height / 2) - (sh / 2) - ch - fontw.getHeight());
-            // Affichage du séparateur
-            g.drawImage(separateur, width - bw - sw, (height / 2) - (sh / 2), sw, sh, this);
+            g.drawString(str, width - bw - fontw.stringWidth(str), (height / 2) - ch - fontw.getHeight());
 
             // Affichage des cartes
             if (jeu.lastcarte1 != null) {
                 Image c1 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte1.toFileString()));
-                g.drawImage(c1, width - bw - cw - ((sw - cw) / 2), (height / 2) + (sh / 2), cw, ch, this);
+                g.drawImage(c1, width - bw - cw, (height / 2), cw, ch, this);
             }
             if (jeu.lastcarte2 != null) {
                 Image c2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte2.toFileString()));
-                g.drawImage(c2, width - bw - cw - ((sw - cw) / 2), (height / 2) - (sh / 2) - ch, cw, ch, this);
+                g.drawImage(c2, width - bw - cw, (height / 2) - ch, cw, ch, this);
             }
         }
 		

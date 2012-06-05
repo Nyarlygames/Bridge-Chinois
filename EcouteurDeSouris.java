@@ -70,6 +70,34 @@ class EcouteurDeSouris implements MouseListener {
     public void mouseReleased(MouseEvent e) {
     }
 
+
+    // Clic sur bouton
+    public int getBouton(int x, int y) {
+        int width = g.getZoneDessin().getSize().width;
+        int height = g.getZoneDessin().getSize().height - 20;
+        int cw = g.getZoneDessin().cw;
+        int ch = g.getZoneDessin().ch;
+        int bw = g.getZoneDessin().bw;
+        int bh = g.getZoneDessin().bh;
+        int aw = g.getZoneDessin().aw;
+        int ah = g.getZoneDessin().ah;
+        int rw = g.getZoneDessin().rw;
+        int rh = g.getZoneDessin().rh;
+        Table t = g.getZoneDessin().t;
+        
+        if ((x > width - rh - bh) && (x < width - bh)) {
+            // annuler
+            if ((y > bh) && (y < bh + ah)) {
+                return(1);
+            }
+            // refaire
+            if ((y > bh + ah) && (y < bh + ah + rh)) {
+                return(0);
+            }
+        }
+        return (-1);
+    }
+
     // Clic carte sur pile
     public Pile getCartePile(int x, int y) {
         int width = g.getZoneDessin().getSize().width;
