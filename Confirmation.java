@@ -71,6 +71,7 @@ public class Confirmation extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Êtes-vous sûr ?");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
