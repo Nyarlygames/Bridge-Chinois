@@ -35,6 +35,7 @@ public class Jeu implements Observable {
     Carte hintCarte;
     Carte lastcarte1 = null;
     Carte lastcarte2 = null;
+    int diff;
 
     // -------------------------------------Constructeur-------------------------------------
     /* le mode indique le nombre de joueur humain :
@@ -85,6 +86,7 @@ public class Jeu implements Observable {
                 this.joueur1 = new Humain(moteur.getTable(), 1);
                 this.joueur2 = new Humain(moteur.getTable(), 2);
         }
+	this.diff = difficulte;
         this.type = type;
         this.max = max;
 
