@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -8,7 +7,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import javax.swing.JComponent;
 
-public class ZoneDessin extends JComponent{
+public class ZoneDessin extends JComponent {
 
     public int i = -1;
     public int j = -1;
@@ -43,10 +42,10 @@ public class ZoneDessin extends JComponent{
     public void paint(Graphics g) {
         this.t = jeu.getMoteur().getTable();
         Graphics2D drawable = (Graphics2D) g;
-	this.g = g;
-	this.dheight = getSize().height;
-	this.width = getSize().width;
-	this.height = dheight - 20;
+        this.g = g;
+        this.dheight = getSize().height;
+        this.width = getSize().width;
+        this.height = dheight - 20;
 
         // On reccupere quelques infos provenant de la partie JComponent
         int width = getSize().width;
@@ -128,14 +127,6 @@ public class ZoneDessin extends JComponent{
             g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
         }
 
-        //--- Dessin des cartes du joueur 2 ---//
-
-        if (t.getCarte2() == null) {
-            g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
-        } else {
-            Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
-            g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
-        }
 
         //--- Dessin des cartes du joueur distant ou du joueur PC (IA) ---//
 
@@ -143,8 +134,13 @@ public class ZoneDessin extends JComponent{
 
             int mid = (int) ((width / 2) - (((t.main2.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
             Carte c = t.main2.getCarte(f);
-            g.drawImage(cback, mid, bh, this);
-
+	    if (cfg.isVoitCartes()) {
+		Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
+		g.drawImage(cfront, mid, bh, cw, ch, this);
+	    }
+	    else {
+		g.drawImage(cback, mid, bh, this);
+	    }
         }
 
         //--- Dessin des cartes du joueur 1 ---//
@@ -155,14 +151,14 @@ public class ZoneDessin extends JComponent{
             int up = height - ch - bh;
             Carte c = t.main1.getCarte(f);
 
-	    // Affichage indices des cartes
-	    if ((hintCarte != null) && (c.rang == hintCarte.rang)
-		&& (c.couleur == hintCarte.couleur)){
-		Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
-		int hw = hintarrow.getWidth(null);
-		int hh = hintarrow.getHeight(null);
-		g.drawImage(hintarrow, mid, up - hh - 20, hw, hh, this);
-	    }
+            // Affichage indices des cartes
+            if ((hintCarte != null) && (c.rang == hintCarte.rang)
+                    && (c.couleur == hintCarte.couleur)) {
+                Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
+                int hw = hintarrow.getWidth(null);
+                int hh = hintarrow.getHeight(null);
+                g.drawImage(hintarrow, mid, up - hh - 20, hw, hh, this);
+            }
             if (carteactive != null) {
                 if (c == carteactive) {
                     // Carte Jouable
@@ -198,23 +194,49 @@ public class ZoneDessin extends JComponent{
         }
 
 
-	//Affichage des indices piles
-	if (hintPile > -1) {
-	    int p = hintPile;
+        //Affichage des indices piles
+        if (hintPile > -1) {
+            int p = hintPile;
             int pc = t.piles.get(p).getSize();
-	    int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
-	    Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintpiles.png"));
-	    int hw = hintarrow.getWidth(null);
-	    int hh = hintarrow.getHeight(null);
-	    g.drawImage(hintarrow, mid, (height / 2) + ch/2, hw, hh, this);
-	    hintPile = -1;
-	}
+            int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
+            Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintpiles.png"));
+            int hw = hintarrow.getWidth(null);
+            int hh = hintarrow.getHeight(null);
+            g.drawImage(hintarrow, mid, (height / 2) + ch / 2, hw, hh, this);
+            hintPile = -1;
+        }
 
-        // Affichage des informations
 
+	// Chargement de la police d'ecriture
         f = new Font("sansserif", Font.BOLD, 14);
         FontMetrics fontw = g.getFontMetrics(f);
         g.setFont(f);
+
+
+        // Affichage dernier pli
+	if (cfg.isVoitPlis() && (jeu.getHist().position > 0)) {
+            Image separateur = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/testseparateur.png"));
+	    int sw = separateur.getWidth(null);
+	    int sh = separateur.getHeight(null);
+	    String str = "Dernier pli :";
+
+	    // Affichage "Dernier pli"
+	    g.setColor(Color.red);
+	    g.drawString(str, width - bw - fontw.stringWidth(str), (height/2) - (sh/2) - ch - fontw.getHeight());
+	    // Affichage du séparateur
+	    g.drawImage(separateur, width - bw - sw, (height/2) - (sh/2), sw, sh, this);
+
+	    // Affichage des cartes
+	    if (jeu.lastcarte1 != null) {
+		Image c1 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte1.toFileString()));
+		g.drawImage(c1, width - bw - cw - ((sw-cw) / 2), (height/2) + (sh/2), cw, ch, this);
+	    }
+	    if (jeu.lastcarte2 != null) {
+		Image c2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte2.toFileString()));
+		g.drawImage(c2, width - bw - cw - ((sw-cw) / 2), (height/2) - (sh/2) - ch, cw, ch, this);
+	    }
+	}
+
 
         //--- Dessin du nombre de plis (score de la partie actuelle) ---//
 
@@ -279,43 +301,49 @@ public class ZoneDessin extends JComponent{
         g.drawString(turnInfo, width / 2 - fontw.stringWidth(turnInfo) / 2, dheight - 5);
 
         // Affichage du score
-        String score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+	String score = "";
+	// Partie par nombre de donnes ou pli
+	if ((jeu.type == 0) || (jeu.type ==1)) {
+	    score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+	}
+	// Partie aventure
+	else {
+	    score = "Aventure";
+	}
         g.drawString(score, 0, dheight - 5);
 
     } // fin fonction paint
 
+    // Animation carte jouee
+    public void jouerCarte(Carte c) {
+        int start = 0;
+        int end = 1000;
+        // hauteur arrivee
+        int ha = ((height / 2) - (ch / 2) - ch - bh) / 2 + height / 2;
+        // hauteur départ
+        int hd = height - ch - bh - 20;
+        // largeur arrivee
+        int la = (width / 2) - (ch / 2);
+        // largeur depart
+        int ld = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (1 * cw) / 2;
+        // hauteur mouvement
+        int hm = hd;
+        // largeur mouvement
+        int lm = ld;
+        Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource("cartes/1/" + c.toFileString()));
+        int i = 0;
 
-	// Animation carte jouee
-	public void jouerCarte(Carte c) {
-	    int start= 0;
-	    int end = 1000;
-	    // hauteur arrivee
-	    int ha = ((height / 2) - (ch / 2) - ch - bh) / 2 + height / 2;
-	    // hauteur départ
-	    int hd = height - ch -bh - 20;
-	    // largeur arrivee
-	    int la = (width/2) - (ch/2);
-	    // largeur depart
-	    int ld = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (1 * cw) / 2;
-	    // hauteur mouvement
-	    int hm = hd;
-	    // largeur mouvement
-	    int lm = ld;
-	    Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource("cartes/1/" + c.toFileString()));
-	    int i = 0;
-
-	    while ((hm != ha) && (lm != la)) {
-		hm = hd + (int) ((double) ((ha - hd) *i / 100));
-		lm = ld + (int) ((double) ((la - ld) *i / 100));
-		g.drawImage(cfront, lm, hm, cw, ch, this);
-		this.repaint();
-		i += 1;
-		try {
-		    Thread.sleep(10);
-		}
-		catch (Exception e){
-		    System.out.println("Echec de l'echellonage du deplacement");
-		}
-	    }
-	}
+        while ((hm != ha) && (lm != la)) {
+            hm = hd + (int) ((double) ((ha - hd) * i / 100));
+            lm = ld + (int) ((double) ((la - ld) * i / 100));
+            g.drawImage(cfront, lm, hm, cw, ch, this);
+            this.repaint();
+            i += 1;
+            try {
+                Thread.sleep(10);
+            } catch (Exception e) {
+                System.out.println("Echec de l'echellonage du deplacement");
+            }
+        }
+    }
 }

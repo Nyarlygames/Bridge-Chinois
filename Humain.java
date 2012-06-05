@@ -95,20 +95,24 @@ public class Humain extends Joueur {
             }
         } else {
             if (!prems) {//pas de gagnante donc on balance une carte nulle
-                c = jouables.get(0);
-                for (Carte ca : jouables) {
-                    if (!ca.rangPlusFort(c)) {
-                        c = ca;
-                    }
-                }
+		if (jouables.size() > 0) {
+		    c = jouables.get(0);
+		    for (Carte ca : jouables) {
+			if (!ca.rangPlusFort(c)) {
+			    c = ca;
+			}
+		    }
+		}
             } else {//si on commence a jouer alors on met la plus grosse carte possible
-                c = jouables.get(0);
-                for (Carte ca : jouables) {
-                    if (ca.rangPlusFort(c)) {
-                        c = ca;
-                    }
-                }
-            }
+                if (jouables.size() >0) {
+		    c = jouables.get(0);
+		    for (Carte ca : jouables) {
+			if (ca.rangPlusFort(c)) {
+			    c = ca;
+			}
+		    }
+		}
+	    }
         }
 
         return c;

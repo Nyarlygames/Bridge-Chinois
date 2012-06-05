@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
  */
 public class VSIA extends javax.swing.JFrame {
 
+    FinPartie f;
     /**
      * Creates new form VSIA
      */
@@ -207,7 +208,7 @@ public class VSIA extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Son au clique de souris sur le bouton
         try {
-	    //       Son s = new Son("Bdemarrer.wav");
+	           Son s = new Son("Bdemarrer.wav");
 	} catch (Exception ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -225,7 +226,12 @@ public class VSIA extends javax.swing.JFrame {
 		        // test
 		        monJeu.addObservateur(new Observateur() {
 					public void update(Jeu jeu) {
-						gg.getZoneDessin().repaint();					
+						gg.getZoneDessin().repaint();
+                                                if (jeu.fin)
+                                                        {
+                                                                f =new FinPartie(gg.frame,true,jeu.fin,jeu.gg);
+                                                                f.setVisible(true);
+                                                        }
 					}
 				});
 		        SwingUtilities.invokeLater(gg);

@@ -167,7 +167,6 @@ public class Table implements java.io.Serializable, Cloneable {
 
     }
 
-
     public Carte getCarteAdverse(int joueur) {
         if (joueur == 1) {
             return (carte2);
