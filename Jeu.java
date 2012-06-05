@@ -390,9 +390,8 @@ public class Jeu implements Observable {
         int nbMatche = 0;
         c1 = null;
         c2 = null;
-        while ((type == 0 && nbMatche != max) || (type == 1 && (joueur1.getScore() < max || joueur2.getScore() < max))
+        while ((type == 0 && nbMatche != max) || (type == 1 && ((joueur1.getScore() < max) && (joueur2.getScore() < max)))
                 || (type == 2 && nbMatche < 4)) {
-
             if (type == 2) {
                 switch (nbMatche) {
                     case 0:

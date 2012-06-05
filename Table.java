@@ -263,4 +263,6 @@ public class Table implements java.io.Serializable, Cloneable {
     	
     	return resultat;
     }
+    
+    // echange les 2 cartes prises en parametre dans les piles
 }

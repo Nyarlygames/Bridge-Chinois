@@ -38,7 +38,7 @@ public class Moteur {
                 return true;
             } else {
                 if (!this.getTable().getMain1().aCouleur(this.getTable().getCarte2())) {
-                    table.getInfoAdv1().hasCouleur(c.couleur);
+                    table.getInfoAdv1().hasntCouleur(c.couleur);
                 	table.setCarte1(c);
                     table.getMain1().getMain().remove(c);
                     table.getMain1connue().getMain().remove(c);
@@ -111,7 +111,7 @@ public class Moteur {
         Carte c = p.piocher();
         table.getMain1().add(c);
         table.getMain1connue().add(c);
-        table.getInfoAdv1().hasntCouleur(c.couleur);
+        table.getInfoAdv1().hasCouleur(c.couleur);
         
     }
 }
