@@ -1,8 +1,5 @@
 import java.io.*;
-import java.lang.Integer;
-import java.awt.*;
 import java.net.*;
-import javax.swing.*;
 
 public class Client {
 

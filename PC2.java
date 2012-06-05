@@ -17,7 +17,10 @@ public class PC2 extends PC {
         aJoue = false;
         aChoisi = false;
     }
+    
+    
 
+       
     @Override
     void jouer() {
         Main main;
@@ -120,7 +123,7 @@ public class PC2 extends PC {
 
         aChoisi = true;
     }
-
+    
     public Joueur clone() {
         Joueur j = new PCRandom();
         j.setTable(table);

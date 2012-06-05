@@ -165,6 +165,7 @@ public class PC3 extends PC {
 
     }
 
+
     public Joueur clone() {
         Joueur j = new PCRandom();
         j.setTable(table);

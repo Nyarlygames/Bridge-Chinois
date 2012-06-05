@@ -33,6 +33,9 @@ public class Jeu implements Observable {
     //pour la gestion des hints
     Integer hintPile;
     Carte hintCarte;
+    Carte lastcarte1 = null;
+    Carte lastcarte2 = null;
+    int diff;
 
     // -------------------------------------Constructeur-------------------------------------
     /* le mode indique le nombre de joueur humain :
@@ -83,6 +86,7 @@ public class Jeu implements Observable {
                 this.joueur1 = new Humain(moteur.getTable(), 1);
                 this.joueur2 = new Humain(moteur.getTable(), 2);
         }
+	this.diff = difficulte;
         this.type = type;
         this.max = max;
 
@@ -445,6 +449,8 @@ public class Jeu implements Observable {
                     c1 = moteur.getTable().getCarte1();
                     c2 = moteur.getTable().getCarte2();
                 }
+	        lastcarte1 = moteur.getTable().getCarte1();
+		lastcarte2 = moteur.getTable().getCarte2();
                 moteur.getTable().setCarte1(null);
                 moteur.getTable().setCarte2(null);
                 this.updateObservateur();
@@ -485,8 +491,20 @@ public class Jeu implements Observable {
             }
 
             nbMatche++;
-            joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
-            joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
+
+
+	    // Update du score par donnes
+	    if (type == 0) {
+		if (joueur1.getNbPlis() >= 13)
+		    joueur1.setScore(joueur1.getScore() + 1);
+		else
+		    joueur2.setScore(joueur2.getScore() + 1);
+	    }
+	    // Update score par plis
+	    if (type == 1) {
+		joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
+		joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
+	    }
             joueur1.setNbPlis(0);
             joueur2.setNbPlis(0);
 

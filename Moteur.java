@@ -38,7 +38,8 @@ public class Moteur {
                 return true;
             } else {
                 if (!this.getTable().getMain1().aCouleur(this.getTable().getCarte2())) {
-                    table.setCarte1(c);
+                    table.getInfoAdv1().hasCouleur(c.couleur);
+                	table.setCarte1(c);
                     table.getMain1().getMain().remove(c);
                     table.getMain1connue().getMain().remove(c);
                     return true;
@@ -108,14 +109,9 @@ public class Moteur {
     
     public void choisir(Pile p, int joueurCourant) {
         Carte c = p.piocher();
-        if (joueurCourant == 1) {
-            table.getMain1().add(c);
-            table.getMain1connue().add(c);
-
-        } else {
-            table.getMain2().add(c);
-            table.getMain1connue().add(c);
-
-        }
+        table.getMain1().add(c);
+        table.getMain1connue().add(c);
+        table.getInfoAdv1().hasntCouleur(c.couleur);
+        
     }
 }

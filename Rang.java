@@ -5,7 +5,6 @@ Date de Dernière modification 12/05/2012 : 18:54
  */
 
  
-import java.io.*;
 
 enum Rang implements java.io.Serializable {
 

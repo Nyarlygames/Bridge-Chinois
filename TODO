@@ -1,18 +1,15 @@
 -Menus
 * Groupement des menus
-* Ajout des options
 
 -Jeu
-* Calcul du score par donnes (apparament ca fait toujours par pli)
 * Algo min-max
 * Gestion chargement des parties/Sauveguardes
 * Pouvoir jouer apres annuler/refaire
 * Gestion nouvelle partie
 * Mode apprendre a jouer
+* Mode aventure
 
 -Graphisme
-* Virer un indice non suivi
-* Triche (voir main adverse/dernier pli)
 
 -Son
 * Gestion de relecture d'un son (fait déconner l'annulation d'un chargement, l'abandon, ...)

@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -128,14 +127,6 @@ public class ZoneDessin extends JComponent {
             g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
         }
 
-        //--- Dessin des cartes du joueur 2 ---//
-
-        if (t.getCarte2() == null) {
-            g.drawImage(empty, (width / 2) - (ch / 2), cjah, cw, ch, this);
-        } else {
-            Image cfront = Toolkit.getDefaultToolkit().getImage(pathcartes + t.getCarte2().toFileString());
-            g.drawImage(cfront, (width / 2) - (ch / 2), cjah, cw, ch, this);
-        }
 
         //--- Dessin des cartes du joueur distant ou du joueur PC (IA) ---//
 
@@ -143,8 +134,13 @@ public class ZoneDessin extends JComponent {
 
             int mid = (int) ((width / 2) - (((t.main2.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
             Carte c = t.main2.getCarte(f);
-            g.drawImage(cback, mid, bh, this);
-
+	    if (cfg.isVoitCartes()) {
+		Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
+		g.drawImage(cfront, mid, bh, cw, ch, this);
+	    }
+	    else {
+		g.drawImage(cback, mid, bh, this);
+	    }
         }
 
         //--- Dessin des cartes du joueur 1 ---//
@@ -210,11 +206,37 @@ public class ZoneDessin extends JComponent {
             hintPile = -1;
         }
 
-        // Affichage des informations
 
+	// Chargement de la police d'ecriture
         f = new Font("sansserif", Font.BOLD, 14);
         FontMetrics fontw = g.getFontMetrics(f);
         g.setFont(f);
+
+
+        // Affichage dernier pli
+	if (cfg.isVoitPlis() && (jeu.getHist().position > 0)) {
+            Image separateur = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/testseparateur.png"));
+	    int sw = separateur.getWidth(null);
+	    int sh = separateur.getHeight(null);
+	    String str = "Dernier pli :";
+
+	    // Affichage "Dernier pli"
+	    g.setColor(Color.red);
+	    g.drawString(str, width - bw - fontw.stringWidth(str), (height/2) - (sh/2) - ch - fontw.getHeight());
+	    // Affichage du séparateur
+	    g.drawImage(separateur, width - bw - sw, (height/2) - (sh/2), sw, sh, this);
+
+	    // Affichage des cartes
+	    if (jeu.lastcarte1 != null) {
+		Image c1 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte1.toFileString()));
+		g.drawImage(c1, width - bw - cw - ((sw-cw) / 2), (height/2) + (sh/2), cw, ch, this);
+	    }
+	    if (jeu.lastcarte2 != null) {
+		Image c2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte2.toFileString()));
+		g.drawImage(c2, width - bw - cw - ((sw-cw) / 2), (height/2) - (sh/2) - ch, cw, ch, this);
+	    }
+	}
+
 
         //--- Dessin du nombre de plis (score de la partie actuelle) ---//
 
@@ -279,7 +301,15 @@ public class ZoneDessin extends JComponent {
         g.drawString(turnInfo, width / 2 - fontw.stringWidth(turnInfo) / 2, dheight - 5);
 
         // Affichage du score
-        String score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+	String score = "";
+	// Partie par nombre de donnes ou pli
+	if ((jeu.type == 0) || (jeu.type ==1)) {
+	    score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+	}
+	// Partie aventure
+	else {
+	    score = "Aventure";
+	}
         g.drawString(score, 0, dheight - 5);
 
     } // fin fonction paint

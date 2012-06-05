@@ -88,9 +88,7 @@ public class Pile implements java.io.Serializable, Cloneable {
             p = (Pile) super.clone();
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Pile.class.getName()).log(Level.SEVERE, null, ex);
-        }
- 
-        
+        } 
         p.pile = (ArrayList<Carte>) pile.clone();
 
         return p;
