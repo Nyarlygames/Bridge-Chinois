@@ -40,7 +40,12 @@ public class VSPlayer extends javax.swing.JFrame {
         Cancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         Launch.setText("Démarrer");
@@ -130,7 +135,17 @@ public class VSPlayer extends javax.swing.JFrame {
         this.dispose();
         //  }
     }//GEN-LAST:event_CancelActionPerformed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
+        // TODO add your handling code here:
+        Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
+        a.setVisible(true);
 
+        if (a.getReturnStatus() == 1){
+            Menu m = new Menu();
+            m.setVisible(true);
+            this.dispose();
+        }
+    }
     private void LaunchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchActionPerformed
         // TODO add your handling code here:
 	// on ferme la fenetre de menu
