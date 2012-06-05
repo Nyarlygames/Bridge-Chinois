@@ -16,6 +16,8 @@ public class PC2 extends PC {
         score = 0;
         aJoue = false;
         aChoisi = false;
+        phaseChoisir = true;
+        phaseJouer = true;
     }
     
     

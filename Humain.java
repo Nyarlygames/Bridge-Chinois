@@ -39,8 +39,9 @@ public class Humain extends Joueur {
     @Override
     void jouer() {
         phaseJouer = true;
-        while (!aJoue) {
+        while (!this.getaJoue()) {
             try {
+                
                 Thread.sleep(1);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,4 +181,6 @@ public class Humain extends Joueur {
         }
         return jouables;
     }
+    
+
 }

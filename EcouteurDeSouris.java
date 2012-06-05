@@ -29,7 +29,9 @@ class EcouteurDeSouris implements MouseListener {
         if (carte != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer()) {
             // dans ce cas le joueur courant est l'humain il est en phase de jeu
             //en prend en compte son choix
+
             if (jeu.getMoteur().jouer(carte)) {
+
                 System.out.println("j'ai choisi la carte " + carte.toString());
 				// Animation de la carte jouee
 				// g.getZoneDessin().jouerCarte(carte);
@@ -40,7 +42,7 @@ class EcouteurDeSouris implements MouseListener {
                 jeu.intVersJoueur().setaJoue(Boolean.TRUE);
             }
         }
-		
+
         if (clicpile != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseChoisir()) {
             // dans ce cas le joueur est en phase de choix de carte a piocher
             //en prend en compte son choix

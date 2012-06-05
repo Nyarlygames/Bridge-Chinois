@@ -17,6 +17,8 @@ public class PC3 extends PC {
         score = 0;
         aJoue = false;
         aChoisi = false;
+         phaseChoisir = true;
+        phaseJouer = true;
     }
 
     @Override
@@ -124,6 +126,7 @@ public class PC3 extends PC {
 
     @Override
     void choisir() {
+        
         ArrayList<Pile> piochables = new ArrayList<Pile>();
         Main main;
         if (id == 2) {
