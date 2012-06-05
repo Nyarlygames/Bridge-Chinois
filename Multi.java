@@ -48,9 +48,11 @@ public class Multi extends javax.swing.JFrame {
         jLabelVotreIP = new javax.swing.JLabel();
         IPJoueur = new javax.swing.JFormattedTextField();
         copierIP = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jPanelRejoindre = new javax.swing.JPanel();
         jLabelIPDistante = new javax.swing.JLabel();
         IPDistante = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
@@ -86,8 +88,12 @@ public class Multi extends javax.swing.JFrame {
 
         jPanelHeberger.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanelHeberger.setOpaque(false);
+        jPanelHeberger.setLayout(null);
 
-        jLabelVotreIP.setText("Votre IP : ");
+        jLabelVotreIP.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelVotreIP.setText("   Votre IP : ");
+        jPanelHeberger.add(jLabelVotreIP);
+        jLabelVotreIP.setBounds(20, 10, 80, 10);
 
         IPJoueur.setFocusable(false);
         try{
@@ -99,6 +105,8 @@ public class Multi extends javax.swing.JFrame {
     }catch(Exception e)
     {
     }
+    jPanelHeberger.add(IPJoueur);
+    IPJoueur.setBounds(72, 32, 149, 30);
 
     copierIP.setText("Copier l'IP");
     copierIP.addActionListener(new java.awt.event.ActionListener() {
@@ -106,78 +114,40 @@ public class Multi extends javax.swing.JFrame {
             copierIPActionPerformed(evt);
         }
     });
+    jPanelHeberger.add(copierIP);
+    copierIP.setBounds(100, 70, 100, 23);
 
-    javax.swing.GroupLayout jPanelHebergerLayout = new javax.swing.GroupLayout(jPanelHeberger);
-    jPanelHeberger.setLayout(jPanelHebergerLayout);
-    jPanelHebergerLayout.setHorizontalGroup(
-        jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanelHebergerLayout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(copierIP)
-            .addGap(110, 110, 110))
-        .addGroup(jPanelHebergerLayout.createSequentialGroup()
-            .addGroup(jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelHebergerLayout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(jLabelVotreIP, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanelHebergerLayout.createSequentialGroup()
-                    .addGap(71, 71, 71)
-                    .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(73, Short.MAX_VALUE))
-    );
-    jPanelHebergerLayout.setVerticalGroup(
-        jPanelHebergerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanelHebergerLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabelVotreIP)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(IPJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(copierIP)
-            .addGap(0, 15, Short.MAX_VALUE))
-    );
+    jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+    jPanelHeberger.add(jLabel3);
+    jLabel3.setBounds(0, 0, 300, 110);
 
     Rejoindre.addTab("Heberger", jPanelHeberger);
 
     jPanelRejoindre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     jPanelRejoindre.setOpaque(false);
+    jPanelRejoindre.setLayout(null);
 
+    jLabelIPDistante.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
     jLabelIPDistante.setText("IP Distante : ");
+    jPanelRejoindre.add(jLabelIPDistante);
+    jLabelIPDistante.setBounds(10, 10, 80, 10);
 
     IPDistante.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###:###:###:###"))));
+    jPanelRejoindre.add(IPDistante);
+    IPDistante.setBounds(72, 32, 149, 30);
 
-    javax.swing.GroupLayout jPanelRejoindreLayout = new javax.swing.GroupLayout(jPanelRejoindre);
-    jPanelRejoindre.setLayout(jPanelRejoindreLayout);
-    jPanelRejoindreLayout.setHorizontalGroup(
-        jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanelRejoindreLayout.createSequentialGroup()
-            .addGroup(jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelRejoindreLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabelIPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanelRejoindreLayout.createSequentialGroup()
-                    .addGap(71, 71, 71)
-                    .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(73, Short.MAX_VALUE))
-    );
-    jPanelRejoindreLayout.setVerticalGroup(
-        jPanelRejoindreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanelRejoindreLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jLabelIPDistante)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(IPDistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(49, Short.MAX_VALUE))
-    );
+    jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+    jPanelRejoindre.add(jLabel4);
+    jLabel4.setBounds(0, 0, 300, 110);
 
     Rejoindre.addTab("Rejoindre", jPanelRejoindre);
 
     getContentPane().add(Rejoindre);
-    Rejoindre.setBounds(10, 11, 300, 130);
+    Rejoindre.setBounds(20, 10, 300, 130);
 
     jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
     getContentPane().add(jLabel2);
-    jLabel2.setBounds(0, 0, 370, 210);
+    jLabel2.setBounds(0, 0, 350, 210);
 
     java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     setBounds((screenSize.width-353)/2, (screenSize.height-238)/2, 353, 238);
@@ -294,6 +264,8 @@ public class Multi extends javax.swing.JFrame {
     private javax.swing.JButton copierIP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelIPDistante;
     private javax.swing.JLabel jLabelVotreIP;
     private javax.swing.JPanel jPanelHeberger;

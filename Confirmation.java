@@ -68,6 +68,7 @@ public class Confirmation extends javax.swing.JDialog {
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         Message = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setTitle("Êtes-vous sûr ?");
@@ -99,11 +100,15 @@ public class Confirmation extends javax.swing.JDialog {
         cancelButton.setBounds(30, 70, 67, 23);
 
         Message.setText(text);
-        Message.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        Message.setForeground(new java.awt.Color(0, 255, 255));
+        Message.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         Message.setText("Voulez-vous vraiment quitter ?");
         getContentPane().add(Message);
-        Message.setBounds(50, 30, 180, 20);
+        Message.setBounds(40, 20, 200, 30);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(30, 20, 210, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -187,6 +192,7 @@ public class Confirmation extends javax.swing.JDialog {
     private javax.swing.JLabel Message;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
     private int returnStatus = RET_CANCEL;

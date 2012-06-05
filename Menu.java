@@ -175,7 +175,7 @@ public class Menu extends javax.swing.JFrame {
 
         imageTitre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/bridge.png"))); // NOI18N
         getContentPane().add(imageTitre);
-        imageTitre.setBounds(40, 30, 260, 40);
+        imageTitre.setBounds(50, 10, 260, 40);
 
         imageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
         getContentPane().add(imageFond);
