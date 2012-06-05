@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * @author Samy
  */
-public abstract class PC extends Joueur {
+public abstract class PC extends Joueur implements java.io.Serializable{
 
     protected ArrayList<Carte> getCartesJouables() {
         ArrayList<Carte> jouables = new ArrayList<Carte>();

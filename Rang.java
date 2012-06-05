@@ -23,4 +23,14 @@ enum Rang implements java.io.Serializable {
     public int getRang() {
         return rang;
     }
+    
+    public static Rang convert( int i ) {
+    for ( Rang current : values() ) {
+        if ( current.ordinal() == i ) {
+        return current;
+        }
+    }
+
+    return null;
+    }
 }

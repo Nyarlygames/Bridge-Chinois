@@ -27,7 +27,12 @@ public class Graphique implements Runnable {
 
         frame = new JFrame("Bridge chinois");
         frame.addComponentListener(new EcouteurDeFrame(frame));
-
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+        
         zoneDessin = new ZoneDessin(j, this.cfg);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
         zoneDessin.addMouseMotionListener(new MouseMove(this, jeu));
@@ -111,7 +116,7 @@ public class Graphique implements Runnable {
                 //a griser si on joue sur le nombre de plis
             }
         });
-
+        
         saveAsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         saveAsMenuItem.setMnemonic('s');
         saveAsMenuItem.setText("Sauvegarder");
@@ -121,7 +126,7 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showSaveDialog(frame);
-                Sauvegarde.saveGame(fileChooser.getName(fileChooser.getSelectedFile()), jeu);
+                Sauvegarde.saveGame("saves/"+fileChooser.getName(fileChooser.getSelectedFile()), jeu);
             }
         });
         loadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -133,6 +138,7 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showOpenDialog(frame);
+                Sauvegarde.loadGame(fileChooser.getName(fileChooser.getSelectedFile()), frame);
 
             }
         });
@@ -265,11 +271,19 @@ public class Graphique implements Runnable {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         frame.setBounds((screenSize.width - LARGEUR_FEN) / 2, (screenSize.height - HAUTEUR_FEN) / 2, LARGEUR_FEN, HAUTEUR_FEN);
     }
-
+    
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
+        // TODO add your handling code here:
+        Confirmation a = new Confirmation(frame,true,"Voulez vous vraiment quitter ?");
+        a.setVisible(true);
+        
+        if (a.getReturnStatus()==1)
+            frame.dispose();
+    }
     public void run() {
 
         // Un clic sur le bouton de fermeture clos l'application
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         tailleFenetreX = LARGEUR_FEN;
         tailleFenetreY = HAUTEUR_FEN;

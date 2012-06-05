@@ -134,4 +134,5 @@ public class Carte implements java.io.Serializable, Cloneable {
                     + (this.rang.ordinal() + 2) + ".png";
         }
     }
+
 }

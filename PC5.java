@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * @author Samy
  */
-public class PC5 extends PC {
+public class PC5 extends PC implements java.io.Serializable {
 
     Main main;
     Carte carteAdv;
@@ -351,8 +351,6 @@ public class PC5 extends PC {
         j.setaChoisi(aChoisi);
         j.setPhaseChoisir(phaseChoisir);
         j.setPhaseJouer(phaseJouer);
-        j.setCarteAdv(carteAdv);
-        j.setMain(main);
         return j;
     }
 }

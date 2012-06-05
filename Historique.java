@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Val
  */
-public class Historique {
+public class Historique implements java.io.Serializable {
     ArrayList<EntreeHistorique> hist = new ArrayList<EntreeHistorique>();
     int position = -1;
 
