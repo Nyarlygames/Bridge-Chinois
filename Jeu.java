@@ -634,9 +634,13 @@ public class Jeu implements Observable {
 
             System.out.println("c'est la faute a val car la carte1 est nulle (comme val)");
         }
+        
         t.setPaquet((Paquet) table.getPaquet().clone());
-        t.setPiles((ArrayList<Pile>) table.getPiles().clone());
+        
+       	t.setPiles((ArrayList<Pile>) table.getPiles().clone());
+       	
         t.setAtout(table.getAtout());
+        
         return t;
     }
 
