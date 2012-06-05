@@ -41,14 +41,14 @@ class MouseMove implements MouseMotionListener {
         int rw = g.getZoneDessin().rw;
         int rh = g.getZoneDessin().rh;
         Table t = g.getZoneDessin().t;
-        
-        if ((x > width - rh - bh) && (x < width - bh)) {
+
+        if ((x > bw) && (x < bw + aw)){
             // annuler
-            if ((y > bh) && (y < bh + ah)) {
+            if ((y >= height - bh - ah - rh) && (y <= height - bh - rh)) {
                 return(0);
             }
             // refaire
-            if ((y > bh + ah) && (y < bh + ah + rh)) {
+            if ((y > height - bh - rh) && (y < height - bh)) {
                 return(1);
             }
         }

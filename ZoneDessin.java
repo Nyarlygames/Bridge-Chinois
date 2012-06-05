@@ -129,16 +129,16 @@ public class ZoneDessin extends JComponent {
 
         //Annuler/refaire
         if (bouton == 0) {
-            g.drawImage(annuler_mo, bw, height - bh - rh - ah, aw,ah, this);
-            g.drawImage(refaire, bw, height - bh - rh, rw, rh, this);
-            }
-        if (bouton == 1) {
+	    g.drawImage(annuler_mo, bw, height - bh - rh - ah, aw,ah, this);
+	    g.drawImage(refaire, bw, height - bh - rh, rw, rh, this);
+        }
+        else if (bouton == 1) {
             g.drawImage(refaire_mo, bw, height - bh - rh, rw, rh, this);
             g.drawImage(annuler, bw, height - bh - rh - ah, aw,ah, this);
         }
         else {
             g.drawImage(annuler, bw, height - bh - rh - ah, aw,ah, this);
-            g.drawImage(refaire, width - bw - aw, height - bh - rh, rw, rh, this);
+            g.drawImage(refaire, bw, height - bh - rh, rw, rh, this);
         }
 
         //--- Dessin des slots ou faut jouer les cartes ---//

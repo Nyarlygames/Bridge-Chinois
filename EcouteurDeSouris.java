@@ -26,6 +26,26 @@ class EcouteurDeSouris implements MouseListener {
         Pile clicpile = getCartePile(e.getX(), e.getY());
         //en prend en compte son choix
 
+	// Annuler
+	if (getBouton(e.getX(), e.getY()) == 0) {
+
+                jeu.getHist().annuler();
+                jeu.setJoueurCourant(1);
+                jeu.getJoueur1().setNouveauJoueur(jeu.getHist().getCourant().getJoueur1().table, jeu.getHist().getCourant().getJoueur1().nbPlis, jeu.getHist().getCourant().getJoueur1().aJoue, jeu.getHist().getCourant().getJoueur1().aChoisi, jeu.getHist().getCourant().getJoueur1().phaseChoisir, true);
+                System.out.println("nouveau joueur");
+                if (jeu.getJoueur2()!=null)
+                jeu.getJoueur2().setNouveauJoueur(jeu.getHist().getCourant().getJoueur2().table, jeu.getHist().getCourant().getJoueur2().nbPlis, jeu.getHist().getCourant().getJoueur2().aJoue, jeu.getHist().getCourant().getJoueur2().aChoisi, jeu.getHist().getCourant().getJoueur2().phaseChoisir, jeu.getHist().getCourant().getJoueur2().phaseJouer);
+                jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
+                jeu.updateObservateur();
+	}
+	// Refaire
+	else if (getBouton(e.getX(), e.getY()) == 1) {
+                jeu.getHist().refaire();
+                jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
+                jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
+                jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
+                jeu.updateObservateur();
+	}
         if (carte != null && jeu.intVersJoueur().equals(jeu.getJoueur1()) && jeu.getJoueur1().getPhaseJouer()) {
             // dans ce cas le joueur courant est l'humain il est en phase de jeu
             //en prend en compte son choix
@@ -84,15 +104,15 @@ class EcouteurDeSouris implements MouseListener {
         int rw = g.getZoneDessin().rw;
         int rh = g.getZoneDessin().rh;
         Table t = g.getZoneDessin().t;
-        
-        if ((x > width - rh - bh) && (x < width - bh)) {
+
+        if ((x > bw) && (x < bw + aw)){
             // annuler
-            if ((y > bh) && (y < bh + ah)) {
-                return(1);
+            if ((y >= height - bh - ah - rh) && (y <= height - bh - rh)) {
+                return(0);
             }
             // refaire
-            if ((y > bh + ah) && (y < bh + ah + rh)) {
-                return(0);
+            if ((y > height - bh - rh) && (y < height - bh)) {
+                return(1);
             }
         }
         return (-1);
