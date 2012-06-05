@@ -154,7 +154,7 @@ final int mod = mode.getSelectedIndex();
 final int nbPart = Integer.parseInt((String)nbParties.getSelectedItem());
 Table table = new Table();
 Moteur moteur = new Moteur(table);
-Jeu monJeu = new Jeu(moteur, 2, mod, nbPart, 0);
+Jeu monJeu = new Jeu(moteur, 2, mod, nbPart, 0, false);
 monJeu.attachDistantPlayer(ip, true);
 System.out.println();
 final Graphique gg = new Graphique(monJeu);

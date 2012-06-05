@@ -4,7 +4,7 @@ Date de Creation 15/05/2012 : 18:00
 Date de Dernière modification 15/05/2012 : 18:31
  */
 
-public class Moteur {
+public class Moteur implements java.io.Serializable{
 
     Table table;
 

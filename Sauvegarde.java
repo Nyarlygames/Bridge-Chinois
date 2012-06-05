@@ -18,14 +18,14 @@ public class Sauvegarde {
 
     // -------------------------------------Methodes-------------------------------------
     // Retourne la valeur de la ligne
-    static String getValue(String str) {
+    static int getValue(String str) {
         int i = 0;
 
         while (str.charAt(i) != '=') {
             i++;
         }
         i += 2;
-        return (str.substring(i, str.length()));
+        return (Integer.parseInt(str.substring(i, str.length())));
     }
 
     // Retourne l'option de la ligne
@@ -71,22 +71,49 @@ public class Sauvegarde {
         try {
             ObjectInputStream buf2 = new ObjectInputStream(new FileInputStream(filename+".hist"));
             ObjectInputStream buf3 = new ObjectInputStream(new FileInputStream(filename+".table"));
-            InputStream file = new FileInputStream(filename);
+            InputStream file = new FileInputStream(filename+".opt");
             InputStreamReader fd = new InputStreamReader(file);
             BufferedReader buf = new BufferedReader(fd);
             String ligne = "";
             String opt = "";
 
-            t = (Table) buf3.readObject();
             h = (Historique) buf2.readObject();
+            t = (Table) buf3.readObject();
             buf2.close();
             buf3.close();
 
             while ((ligne = buf.readLine()) != null) {
                 opt = getOpt(ligne);
-               /* if (opt.equals("test")) {
-                    test = getValue(ligne);
-                }*/
+               if (opt.equals("diff")) {
+                    diff = getValue(ligne);
+                }
+               if (opt.equals("max")) {
+                    max = getValue(ligne);
+                }
+                if (opt.equals("mode")) {
+                    mode = getValue(ligne);
+                }
+                if (opt.equals("score1")) {
+                    score1 = getValue(ligne);
+                }
+                if (opt.equals("score2")) {
+                    score2 = getValue(ligne);
+                }
+                if (opt.equals("nbPlis1")) {
+                    nbPlis1 = getValue(ligne);
+                }
+                if (opt.equals("nbPlis2")) {
+                    nbPlis2 = getValue(ligne);
+                }
+                if (opt.equals("atout")) {
+                    atout = getValue(ligne);
+                }
+                if (opt.equals("type")) {
+                    type = getValue(ligne);
+                }
+                if (opt.equals("joueurCourant")) {
+                    joueurCourant = getValue(ligne);
+                }
             }
             buf.close();
         } catch (Exception e) {
@@ -109,16 +136,26 @@ public class Sauvegarde {
         final int jscore1 = score1;
         final int jscore2 = score2;
         
-        
+        for (int p = 0; p < 6; p++) {
+            jt.piles.get(p).afficherPileConsole();
+            System.out.println("lolilol");
+            }
         
         f.dispose();
         
         new Thread(new Runnable() {
         	public void run() {
                 final Moteur jmoteur = new Moteur(jt);
-		        Jeu monJeu = new Jeu(jmoteur, jmode, jtype, jmax, jdiff);
-		        final Graphique gg = new Graphique(monJeu);
-		        monJeu.addObservateur(new Observateur() {
+		        Jeu jeu = new Jeu(jmoteur, jmode, jtype, jmax, jdiff, true);
+		        jeu.setHist(jh);
+		        jeu.setMoteur(jmoteur);
+		        jeu.getMoteur().setTable(jt);
+		        jeu.joueur1.setScore(jscore1);
+		        jeu.joueur2.setScore(jscore2);
+		        jeu.joueur1.setNbPlis(jnbPlis1);
+		        jeu.joueur2.setNbPlis(jnbPlis2);
+		        final Graphique gg = new Graphique(jeu);
+		        jeu.addObservateur(new Observateur() {
 					public void update(Jeu jeu) {
 						gg.getZoneDessin().repaint();
                         if (jeu.fin) {
@@ -128,7 +165,7 @@ public class Sauvegarde {
 					}
 				});
 		        SwingUtilities.invokeLater(gg);
-		        monJeu.jouer();
+		        jeu.jouer();
 		      }
         }).start();
        return (true);
@@ -141,11 +178,11 @@ public class Sauvegarde {
 
             ObjectOutputStream buf2 = 
              new ObjectOutputStream(
-                new FileOutputStream(filename+".hist"));
+                new FileOutputStream(filename+".table"));
                 
             ObjectOutputStream buf3 = 
              new ObjectOutputStream(
-                new FileOutputStream(filename+".table"));
+                new FileOutputStream(filename+".hist"));
         
 
             buf2.writeObject(t);
@@ -164,7 +201,7 @@ public class Sauvegarde {
 	        // Ecriture nbPlis
             buf.println("nbPlis1 = " + j.joueur1.getNbPlis());
             buf.println("nbPlis2 = " + j.joueur2.getNbPlis());
-	        // Ecriture type/mode/difficultee
+	        // Ecriture options...
             buf.println("type = " + j.type);
             buf.println("mode = " + j.mode);
             buf.println("diff = " + j.diff);
