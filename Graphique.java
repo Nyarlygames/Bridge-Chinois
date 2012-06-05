@@ -111,6 +111,7 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showSaveDialog(frame);
+		Sauvegarde.saveGame(fileChooser.getName(fileChooser.getSelectedFile()), jeu);
             }
         });
 
