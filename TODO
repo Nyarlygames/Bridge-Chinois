@@ -1,19 +1,12 @@
 -Menus
-* Groupement des menus
 
 -Jeu
 * Algo min-max
-* Gestion chargement des parties/Sauveguardes
-* Pouvoir jouer apres annuler/refaire
-* Gestion nouvelle partie
-* Mode apprendre a jouer
-* Mode aventure
+* Gestion des etapes
 
 -Graphisme
 
 -Son
-* Gestion de relecture d'un son (fait déconner l'annulation d'un chargement, l'abandon, ...)
-* ???
 
 -Reseau
 * Mode lan ou internet

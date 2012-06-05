@@ -38,6 +38,7 @@ public class Jeu implements Observable {
     Carte lastcarte2 = null;
     int diff;
     boolean charge = false;
+    int etapejeu = -1;
 
     // -------------------------------------Constructeur-------------------------------------
     /*
@@ -429,7 +430,7 @@ public class Jeu implements Observable {
 
 
             // si on est en mode reseau on init pas ici, mais avant ( a la negociation de la connexion )
-            if (mode != 2) {
+            if ((mode != 2) && (charge == false)) {
                 initialiser();
             }
 
@@ -442,13 +443,19 @@ public class Jeu implements Observable {
                     Logger.getLogger(Humain.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+	    etapejeu = 11;
 
             while (moteur.getTable().getMain1().getSize() != 0 && moteur.getTable().getMain2().getSize() != 0) {
-
+		// Etaper 1 joueur 1
+		if (etapejeu == 11) {
                 etapeJouer();
                 this.updateObservateur();
                 switcher();
                 this.updateObservateur();
+		etapejeu = 12;
+		}
+		if (etapejeu == 12) {
+		// Etaper 1 joueur 2
                 etapeJouer();
                 this.updateObservateur();
                 try {
@@ -459,7 +466,6 @@ public class Jeu implements Observable {
 
 
                 // c1 représente la premiere carte qui a été posée et c2 la deuxieme
-
                 if (joueurCourant == 1) {
                     c1 = moteur.getTable().getCarte2();
                     c2 = moteur.getTable().getCarte1();
@@ -474,38 +480,39 @@ public class Jeu implements Observable {
                 this.updateObservateur();
                 if (c1.gagne(c2, moteur.getTable().getAtout())) {
                     switcher();
-                    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-                    this.updateObservateur();
-                    if (!moteur.getTable().pilesVides()) {
-                        etapeChoisir();
-                        this.updateObservateur();
-                        switcher();
-                        etapeChoisir();
-                        this.updateObservateur();
-                        switcher();
-                    }
-                } else {
-                    intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
-                    this.updateObservateur();
-                    if (!moteur.getTable().pilesVides()) {
-                        etapeChoisir();
-                        this.updateObservateur();
-                        switcher();
-                        this.updateObservateur();
-
-                        etapeChoisir();
-                        this.updateObservateur();
-                        switcher();
-                        this.updateObservateur();
-                    }
                 }
+		intVersJoueur().setNbPlis(intVersJoueur().getNbPlis() + 1);
+		this.updateObservateur();
+		etapejeu = 21;
+		}
+		if (!moteur.getTable().pilesVides()) {
+		    // Etape 2 joueur 1
+		    if (etapejeu == 21) {
+			etapeChoisir();
+			this.updateObservateur();
+			switcher();
+			this.updateObservateur();
+			etapejeu = 22;
+		    }
+		    // Etape 2 joueur 2
+		    if (etapejeu == 22) {
+		    etapeChoisir();
+		    this.updateObservateur();
+		    switcher();
+		    this.updateObservateur();
+		    etapejeu = 3;
+		    }
+		}
+		// Etape 3
+		if (etapejeu == 3) {
                 joueur1.setaJoue(false);
                 joueur1.setaChoisi(false);
                 joueur2.setaJoue(false);
                 joueur2.setaChoisi(false);
 
                 this.updateObservateur();
-
+		}
+		etapejeu = 11;
             }
 
             nbMatche++;
