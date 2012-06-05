@@ -41,6 +41,7 @@ public class Graphique implements Runnable {
         JMenuItem openMenuItem = new javax.swing.JMenuItem();
         JMenuItem abandonnerMenuItem = new javax.swing.JMenuItem();
         JMenuItem saveAsMenuItem = new javax.swing.JMenuItem();
+        JMenuItem loadMenuItem = new javax.swing.JMenuItem();
         JMenuItem annulerMenuItem = new javax.swing.JMenuItem();
         JMenuItem refaireMenuItem = new javax.swing.JMenuItem();
         Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -60,30 +61,33 @@ public class Graphique implements Runnable {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-        //Son au clique de souris sur le bouton
-        try {
-	           Son s = new Son("Bdemarrer.wav");
-	} catch (Exception ex) {
-	    System.out.println("Fail son");
-        }
-        // on ferme la fenetre de menu
-	frame.dispose();
-        new Thread(new Runnable() {
-        	public void run() {
-		        Table table = new Table();
-		        Moteur moteur = new Moteur(table);
-		        Jeu monJeu = new Jeu(moteur, jeu.mode, jeu.type, jeu.max, jeu.diff);
-		        final Graphique gg = new Graphique(monJeu);
-		        monJeu.addObservateur(new Observateur() {
-					public void update(Jeu jeu) {
-						gg.getZoneDessin().repaint();
-					}
-				});
-		        SwingUtilities.invokeLater(gg);
-		        monJeu.jouer();
-		      }
-        }).start();
-	    }});
+                //Son au clique de souris sur le bouton
+                try {
+                    Son s = new Son("Bdemarrer.wav");
+                } catch (Exception ex) {
+                    System.out.println("Fail son");
+                }
+                // on ferme la fenetre de menu
+                frame.dispose();
+                new Thread(new Runnable() {
+
+                    public void run() {
+                        Table table = new Table();
+                        Moteur moteur = new Moteur(table);
+                        Jeu monJeu = new Jeu(moteur, jeu.mode, jeu.type, jeu.max, jeu.diff);
+                        final Graphique gg = new Graphique(monJeu);
+                        monJeu.addObservateur(new Observateur() {
+
+                            public void update(Jeu jeu) {
+                                gg.getZoneDessin().repaint();
+                            }
+                        });
+                        SwingUtilities.invokeLater(gg);
+                        monJeu.jouer();
+                    }
+                }).start();
+            }
+        });
         fileMenu.add(openMenuItem);
 
         abandonnerMenuItem.setMnemonic('a');
@@ -116,13 +120,24 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showSaveDialog(frame);
-		Sauvegarde.saveGame(fileChooser.getName(fileChooser.getSelectedFile()), jeu);
+                Sauvegarde.saveGame(fileChooser.getName(fileChooser.getSelectedFile()), jeu);
             }
         });
+        loadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        loadMenuItem.setMnemonic('c');
+        loadMenuItem.setText("Charger");
 
+        loadMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.showOpenDialog(frame);
+
+            }
+        });
         fileMenu.add(abandonnerMenuItem);
         fileMenu.add(saveAsMenuItem);
-
+        fileMenu.add(loadMenuItem);
 
         annulerMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         annulerMenuItem.setMnemonic('a');
@@ -210,18 +225,18 @@ public class Graphique implements Runnable {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == false) {
-		    jeu.setHintCarte(((Humain) jeu.getJoueur1()).hintJouer());
-		    if (jeu.getHintCarte() != null) {
-			zoneDessin.hintCarte = jeu.getHintCarte();
-			zoneDessin.repaint();
-		    }
-		    System.out.println("hint carte : "+jeu.getHintCarte());
+                    jeu.setHintCarte(((Humain) jeu.getJoueur1()).hintJouer());
+                    if (jeu.getHintCarte() != null) {
+                        zoneDessin.hintCarte = jeu.getHintCarte();
+                        zoneDessin.repaint();
+                    }
+                    System.out.println("hint carte : " + jeu.getHintCarte());
                 } else if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == true) {
                     jeu.setHintPile(((Humain) jeu.getJoueur1()).hintChoisir());
-		    if (jeu.getHintPile() > 0) {
-			zoneDessin.hintPile = jeu.getHintPile() - 1;
-			zoneDessin.repaint();
-		    }
+                    if (jeu.getHintPile() > 0) {
+                        zoneDessin.hintPile = jeu.getHintPile() - 1;
+                        zoneDessin.repaint();
+                    }
                 }
 
             }
