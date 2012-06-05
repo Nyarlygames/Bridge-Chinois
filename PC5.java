@@ -4,22 +4,31 @@ import java.util.ArrayList;
 /**
  * @author Samy
  */
-public class PC5 extends PC{
+public class PC5 extends PC implements java.io.Serializable{
 
 	public PC5(){}
-    public PC5(Table t, int id, Main main, Carte carteAdv) {
-        this.table = t;
-        this.id = id;
-        nbPlis = 0;
-        score = 0;
-        aJoue = false;
-        aChoisi = false;
-        this.carteAdv = carteAdv;
-        this.main = main;
+	public PC5(Table t, int id) {
+		this.table = t;
+	    this.id = id;
+	    nbPlis = 0;
+	    score = 0;
+	    aJoue = false;
+	    aChoisi = false;
     }
+    
+    
     
     int minMax(Table t, int joueurCourant)
     {
+    	Main main;
+        Carte carteAdv;
+        if (id == 2) {
+            carteAdv = table.getCarte1();
+            main = table.getMain2();
+        } else {
+            carteAdv = table.getCarte2();
+            main = table.getMain1();
+        }
     	if(table.getMain1().estVide() && table.getMain2().estVide())
     	{
     		return table.getInfoAdv1().getScore() -  table.getInfoAdv2().getScore();
@@ -35,9 +44,9 @@ public class PC5 extends PC{
 	    			int alpha = 0;
 	    			Table tSim = new Table();
 	    			
-	    			if(getCarteAdv()==null)// le cas ou le joueur courant dois poser en premier une carte
+	    			if(carteAdv==null)// le cas ou le joueur courant dois poser en premier une carte
 	    			{
-	    				for(Carte c : getMain().getMain())
+	    				for(Carte c : main.getMain())
 	    				{
 	    					tSim = t.clone();
 	    					if(getId()==1) //cas joueur courant est le joueur1
@@ -72,7 +81,7 @@ public class PC5 extends PC{
 	    			}
 	    			else
 	    			{ // cas ou une carte à deja etait pose par l'adversair
-	    				for(Carte c : getMain().getMain())
+	    				for(Carte c : main.getMain())
 	    				{
 	    					tSim = t.clone();
 	    					if(getId()==1)
@@ -85,7 +94,7 @@ public class PC5 extends PC{
 	    							tSim.setPhaseJouer(false);
 	    						}
 	    						
-	    						if(getCarteAdv().gagne(c,getTable().getAtout() ))
+	    						if(carteAdv.gagne(c,getTable().getAtout() ))
 	    						{
 	    							tSim.getInfoAdv2().setScore(tSim.getInfoAdv2().getScore()+1);
 	    							val = minMax(tSim, 2);
@@ -111,7 +120,7 @@ public class PC5 extends PC{
 	    						{
 	    							tSim.setPhaseJouer(false);
 	    						}
-	    						if(getCarteAdv().gagne(c,getTable().getAtout() ))
+	    						if(carteAdv.gagne(c,getTable().getAtout() ))
 	    						{
 	    							tSim.getInfoAdv1().setScore(tSim.getInfoAdv1().getScore()+1);
 	    							val = minMax(tSim, 1);
@@ -144,7 +153,7 @@ public class PC5 extends PC{
 	    		{ // le joueurCourant veut faire perdre le joueur qui exe minmax (le Min)
 	    			int beta = 100;
 	    			Table tSim = new Table();
-	    			if(getCarteAdv()==null)// le cas ou le joueur courant dois poser en premier une carte
+	    			if(carteAdv==null)// le cas ou le joueur courant dois poser en premier une carte
 	    			{
 		    			if(getId()==1) 
 						{
@@ -181,7 +190,7 @@ public class PC5 extends PC{
 	    			}
 	    			else
 	    			{	// cas ou une carte à deja etait pose par l'adversair
-	    				for(Carte c : getMain().getMain())
+	    				for(Carte c : main.getMain())
 	    				{
 	    					tSim = t.clone();
 	    					if(getId()==1)
@@ -194,7 +203,7 @@ public class PC5 extends PC{
 	    						{
 	    							tSim.setPhaseJouer(false);
 	    						}
-	    						if(getCarteAdv().gagne(c,getTable().getAtout() ))
+	    						if(carteAdv.gagne(c,getTable().getAtout() ))
 	    						{
 	    							tSim.getInfoAdv2().setScore(tSim.getInfoAdv2().getScore()+1);
 	    							val = minMax(tSim, 2);
@@ -212,7 +221,7 @@ public class PC5 extends PC{
 	    					}
 	    					else
 	    					{//cas joueur courant est le joueur2
-	    						if(getCarteAdv().gagne(c,getTable().getAtout() ))
+	    						if(carteAdv.gagne(c,getTable().getAtout() ))
 	    						{
 	    							tSim.getInfoAdv1().setScore(tSim.getInfoAdv1().getScore()+1);
 	    							val = minMax(tSim, 1);
@@ -262,7 +271,7 @@ public class PC5 extends PC{
 	    								if( val > alpha)
      		    	                    {
      		    	                    	alpha = val;
-     		    	                        setBestCarteChoisir(bestCarteChoisir);
+     		    	                        setBestPile(i);
      		    	                    }
 		    						}
 	    							else
@@ -278,12 +287,13 @@ public class PC5 extends PC{
     	    								if( val > alpha)
          		    	                    {
          		    	                    	alpha = val;
-         		    	                        setBestCarteChoisir(bestCarteChoisir);
+         		    	                        setBestPile(i);
          		    	                    }
 	    								}
 	    							}   	    							
 	    						}
 	    					}
+	    					return alpha;
 	    				}
 	    				else
 	    				{// le joueur 2 a deja choisi
@@ -305,7 +315,7 @@ public class PC5 extends PC{
 	    								if( val > alpha)
      		    	                    {
      		    	                    	alpha = val;
-     		    	                        setBestCarteChoisir(bestCarteChoisir);
+     		    	                        setBestPile(i);
      		    	                    }
 		    						}
 	    							else
@@ -325,12 +335,13 @@ public class PC5 extends PC{
     	    								if( val > alpha)
          		    	                    {
          		    	                    	alpha = val;
-         		    	                        setBestCarteChoisir(bestCarteChoisir);
+         		    	                        setBestPile(i);
          		    	                    }
 	    								}
 	    							}   	    							
 	    						}
 	    					}
+	    					return alpha;
 	    				}
 	    			}
 	    			else
@@ -351,7 +362,7 @@ public class PC5 extends PC{
 	    								if( val > alpha)
      		    	                    {
      		    	                    	alpha = val;
-     		    	                        setBestCarteChoisir(bestCarteChoisir);
+     		    	                        setBestPile(i);
      		    	                    }
 		    						}
 	    							else
@@ -367,12 +378,13 @@ public class PC5 extends PC{
     	    								if( val > alpha)
          		    	                    {
          		    	                    	alpha = val;
-         		    	                        setBestCarteChoisir(bestCarteChoisir);
+         		    	                        setBestPile(i);
          		    	                    }
 	    								}
 	    							}   	    							
 	    						}
 	    					}
+	    					return alpha;
 	    				}
 	    				else
 	    				{// le joueur 1 a deja choisi
@@ -394,7 +406,7 @@ public class PC5 extends PC{
 	    								if( val > alpha)
      		    	                    {
      		    	                    	alpha = val;
-     		    	                        setBestCarteChoisir(bestCarteChoisir);
+     		    	                        setBestPile(i);
      		    	                    }
 		    						}
 	    							else
@@ -414,38 +426,18 @@ public class PC5 extends PC{
     	    								if( val > alpha)
          		    	                    {
          		    	                    	alpha = val;
-         		    	                        setBestCarteChoisir(bestCarteChoisir);
+         		    	                        setBestPile(i);
          		    	                    }
 	    								}
 	    							}   	    							
 	    						}
 	    					}
+	    					return alpha;
 	    				}
 	    			}
 	    		}
 				else
-				{	/*-------------------------
-					int beta = 100;
-	    			Table tSim = new Table();
-	    			if(getCarteAdv()==null)// le cas ou le joueur courant dois poser en premier une carte
-	    			{
-		    			if(getId()==1) 
-						{
-			                for(Carte c : this.getTable().getMain2().getMain())
-			                {
-			                	tSim = t.clone();
-			                	tSim.setCarte2(c);
-	    						tSim.getMain2().supp(c);
-	    						tSim.getMain2connue().supp(c);
-			                	val = minMax(tSim, 2) ;
-			                	if(val < beta)
-			                	{
-			                		beta = val;
-			                	}
-			                }
-			                return beta;
-						}
-					//--------------------------*/
+				{	
 	    			int beta = 100;
 	    			Table tSim = new Table();
 	    			tSim = t.clone();
@@ -489,6 +481,7 @@ public class PC5 extends PC{
 	    							}   	    							
 	    						}
 	    					}
+	    					return beta;
 	    				}
 	    				else
 	    				{// le joueur 2 a deja choisi
@@ -534,6 +527,7 @@ public class PC5 extends PC{
 	    							}   	    							
 	    						}
 	    					}
+	    					return beta;
 	    				}
 	    			}
 	    			else
@@ -554,7 +548,7 @@ public class PC5 extends PC{
 	    								if( val < beta)
      		    	                    {
      		    	                    	beta = val;
-     		    	                        setBestCarteChoisir(bestCarteChoisir);
+     		    	                        setBestPile(i);
      		    	                    }
 		    						}
 	    							else
@@ -575,6 +569,7 @@ public class PC5 extends PC{
 	    							}   	    							
 	    						}
 	    					}
+	    					return beta;
 	    				}
 	    				else
 	    				{// le joueur 1 a deja choisi
@@ -596,7 +591,7 @@ public class PC5 extends PC{
 	    								if( val < beta)
      		    	                    {
      		    	                    	beta = val;
-     		    	                        setBestCarteChoisir(bestCarteChoisir);
+     		    	                        setBestPile(i);
      		    	                    }
 		    						}
 	    							else
@@ -621,6 +616,7 @@ public class PC5 extends PC{
 	    							}   	    							
 	    						}
 	    					}
+	    					return beta;
 	    				}
 	    			}
 				}
@@ -631,21 +627,35 @@ public class PC5 extends PC{
        
     @Override
     void jouer() {
+    	
     	this.minMax(this.getTable(), this.getId());
     	if (id == 2) {
             table.setCarte2(getBestCarteJouer());
             table.getMain2connue().getMain().remove(getBestCarteJouer());
+            table.getMain2().getMain().remove(getBestCarteJouer());
         } else {
             table.setCarte1(getBestCarteJouer());
             table.getMain1connue().getMain().remove(getBestCarteJouer());
+            table.getMain1().getMain().remove(getBestCarteJouer());
+
         }
-    	main.getMain().remove(getBestCarteJouer());
     	
         aJoue = true;
     }
 
     @Override
     void choisir() {
+    	this.minMax(this.getTable(), this.getId());
+    	if (id == 2) {
+    		Carte c = table.getPiles().get(getBestPile()).piocher();
+            table.getMain2().add(c);
+            table.getMain2connue().add(c);
+        } else {
+    		Carte c = table.getPiles().get(getBestPile()).piocher();
+            table.getMain1().add(c);
+            table.getMain1connue().add(c);
+        }
+    	
         aChoisi = true;
     }
     
@@ -660,8 +670,6 @@ public class PC5 extends PC{
         j.setaChoisi(aChoisi);
         j.setPhaseChoisir(phaseChoisir);
         j.setPhaseJouer(phaseJouer);
-        j.setCarteAdv(carteAdv);
-        j.setMain(main);
     	return j;
     }
 

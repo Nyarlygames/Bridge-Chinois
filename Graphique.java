@@ -13,7 +13,7 @@ public class Graphique implements Runnable {
     Jeu jeu;
     JFrame frame;
     ZoneDessin zoneDessin;
-
+    FinPartie f ;
     public ZoneDessin getZoneDessin() {
         return zoneDessin;
     }
@@ -27,7 +27,12 @@ public class Graphique implements Runnable {
 
         frame = new JFrame("Bridge chinois");
         frame.addComponentListener(new EcouteurDeFrame(frame));
-
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+        
         zoneDessin = new ZoneDessin(j, this.cfg);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
         zoneDessin.addMouseMotionListener(new MouseMove(this, jeu));
@@ -36,6 +41,7 @@ public class Graphique implements Runnable {
         JMenuItem openMenuItem = new javax.swing.JMenuItem();
         JMenuItem abandonnerMenuItem = new javax.swing.JMenuItem();
         JMenuItem saveAsMenuItem = new javax.swing.JMenuItem();
+        JMenuItem loadMenuItem = new javax.swing.JMenuItem();
         JMenuItem annulerMenuItem = new javax.swing.JMenuItem();
         JMenuItem refaireMenuItem = new javax.swing.JMenuItem();
         Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -55,6 +61,7 @@ public class Graphique implements Runnable {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 
+
         //Son au clique de souris sur le bouton
         try {
 	           Son s = new Son("Bdemarrer.wav");
@@ -65,6 +72,7 @@ public class Graphique implements Runnable {
 	frame.dispose();
         new Thread(new Runnable() {
         	public void run() {
+                         
 		        Table table = new Table();
 		        Moteur moteur = new Moteur(table);
 		        Jeu monJeu = new Jeu(moteur, jeu.mode, jeu.type, jeu.max, jeu.diff);
@@ -72,6 +80,12 @@ public class Graphique implements Runnable {
 		        monJeu.addObservateur(new Observateur() {
 					public void update(Jeu jeu) {
 						gg.getZoneDessin().repaint();
+                                                        if (jeu.fin)
+                                                        {
+                                                                f =new FinPartie(frame,true,jeu.fin,jeu.gg);
+                                                                f.setVisible(true);
+                                                        }
+                                                
 					}
 				});
 		        SwingUtilities.invokeLater(gg);
@@ -79,6 +93,7 @@ public class Graphique implements Runnable {
 		      }
         }).start();
 	    }});
+
         fileMenu.add(openMenuItem);
 
         abandonnerMenuItem.setMnemonic('a');
@@ -101,7 +116,7 @@ public class Graphique implements Runnable {
                 //a griser si on joue sur le nombre de plis
             }
         });
-
+        
         saveAsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         saveAsMenuItem.setMnemonic('s');
         saveAsMenuItem.setText("Sauvegarder");
@@ -111,12 +126,25 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showSaveDialog(frame);
+                Sauvegarde.saveGame("saves/"+fileChooser.getName(fileChooser.getSelectedFile()), jeu);
             }
         });
+        loadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        loadMenuItem.setMnemonic('c');
+        loadMenuItem.setText("Charger");
 
+        loadMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.showOpenDialog(frame);
+                Sauvegarde.loadGame(fileChooser.getName(fileChooser.getSelectedFile()), frame);
+
+            }
+        });
         fileMenu.add(abandonnerMenuItem);
         fileMenu.add(saveAsMenuItem);
-
+        fileMenu.add(loadMenuItem);
 
         annulerMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         annulerMenuItem.setMnemonic('a');
@@ -127,12 +155,17 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 
                 jeu.getHist().annuler();
-                jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
-                jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
+                
+                jeu.setJoueurCourant(1);
+                
+                jeu.getJoueur1().setNouveauJoueur(jeu.getHist().getCourant().getJoueur1().table, jeu.getHist().getCourant().getJoueur1().nbPlis, jeu.getHist().getCourant().getJoueur1().aJoue, jeu.getHist().getCourant().getJoueur1().aChoisi, jeu.getHist().getCourant().getJoueur1().phaseChoisir, true);
+                System.out.println("nouveau joueur");
+                if (jeu.getJoueur2()!=null)
+                jeu.getJoueur2().setNouveauJoueur(jeu.getHist().getCourant().getJoueur2().table, jeu.getHist().getCourant().getJoueur2().nbPlis, jeu.getHist().getCourant().getJoueur2().aJoue, jeu.getHist().getCourant().getJoueur2().aChoisi, jeu.getHist().getCourant().getJoueur2().phaseChoisir, jeu.getHist().getCourant().getJoueur2().phaseJouer);
+                
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
                 jeu.updateObservateur();
-
-
+    
             }
         });
 
@@ -204,18 +237,13 @@ public class Graphique implements Runnable {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == false) {
-		    jeu.setHintCarte(((Humain) jeu.getJoueur1()).hintJouer());
-		    if (jeu.getHintCarte() != null) {
-			zoneDessin.hintCarte = jeu.getHintCarte();
-			zoneDessin.repaint();
-		    }
-		    System.out.println("hint carte : "+jeu.getHintCarte());
+                    jeu.setHintCarte(((Humain) jeu.getJoueur1()).hintJouer());
+                    zoneDessin.repaint();
+                    System.out.println("Hint Carte : " + jeu.getHintCarte());
                 } else if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == true) {
                     jeu.setHintPile(((Humain) jeu.getJoueur1()).hintChoisir());
-		    if (jeu.getHintPile() > 0) {
-			zoneDessin.hintPile = jeu.getHintPile() - 1;
-			zoneDessin.repaint();
-		    }
+					zoneDessin.repaint();
+					System.out.println("Hint Pile: " + jeu.getHintPile());
                 }
 
             }
@@ -243,11 +271,19 @@ public class Graphique implements Runnable {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         frame.setBounds((screenSize.width - LARGEUR_FEN) / 2, (screenSize.height - HAUTEUR_FEN) / 2, LARGEUR_FEN, HAUTEUR_FEN);
     }
-
+    
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
+        // TODO add your handling code here:
+        Confirmation a = new Confirmation(frame,true,"Voulez vous vraiment quitter ?");
+        a.setVisible(true);
+        
+        if (a.getReturnStatus()==1)
+            frame.dispose();
+    }
     public void run() {
 
         // Un clic sur le bouton de fermeture clos l'application
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         tailleFenetreX = LARGEUR_FEN;
         tailleFenetreY = HAUTEUR_FEN;

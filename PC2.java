@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * @author Samy
  */
-public class PC2 extends PC {
+public class PC2 extends PC implements java.io.Serializable{
 
     public PC2() {
     }
@@ -16,6 +16,8 @@ public class PC2 extends PC {
         score = 0;
         aJoue = false;
         aChoisi = false;
+        phaseChoisir = true;
+        phaseJouer = true;
     }
     
     

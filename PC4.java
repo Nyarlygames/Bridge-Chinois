@@ -5,7 +5,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PC4 extends PC {
+public class PC4 extends PC implements java.io.Serializable{
 
     /**
      * @author Samy
@@ -21,6 +21,8 @@ public class PC4 extends PC {
         score = 0;
         aJoue = false;
         aChoisi = false;
+         phaseChoisir = true;
+        phaseJouer = true;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class PC4 extends PC {
             }
 
             for (Carte c1 : main.getMain()) {
-                for (Carte c2 : adversaire) {
+                for (Carte c2 : getCartesJouables(adversaire, c1)) {
                     if (c1.gagne(c2, table.getAtout())) {
                         chances.put(c1, chances.get(c1) + 1);
                     }
@@ -179,5 +181,4 @@ public class PC4 extends PC {
         j.setPhaseJouer(phaseJouer);
         return j;
     }
-
- }
+}

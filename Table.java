@@ -6,7 +6,6 @@ Date de Dernière modification 15/05/2012 : 18:27
 
 import java.util.ArrayList;
 
-
 public class Table implements java.io.Serializable, Cloneable {
 
     // -------------------------------------Attributs-------------------------------------
@@ -15,7 +14,7 @@ public class Table implements java.io.Serializable, Cloneable {
     ArrayList<Pile> piles;
     Paquet paquet;
     Couleur atout;
-    InfoMain info1,info2;
+    InfoMain info1, info2;
     boolean phaseJouer;
 
     // -------------------------------------Constructeur-------------------------------------
@@ -107,30 +106,30 @@ public class Table implements java.io.Serializable, Cloneable {
     }
 
     public InfoMain getInfoAdv1() {
-		return info1;
-	}
+        return info1;
+    }
 
-	public void setInfoAdv1(InfoMain infoAdv1) {
-		this.info1 = infoAdv1;
-	}
+    public void setInfoAdv1(InfoMain infoAdv1) {
+        this.info1 = infoAdv1;
+    }
 
-	public InfoMain getInfoAdv2() {
-		return info2;
-	}
+    public InfoMain getInfoAdv2() {
+        return info2;
+    }
 
-	public void setInfoAdv2(InfoMain infoAdv2) {
-		this.info2 = infoAdv2;
-	}
-	
-	public boolean getPhaseJouer() {
-		return phaseJouer;
-	}
+    public void setInfoAdv2(InfoMain infoAdv2) {
+        this.info2 = infoAdv2;
+    }
 
-	public void setPhaseJouer(boolean phaseJouer) {
-		this.phaseJouer = phaseJouer;
-	}
+    public boolean getPhaseJouer() {
+        return phaseJouer;
+    }
 
-	public Main getMain1connue() {
+    public void setPhaseJouer(boolean phaseJouer) {
+        this.phaseJouer = phaseJouer;
+    }
+
+    public Main getMain1connue() {
         return main1connue;
     }
 
@@ -245,23 +244,39 @@ public class Table implements java.io.Serializable, Cloneable {
         }
         return adversaire;
     }
-    
+
     //renvoie les cartes qui sont dans les piles face caché
-    public ArrayList<Carte> getCartesPiles()
-    {
-    	ArrayList<Carte> resultat = new ArrayList<Carte>();
-    	for(int i=0; i <6; i++)
-    	{
-    		if(piles.get(i).getSize()>1)
-    		{
-    			for(int j=0; j<piles.get(i).getSize()-1;j++)
-    			{
-    				resultat.add(piles.get(i).getPile().get(j));
-    			}
-    		}
-    	}
-    	
-    	return resultat;
+    public ArrayList<Carte> getCartesPiles() {
+        ArrayList<Carte> resultat = new ArrayList<Carte>();
+        for (int i = 0; i < 6; i++) {
+            if (piles.get(i).getSize() > 1) {
+                for (int j = 0; j < piles.get(i).getSize() - 1; j++) {
+                    resultat.add(piles.get(i).getPile().get(j));
+                }
+            }
+        }
+
+        return resultat;
+    }
+
+    public void swapCartesDansPiles(Carte c1, Carte c2) {
+        Carte temp = null;
+        Carte temp2 = null;
+        for (Pile p : piles) {
+            for (Carte al : p.getPile()) {
+                if (al.memeCouleur(c2) && al.memeRang(c2)) {
+                    temp2 = al;
+                }
+                if (al.memeCouleur(c1) && al.memeRang(c1)) {
+                    temp = al;
+                }
+            }
+
+        }
+        if (temp != null && temp2 != null) {
+            c2 = temp;
+            c1 = temp2;
+        }
     }
     
     // echange les 2 cartes prises en parametre dans les piles

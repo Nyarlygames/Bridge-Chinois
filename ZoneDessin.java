@@ -1,3 +1,4 @@
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -17,12 +18,10 @@ public class ZoneDessin extends JComponent {
     public int bh = 0;
     public Table t;
     public Config cfg;
-    public Carte carteactive;
-    public Carte hintCarte;
-    public int hintPile = -1;
     int width;
     int dheight;
     int height;
+    Carte carteactive;
     Font f;
     Graphics g;
     Jeu jeu;
@@ -72,7 +71,10 @@ public class ZoneDessin extends JComponent {
 
         Image cback = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + "carte-dos.png"));
 
-
+		// arrow des hints
+		Image hintArrowCartes = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
+		Image hintArrowPiles = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintpiles.png"));
+		
         // corners
         int cornerh = corner_trefle.getHeight(null);
         int cornerw = corner_trefle.getWidth(null);
@@ -134,13 +136,12 @@ public class ZoneDessin extends JComponent {
 
             int mid = (int) ((width / 2) - (((t.main2.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
             Carte c = t.main2.getCarte(f);
-	    if (cfg.isVoitCartes()) {
-		Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
-		g.drawImage(cfront, mid, bh, cw, ch, this);
-	    }
-	    else {
-		g.drawImage(cback, mid, bh, this);
-	    }
+            if (cfg.isVoitCartes()) {
+                Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
+                g.drawImage(cfront, mid, bh, cw, ch, this);
+            } else {
+                g.drawImage(cback, mid, bh, this);
+            }
         }
 
         //--- Dessin des cartes du joueur 1 ---//
@@ -152,13 +153,14 @@ public class ZoneDessin extends JComponent {
             Carte c = t.main1.getCarte(f);
 
             // Affichage indices des cartes
-            if ((hintCarte != null) && (c.rang == hintCarte.rang)
-                    && (c.couleur == hintCarte.couleur)) {
-                Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
-                int hw = hintarrow.getWidth(null);
-                int hh = hintarrow.getHeight(null);
-                g.drawImage(hintarrow, mid, up - hh - 20, hw, hh, this);
+            if ( jeu.getHintCarte() != null && c.equals(jeu.getHintCarte()) ) 
+            {
+                int hw = hintArrowCartes.getWidth(null);
+                int hh = hintArrowCartes.getHeight(null);
+                g.drawImage(hintArrowCartes, mid, up - hh - 20, hw, hh, this);
             }
+            
+            // si la carte est hover par la souris, on la raise
             if (carteactive != null) {
                 if (c == carteactive) {
                     // Carte Jouable
@@ -193,51 +195,46 @@ public class ZoneDessin extends JComponent {
             }
         }
 
-
         //Affichage des indices piles
-        if (hintPile > -1) {
-            int p = hintPile;
+        if (jeu.getHintPile() != null && jeu.getHintPile() > 0) {
+            int p = jeu.getHintPile() - 1;
+            System.out.println(p);
             int pc = t.piles.get(p).getSize();
             int mid = (int) ((width / 2) - ((6 * (cw) + 5 * 20 + 4 * 3) / 2) + (pc * 3) + (p * (cw + 20)));
-            Image hintarrow = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintpiles.png"));
-            int hw = hintarrow.getWidth(null);
-            int hh = hintarrow.getHeight(null);
-            g.drawImage(hintarrow, mid, (height / 2) + ch / 2, hw, hh, this);
-            hintPile = -1;
+            int hw = hintArrowPiles.getWidth(null);
+            int hh = hintArrowPiles.getHeight(null);
+            g.drawImage(hintArrowPiles, mid, (height / 2) + ch / 2, hw, hh, this);
         }
 
-
-	// Chargement de la police d'ecriture
+        // Chargement de la police d'ecriture
         f = new Font("sansserif", Font.BOLD, 14);
         FontMetrics fontw = g.getFontMetrics(f);
         g.setFont(f);
 
-
         // Affichage dernier pli
-	if (cfg.isVoitPlis() && (jeu.getHist().position > 0)) {
+        if (cfg.isVoitPlis() && (jeu.getHist().position > 0)) {
             Image separateur = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/testseparateur.png"));
-	    int sw = separateur.getWidth(null);
-	    int sh = separateur.getHeight(null);
-	    String str = "Dernier pli :";
+            int sw = separateur.getWidth(null);
+            int sh = separateur.getHeight(null);
+            String str = "Dernier pli :";
 
-	    // Affichage "Dernier pli"
-	    g.setColor(Color.red);
-	    g.drawString(str, width - bw - fontw.stringWidth(str), (height/2) - (sh/2) - ch - fontw.getHeight());
-	    // Affichage du séparateur
-	    g.drawImage(separateur, width - bw - sw, (height/2) - (sh/2), sw, sh, this);
+            // Affichage "Dernier pli"
+            g.setColor(Color.red);
+            g.drawString(str, width - bw - fontw.stringWidth(str), (height / 2) - (sh / 2) - ch - fontw.getHeight());
+            // Affichage du séparateur
+            g.drawImage(separateur, width - bw - sw, (height / 2) - (sh / 2), sw, sh, this);
 
-	    // Affichage des cartes
-	    if (jeu.lastcarte1 != null) {
-		Image c1 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte1.toFileString()));
-		g.drawImage(c1, width - bw - cw - ((sw-cw) / 2), (height/2) + (sh/2), cw, ch, this);
-	    }
-	    if (jeu.lastcarte2 != null) {
-		Image c2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte2.toFileString()));
-		g.drawImage(c2, width - bw - cw - ((sw-cw) / 2), (height/2) - (sh/2) - ch, cw, ch, this);
-	    }
-	}
-
-
+            // Affichage des cartes
+            if (jeu.lastcarte1 != null) {
+                Image c1 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte1.toFileString()));
+                g.drawImage(c1, width - bw - cw - ((sw - cw) / 2), (height / 2) + (sh / 2), cw, ch, this);
+            }
+            if (jeu.lastcarte2 != null) {
+                Image c2 = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + jeu.lastcarte2.toFileString()));
+                g.drawImage(c2, width - bw - cw - ((sw - cw) / 2), (height / 2) - (sh / 2) - ch, cw, ch, this);
+            }
+        }
+		
         //--- Dessin du nombre de plis (score de la partie actuelle) ---//
 
         // Joueur 1
@@ -245,13 +242,12 @@ public class ZoneDessin extends JComponent {
         g.setColor(Color.black);
         String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
         g.drawString(pli1, width - bw - cw / 2 - fontw.stringWidth(pli1) / 2, height - bh - ch / 2 + 4);
-
+		
         // Joueur 2 (adversaire)
         g.drawImage(pli, bw + 1, bh + 1, cw, ch, this);
         g.setColor(Color.black);
         String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
         g.drawString(pli2, bh + ch / 2 - fontw.stringWidth(pli2) / 2 - 12, bh + ch / 2 + 5);
-
 
         // Infos du bas
         String atout = " ";
@@ -276,7 +272,7 @@ public class ZoneDessin extends JComponent {
         } else {
             atout = "Pas d'atout ";
         }
-
+		
         // on ecrit quel est l'atout
         if (atout == "Atout : ♦" || atout == "Atout : ♥") {
             g.setColor(Color.red);
@@ -285,6 +281,7 @@ public class ZoneDessin extends JComponent {
         } else {
             g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
         }
+        
         // Joueur actif
         String turnInfo = " ";
         if (jeu.getJoueurCourant() == 1 && !jeu.intVersJoueur().getaJoue()) {
@@ -301,15 +298,14 @@ public class ZoneDessin extends JComponent {
         g.drawString(turnInfo, width / 2 - fontw.stringWidth(turnInfo) / 2, dheight - 5);
 
         // Affichage du score
-	String score = "";
-	// Partie par nombre de donnes ou pli
-	if ((jeu.type == 0) || (jeu.type ==1)) {
-	    score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
-	}
-	// Partie aventure
-	else {
-	    score = "Aventure";
-	}
+        String score = "";
+        // Partie par nombre de donnes ou pli
+        if ((jeu.type == 0) || (jeu.type == 1)) {
+            score = "Score - Vous : " + jeu.getJoueur1().score + ", Adversaire : " + jeu.getJoueur2().score;
+        } // Partie aventure
+        else {
+            score = "Aventure";
+        }
         g.drawString(score, 0, dheight - 5);
 
     } // fin fonction paint

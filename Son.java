@@ -43,6 +43,7 @@ public class Son extends Object implements LineListener {
         }
     }
 
+
     public void update(LineEvent le) {
         LineEvent.Type type = le.getType();
         if (type == LineEvent.Type.OPEN) {
@@ -58,5 +59,6 @@ public class Son extends Object implements LineListener {
             //playingDialog.setVisible(false);
             clip.close();
         }
+
     }
 }

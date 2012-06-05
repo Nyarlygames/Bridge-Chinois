@@ -1,18 +1,17 @@
+
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:15
 Date de Derniere modification 16/05/2012 : 04:24
  */
 
-public abstract class Joueur {
+public abstract class Joueur implements java.io.Serializable{
 
     // -------------------------------------Attributs-------------------------------------
     Table table;
-    int nbPlis, score, id;
+    int nbPlis, score, id, bestPile;
     Boolean aJoue, aChoisi, phaseJouer, phaseChoisir;
-    Carte carteAdv;
-    Main main;
-    Carte bestCarteJouer, bestCarteChoisir;
+    Carte bestCarteJouer;
    
 
     // -------------------------------------Accesseurs-------------------------------------
@@ -48,29 +47,15 @@ public abstract class Joueur {
 		this.bestCarteJouer = bestCarteJouer;
 	}
 
-	public Carte getBestCarteChoisir() {
-		return bestCarteChoisir;
+	
+
+	public int getBestPile() {
+		return bestPile;
 	}
 
-	public void setBestCarteChoisir(Carte bestCarteChoisir) {
-		this.bestCarteChoisir = bestCarteChoisir;
+	public void setBestPile(int bestPile) {
+		this.bestPile = bestPile;
 	}
-
-	public Carte getCarteAdv() {
-        return carteAdv;
-    }
-
-    public void setCarteAdv(Carte carteAdv) {
-        this.carteAdv = carteAdv;
-    }
-
-    public Main getMain() {
-        return main;
-    }
-
-    public void setMain(Main main) {
-        this.main = main;
-    }
 
     public int getScore() {
         return score;
@@ -111,6 +96,20 @@ public abstract class Joueur {
     public void setTable(Table table) {
         this.table = table;
     }
+    
+    public void setNouveauJoueur(Table table, int nbPlis, boolean aJoue, boolean aChoisi, boolean phaseChoisir, boolean phaseJouer){
+           System.out.println("a Joue" + aJoue);
+           System.out.println("a aChoisi" + aChoisi);
+           System.out.println("a phaseChoisir" + phaseChoisir);
+           System.out.println("a phaseJouer" + phaseJouer);
+        this.setTable(table);
+        this.setNbPlis(nbPlis);
+        this.setaJoue(aJoue);
+        this.setaChoisi(aChoisi);
+        this.setPhaseChoisir(phaseChoisir);
+        this.setPhaseJouer(phaseJouer);
+
+    }
 
     // -------------------------------------Méthodes-------------------------------------
     
@@ -122,3 +121,4 @@ public abstract class Joueur {
     abstract void jouer();
     abstract void choisir();
 }
+
