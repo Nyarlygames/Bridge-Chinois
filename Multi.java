@@ -206,7 +206,7 @@ public class Multi extends javax.swing.JFrame {
                 	public void run() {
                     Table t = new Table();
                     Moteur moteur = new Moteur(t);
-	                Jeu monJeu = new Jeu(moteur, 2, 0, 1, 0);
+	                Jeu monJeu = new Jeu(moteur, 2, 0, 1, 0, false);
 	                monJeu.attachDistantPlayer(ip, false);
                     final Graphique gg = new Graphique(monJeu);
                     // test

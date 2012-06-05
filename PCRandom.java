@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * @author Samy
  */
-public class PCRandom extends PC {
+public class PCRandom extends PC implements java.io.Serializable{
 
     public PCRandom() {
     }

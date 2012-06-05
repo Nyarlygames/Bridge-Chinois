@@ -7,7 +7,7 @@
  *
  * @author Val
  */
-public class EntreeHistorique {
+public class EntreeHistorique implements java.io.Serializable{
     Joueur joueur1;
     Joueur joueur2;
     Table table;

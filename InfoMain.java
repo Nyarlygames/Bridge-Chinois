@@ -1,5 +1,5 @@
 
-public class InfoMain {
+public class InfoMain implements java.io.Serializable{
 	boolean aTrefle, aCarreau, aCoeur, aPique, aChoisi;
 	int score;
 	public InfoMain()

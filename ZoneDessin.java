@@ -151,14 +151,6 @@ public class ZoneDessin extends JComponent {
             int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
             int up = height - ch - bh;
             Carte c = t.main1.getCarte(f);
-
-            // Affichage indices des cartes
-            if ( jeu.getHintCarte() != null && c.equals(jeu.getHintCarte()) ) 
-            {
-                int hw = hintArrowCartes.getWidth(null);
-                int hh = hintArrowCartes.getHeight(null);
-                g.drawImage(hintArrowCartes, mid, up - hh - 20, hw, hh, this);
-            }
             
             // si la carte est hover par la souris, on la raise
             if (carteactive != null) {
@@ -171,7 +163,14 @@ public class ZoneDessin extends JComponent {
                     }
                 }
             }
-
+            
+            // Affichage indices des cartes
+            if ( jeu.getHintCarte() != null && c.equals(jeu.getHintCarte()) ) 
+            {
+                int hw = hintArrowCartes.getWidth(null);
+                int hh = hintArrowCartes.getHeight(null);
+                g.drawImage(hintArrowCartes, mid, up - hh - 20, hw, hh, this);
+            }
             // on check le type de c et on charge le graphique associe
 
             Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
