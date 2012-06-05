@@ -49,7 +49,7 @@ public class Moteur {
             }
         }
     }
-    
+
     public boolean etapeSetCarte(Carte c, boolean croupier, int mode) {
         if((mode == 2 && croupier) || mode != 2)
         {

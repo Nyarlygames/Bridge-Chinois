@@ -18,7 +18,7 @@ public class Historique {
     }
     
     public EntreeHistorique getCourant(){
-        System.out.println("position " + position + " taille " + hist.size());
+        //System.out.println("position " + position + " taille " + hist.size());
         return hist.get(position);
     }
     

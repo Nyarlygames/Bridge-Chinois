@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.JPopupMenu.Separator;
@@ -18,18 +19,18 @@ public class Graphique implements Runnable {
     }
 
     public Graphique(Jeu j) {
-	    this.cfg = new Config();
+        this.cfg = new Config();
         jeu = j;
-	    this.LARGEUR_FEN = Config.width;
-	    this.HAUTEUR_FEN = Config.height;
-	    this.zoneDessin = zoneDessin;
+        this.LARGEUR_FEN = Config.width;
+        this.HAUTEUR_FEN = Config.height;
+        this.zoneDessin = zoneDessin;
 
         frame = new JFrame("Bridge chinois");
-	    frame.addComponentListener(new EcouteurDeFrame(frame));
+        frame.addComponentListener(new EcouteurDeFrame(frame));
 
-	    zoneDessin = new ZoneDessin(j, this.cfg);
+        zoneDessin = new ZoneDessin(j, this.cfg);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
-	    zoneDessin.addMouseMotionListener(new MouseMove(this, jeu));
+        zoneDessin.addMouseMotionListener(new MouseMove(this, jeu));
         JMenuBar menuBar = new javax.swing.JMenuBar();
         JMenu fileMenu = new javax.swing.JMenu();
         JMenuItem openMenuItem = new javax.swing.JMenuItem();
@@ -64,10 +65,9 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Frame confirm = null;
                 //demander confirmation
-                Confirmation a = new Confirmation(confirm,true,"Voulez vous vraiment quitter ?");
+                Confirmation a = new Confirmation(confirm, true, "Voulez vous vraiment quitter ?");
                 a.setVisible(true);
-                if (a.getReturnStatus()==1)
-                {
+                if (a.getReturnStatus() == 1) {
                     frame.dispose();
                     Menu m = new Menu();
                     m.setVisible(true);
@@ -102,21 +102,19 @@ public class Graphique implements Runnable {
         annulerMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
+
                 jeu.getHist().annuler();
-                jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
-                jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
+                
+                jeu.setJoueurCourant(1);
+                
+                jeu.getJoueur1().setNouveauJoueur(jeu.getHist().getCourant().getJoueur1().table, jeu.getHist().getCourant().getJoueur1().nbPlis, jeu.getHist().getCourant().getJoueur1().aJoue, jeu.getHist().getCourant().getJoueur1().aChoisi, jeu.getHist().getCourant().getJoueur1().phaseChoisir, true);
+                System.out.println("nouveau joueur");
+                if (jeu.getJoueur2()!=null)
+                jeu.getJoueur2().setNouveauJoueur(jeu.getHist().getCourant().getJoueur2().table, jeu.getHist().getCourant().getJoueur2().nbPlis, jeu.getHist().getCourant().getJoueur2().aJoue, jeu.getHist().getCourant().getJoueur2().aChoisi, jeu.getHist().getCourant().getJoueur2().phaseChoisir, jeu.getHist().getCourant().getJoueur2().phaseJouer);
+                
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
                 jeu.updateObservateur();
-                
-                for (int i =0;i<jeu.getMoteur().getTable().getPiles().size();i++){
-                    for (int j =0;j<jeu.getMoteur().getTable().getPiles().get(i).getSize();j++){
-                System.out.println(jeu.getMoteur().getTable().getPiles().get(i).getCarte(1));
-                
-                    }
-            }
-
-
+    
             }
         });
 
@@ -134,10 +132,7 @@ public class Graphique implements Runnable {
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
                 jeu.updateObservateur();
-                
-                
 
-                
             }
         });
 
@@ -147,10 +142,9 @@ public class Graphique implements Runnable {
         jMenuItem1.setText("Options");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
 
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //Options opt = new Options(this,true;);
-                //opt.setVisible(true);
+                Options opt = new Options(frame, true);
+                opt.setVisible(true);
             }
         });
         fileMenu.add(jMenuItem1);
@@ -163,10 +157,9 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Frame confirm = null;
                 //demander confirmation
-                Confirmation a = new Confirmation(confirm,true,"Voulez vous vraiment quitter ?");
+                Confirmation a = new Confirmation(confirm, true, "Voulez vous vraiment quitter ?");
                 a.setVisible(true);
-                if (a.getReturnStatus()==1)
-                {
+                if (a.getReturnStatus() == 1) {
                     frame.dispose();
                 }
             }
@@ -192,7 +185,21 @@ public class Graphique implements Runnable {
         hintMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //todo
+                if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == false) {
+                    jeu.setHintCarte(((Humain) jeu.getJoueur1()).hintJouer());
+		    if (jeu.getHintCarte() != null) {
+			zoneDessin.hintCarte = jeu.getHintCarte();
+			zoneDessin.repaint();
+		    }
+		    System.out.println("hint carte : "+jeu.getHintCarte());
+                } else if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == true) {
+                    jeu.setHintPile(((Humain) jeu.getJoueur1()).hintChoisir());
+		    if (jeu.getHintPile() > 0) {
+			zoneDessin.hintPile = jeu.getHintPile() - 1;
+			zoneDessin.repaint();
+		    }
+                }
+
             }
         });
 
@@ -234,4 +241,3 @@ public class Graphique implements Runnable {
 
     }
 }
-
