@@ -60,16 +60,22 @@ public class PC3 extends PC {
             HashMap<Carte, Integer> chances = new HashMap<Carte, Integer>();
             ArrayList<Carte> inconnues = table.getCartesInconnues(id);
             inconnues.removeAll(table.getCartesConnuesAdversaire(id));
-            ArrayList<Carte> testables = jouables;
-
-            for (Carte c1 : jouables) {
-                for (Carte c2 : table.getCartesConnuesAdversaire(id)) {
-                    if (c2.gagne(c1, table.getAtout())) {
-                        testables.remove(c1);
+            ArrayList<Carte> testables = new ArrayList<Carte>();
+            testables.addAll(jouables);
+            if (prems) {
+                for (Carte c1 : jouables) {
+                    for (Carte c2 : getCartesJouables(table.getCartesConnuesAdversaire(id), c1)) {
+                        if (!c1.gagne(c2, table.getAtout())) {
+                            testables.remove(c1);
+                        }
                     }
                 }
             }
 
+            if (testables.isEmpty())//c'est la loose on a pas de pli assuré
+            {
+                testables.addAll(jouables);
+            }
 
             for (Carte c : testables) {
                 chances.put(c, 0);
@@ -167,6 +173,7 @@ public class PC3 extends PC {
         aChoisi = true;
 
     }
+
 
     public Joueur clone() {
         Joueur j = new PCRandom();

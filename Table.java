@@ -6,6 +6,7 @@ Date de Dernière modification 15/05/2012 : 18:27
 
 import java.util.ArrayList;
 
+
 public class Table implements java.io.Serializable, Cloneable {
 
     // -------------------------------------Attributs-------------------------------------
@@ -14,6 +15,8 @@ public class Table implements java.io.Serializable, Cloneable {
     ArrayList<Pile> piles;
     Paquet paquet;
     Couleur atout;
+    InfoMain info1,info2;
+    boolean phaseJouer;
 
     // -------------------------------------Constructeur-------------------------------------
     Table() {
@@ -28,6 +31,9 @@ public class Table implements java.io.Serializable, Cloneable {
         paquet = null;
         //paquet.melanger();
         atout = null;
+        info1 = new InfoMain();
+        info2 = new InfoMain();
+        phaseJouer = true;
     }
 
     Table(Table t) {
@@ -100,7 +106,31 @@ public class Table implements java.io.Serializable, Cloneable {
         this.atout = atout;
     }
 
-    public Main getMain1connue() {
+    public InfoMain getInfoAdv1() {
+		return info1;
+	}
+
+	public void setInfoAdv1(InfoMain infoAdv1) {
+		this.info1 = infoAdv1;
+	}
+
+	public InfoMain getInfoAdv2() {
+		return info2;
+	}
+
+	public void setInfoAdv2(InfoMain infoAdv2) {
+		this.info2 = infoAdv2;
+	}
+	
+	public boolean getPhaseJouer() {
+		return phaseJouer;
+	}
+
+	public void setPhaseJouer(boolean phaseJouer) {
+		this.phaseJouer = phaseJouer;
+	}
+
+	public Main getMain1connue() {
         return main1connue;
     }
 
@@ -159,12 +189,6 @@ public class Table implements java.io.Serializable, Cloneable {
 
         // on renvoie le clone
         return table;
-
-
-
-
-
-
     }
 
     public Carte getCarteAdverse(int joueur) {
@@ -220,5 +244,23 @@ public class Table implements java.io.Serializable, Cloneable {
 
         }
         return adversaire;
+    }
+    
+    //renvoie les cartes qui sont dans les piles face caché
+    public ArrayList<Carte> getCartesPiles()
+    {
+    	ArrayList<Carte> resultat = new ArrayList<Carte>();
+    	for(int i=0; i <6; i++)
+    	{
+    		if(piles.get(i).getSize()>1)
+    		{
+    			for(int j=0; j<piles.get(i).getSize()-1;j++)
+    			{
+    				resultat.add(piles.get(i).getPile().get(j));
+    			}
+    		}
+    	}
+    	
+    	return resultat;
     }
 }

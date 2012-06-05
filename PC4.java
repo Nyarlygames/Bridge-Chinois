@@ -67,7 +67,7 @@ public class PC4 extends PC {
             }
 
             for (Carte c1 : main.getMain()) {
-                for (Carte c2 : adversaire) {
+                for (Carte c2 : getCartesJouables(adversaire, c1)) {
                     if (c1.gagne(c2, table.getAtout())) {
                         chances.put(c1, chances.get(c1) + 1);
                     }
@@ -181,5 +181,4 @@ public class PC4 extends PC {
         j.setPhaseJouer(phaseJouer);
         return j;
     }
-
- }
+}

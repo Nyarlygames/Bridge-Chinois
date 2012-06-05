@@ -512,16 +512,19 @@ public class Jeu implements Observable {
             if (type == 0) {
                 if (joueur1.getNbPlis() >= 13) {
                     joueur1.setScore(joueur1.getScore() + 1);
+
                     gg = true;
                 } else {
                     joueur2.setScore(joueur2.getScore() + 1);
                     gg = false;
+
                 }
             }
             // Update score par plis
             if (type == 1) {
                 joueur1.setScore(joueur1.getScore() + joueur1.getNbPlis());
                 joueur2.setScore(joueur2.getScore() + joueur2.getNbPlis());
+
                 if (joueur1.getNbPlis() >= 13) {
 
                     gg = true;
@@ -529,6 +532,7 @@ public class Jeu implements Observable {
 
                     gg = false;
                 }
+
 
             }
             joueur1.setNbPlis(0);
@@ -605,6 +609,11 @@ public class Jeu implements Observable {
             e.printStackTrace();
         }
         hintCarte = null;
+        try {
+            Son s = new Son("Bcarte.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void etapeChoisir() {
@@ -651,6 +660,11 @@ public class Jeu implements Observable {
             e.printStackTrace();
         }
         hintPile = null;
+        try {
+            Son s = new Son("Bcarte.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Table swapTableRecueReseau(Table table) {

@@ -22,6 +22,7 @@ public class Humain extends Joueur {
         phaseJouer = false;
     }
 
+
     public Joueur clone() {
         Joueur j = new Humain();
         j.setTable(table);

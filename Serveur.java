@@ -1,6 +1,4 @@
 import java.io.*;
-import java.lang.Integer;
-import javax.swing.*;
 import java.net.*;
 
 public class Serveur {

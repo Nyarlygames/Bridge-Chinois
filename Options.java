@@ -45,6 +45,7 @@ public class Options extends javax.swing.JDialog {
         jLabelCartes = new javax.swing.JLabel();
         jRadioButtonCartes1 = new javax.swing.JRadioButton();
         jRadioButtonCartes2 = new javax.swing.JRadioButton();
+        jRadioButtonCartes3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -181,21 +182,27 @@ public class Options extends javax.swing.JDialog {
         if (conf.getDeck() == 1)
         jRadioButtonCartes2.setSelected(true);
 
+        buttonGroupCartes.add(jRadioButtonCartes3);
+        jRadioButtonCartes3.setText("Chats!");
+        if (conf.getDeck() == 3)
+        jRadioButtonCartes3.setSelected(true);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelCartes))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(10, 10, 10)
                         .addComponent(jRadioButtonCartes1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonCartes2)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonCartes2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonCartes3))
+                    .addComponent(jLabelCartes))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,8 +211,9 @@ public class Options extends javax.swing.JDialog {
                 .addComponent(jLabelCartes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonCartes1)
-                    .addComponent(jRadioButtonCartes2))
+                    .addComponent(jRadioButtonCartes3)
+                    .addComponent(jRadioButtonCartes2)
+                    .addComponent(jRadioButtonCartes1))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -220,13 +228,15 @@ public class Options extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonAnnulerActionPerformed
-
+    
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         // TODO add your handling code here:
         if (jRadioButtonCartes1.isSelected()) {
             conf.setDeck(2);
         } else if (jRadioButtonCartes2.isSelected()) {
             conf.setDeck(1);
+        } else if (jRadioButtonCartes3.isSelected()) {
+            conf.setDeck(3);
         }
         if (jRadioButtonTheme1.isSelected()) {
             conf.setStyle(1);
@@ -240,7 +250,7 @@ public class Options extends javax.swing.JDialog {
         conf.setSon(jCheckBoxSon.isSelected());
         conf.saveConfigs();
         this.dispose();
-
+        
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
@@ -278,13 +288,13 @@ public class Options extends javax.swing.JDialog {
          * Create and display the dialog
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             public void run() {
                 Options dialog = new Options(new javax.swing.JFrame(), true);
                 conf = new Config();
-
+                
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
+                    
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -311,6 +321,7 @@ public class Options extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButtonCartes1;
     private javax.swing.JRadioButton jRadioButtonCartes2;
+    private javax.swing.JRadioButton jRadioButtonCartes3;
     private javax.swing.JRadioButton jRadioButtonTheme1;
     private javax.swing.JRadioButton jRadioButtonTheme2;
     private javax.swing.JRadioButton jRadioButtonTheme3;

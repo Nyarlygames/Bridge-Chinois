@@ -37,4 +37,28 @@ public abstract class PC extends Joueur {
         }
         return jouables;
     }
+
+    protected ArrayList<Carte> getCartesJouables(ArrayList<Carte> entree, Carte c) {//renvoie les cartes jouables parmi celles en entrée quand la carte C est posée en face
+        ArrayList<Carte> jouables = new ArrayList<Carte>();
+
+        if (c != null) {
+            for (Carte ca : entree) {
+                if (c.memeCouleur(ca)) {
+                    jouables.add(ca);
+                }
+            }
+            if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
+                for (Carte ca : entree) {
+                    jouables.add(ca);
+                }
+            }
+        } else {
+            if (jouables.isEmpty()) {//on commence donc bah on met tout
+                for (Carte ca : entree) {
+                    jouables.add(ca);
+                }
+            }
+        }
+        return jouables;
+    }
 }
