@@ -343,7 +343,7 @@ public class Menu extends javax.swing.JFrame {
         switch (result) {
         case JFileChooser.APPROVE_OPTION:
         System.out.println("ouvrir");
-        Sauvegarde.loadGame(chooser.getName(chooser.getSelectedFile()), this);
+        Sauvegarde.loadGame("saves/"+chooser.getName(chooser.getSelectedFile()), this);
         break;
         case JFileChooser.CANCEL_OPTION:
             System.out.println("Annuler");

@@ -225,7 +225,7 @@ public class VSIA extends javax.swing.JFrame {
 		        Table table = new Table();
 		        Moteur moteur = new Moteur(table);
                         
-		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
+		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue(), false);
 		        System.out.println("difficulte choisie : " + jSlider1.getValue());
 		        final Graphique gg = new Graphique(monJeu);
 		        // test

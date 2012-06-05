@@ -75,7 +75,7 @@ public class Graphique implements Runnable {
                          
 		        Table table = new Table();
 		        Moteur moteur = new Moteur(table);
-		        Jeu monJeu = new Jeu(moteur, jeu.mode, jeu.type, jeu.max, jeu.diff);
+		        Jeu monJeu = new Jeu(moteur, jeu.mode, jeu.type, jeu.max, jeu.diff, false);
 		        final Graphique gg = new Graphique(monJeu);
 		        monJeu.addObservateur(new Observateur() {
 					public void update(Jeu jeu) {
@@ -138,7 +138,7 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showOpenDialog(frame);
-                Sauvegarde.loadGame(fileChooser.getName(fileChooser.getSelectedFile()), frame);
+                Sauvegarde.loadGame("saves/"+fileChooser.getName(fileChooser.getSelectedFile()), frame);
 
             }
         });

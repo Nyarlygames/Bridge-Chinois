@@ -37,6 +37,7 @@ public class Jeu implements Observable {
     Carte lastcarte1 = null;
     Carte lastcarte2 = null;
     int diff;
+    boolean charge = false;
 
     // -------------------------------------Constructeur-------------------------------------
     /*
@@ -46,11 +47,12 @@ public class Jeu implements Observable {
      * designe par la variable max : 0 : matche a jouer 1 : score a inteindre
      * max 2 : aventure
      */
-    Jeu(Moteur m, int mode, int type, int max, int difficulte) {
+    Jeu(Moteur m, int mode, int type, int max, int difficulte, boolean charge) {
         Random rand = new Random();
         this.mode = mode;
         gg = true;
         partieRestante = true;
+        this.charge = charge;
         joueurCourant = rand.nextInt(2);
         joueurCourant++;
         moteur = m;
@@ -308,71 +310,72 @@ public class Jeu implements Observable {
     public void initialiser() {
 
         //Paquet monPaquet = new Paquet();
+        if (charge == false) {
+            // on ne melange si on est pas en mode reseau,
+            if (mode != 2){
+                Paquet monPaquet = new Paquet();
+                monPaquet.melanger();
+                moteur.getTable().setPaquet(monPaquet);
+            }
 
-        // on ne melange si on est pas en mode reseau,
-        if (mode != 2) {
-            Paquet monPaquet = new Paquet();
-            monPaquet.melanger();
-            moteur.getTable().setPaquet(monPaquet);
-        }
+            // on melange ou si on est en mode reseau ET qu'on est le croupier
+            // de la partie
+            if (mode == 2 && croupier) {
+                Paquet monPaquet = new Paquet();
+                monPaquet.melanger();
+                moteur.getTable().setPaquet(monPaquet);
+            }
 
-        // on melange ou si on est en mode reseau ET qu'on est le croupier
-        // de la partie
-        if (mode == 2 && croupier) {
-            Paquet monPaquet = new Paquet();
-            monPaquet.melanger();
-            moteur.getTable().setPaquet(monPaquet);
-        }
-
-        // si on est en mode reseau et qu'on est pas croupier, on fait rien...
-        if (mode == 2 && !croupier) {
-            return;
-        }
+            // si on est en mode reseau et qu'on est pas croupier, on fait rien...
+            if (mode == 2 && !croupier) {
+                return;
+            }
 
 
-        for (int i = 0; i < 11; i++) {
-            moteur.getTable().main1.add(moteur.getTable().getPaquet().piocher());
-            moteur.getTable().main2.add(moteur.getTable().getPaquet().piocher());
-        }
+            for (int i = 0; i < 11; i++) {
+                moteur.getTable().main1.add(moteur.getTable().getPaquet().piocher());
+                moteur.getTable().main2.add(moteur.getTable().getPaquet().piocher());
+            }
 
-        ArrayList<Carte> tas1 = new ArrayList<Carte>(5);
-        ArrayList<Carte> tas2 = new ArrayList<Carte>(5);
-        ArrayList<Carte> tas3 = new ArrayList<Carte>(5);
-        ArrayList<Carte> tas4 = new ArrayList<Carte>(5);
-        ArrayList<Carte> tas5 = new ArrayList<Carte>(5);
-        ArrayList<Carte> tas6 = new ArrayList<Carte>(5);
+            ArrayList<Carte> tas1 = new ArrayList<Carte>(5);
+            ArrayList<Carte> tas2 = new ArrayList<Carte>(5);
+            ArrayList<Carte> tas3 = new ArrayList<Carte>(5);
+            ArrayList<Carte> tas4 = new ArrayList<Carte>(5);
+            ArrayList<Carte> tas5 = new ArrayList<Carte>(5);
+            ArrayList<Carte> tas6 = new ArrayList<Carte>(5);
 
-        for (int i = 0; i < 5; i++) {
-            tas1.add(moteur.getTable().getPaquet().piocher());
-            tas2.add(moteur.getTable().getPaquet().piocher());
-            tas3.add(moteur.getTable().getPaquet().piocher());
-            tas4.add(moteur.getTable().getPaquet().piocher());
-            tas5.add(moteur.getTable().getPaquet().piocher());
-            tas6.add(moteur.getTable().getPaquet().piocher());
-        }
-        ArrayList<Pile> piles = new ArrayList<Pile>(6);
-        Pile pile = new Pile(1, tas1);
-        piles.add(pile);
+            for (int i = 0; i < 5; i++) {
+                tas1.add(moteur.getTable().getPaquet().piocher());
+                tas2.add(moteur.getTable().getPaquet().piocher());
+                tas3.add(moteur.getTable().getPaquet().piocher());
+                tas4.add(moteur.getTable().getPaquet().piocher());
+                tas5.add(moteur.getTable().getPaquet().piocher());
+                tas6.add(moteur.getTable().getPaquet().piocher());
+            }
+            ArrayList<Pile> piles = new ArrayList<Pile>(6);
+            Pile pile = new Pile(1, tas1);
+            piles.add(pile);
 
-        pile = new Pile(2, tas2);
-        piles.add(pile);
+            pile = new Pile(2, tas2);
+            piles.add(pile);
 
-        pile = new Pile(3, tas3);
-        piles.add(pile);
+            pile = new Pile(3, tas3);
+            piles.add(pile);
 
-        pile = new Pile(4, tas4);
-        piles.add(pile);
+            pile = new Pile(4, tas4);
+            piles.add(pile);
 
-        pile = new Pile(5, tas5);
-        piles.add(pile);
+            pile = new Pile(5, tas5);
+            piles.add(pile);
 
-        pile = new Pile(6, tas6);
-        piles.add(pile);
+            pile = new Pile(6, tas6);
+            piles.add(pile);
 
-        moteur.getTable().setPiles(piles);
-        Carte max = carteRangFort(this.getMoteur().getTable().getPiles());
-        if (max.rangSupDix()) {
-            moteur.getTable().setAtout(max.getCouleur());
+            moteur.getTable().setPiles(piles);
+            Carte max = carteRangFort(this.getMoteur().getTable().getPiles());
+            if (max.rangSupDix()) {
+                moteur.getTable().setAtout(max.getCouleur());
+            }
         }
 
     }
