@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * @author Samy
  */
-public class PC5 extends Joueur {
+public class PC5 extends PC{
 
 	public PC5(){}
     public PC5(Table t, int id, Main main, Carte carteAdv) {
@@ -386,7 +386,7 @@ public class PC5 extends Joueur {
     
     public Joueur clone()
     {
-    	Joueur j = new PC();
+    	Joueur j = new PC5();
     	j.setTable(table);
     	j.setId(id);
     	j.setNbPlis(nbPlis);
@@ -400,27 +400,4 @@ public class PC5 extends Joueur {
     	return j;
     }
 
-
-    ArrayList<Carte> getCartesJouables() {
-        ArrayList<Carte> jouables = new ArrayList<Carte>();
-        if (carteAdv != null) {
-            for (Carte ca : main.getMain()) {
-                if (carteAdv.memeCouleur(ca)) {
-                    jouables.add(ca);
-                }
-            }
-            if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
-                for (Carte ca : main.getMain()) {
-                    jouables.add(ca);
-                }
-            }
-        } else {
-            if (jouables.isEmpty()) {//on commence donc bah on met tout
-                for (Carte ca : main.getMain()) {
-                    jouables.add(ca);
-                }
-            }
-        }
-        return jouables;
-    }
 }

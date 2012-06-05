@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.JPopupMenu.Separator;
@@ -17,19 +18,19 @@ public class Graphique implements Runnable {
         return zoneDessin;
     }
 
-    public Graphique(Jeu j, int mode) {
-	    this.cfg = new Config();
+    public Graphique(Jeu j) {
+        this.cfg = new Config();
         jeu = j;
-	    this.LARGEUR_FEN = Config.width;
-	    this.HAUTEUR_FEN = Config.height;
-	    this.zoneDessin = zoneDessin;
+        this.LARGEUR_FEN = Config.width;
+        this.HAUTEUR_FEN = Config.height;
+        this.zoneDessin = zoneDessin;
 
         frame = new JFrame("Bridge chinois");
-	    frame.addComponentListener(new EcouteurDeFrame(frame));
+        frame.addComponentListener(new EcouteurDeFrame(frame));
 
-	    zoneDessin = new ZoneDessin(j, this.cfg, 1/*mode*/);
+        zoneDessin = new ZoneDessin(j, this.cfg);
         zoneDessin.addMouseListener(new EcouteurDeSouris(this, jeu));
-	    zoneDessin.addMouseMotionListener(new MouseMove(this, jeu));
+        zoneDessin.addMouseMotionListener(new MouseMove(this, jeu));
         JMenuBar menuBar = new javax.swing.JMenuBar();
         JMenu fileMenu = new javax.swing.JMenu();
         JMenuItem openMenuItem = new javax.swing.JMenuItem();
@@ -53,8 +54,31 @@ public class Graphique implements Runnable {
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            }
-        });
+
+        //Son au clique de souris sur le bouton
+        try {
+	           Son s = new Son("Bdemarrer.wav");
+	} catch (Exception ex) {
+	    System.out.println("Fail son");
+        }
+        // on ferme la fenetre de menu
+	frame.dispose();
+        new Thread(new Runnable() {
+        	public void run() {
+		        Table table = new Table();
+		        Moteur moteur = new Moteur(table);
+		        Jeu monJeu = new Jeu(moteur, jeu.mode, jeu.type, jeu.max, jeu.diff);
+		        final Graphique gg = new Graphique(monJeu);
+		        monJeu.addObservateur(new Observateur() {
+					public void update(Jeu jeu) {
+						gg.getZoneDessin().repaint();
+					}
+				});
+		        SwingUtilities.invokeLater(gg);
+		        monJeu.jouer();
+		      }
+        }).start();
+	    }});
         fileMenu.add(openMenuItem);
 
         abandonnerMenuItem.setMnemonic('a');
@@ -62,8 +86,18 @@ public class Graphique implements Runnable {
         abandonnerMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Frame confirm = null;
                 //demander confirmation
+                Confirmation a = new Confirmation(confirm, true, "Voulez vous vraiment quitter ?");
+                a.setVisible(true);
+                if (a.getReturnStatus() == 1) {
+                    frame.dispose();
+                    Menu m = new Menu();
+                    m.setVisible(true);
+                }
+                //else a.setVisible(false);
                 //dire au jeu qu'on abandonne la donne
+                //-> il ferme la fenetre donc pas de sauvegarde ou autre => cette étape sert à rien
                 //a griser si on joue sur le nombre de plis
             }
         });
@@ -91,11 +125,12 @@ public class Graphique implements Runnable {
         annulerMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
+
                 jeu.getHist().annuler();
                 jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
+                jeu.updateObservateur();
 
 
             }
@@ -114,7 +149,8 @@ public class Graphique implements Runnable {
                 jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
-                
+                jeu.updateObservateur();
+
             }
         });
 
@@ -124,10 +160,9 @@ public class Graphique implements Runnable {
         jMenuItem1.setText("Options");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
 
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //Options opt = new Options(this,true;);
-                //opt.setVisible(true);
+                Options opt = new Options(frame, true);
+                opt.setVisible(true);
             }
         });
         fileMenu.add(jMenuItem1);
@@ -138,7 +173,13 @@ public class Graphique implements Runnable {
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                System.exit(0);
+                Frame confirm = null;
+                //demander confirmation
+                Confirmation a = new Confirmation(confirm, true, "Voulez vous vraiment quitter ?");
+                a.setVisible(true);
+                if (a.getReturnStatus() == 1) {
+                    frame.dispose();
+                }
             }
         });
         fileMenu.add(exitMenuItem);
@@ -162,7 +203,21 @@ public class Graphique implements Runnable {
         hintMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //todo
+                if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == false) {
+		    jeu.setHintCarte(((Humain) jeu.getJoueur1()).hintJouer());
+		    if (jeu.getHintCarte() != null) {
+			zoneDessin.hintCarte = jeu.getHintCarte();
+			zoneDessin.repaint();
+		    }
+		    System.out.println("hint carte : "+jeu.getHintCarte());
+                } else if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == true) {
+                    jeu.setHintPile(((Humain) jeu.getJoueur1()).hintChoisir());
+		    if (jeu.getHintPile() > 0) {
+			zoneDessin.hintPile = jeu.getHintPile() - 1;
+			zoneDessin.repaint();
+		    }
+                }
+
             }
         });
 

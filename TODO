@@ -1,23 +1,21 @@
 -Menus
-*Groupement des menus
-*Virer le mode 2 joueurs
-*Gestion annuler chargement partie
-*Fix taille de la fenetre VSPlayer
+* Groupement des menus
 
 -Jeu
-*Redonne
-*Calcul du score par donnes (apparament ca fait toujours par pli)
-*Algo min-max
-*Indices
-*Aides
+* Algo min-max
+* Gestion chargement des parties/Sauveguardes
+* Pouvoir jouer apres annuler/refaire
+* Gestion nouvelle partie
+* Mode apprendre a jouer
+* Mode aventure
 
 -Graphisme
-*Indice graphique sur les cartes
+
+-Son
+* Gestion de relecture d'un son (fait déconner l'annulation d'un chargement, l'abandon, ...)
+* ???
 
 -Reseau
-* Choisir un port
 * Mode lan ou internet
 * Choisir un username
-* Envoie du jeux (piles/mains) au client
-* Gestion des actions
-...
+* Fix echec envoie d'objets

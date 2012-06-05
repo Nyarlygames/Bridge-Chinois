@@ -1,4 +1,11 @@
 
+import java.applet.*;
+import java.io.*;
+import java.net.*;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /*
@@ -153,6 +160,11 @@ public class Menu extends javax.swing.JFrame {
                 Btuto_exited(evt);
             }
         });
+        Btuto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtutoActionPerformed(evt);
+            }
+        });
         getContentPane().add(Btuto);
         Btuto.setBounds(100, 250, 140, 40);
 
@@ -223,6 +235,14 @@ public class Menu extends javax.swing.JFrame {
 
     private void BsoloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BsoloActionPerformed
         // TODO add your handling code here:
+              
+        //Son au clique de souris sur le bouton
+        try {
+            Son s = new Son("Bcarte.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         VSIA fenOp = new VSIA();
         fenOp.setVisible(true);
         this.dispose();
@@ -230,6 +250,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void BquitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BquitterActionPerformed
         // TODO add your handling code here:
+        //Son au clique de souris sur le bouton
+        try {
+            Son s = new Son("Bquitter.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
         a.setVisible(true);
@@ -242,7 +268,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void BmultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BmultiActionPerformed
         // TODO add your handling code here:
-        
+        //Son au clique de souris sur le bouton
+        try {
+            Son s = new Son("Bcarte.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Multi mul = new Multi();
         mul.setVisible(true);
         this.dispose();
@@ -296,6 +327,13 @@ public class Menu extends javax.swing.JFrame {
 
     private void BchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BchargerActionPerformed
         // TODO add your handling code here:
+        //Son au clique de souris sur le bouton
+        try {
+            Son s = new Son("Bcarte.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         JFileChooser chooser = new JFileChooser();
         int result = chooser.showOpenDialog(null);
         switch (result) {
@@ -373,6 +411,16 @@ public class Menu extends javax.swing.JFrame {
         Bcharger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Bcharger.png")));
     }//GEN-LAST:event_Bcharger_exited
 
+    private void BtutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtutoActionPerformed
+        // TODO add your handling code here:
+        //Son au clique de souris sur le bouton
+        try {
+            Son s = new Son("Bcarte.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtutoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -386,8 +434,7 @@ public class Menu extends javax.swing.JFrame {
          * default look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-    	
-        
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bcharger;

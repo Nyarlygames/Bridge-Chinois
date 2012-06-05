@@ -4,18 +4,18 @@ import java.util.ArrayList;
 /**
  * @author Samy
  */
-public class PC2 extends Joueur {
+public class PC2 extends PC {
 
-	public PC2(){}
-    public PC2(Table t, int id, Main main, Carte carteAdv) {
+    public PC2() {
+    }
+
+    public PC2(Table t, int id) {
         this.table = t;
         this.id = id;
         nbPlis = 0;
         score = 0;
         aJoue = false;
         aChoisi = false;
-        this.carteAdv = carteAdv;
-        this.main = main;
     }
     
     
@@ -23,10 +23,14 @@ public class PC2 extends Joueur {
        
     @Override
     void jouer() {
+        Main main;
+        Carte carteAdv;
         if (id == 2) {
             carteAdv = table.getCarte1();
+            main = table.getMain2();
         } else {
             carteAdv = table.getCarte2();
+            main = table.getMain1();
         }
         ArrayList<Carte> jouables = getCartesJouables();
         ArrayList<Carte> gagnantes = new ArrayList<Carte>();
@@ -34,27 +38,24 @@ public class PC2 extends Joueur {
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (carteAdv.gagne(ca, table.getAtout())) {
+                if (ca.gagne(carteAdv, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }
-
         } else {
             prems = true;
         }
 
         Carte meilleure = null;
         if (!gagnantes.isEmpty()) {
-
             meilleure = gagnantes.get(0);
             for (Carte ca : gagnantes) {
                 if (!ca.rangPlusFort(meilleure)) {
                     meilleure = ca;
                 }
             }
-
-        } else {//pas de gagnante donc on balance une carte nulle
-            if (!prems) {
+        } else {
+            if (!prems) {//pas de gagnante donc on balance une carte nulle
                 meilleure = jouables.get(0);
                 for (Carte ca : jouables) {
                     if (!ca.rangPlusFort(meilleure)) {
@@ -78,7 +79,6 @@ public class PC2 extends Joueur {
             table.setCarte1(meilleure);
             table.getMain1connue().getMain().remove(meilleure);
         }
-
         main.getMain().remove(meilleure);
         aJoue = true;
     }
@@ -86,6 +86,13 @@ public class PC2 extends Joueur {
     @Override
     void choisir() {
         ArrayList<Pile> piochables = new ArrayList<Pile>();
+
+        Main main;
+        if (id == 2) {
+            main = table.getMain2();
+        } else {
+            main = table.getMain1();
+        }
         for (Pile p : table.getPiles()) {
             if (!p.estVide()) {
                 piochables.add(p);
@@ -117,43 +124,16 @@ public class PC2 extends Joueur {
         aChoisi = true;
     }
     
-    public Joueur clone()
-    {
-    	Joueur j = new PC();
-    	j.setTable(table);
-    	j.setId(id);
-    	j.setNbPlis(nbPlis);
+    public Joueur clone() {
+        Joueur j = new PCRandom();
+        j.setTable(table);
+        j.setId(id);
+        j.setNbPlis(nbPlis);
         j.setScore(score);
         j.setaJoue(aJoue);
         j.setaChoisi(aChoisi);
         j.setPhaseChoisir(phaseChoisir);
         j.setPhaseJouer(phaseJouer);
-        j.setCarteAdv(carteAdv);
-        j.setMain(main);
-    	return j;
-    }
-
-
-    ArrayList<Carte> getCartesJouables() {
-        ArrayList<Carte> jouables = new ArrayList<Carte>();
-        if (carteAdv != null) {
-            for (Carte ca : main.getMain()) {
-                if (carteAdv.memeCouleur(ca)) {
-                    jouables.add(ca);
-                }
-            }
-            if (jouables.isEmpty()) {//pas la bonne couleur donc bah on met tout
-                for (Carte ca : main.getMain()) {
-                    jouables.add(ca);
-                }
-            }
-        } else {
-            if (jouables.isEmpty()) {//on commence donc bah on met tout
-                for (Carte ca : main.getMain()) {
-                    jouables.add(ca);
-                }
-            }
-        }
-        return jouables;
+        return j;
     }
 }

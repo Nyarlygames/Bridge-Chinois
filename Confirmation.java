@@ -70,6 +70,7 @@ public class Confirmation extends javax.swing.JDialog {
         Message = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
+        setTitle("Êtes-vous sûr ?");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -100,7 +101,7 @@ public class Confirmation extends javax.swing.JDialog {
         Message.setText(text);
         Message.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         Message.setForeground(new java.awt.Color(0, 255, 255));
-        Message.setText("Êtes vous sur de votre action ?");
+        Message.setText("Voulez-vous vraiment quitter ?");
         getContentPane().add(Message);
         Message.setBounds(50, 30, 180, 20);
 

@@ -5,8 +5,10 @@ Date de Dernière modification 23/05/2012 : 14:32
  */
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Pile implements java.io.Serializable{
+public class Pile implements java.io.Serializable, Cloneable {
 
     // -------------------------------------Attribute-------------------------------------
     int numero;
@@ -78,15 +80,17 @@ public class Pile implements java.io.Serializable{
             System.out.println(pile.get(i).toString());
         }
     }
-    
-    public Pile clone()
-    {
-    	Pile p = new Pile(numero);
-    	for(int i=0; i<pile.size();i++)
-    	{
-    		p.getPile().add(pile.get(i).clone());
-    	}
-    	
-    	return p;
+
+    public Object clone() {
+
+        Pile p = null;
+        try {
+            p = (Pile) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Pile.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        p.pile = (ArrayList<Carte>) pile.clone();
+
+        return p;
     }
 }

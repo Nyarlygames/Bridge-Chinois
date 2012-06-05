@@ -85,15 +85,28 @@ public class Multi extends javax.swing.JFrame {
         jLabelVotreIP.setText("Votre IP : ");
 
         IPJoueur.setFocusable(false);
+        
+        // recuperation de l'ip publique du joueur par une interface web */
         try{
+            /*
+            System.out.println("Retrieving your external IP");
             URL whatismyip = new URL("http://api.externalip.net/ip/");
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                whatismyip.openStream()));
-
-        IPJoueur.setValue(in.readLine()); //you get the IP as a String
-    }catch(Exception e)
-    {
-    }
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(whatismyip.openStream())
+                );
+            IPJoueur.setValue(in.readLine()); //you get the IP as a String
+            System.out.println("IP Retrieved");
+            */
+            
+            String privateIP = java.net.InetAddress.getLocalHost().getHostAddress();
+            IPJoueur.setValue(privateIP);
+            
+        }catch(Exception e) {
+            
+            System.out.println("Error while retrieving the IP");
+            e.printStackTrace();
+            
+        }
 
     copierIP.setText("Copier l'IP");
     copierIP.addActionListener(new java.awt.event.ActionListener() {
@@ -191,32 +204,31 @@ public class Multi extends javax.swing.JFrame {
 
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
-	if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Heberger")) {
-	    VSPlayer fenOp = new VSPlayer(this.ip, this.host);
-	    fenOp.setVisible(true);
-	}
-	else if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Rejoindre")) {
 
-        this.dispose();
-        new Thread(new Runnable() {
-        	public void run() {
-	    Table t = new Table();
-	    Moteur moteur = new Moteur(t);
-		Jeu monJeu = new Jeu(moteur, 2, 0, 1, 0);
-		monJeu.attachDistantPlayer(ip, false);
-				        final Graphique gg = new Graphique(monJeu, 1);
-		        // test
-		        monJeu.addObservateur(new Observateur() {
-					public void update(Jeu jeu) {
-						gg.getZoneDessin().repaint();					
-					}
-				});
-		        SwingUtilities.invokeLater(gg);
-		        monJeu.jouer();
-		      }
-        }).start();
-
-	}
+	    if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Heberger")) {
+	        VSPlayer fenOp = new VSPlayer(this.ip, this.host);
+	        fenOp.setVisible(true);
+	    }
+	    else if (Rejoindre.getTitleAt(Rejoindre.getSelectedIndex()).equals("Rejoindre")) {
+            this.dispose();
+            new Thread(new Runnable() {
+                	public void run() {
+                    Table t = new Table();
+                    Moteur moteur = new Moteur(t);
+	                Jeu monJeu = new Jeu(moteur, 2, 0, 1, 0);
+	                monJeu.attachDistantPlayer(ip, false);
+                    final Graphique gg = new Graphique(monJeu);
+                    // test
+                    monJeu.addObservateur(new Observateur() {
+			            public void update(Jeu jeu) {
+				            gg.getZoneDessin().repaint();					
+			            }
+		            });
+                    SwingUtilities.invokeLater(gg);
+                    monJeu.jouer();
+                }
+            }).start();
+	    }
 
         this.dispose();
     }//GEN-LAST:event_StartActionPerformed
@@ -287,39 +299,45 @@ public class Multi extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     static boolean isInternetIP(String str){
-	boolean internet = true;
-	int i = 0;
-	String str2 = str.substring(0,4);
+        System.out.println("isInternetIP");
+	    boolean internet = true;
+	    int i = 0;
+	    String str2 = str.substring(0,4);
 
-	if (!str2.equals("127.") && !str2.equals("192.") && !str2.equals("168.")) {
-	    for (i = 0; i < str.length() - 1; i++){
-		char c = str.charAt(i);
-		if (c == ':')
-		    internet = false;
+	    if (!str2.equals("127.") && !str2.equals("192.") && !str2.equals("168.")) {
+	        for (i = 0; i < str.length() - 1; i++){
+		    char c = str.charAt(i);
+		    if (c == ':')
+		        internet = false;
+	        }
 	    }
-	}
-	else {
-	    internet = false;
-	}
-	return (internet);
+	    else {
+	        internet = false;
+	    }
+	    
+	    return internet;
     }
 
     static boolean isLANIP(String str){
+        System.out.println("isLANIP");
+	    boolean internet = true;
+	    int i = 0;
+	    String str2 = str.substring(0,4);
 
-	boolean internet = true;
-	int i = 0;
-	String str2 = str.substring(0,4);
-
-	if (str2.equals("192.")) {
-	    for (i = 0; i < str.length() - 1; i++){
-		char c = str.charAt(i);
-		if (c == ':')
-		    internet = false;
+	    if (str2.equals("192.")) {
+	    
+	        for (i = 0; i < str.length() - 1; i++) {
+		        char c = str.charAt(i);
+		        
+		        if (c == ':')
+		            internet = false;
+            }
 	    }
-	}
-	else {
-	    internet = false;
-	}
-	return (internet);
+	    else {
+	        internet = false;
+	    }
+	    
+	    return internet;
     }
 }
+

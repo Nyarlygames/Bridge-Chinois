@@ -5,9 +5,10 @@ Date de Dernière modification 15/05/2012 : 18:28
  */
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
-public class Main implements java.io.Serializable{
+public class Main implements java.io.Serializable, Cloneable {
 
     // -------------------------------------Attributs-------------------------------------
     ArrayList<Carte> main;
@@ -85,31 +86,17 @@ public class Main implements java.io.Serializable{
     {
     	return this.getMain().contains(c);
     }
+
     //renvoie vrai si il y a la couleur de la carte c dans la main
-    public boolean aCouleur(Carte c)
-    {
-    	boolean resultat = false;
-    	for (Carte ca : main) {
-    		if(ca.memeCouleur(c))
-    		{
-    			resultat = true;
-    		}
-    	}
-    	return resultat;
-            
+    public boolean aCouleur(Carte c) {
+        boolean resultat = false;
+        for (Carte ca : main) {
+            if (ca.memeCouleur(c)) {
+                resultat = true;
+            }
+        }
+        return resultat;
     }
-    
-
-    public Main clone()
-    {
-    	Main m = new Main();
-    	for(int i=0; i<main.size();i++)
-    	{
-    		m.add(main.get(i));
-    	}
-    	return m;
-    }
-
 
     // ------------------------------------Algo tri par fusion---------------------------
     public ArrayList<Carte> fusion(ArrayList<Carte> m1, ArrayList<Carte> m2) {
@@ -158,6 +145,16 @@ public class Main implements java.io.Serializable{
 
     }
 
-    
 
+    public Object clone() {
+        Main m = null;
+        try {
+            m = (Main) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        m.main = (ArrayList<Carte>) main.clone();
+
+        return m;
+    }
 }
