@@ -1,3 +1,4 @@
+
 /*
 Auteur : ZIANE-CHERIF Mohammed-El-Amine
 Date de Creation 14/05/2012 : 03:15
@@ -111,6 +112,20 @@ public abstract class Joueur {
     public void setTable(Table table) {
         this.table = table;
     }
+    
+    public void setNouveauJoueur(Table table, int nbPlis, boolean aJoue, boolean aChoisi, boolean phaseChoisir, boolean phaseJouer){
+           System.out.println("a Joue" + aJoue);
+           System.out.println("a aChoisi" + aChoisi);
+           System.out.println("a phaseChoisir" + phaseChoisir);
+           System.out.println("a phaseJouer" + phaseJouer);
+        this.setTable(table);
+        this.setNbPlis(nbPlis);
+        this.setaJoue(aJoue);
+        this.setaChoisi(aChoisi);
+        this.setPhaseChoisir(phaseChoisir);
+        this.setPhaseJouer(phaseJouer);
+
+    }
 
     // -------------------------------------Méthodes-------------------------------------
     
@@ -122,3 +137,4 @@ public abstract class Joueur {
     abstract void jouer();
     abstract void choisir();
 }
+

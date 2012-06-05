@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
  */
 public class VSIA extends javax.swing.JFrame {
 
+    FinPartie f;
     /**
      * Creates new form VSIA
      */
@@ -230,7 +231,12 @@ public class VSIA extends javax.swing.JFrame {
 		        // test
 		        monJeu.addObservateur(new Observateur() {
 					public void update(Jeu jeu) {
-						gg.getZoneDessin().repaint();					
+						gg.getZoneDessin().repaint();
+                                                if (jeu.fin)
+                                                        {
+                                                                f =new FinPartie(gg.frame,true,jeu.fin,jeu.gg);
+                                                                f.setVisible(true);
+                                                        }
 					}
 				});
 		        SwingUtilities.invokeLater(gg);

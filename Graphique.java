@@ -13,7 +13,7 @@ public class Graphique implements Runnable {
     Jeu jeu;
     JFrame frame;
     ZoneDessin zoneDessin;
-
+    FinPartie f ;
     public ZoneDessin getZoneDessin() {
         return zoneDessin;
     }
@@ -61,33 +61,39 @@ public class Graphique implements Runnable {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-                //Son au clique de souris sur le bouton
-                try {
-                    Son s = new Son("Bdemarrer.wav");
-                } catch (Exception ex) {
-                    System.out.println("Fail son");
-                }
-                // on ferme la fenetre de menu
-                frame.dispose();
-                new Thread(new Runnable() {
 
-                    public void run() {
-                        Table table = new Table();
-                        Moteur moteur = new Moteur(table);
-                        Jeu monJeu = new Jeu(moteur, jeu.mode, jeu.type, jeu.max, jeu.diff);
-                        final Graphique gg = new Graphique(monJeu);
-                        monJeu.addObservateur(new Observateur() {
+        //Son au clique de souris sur le bouton
+        try {
+	           Son s = new Son("Bdemarrer.wav");
+	} catch (Exception ex) {
+	    System.out.println("Fail son");
+        }
+        // on ferme la fenetre de menu
+	frame.dispose();
+        new Thread(new Runnable() {
+        	public void run() {
+                         
+		        Table table = new Table();
+		        Moteur moteur = new Moteur(table);
+		        Jeu monJeu = new Jeu(moteur, jeu.mode, jeu.type, jeu.max, jeu.diff);
+		        final Graphique gg = new Graphique(monJeu);
+		        monJeu.addObservateur(new Observateur() {
+					public void update(Jeu jeu) {
+						gg.getZoneDessin().repaint();
+                                                        if (jeu.fin)
+                                                        {
+                                                                f =new FinPartie(frame,true,jeu.fin,jeu.gg);
+                                                                f.setVisible(true);
+                                                        }
+                                                
+					}
+				});
+		        SwingUtilities.invokeLater(gg);
+		        monJeu.jouer();
+		      }
+        }).start();
+	    }});
 
-                            public void update(Jeu jeu) {
-                                gg.getZoneDessin().repaint();
-                            }
-                        });
-                        SwingUtilities.invokeLater(gg);
-                        monJeu.jouer();
-                    }
-                }).start();
-            }
-        });
         fileMenu.add(openMenuItem);
 
         abandonnerMenuItem.setMnemonic('a');
@@ -148,12 +154,17 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 
                 jeu.getHist().annuler();
-                jeu.setJoueur1(jeu.getHist().getCourant().getJoueur1());
-                jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
+                
+                jeu.setJoueurCourant(1);
+                
+                jeu.getJoueur1().setNouveauJoueur(jeu.getHist().getCourant().getJoueur1().table, jeu.getHist().getCourant().getJoueur1().nbPlis, jeu.getHist().getCourant().getJoueur1().aJoue, jeu.getHist().getCourant().getJoueur1().aChoisi, jeu.getHist().getCourant().getJoueur1().phaseChoisir, true);
+                System.out.println("nouveau joueur");
+                if (jeu.getJoueur2()!=null)
+                jeu.getJoueur2().setNouveauJoueur(jeu.getHist().getCourant().getJoueur2().table, jeu.getHist().getCourant().getJoueur2().nbPlis, jeu.getHist().getCourant().getJoueur2().aJoue, jeu.getHist().getCourant().getJoueur2().aChoisi, jeu.getHist().getCourant().getJoueur2().phaseChoisir, jeu.getHist().getCourant().getJoueur2().phaseJouer);
+                
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
                 jeu.updateObservateur();
-
-
+    
             }
         });
 
@@ -226,17 +237,12 @@ public class Graphique implements Runnable {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == false) {
                     jeu.setHintCarte(((Humain) jeu.getJoueur1()).hintJouer());
-                    if (jeu.getHintCarte() != null) {
-                        zoneDessin.hintCarte = jeu.getHintCarte();
-                        zoneDessin.repaint();
-                    }
-                    System.out.println("hint carte : " + jeu.getHintCarte());
+                    zoneDessin.repaint();
+                    System.out.println("Hint Carte : " + jeu.getHintCarte());
                 } else if (jeu.getJoueur1() instanceof Humain && jeu.getJoueur1().getaJoue() == true) {
                     jeu.setHintPile(((Humain) jeu.getJoueur1()).hintChoisir());
-                    if (jeu.getHintPile() > 0) {
-                        zoneDessin.hintPile = jeu.getHintPile() - 1;
-                        zoneDessin.repaint();
-                    }
+					zoneDessin.repaint();
+					System.out.println("Hint Pile: " + jeu.getHintPile());
                 }
 
             }
