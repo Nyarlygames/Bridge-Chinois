@@ -681,6 +681,7 @@ public class PC5 extends PC implements java.io.Serializable{
     	this.minMax(this.getTable(), this.getId(),9);
     	System.out.println("la pile !!!!!!!!!!!! : "+ getBestPile());
 
+    	
     	if (id == 2) {
     		Carte c = table.getPiles().get(getBestPile()).piocher();
             table.getMain2().add(c);
