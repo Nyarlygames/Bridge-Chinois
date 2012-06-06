@@ -6,7 +6,7 @@ import javax.swing.JPopupMenu.Separator;
 public class Graphique implements Runnable {
 
     public int LARGEUR_FEN = 800;
-    public int HAUTEUR_FEN = 650;
+    public int HAUTEUR_FEN = 660;
     public int tailleFenetreX;
     public int tailleFenetreY;
     Config cfg;
@@ -27,7 +27,7 @@ public class Graphique implements Runnable {
 
         frame = new JFrame("Bridge chinois");
         frame.addComponentListener(new EcouteurDeFrame(frame));
-        frame.setMinimumSize(new Dimension(800, 650));
+        frame.setMinimumSize(new Dimension(800, 660));
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

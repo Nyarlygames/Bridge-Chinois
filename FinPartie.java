@@ -1,6 +1,5 @@
 
 import java.awt.Frame;
-import javax.swing.SwingUtilities;
 
 /*
  * To change this template, choose Tools | Templates
