@@ -83,7 +83,7 @@ public class Graphique implements Runnable {
 						gg.getZoneDessin().repaint();
                                                         if (jeu.fin)
                                                         {
-                                                                f =new FinPartie(frame,true,jeu.fin,jeu.gg);
+                                                                f =new FinPartie(frame,true,jeu.partieRestante,jeu.gg);
                                                                 f.setVisible(true);
                                                         }
                                                 

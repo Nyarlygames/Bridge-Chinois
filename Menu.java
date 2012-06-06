@@ -7,13 +7,12 @@ import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
-
-
 /**
  *
  * @author Val
@@ -240,14 +239,14 @@ public class Menu extends javax.swing.JFrame {
 
     private void BsoloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BsoloActionPerformed
         // TODO add your handling code here:
-              
+
         //Son au clique de souris sur le bouton
         try {
             Son s = new Son("Bcarte.wav");
         } catch (Exception ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         VSIA fenOp = new VSIA();
         fenOp.setVisible(true);
         this.dispose();
@@ -261,14 +260,14 @@ public class Menu extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
+        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
         a.setVisible(true);
-        
-        if (a.getReturnStatus()==1){
+
+        if (a.getReturnStatus() == 1) {
             this.dispose();
             System.exit(0);
         }
-        
+
     }//GEN-LAST:event_BquitterActionPerformed
 
     private void BmultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BmultiActionPerformed
@@ -286,30 +285,32 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        Regle reg = new Regle(this,true);
+        Regle reg = new Regle(this, true);
         reg.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
+        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
         a.setVisible(true);
-        
-        if (a.getReturnStatus()==1)
+
+        if (a.getReturnStatus() == 1) {
             this.dispose();
             System.exit(0);
+        }
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        
-        Options opt = new Options(this,true);
+
+        Options opt = new Options(this, true);
         opt.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        Apropos propo = new Apropos(this,true);
+        Apropos propo = new Apropos(this, true);
         propo.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -318,15 +319,15 @@ public class Menu extends javax.swing.JFrame {
         JFileChooser choix = new JFileChooser();
         int result = choix.showOpenDialog(null);
         switch (result) {
-        case JFileChooser.APPROVE_OPTION:
-        System.out.println("ouvrir");
-        break;
-        case JFileChooser.CANCEL_OPTION:
-            System.out.println("Annuler");
-            break;
-        case JFileChooser.ERROR_OPTION:
-        System.out.println("Erreur");
-        break;
+            case JFileChooser.APPROVE_OPTION:
+                System.out.println("ouvrir");
+                break;
+            case JFileChooser.CANCEL_OPTION:
+                System.out.println("Annuler");
+                break;
+            case JFileChooser.ERROR_OPTION:
+                System.out.println("Erreur");
+                break;
         }
         //this.dispose();
     }//GEN-LAST:event_menuChargeActionPerformed
@@ -339,23 +340,25 @@ public class Menu extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         JFileChooser chooser = new JFileChooser();
         int result = chooser.showOpenDialog(null);
         switch (result) {
-        case JFileChooser.APPROVE_OPTION:
-        System.out.println("ouvrir");
-        Sauvegarde.loadGame("saves/"+chooser.getName(chooser.getSelectedFile()), this);
-        break;
-        case JFileChooser.CANCEL_OPTION:
-            System.out.println("Annuler");
-            break;
-        case JFileChooser.ERROR_OPTION:
-        System.out.println("Erreur");
-        break;
-    }
-       /* Charge file = new Charge(this,true);
-        file.setVisible(true);*/
+            case JFileChooser.APPROVE_OPTION:
+                System.out.println("ouvrir");
+                Sauvegarde.loadGame("saves/" + chooser.getName(chooser.getSelectedFile()), this);
+                break;
+            case JFileChooser.CANCEL_OPTION:
+                System.out.println("Annuler");
+                break;
+            case JFileChooser.ERROR_OPTION:
+                System.out.println("Erreur");
+                break;
+        }
+        /*
+         * Charge file = new Charge(this,true);
+        file.setVisible(true);
+         */
     }//GEN-LAST:event_BchargerActionPerformed
 
     private void change_image(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_change_image
@@ -426,14 +429,45 @@ public class Menu extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
+        this.dispose();
+        new Thread(new Runnable() {
+
+            public void run() {
+
+                Table table = new Table();
+                Moteur moteur = new Moteur(table);
+
+                Jeu monJeu = new Jeu(moteur, 0, 1, 1, 0, true);
+                final Graphique gg = new Graphique(monJeu);
+                // test
+                monJeu.addObservateur(new Observateur() {
+
+                    public void update(Jeu jeu) {
+                        gg.getZoneDessin().repaint();
+                        if (jeu.fin) {
+                            System.out.println("gagné");
+                            FinPartie f = new FinPartie(gg.frame, true, jeu.partieRestante, jeu.gg);
+                            f.setVisible(true);
+                        }
+                    }
+                });
+
+
+            }
+        }).start();
+
+
+
     }//GEN-LAST:event_BtutoActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        Confirmation a = new Confirmation(this,true,"Voulez vous vraiment quitter ?");
+        Confirmation a = new Confirmation(this, true, "Voulez vous vraiment quitter ?");
         a.setVisible(true);
-        
-        if (a.getReturnStatus()==1){
+
+        if (a.getReturnStatus() == 1) {
             this.dispose();
             System.exit(0);
         }
@@ -452,7 +486,6 @@ public class Menu extends javax.swing.JFrame {
          * default look and feel. For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bcharger;

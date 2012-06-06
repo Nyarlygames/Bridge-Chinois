@@ -242,7 +242,7 @@ public class VSIA extends javax.swing.JFrame {
 						gg.getZoneDessin().repaint();
                                                 if (jeu.fin)
                                                         {
-                                                                f =new FinPartie(gg.frame,true,jeu.fin,jeu.gg);
+                                                                f =new FinPartie(gg.frame,true,jeu.partieRestante,jeu.gg);
                                                                 f.setVisible(true);
                                                         }
 					}

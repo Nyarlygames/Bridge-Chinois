@@ -564,9 +564,12 @@ public class Jeu implements Observable {
                 }
             }
             fin = true;
+            if ((type == 0 && nbMatche != max) || (type == 1 && (joueur1.getScore() < max && joueur2.getScore() < max))
+                || (type == 2 && nbMatche < 4))
             this.updateObservateur();
         }
         partieRestante = false;
+        this.updateObservateur();
     }
 
     public void etapeJouer() {

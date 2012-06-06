@@ -20,7 +20,7 @@ public class FinPartie extends javax.swing.JDialog {
     static Frame g;
     static Jeu jeu;
     
-    public FinPartie(java.awt.Frame parent, boolean modal, boolean gg, boolean partieRestante) {
+    public FinPartie(java.awt.Frame parent, boolean modal, boolean partieRestante, boolean gg) {
                 
         super(parent, modal);
         gagne=gg;
@@ -56,9 +56,9 @@ public class FinPartie extends javax.swing.JDialog {
         }
         else{
             if (partieRestante)
-            textFin.setText("Desole, vous avez perdu.\nAppuyez sur Continuer pour continuer");
+            textFin.setText("Desole, vous avez perdu. Appuyez sur Continuer pour continuer");
             else
-            textFin.setText("Desole, vous avez perdu.\nAppuyez sur Nouvelle Partie pour rejouer");
+            textFin.setText("Desole, vous avez perdu. Appuyez sur Nouvelle Partie pour rejouer");
         }
         textFin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         getContentPane().add(textFin);
@@ -161,7 +161,7 @@ public class FinPartie extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                FinPartie dialog = new FinPartie(new javax.swing.JFrame(), true, gagne, partieRestante);
+                FinPartie dialog = new FinPartie(new javax.swing.JFrame(), true, partieRestante, gagne);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
