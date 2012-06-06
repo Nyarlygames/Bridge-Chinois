@@ -317,16 +317,15 @@ public class Menu extends javax.swing.JFrame {
     private void menuChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChargeActionPerformed
         // TODO add your handling code here:
         JFileChooser choix = new JFileChooser();
+	choix.setCurrentDirectory(new java.io.File("./saves/"));
+	choix.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int result = choix.showOpenDialog(null);
         switch (result) {
             case JFileChooser.APPROVE_OPTION:
-                System.out.println("ouvrir");
                 break;
             case JFileChooser.CANCEL_OPTION:
-                System.out.println("Annuler");
                 break;
             case JFileChooser.ERROR_OPTION:
-                System.out.println("Erreur");
                 break;
         }
         //this.dispose();
@@ -342,17 +341,16 @@ public class Menu extends javax.swing.JFrame {
         }
 
         JFileChooser chooser = new JFileChooser();
+	chooser.setCurrentDirectory(new java.io.File("./saves/"));
+	chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int result = chooser.showOpenDialog(null);
         switch (result) {
             case JFileChooser.APPROVE_OPTION:
-                System.out.println("ouvrir");
-                Sauvegarde.loadGame("saves/" + chooser.getName(chooser.getSelectedFile()), this);
+                Sauvegarde.loadGame(chooser.getName(chooser.getSelectedFile()), this);
                 break;
             case JFileChooser.CANCEL_OPTION:
-                System.out.println("Annuler");
                 break;
             case JFileChooser.ERROR_OPTION:
-                System.out.println("Erreur");
                 break;
         }
         /*
