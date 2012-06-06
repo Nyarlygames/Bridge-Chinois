@@ -83,7 +83,7 @@ public class Graphique implements Runnable {
 						gg.getZoneDessin().repaint();
                                                         if (jeu.fin)
                                                         {
-                                                                f =new FinPartie(frame,true,jeu.fin,jeu.gg);
+                                                                f =new FinPartie(frame,true,jeu.partieRestante,jeu.gg);
                                                                 f.setVisible(true);
                                                         }
                                                 
@@ -126,8 +126,9 @@ public class Graphique implements Runnable {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new java.io.File("./saves/"));
                 fileChooser.showSaveDialog(frame);
-                Sauvegarde.saveGame("saves/"+fileChooser.getName(fileChooser.getSelectedFile()), jeu);
+                Sauvegarde.saveGame(fileChooser.getName(fileChooser.getSelectedFile()), jeu);
             }
         });
         loadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -138,9 +139,19 @@ public class Graphique implements Runnable {
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new java.io.File("./saves/"));
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 fileChooser.showOpenDialog(frame);
-                Sauvegarde.loadGame("saves/"+fileChooser.getName(fileChooser.getSelectedFile()), frame);
-
+		int result = fileChooser.showOpenDialog(null);
+		switch (result) {
+		case JFileChooser.APPROVE_OPTION:
+		    Sauvegarde.loadGame(fileChooser.getName(fileChooser.getSelectedFile()), frame);
+		    break;
+		case JFileChooser.CANCEL_OPTION:
+		    break;
+		case JFileChooser.ERROR_OPTION:
+		    break;
+		}
             }
         });
         fileMenu.add(abandonnerMenuItem);

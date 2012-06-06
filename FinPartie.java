@@ -20,7 +20,7 @@ public class FinPartie extends javax.swing.JDialog {
     static Frame g;
     static Jeu jeu;
     
-    public FinPartie(java.awt.Frame parent, boolean modal, boolean gg, boolean partieRestante) {
+    public FinPartie(java.awt.Frame parent, boolean modal, boolean partieRestante, boolean gg) {
                 
         super(parent, modal);
         gagne=gg;
@@ -161,7 +161,7 @@ public class FinPartie extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                FinPartie dialog = new FinPartie(new javax.swing.JFrame(), true, gagne, partieRestante);
+                FinPartie dialog = new FinPartie(new javax.swing.JFrame(), true, partieRestante, gagne);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

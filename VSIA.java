@@ -242,7 +242,7 @@ public class VSIA extends javax.swing.JFrame {
 						gg.getZoneDessin().repaint();
                                                 if (jeu.fin)
                                                         {
-                                                                f =new FinPartie(gg.frame,true,jeu.fin,jeu.gg);
+                                                                f =new FinPartie(gg.frame,true,jeu.partieRestante,jeu.gg);
                                                                 f.setVisible(true);
                                                         }
 					}
@@ -282,14 +282,11 @@ public class VSIA extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
-        a.setVisible(true);
 
-        if (a.getReturnStatus() == 1){
             Menu m = new Menu();
             m.setVisible(true);
             this.dispose();
-        }
+
     }//GEN-LAST:event_formWindowClosing
 
     /**
