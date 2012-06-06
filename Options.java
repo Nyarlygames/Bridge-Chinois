@@ -84,10 +84,10 @@ public class Options extends javax.swing.JDialog {
         jPanel1.add(jCheckBoxAnciensPlis);
         jCheckBoxAnciensPlis.setBounds(62, 54, 120, 23);
 
-        jCheckBoxCartesAdv.setText("Voir cartes adversaire");
+        jCheckBoxCartesAdv.setText("Voir cartes adversaire (en solo)");
         jCheckBoxCartesAdv.setSelected(conf.isVoitCartes());
         jPanel1.add(jCheckBoxCartesAdv);
-        jCheckBoxCartesAdv.setBounds(62, 28, 150, 23);
+        jCheckBoxCartesAdv.setBounds(62, 28, 220, 23);
 
         jLabelCheat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelCheat.setText("Possibilitée de triche :");

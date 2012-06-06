@@ -97,14 +97,14 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxCartesAdv">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Voir cartes adversaire"/>
+            <Property name="text" type="java.lang.String" value="Voir cartes adversaire (en solo)"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jCheckBoxCartesAdv.setSelected(conf.isVoitCartes());"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="62" y="28" width="150" height="-1"/>
+              <AbsoluteConstraints x="62" y="28" width="220" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
