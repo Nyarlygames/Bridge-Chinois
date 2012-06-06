@@ -7,6 +7,8 @@
  *
  * @author Amine
  */
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -37,7 +39,9 @@ public class Son extends Object implements LineListener {
             clip = (Clip) line;
             clip.addLineListener(this);
             String pathres = "res/";
+
             AudioInputStream ais = AudioSystem.getAudioInputStream((getClass().getResource(pathres + fileAudio)));
+
             clip.open(ais);
             clip.start();
         }

@@ -1,5 +1,7 @@
 
 import java.awt.Frame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -27,6 +29,15 @@ public class FinPartie extends javax.swing.JDialog {
         this.partieRestante = partieRestante;
         this.g=parent;
         initComponents();
+        Son s;
+        try {
+            if (gagne)
+                s = new Son("clap.wav");
+            else    
+                s = new Son("sfxboo.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
