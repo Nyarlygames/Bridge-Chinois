@@ -257,20 +257,20 @@ public class PC5 extends PC implements java.io.Serializable{
 
 	    			int alpha = -100;
 	    			Table tSim = new Table();
+	    			tSim = t.clone();
 	    			ArrayList<Carte> cartePiles = new ArrayList<Carte>();
 	    			cartePiles = tSim.getCartesPiles();
 	    			if(getId() == 1)
 	    			{
-	    				if(!tSim.getInfoAdv2().getaChoisi())
+	    				if(!t.getInfoAdv2().getaChoisi())
 	    				{//le joueur 2 n'a pas encore choisi
 	    					for(int i=0; i <6;i++)
 	    					{
-	    						tSim = t.clone();
-	    						if(tSim.getPiles().get(i).getSize()!=0)
+	    						if(t.getPiles().get(i).getSize()!=0)
 	    						{
-	    							if(tSim.getPiles().get(i).getSize()==1)
+	    							if(t.getPiles().get(i).getSize()==1)
 	    							{
-	    								
+	    	    						tSim = t.clone();
 	    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
 	    								tSim.getInfoAdv1().setaChoisi(true);
 	    								val = minMax(tSim, 2, profondeur-1) ;
@@ -283,11 +283,11 @@ public class PC5 extends PC implements java.io.Serializable{
 		    						}
 	    							else
 	    							{
-	    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
 	    								for(int j=0;j<cartePiles.size();j++)
 	    								{
 	    									tSim = t.clone();
-    	    								Carte simule = tSim.getPiles().get(i).piocher();
+		    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
+    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
     	    								tSim.getInfoAdv1().setaChoisi(true);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
     	    								val = minMax(tSim,2, profondeur-1);
@@ -308,12 +308,11 @@ public class PC5 extends PC implements java.io.Serializable{
 	    					
 	    					for(int i=0; i <6;i++)
 	    					{
-	    						tSim = t.clone();
-	    						if(tSim.getPiles().get(i).getSize()!=0)
+	    						if(t.getPiles().get(i).getSize()!=0)
 	    						{
-	    							if(tSim.getPiles().get(i).getSize()==1)
+	    							if(t.getPiles().get(i).getSize()==1)
 	    							{
-	    								
+    									tSim = t.clone();
 	    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
 	    								tSim.getInfoAdv1().setaChoisi(false);
 	    								tSim.getInfoAdv2().setaChoisi(false);
@@ -329,11 +328,11 @@ public class PC5 extends PC implements java.io.Serializable{
 		    						}
 	    							else
 	    							{
-	    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
 	    								for(int j=0;j<cartePiles.size();j++)
 	    								{
 	    									tSim = t.clone();
-    	    								Carte simule = tSim.getPiles().get(i).piocher();
+		    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
+    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
@@ -356,7 +355,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    			}
 	    			else
 	    			{
-	    				if(!tSim.getInfoAdv1().getaChoisi())
+	    				if(!t.getInfoAdv1().getaChoisi())
 	    				{//le joueur 1 n'a pas encore choisi
 	    					for(int i=0; i <6;i++)
 	    					{
@@ -378,11 +377,12 @@ public class PC5 extends PC implements java.io.Serializable{
 		    						}
 	    							else
 	    							{
-	    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
 	    								for(int j=0;j<cartePiles.size();j++)
 	    								{
 	    									tSim = t.clone();
-    	    								Carte simule = tSim.getPiles().get(i).piocher();
+		    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
+
+    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
     	    								tSim.getInfoAdv2().setaChoisi(true);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
     	    								val = minMax(tSim,1, profondeur-1);
@@ -424,11 +424,12 @@ public class PC5 extends PC implements java.io.Serializable{
 		    						}
 	    							else
 	    							{
-	    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
 	    								for(int j=0;j<cartePiles.size();j++)
 	    								{
 	    									tSim = t.clone();
-    	    								Carte simule = tSim.getPiles().get(i).piocher();
+		    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
+
+    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
     	    								tSim.getInfoAdv1().setaChoisi(true);
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
@@ -479,11 +480,12 @@ public class PC5 extends PC implements java.io.Serializable{
 		    						}
 	    							else
 	    							{
-	    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
 	    								for(int j=0;j<cartePiles.size();j++)
 	    								{
 	    									tSim = t.clone();
-    	    								Carte simule = tSim.getPiles().get(i).piocher();
+		    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
+
+    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
     	    								tSim.getInfoAdv1().setaChoisi(true);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
     	    								val = minMax(tSim,2, profondeur-1);
@@ -521,11 +523,12 @@ public class PC5 extends PC implements java.io.Serializable{
 		    						}
 	    							else
 	    							{
-	    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
 	    								for(int j=0;j<cartePiles.size();j++)
 	    								{
 	    									tSim = t.clone();
-    	    								Carte simule = tSim.getPiles().get(i).piocher();
+		    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
+
+    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
@@ -546,16 +549,16 @@ public class PC5 extends PC implements java.io.Serializable{
 	    			}
 	    			else
 	    			{
-	    				if(!tSim.getInfoAdv1().getaChoisi())
+	    				if(!t.getInfoAdv1().getaChoisi())
 	    				{//le joueur 1 n'a pas encore choisi
 	    					for(int i=0; i <6;i++)
 	    					{
 	    						tSim = t.clone();
 	    						if(tSim.getPiles().get(i).getSize()!=0)
 	    						{
+		    						
 	    							if(tSim.getPiles().get(i).getSize()==1)
 	    							{
-	    								
 	    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
 	    								tSim.getInfoAdv2().setaChoisi(true);
 	    								val = minMax(tSim, 1, profondeur-1) ;
@@ -566,11 +569,13 @@ public class PC5 extends PC implements java.io.Serializable{
 		    						}
 	    							else
 	    							{
-	    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
+	    								
 	    								for(int j=0;j<cartePiles.size();j++)
 	    								{
 	    									tSim = t.clone();
-    	    								Carte simule = tSim.getPiles().get(i).piocher();
+		    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
+
+    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
     	    								tSim.getInfoAdv2().setaChoisi(true);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
     	    								val = minMax(tSim,1, profondeur-1);
@@ -608,11 +613,11 @@ public class PC5 extends PC implements java.io.Serializable{
 		    						}
 	    							else
 	    							{
-	    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
 	    								for(int j=0;j<cartePiles.size();j++)
 	    								{
 	    									tSim = t.clone();
-    	    								Carte simule = tSim.getPiles().get(i).piocher();
+		    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
+    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
@@ -640,7 +645,7 @@ public class PC5 extends PC implements java.io.Serializable{
     @Override
     void jouer() {
     	
-    	this.minMax(this.getTable(), this.getId(),4);
+    	this.minMax(this.getTable(), this.getId(),6);
     	if (id == 2) {
     		System.out.println(getBestCarteJouer().toString());
             table.setCarte2(getBestCarteJouer());
@@ -659,6 +664,8 @@ public class PC5 extends PC implements java.io.Serializable{
     @Override
     void choisir() {
     	this.minMax(this.getTable(), this.getId(),9);
+    	System.out.println("la pile !!!!!!!!!!!! : "+ getBestPile());
+
     	if (id == 2) {
     		Carte c = table.getPiles().get(getBestPile()).piocher();
             table.getMain2().add(c);
