@@ -20,12 +20,41 @@ class MouseMove implements MouseMotionListener {
         if (j.getJoueurCourant() == 1 && !j.intVersJoueur().getaJoue() ) 
         {
             g.getZoneDessin().carteactive = getCarteMain(e.getX(), e.getY());
+            g.getZoneDessin().bouton = getBouton(e.getX(), e.getY());
             g.getZoneDessin().repaint();
         }
     }
 
     public void mouseDragged(MouseEvent e) {
     }
+
+    // Clic sur bouton
+    public int getBouton(int x, int y) {
+        int width = g.getZoneDessin().getSize().width;
+        int height = g.getZoneDessin().getSize().height - 20;
+        int cw = g.getZoneDessin().cw;
+        int ch = g.getZoneDessin().ch;
+        int bw = g.getZoneDessin().bw;
+        int bh = g.getZoneDessin().bh;
+        int aw = g.getZoneDessin().aw;
+        int ah = g.getZoneDessin().ah;
+        int rw = g.getZoneDessin().rw;
+        int rh = g.getZoneDessin().rh;
+        Table t = g.getZoneDessin().t;
+
+        if ((x > bw) && (x < bw + aw)){
+            // annuler
+            if ((y >= height - bh - ah - rh) && (y <= height - bh - rh)) {
+                return(0);
+            }
+            // refaire
+            if ((y > height - bh - rh) && (y < height - bh)) {
+                return(1);
+            }
+        }
+        return (-1);
+    }
+
 
     // Clic carte sur la main
     public Carte getCarteMain(int x, int y) {

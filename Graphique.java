@@ -183,7 +183,6 @@ public class Graphique implements Runnable {
                 jeu.setJoueur2(jeu.getHist().getCourant().getJoueur2());
                 jeu.getMoteur().setTable(jeu.getHist().getCourant().getTable());
                 jeu.updateObservateur();
-
             }
         });
 
