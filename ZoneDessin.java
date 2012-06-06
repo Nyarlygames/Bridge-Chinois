@@ -76,17 +76,19 @@ public class ZoneDessin extends JComponent {
 
         Image cback = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + "carte-dos.png"));
 
-		// arrow des hints
-		Image hintArrowCartes = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
-		Image hintArrowPiles = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintpiles.png"));
-		
-		// Annuler/refaire graphique
-		Image annuler = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Bannuler.png"));
-		Image annuler_mo = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Bannuler_entered.png"));
-		
-		Image refaire = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Brefaire.png"));
-		Image refaire_mo = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Brefaire_entered.png"));
-		
+        // arrow des hints
+        Image hintArrowCartes = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintcartes.png"));
+        Image hintArrowPiles = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathres + "hintpiles.png"));
+
+
+
+        // Annuler/refaire graphique
+        Image annuler = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Bannuler.png"));
+        Image annuler_mo = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Bannuler_entered.png"));
+
+        Image refaire = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Brefaire.png"));
+        Image refaire_mo = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/Brefaire_entered.png"));
+
         // corners
         int cornerh = corner_trefle.getHeight(null);
         int cornerw = corner_trefle.getWidth(null);
@@ -128,19 +130,18 @@ public class ZoneDessin extends JComponent {
 
 
         //Annuler/refaire
-        if (bouton == 0) {
-	    g.drawImage(annuler_mo, bw, height - bh - rh - ah, aw,ah, this);
-	    g.drawImage(refaire, bw, height - bh - rh, rw, rh, this);
+        if (jeu.getMode() != 2) {
+            if (bouton == 0) {
+                g.drawImage(annuler_mo, bw, height - bh - rh - ah, aw, ah, this);
+                g.drawImage(refaire, bw, height - bh - rh, rw, rh, this);
+            } else if (bouton == 1) {
+                g.drawImage(refaire_mo, bw, height - bh - rh, rw, rh, this);
+                g.drawImage(annuler, bw, height - bh - rh - ah, aw, ah, this);
+            } else {
+                g.drawImage(annuler, bw, height - bh - rh - ah, aw, ah, this);
+                g.drawImage(refaire, bw, height - bh - rh, rw, rh, this);
+            }
         }
-        else if (bouton == 1) {
-            g.drawImage(refaire_mo, bw, height - bh - rh, rw, rh, this);
-            g.drawImage(annuler, bw, height - bh - rh - ah, aw,ah, this);
-        }
-        else {
-            g.drawImage(annuler, bw, height - bh - rh - ah, aw,ah, this);
-            g.drawImage(refaire, bw, height - bh - rh, rw, rh, this);
-        }
-
         //--- Dessin des slots ou faut jouer les cartes ---//
 
         // hauteur carte joueur adverse
@@ -171,7 +172,7 @@ public class ZoneDessin extends JComponent {
 
             int mid = (int) ((width / 2) - (((t.main2.getSize() + 1) * (cw) / 2) * 0.5)) + ((f * cw) / 2);
             Carte c = t.main2.getCarte(f);
-            if (cfg.isVoitCartes()) {
+            if (cfg.isVoitCartes() && jeu.getMode() !=2) {
                 Image cfront = Toolkit.getDefaultToolkit().getImage(getClass().getResource(pathcartes + c.toFileString()));
                 g.drawImage(cfront, mid, bh, cw, ch, this);
             } else {
@@ -186,7 +187,7 @@ public class ZoneDessin extends JComponent {
             int mid = (int) ((width / 2) - (((t.main1.getSize() + 1) * (cw) / 2) * 0.5)) + (f * cw) / 2;
             int up = height - ch - bh;
             Carte c = t.main1.getCarte(f);
-            
+
             // si la carte est hover par la souris, on la raise
             if (carteactive != null) {
                 if (c == carteactive) {
@@ -198,10 +199,9 @@ public class ZoneDessin extends JComponent {
                     }
                 }
             }
-            
+
             // Affichage indices des cartes
-            if ( jeu.getHintCarte() != null && c.equals(jeu.getHintCarte()) ) 
-            {
+            if (jeu.getHintCarte() != null && c.equals(jeu.getHintCarte())) {
                 int hw = hintArrowCartes.getWidth(null);
                 int hh = hintArrowCartes.getHeight(null);
                 g.drawImage(hintArrowCartes, mid, up - hh, hw, hh, this);
@@ -263,13 +263,13 @@ public class ZoneDessin extends JComponent {
                 g.drawImage(c2, width - bw - cw, (height / 2) - ch, cw, ch, this);
             }
         }
-		
+
         //--- Dessin du nombre de plis (score de la partie actuelle) ---//
 
         // Joueur 1
         g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
         g.setColor(Color.black);
-        
+
         String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
         g.setColor(Color.white);
         g.drawString(pli1, width - bw - cw / 2 - fontw.stringWidth(pli1) / 2, height - bh - ch / 2 + 4);
@@ -305,7 +305,7 @@ public class ZoneDessin extends JComponent {
         } else {
             atout = "Pas d'atout ";
         }
-		
+
         // on ecrit quel est l'atout
         if (atout == "Atout : ♦" || atout == "Atout : ♥") {
             g.setColor(Color.red);
@@ -314,7 +314,7 @@ public class ZoneDessin extends JComponent {
         } else {
             g.drawString(atout, width - fontw.stringWidth(atout), dheight - 5);
         }
-        
+
         // Joueur actif
         String turnInfo = " ";
         if (jeu.getJoueurCourant() == 1 && !jeu.intVersJoueur().getaJoue()) {
