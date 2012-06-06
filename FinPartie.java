@@ -1,5 +1,7 @@
 
 import java.awt.Frame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -27,6 +29,15 @@ public class FinPartie extends javax.swing.JDialog {
         this.partieRestante = partieRestante;
         this.g=parent;
         initComponents();
+        Son s;
+        try {
+            if (gagne)
+                s = new Son("clap.wav");
+            else    
+                s = new Son("sfxboo.wav");
+        } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -50,15 +61,15 @@ public class FinPartie extends javax.swing.JDialog {
         if (gagne)
         {
             if (partieRestante)
-            textFin.setText("Bravo, vous avez gagne. Appuyez sur Continuer pour continuer");
+            textFin.setText("Bravo, vous avez gagne. Appuiez sur Continuer pour continuer");
             else
             textFin.setText("Bravo, vous avez gagne. Appuyez sur Nouvelle Partie pour rejouer");
         }
         else{
             if (partieRestante)
-            textFin.setText("Desole, vous avez perdu. Appuyez sur Continuer pour continuer");
+            textFin.setText("Desole, vous avez perdu. Appuiez sur Continuer pour continuer");
             else
-            textFin.setText("Desole, vous avez perdu. Appuyez sur Nouvelle Partie pour rejouer");
+            textFin.setText("Desole, vous avez perdu. Appuiez sur Nouvelle Partie pour rejouer");
         }
         textFin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         getContentPane().add(textFin);
