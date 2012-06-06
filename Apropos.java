@@ -38,6 +38,8 @@ public class Apropos extends javax.swing.JDialog {
         CA = new javax.swing.JLabel();
         Bcancel = new javax.swing.JButton();
         imagePoker = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         imageFond = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -53,40 +55,34 @@ public class Apropos extends javax.swing.JDialog {
 
         Copyright.setText("Copyright © - 2012. Tout droits résérvés.");
         getContentPane().add(Copyright);
-        Copyright.setBounds(10, 290, 230, 14);
+        Copyright.setBounds(13, 287, 230, 14);
 
         SG.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        SG.setForeground(new java.awt.Color(0, 255, 255));
         SG.setText("Santos Gabriel");
         getContentPane().add(SG);
         SG.setBounds(50, 180, 140, 15);
 
         ZA.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        ZA.setForeground(new java.awt.Color(0, 255, 255));
         ZA.setText("Ziane Cherif Amine");
         getContentPane().add(ZA);
         ZA.setBounds(50, 220, 140, 15);
 
         FP.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        FP.setForeground(new java.awt.Color(0, 255, 255));
         FP.setText("Fiat Paul");
         getContentPane().add(FP);
         FP.setBounds(50, 140, 140, 15);
 
         SS.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        SS.setForeground(new java.awt.Color(0, 255, 255));
         SS.setText("Sassi Samy");
         getContentPane().add(SS);
         SS.setBounds(50, 200, 140, 15);
 
         RV.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        RV.setForeground(new java.awt.Color(0, 255, 255));
         RV.setText("Robert Valentin");
         getContentPane().add(RV);
         RV.setBounds(50, 160, 140, 15);
 
         CA.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        CA.setForeground(new java.awt.Color(0, 255, 255));
         CA.setText("Chennaoui Amine");
         getContentPane().add(CA);
         CA.setBounds(50, 120, 140, 15);
@@ -103,6 +99,14 @@ public class Apropos extends javax.swing.JDialog {
         imagePoker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/jokerprop.jpg"))); // NOI18N
         getContentPane().add(imagePoker);
         imagePoker.setBounds(220, 110, 90, 120);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(50, 120, 110, 120);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(10, 284, 230, 20);
 
         imageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
         getContentPane().add(imageFond);
@@ -178,6 +182,8 @@ public class Apropos extends javax.swing.JDialog {
     private javax.swing.JLabel imageFond;
     private javax.swing.JLabel imagePoker;
     private javax.swing.JLabel imageTitre;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

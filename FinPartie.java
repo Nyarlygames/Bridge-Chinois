@@ -42,22 +42,28 @@ public class FinPartie extends javax.swing.JDialog {
         textFin = new javax.swing.JLabel();
         jButtonMenu = new javax.swing.JButton();
         jButtonPartieSuivante = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         if (gagne)
         {
             if (partieRestante)
-            textFin.setText("Bravo, vous avez gagne. Appuiez sur Continuer pour continuer");
+            textFin.setText("Bravo, vous avez gagne. Appuyez sur Continuer pour continuer");
             else
-            textFin.setText("Bravo, vous avez gagne. Appuiez sur Nouvelle Partie pour rejouer");
+            textFin.setText("Bravo, vous avez gagne. Appuyez sur Nouvelle Partie pour rejouer");
         }
         else{
             if (partieRestante)
-            textFin.setText("Desole, vous avez perdu. Appuiez sur Continuer pour continuer");
+            textFin.setText("Desole, vous avez perdu.\nAppuyez sur Continuer pour continuer");
             else
-            textFin.setText("Desole, vous avez perdu. Appuiez sur Nouvelle Partie pour rejouer");
+            textFin.setText("Desole, vous avez perdu.\nAppuyez sur Nouvelle Partie pour rejouer");
         }
+        textFin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        getContentPane().add(textFin);
+        textFin.setBounds(16, 40, 380, 30);
 
         jButtonMenu.setText("Retour au Menu");
         jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -65,6 +71,8 @@ public class FinPartie extends javax.swing.JDialog {
                 jButtonMenuActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonMenu);
+        jButtonMenu.setBounds(22, 108, 130, 23);
 
         if (partieRestante)
         jButtonPartieSuivante.setText("Continuer");
@@ -75,35 +83,21 @@ public class FinPartie extends javax.swing.JDialog {
                 jButtonPartieSuivanteActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonPartieSuivante);
+        jButtonPartieSuivante.setBounds(259, 108, 115, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonMenu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                        .addComponent(jButtonPartieSuivante, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(26, 26, 26))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(textFin, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonPartieSuivante)
-                    .addComponent(jButtonMenu))
-                .addGap(35, 35, 35))
-        );
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(5, 20, 390, 70);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/options.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(-10, -10, 640, 420);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-338)/2, 416, 338);
+        setBounds((screenSize.width-416)/2, (screenSize.height-192)/2, 416, 192);
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
@@ -119,7 +113,6 @@ public class FinPartie extends javax.swing.JDialog {
 
     private void jButtonPartieSuivanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPartieSuivanteActionPerformed
         // TODO add your handling code here:
-
         if (!partieRestante) {
             
             g.dispose();
@@ -184,6 +177,8 @@ public class FinPartie extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonMenu;
     private javax.swing.JButton jButtonPartieSuivante;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel textFin;
     // End of variables declaration//GEN-END:variables
 }

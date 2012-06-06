@@ -5,7 +5,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PC4 extends PC {
+public class PC4 extends PC implements java.io.Serializable{
 
     /**
      * @author Samy

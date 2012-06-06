@@ -41,22 +41,30 @@ public class VSIA extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         nbParties = new javax.swing.JComboBox();
         mode = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
+        tfacile = new javax.swing.JLabel();
         facile = new javax.swing.JLabel();
         moyen = new javax.swing.JLabel();
         difficile = new javax.swing.JLabel();
+        suicide = new javax.swing.JLabel();
+        fonddiff = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Jouer");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
-        lbDif.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lbDif.setForeground(new java.awt.Color(0, 255, 255));
+        lbDif.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbDif.setText("Difficulté :");
         getContentPane().add(lbDif);
-        lbDif.setBounds(27, 107, 56, 14);
+        lbDif.setBounds(30, 113, 70, 15);
 
         Launch.setText("Démarrer");
         Launch.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +85,9 @@ public class VSIA extends javax.swing.JFrame {
         Cancel.setBounds(46, 208, 80, 23);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
+        jPanel1.setLayout(null);
 
         nbParties.setEditable(true);
         nbParties.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "3", "5", "10" }));
@@ -86,6 +96,8 @@ public class VSIA extends javax.swing.JFrame {
                 nbPartiesFocusLost(evt);
             }
         });
+        jPanel1.add(nbParties);
+        nbParties.setBounds(170, 10, 60, 20);
 
         mode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre de Donnes", "Nombre de Plis", "Aventure" }));
         mode.addItemListener(new java.awt.event.ItemListener() {
@@ -98,32 +110,17 @@ public class VSIA extends javax.swing.JFrame {
                 modeActionPerformed(evt);
             }
         });
+        jPanel1.add(mode);
+        mode.setBounds(10, 10, 150, 20);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nbParties, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nbParties, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(0, 0, 240, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(50, 40, 240, 42);
+        jPanel1.setBounds(50, 40, 240, 40);
 
-        jSlider1.setMaximum(3);
+        jSlider1.setMaximum(5);
         jSlider1.setMinimum(1);
         jSlider1.setMinorTickSpacing(1);
         jSlider1.setSnapToTicks(true);
@@ -131,25 +128,41 @@ public class VSIA extends javax.swing.JFrame {
         jSlider1.setValue(2);
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(jSlider1);
-        jSlider1.setBounds(46, 139, 273, 18);
+        jSlider1.setBounds(19, 139, 300, 18);
+
+        tfacile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        tfacile.setForeground(new java.awt.Color(204, 255, 255));
+        tfacile.setText("très facile");
+        getContentPane().add(tfacile);
+        tfacile.setBounds(10, 170, 59, 14);
 
         facile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        facile.setForeground(new java.awt.Color(0, 255, 255));
-        facile.setText("Facile");
+        facile.setForeground(new java.awt.Color(204, 255, 255));
+        facile.setText("facile");
         getContentPane().add(facile);
-        facile.setBounds(46, 168, 59, 14);
+        facile.setBounds(80, 170, 59, 14);
 
         moyen.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        moyen.setForeground(new java.awt.Color(0, 255, 255));
-        moyen.setText("Moyen");
+        moyen.setForeground(new java.awt.Color(204, 255, 255));
+        moyen.setText("moyen");
         getContentPane().add(moyen);
-        moyen.setBounds(169, 168, 59, 14);
+        moyen.setBounds(150, 170, 50, 14);
 
         difficile.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        difficile.setForeground(new java.awt.Color(0, 255, 255));
-        difficile.setText("Difficile");
+        difficile.setForeground(new java.awt.Color(204, 255, 255));
+        difficile.setText("difficile");
         getContentPane().add(difficile);
-        difficile.setBounds(285, 168, 50, 14);
+        difficile.setBounds(220, 170, 50, 14);
+
+        suicide.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        suicide.setForeground(new java.awt.Color(204, 255, 255));
+        suicide.setText("suicide");
+        getContentPane().add(suicide);
+        suicide.setBounds(290, 170, 40, 14);
+
+        fonddiff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+        getContentPane().add(fonddiff);
+        fonddiff.setBounds(20, 110, 80, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/menu.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -175,16 +188,16 @@ public class VSIA extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (mode.getSelectedItem() == "Aventure") {
+            tfacile.setEnabled(false);
             facile.setEnabled(false);
             moyen.setEnabled(false);
-            difficile.setEnabled(false);
             nbParties.setEnabled(false);
             lbDif.setEnabled(false);
             jSlider1.setEnabled(false);
         } else {
+            tfacile.setEnabled(true);
             facile.setEnabled(true);
             moyen.setEnabled(true);
-            difficile.setEnabled(true);
             nbParties.setEnabled(true);
             lbDif.setEnabled(true);
             jSlider1.setEnabled(true);
@@ -220,7 +233,7 @@ public class VSIA extends javax.swing.JFrame {
 		        Table table = new Table();
 		        Moteur moteur = new Moteur(table);
                         
-		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue());
+		        Jeu monJeu = new Jeu(moteur, 1,mode.getSelectedIndex() , Integer.parseInt((String)nbParties.getSelectedItem()), jSlider1.getValue(), false);
 		        System.out.println("difficulte choisie : " + jSlider1.getValue());
 		        final Graphique gg = new Graphique(monJeu);
 		        // test
@@ -266,6 +279,18 @@ public class VSIA extends javax.swing.JFrame {
     private void modeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modeActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Confirmation a = new Confirmation(this, true, "Revenir au menu ?");
+        a.setVisible(true);
+
+        if (a.getReturnStatus() == 1){
+            Menu m = new Menu();
+            m.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -314,12 +339,16 @@ public class VSIA extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel difficile;
     private javax.swing.JLabel facile;
+    private javax.swing.JLabel fonddiff;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JLabel lbDif;
     private javax.swing.JComboBox mode;
     private javax.swing.JLabel moyen;
     private javax.swing.JComboBox nbParties;
+    private javax.swing.JLabel suicide;
+    private javax.swing.JLabel tfacile;
     // End of variables declaration//GEN-END:variables
 }

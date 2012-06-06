@@ -5,7 +5,7 @@ Date de Creation 14/05/2012 : 03:15
 Date de Derniere modification 16/05/2012 : 04:24
  */
 
-public abstract class Joueur {
+public abstract class Joueur implements java.io.Serializable{
 
     // -------------------------------------Attributs-------------------------------------
     Table table;

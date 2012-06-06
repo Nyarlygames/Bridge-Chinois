@@ -23,4 +23,14 @@ enum Couleur implements java.io.Serializable  {
     public int getCouleur() {
         return couleur;
     }
+        
+    public static Couleur convert( int i ) {
+    for ( Couleur current : values() ) {
+        if ( current.ordinal() == i ) {
+        return current;
+        }
+    }
+
+    return null;
+    }
 }
