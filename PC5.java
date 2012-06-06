@@ -253,13 +253,28 @@ public class PC5 extends PC implements java.io.Serializable{
 
 				if(joueurCourant == this.id) // le joueurCourant execute le minmax
 	    		{
-					System.out.println("test phase choix");
+					System.out.println("test phase choix : ");
 
 	    			int alpha = -100;
 	    			Table tSim = new Table();
 	    			tSim = t.clone();
 	    			ArrayList<Carte> cartePiles = new ArrayList<Carte>();
 	    			cartePiles = tSim.getCartesPiles();
+					System.out.println("affichage des piles ");
+
+	    			for(int i=0; i<6;i++)
+	    			{
+	    				tSim.getPiles().get(i).afficherPileConsole();
+	    			}
+					System.out.println("carte piles");
+					for(int i=0;i<cartePiles.size();i++)
+					{
+						System.out.println(cartePiles.get(i).toString());
+					}
+					System.out.println("------------------------------- : ");
+
+
+	    			
 	    			if(getId() == 1)
 	    			{
 	    				if(!t.getInfoAdv2().getaChoisi())
