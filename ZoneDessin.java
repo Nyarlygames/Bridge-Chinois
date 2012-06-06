@@ -246,7 +246,7 @@ public class ZoneDessin extends JComponent {
         g.setFont(f);
 
         // Affichage dernier pli
-        if (cfg.isVoitPlis() && (jeu.getHist().position > 0)) {
+        if (cfg.isVoitPlis() && (jeu.getHist().position > 0) && (jeu.lastcarte1 != null) && (jeu.lastcarte2 != null)) {
             String str = "Dernier pli :";
 
             // Affichage "Dernier pli"
