@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * @author Samy
  */
-public class PC3 extends PC implements java.io.Serializable{
+public class PC3 extends PC implements java.io.Serializable {
 
     public PC3() {
     }
@@ -17,7 +17,7 @@ public class PC3 extends PC implements java.io.Serializable{
         score = 0;
         aJoue = false;
         aChoisi = false;
-         phaseChoisir = true;
+        phaseChoisir = true;
         phaseJouer = true;
     }
 
@@ -126,7 +126,7 @@ public class PC3 extends PC implements java.io.Serializable{
 
     @Override
     void choisir() {
-        
+
         ArrayList<Pile> piochables = new ArrayList<Pile>();
         Main main;
         if (id == 2) {
@@ -140,24 +140,38 @@ public class PC3 extends PC implements java.io.Serializable{
             }
         }
         Pile meilleure = null;
+        boolean aMaitresse = false;
+        
         if (!piochables.isEmpty()) {
             meilleure = piochables.get(0);
             HashMap<Pile, Integer> chances = new HashMap<Pile, Integer>();
             ArrayList<Carte> inconnues = table.getCartesInconnues(id);
-            inconnues.removeAll(table.getCartesConnuesAdversaire(id));
+
             for (Pile p : piochables) {
-                chances.put(p, 0);
-                for (Carte c2 : inconnues) {
-                    if (p.getAPiocher().gagne(c2, table.getAtout())) {
-                        chances.put(p, chances.get(p) + 1);
-                    }
+
+                if ((estMaitresse(p.getAPiocher(), inconnues) && table.getInfoAdversaire(id).aCouleur(p.getAPiocher().getCouleur())) || (!table.getInfoAdversaire(id).aCouleur(table.getAtout()) && table.getInfoAdversaire(id).aCouleur(p.getAPiocher().getCouleur()))) {
+                    meilleure = p;
+                    aMaitresse = true;
                 }
             }
-            Integer mini = 52;
-            for (Pile c : chances.keySet()) {
-                if (chances.get(c) < mini) {
-                    mini = chances.get(c);
-                    meilleure = c;
+
+            if (!aMaitresse) {
+                inconnues.removeAll(table.getCartesConnuesAdversaire(id));
+
+                for (Pile p : piochables) {
+                    chances.put(p, 0);
+                    for (Carte c2 : inconnues) {
+                        if (p.getAPiocher().gagne(c2, table.getAtout())) {
+                            chances.put(p, chances.get(p) + 1);
+                        }
+                    }
+                }
+                Integer mini = 52;
+                for (Pile c : chances.keySet()) {
+                    if (chances.get(c) < mini) {
+                        mini = chances.get(c);
+                        meilleure = c;
+                    }
                 }
             }
             if (!meilleure.estVide()) {
@@ -174,7 +188,6 @@ public class PC3 extends PC implements java.io.Serializable{
 
     }
 
-
     public Joueur clone() {
         Joueur j = new PCRandom();
         j.setTable(table);
@@ -187,4 +200,6 @@ public class PC3 extends PC implements java.io.Serializable{
         j.setPhaseJouer(phaseJouer);
         return j;
     }
+
+
 }
