@@ -149,7 +149,6 @@ public class Graphique implements Runnable {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new java.io.File("./saves/"));
                 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                fileChooser.showOpenDialog(frame);
                 int result = fileChooser.showOpenDialog(null);
                 switch (result) {
                     case JFileChooser.APPROVE_OPTION:
