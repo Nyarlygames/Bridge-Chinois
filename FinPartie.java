@@ -56,6 +56,7 @@ public class FinPartie extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         if (gagne)
@@ -63,7 +64,7 @@ public class FinPartie extends javax.swing.JDialog {
             if (partieRestante)
             textFin.setText("Bravo, vous avez gagne. Appuiez sur Continuer pour continuer");
             else
-            textFin.setText("Bravo, vous avez gagne. Appuyez sur Nouvelle Partie pour rejouer");
+            textFin.setText("Bravo, vous avez gagne. Appuiez sur Nouvelle Partie pour rejouer");
         }
         else{
             if (partieRestante)
@@ -96,7 +97,6 @@ public class FinPartie extends javax.swing.JDialog {
         getContentPane().add(jButtonPartieSuivante);
         jButtonPartieSuivante.setBounds(259, 108, 115, 23);
 
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
         getContentPane().add(jLabel2);
         jLabel2.setBounds(5, 20, 390, 70);
@@ -106,8 +106,7 @@ public class FinPartie extends javax.swing.JDialog {
         jLabel1.setBounds(-10, -10, 640, 420);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-192)/2, 416, 192);
-
+        setBounds((screenSize.width-416)/2, (screenSize.height-338)/2, 416, 338);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
