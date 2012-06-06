@@ -244,15 +244,19 @@ public class ZoneDessin extends JComponent {
         // Joueur 1
         g.drawImage(pli, width - bw - cw - 1, height - bh - ch - 1, cw, ch, this);
         g.setColor(Color.black);
+        
         String pli1 = String.valueOf(jeu.getJoueur1().nbPlis);
+        g.setColor(Color.white);
         g.drawString(pli1, width - bw - cw / 2 - fontw.stringWidth(pli1) / 2, height - bh - ch / 2 + 4);
-
+        g.setColor(Color.black);
+        
         // Joueur 2 (adversaire)
         g.drawImage(pli, bw + 1, bh + 1, cw, ch, this);
         g.setColor(Color.black);
         String pli2 = String.valueOf(jeu.getJoueur2().nbPlis);
+        g.setColor(Color.white);
         g.drawString(pli2, bh + ch / 2 - fontw.stringWidth(pli2) / 2 - 12, bh + ch / 2 + 5);
-
+        g.setColor(Color.black);
 
         // Infos du bas
         String atout = " ";
