@@ -112,10 +112,13 @@ public class Tuto extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
+                
+                
+                
                 Table table = new Table();
                 Moteur moteur = new Moteur(table);
 
-                Jeu monJeu = new Jeu(moteur, 0, 1, 10000, 0, true);
+                Jeu monJeu = new Jeu(moteur, 0, 1, 1, 0, true);
                 final Graphique gg = new Graphique(monJeu);
                 // test
                 monJeu.addObservateur(new Observateur() {
