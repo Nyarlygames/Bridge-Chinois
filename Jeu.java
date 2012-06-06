@@ -82,6 +82,9 @@ public class Jeu implements Observable {
                     case 4:
                         this.joueur2 = new PC4(moteur.getTable(), 2);
                         break;
+                    case 5:
+                        this.joueur2 = new PC5(moteur.getTable(), 2);
+                    	break;
 
                 }
                 break;
@@ -474,6 +477,7 @@ public class Jeu implements Observable {
                 lastcarte2 = moteur.getTable().getCarte2();
                 moteur.getTable().setCarte1(null);
                 moteur.getTable().setCarte2(null);
+                moteur.getTable().setPhaseJouer(false);
                 this.updateObservateur();
                 if (c1.gagne(c2, moteur.getTable().getAtout())) {
                     switcher();
@@ -506,6 +510,7 @@ public class Jeu implements Observable {
                 joueur1.setaChoisi(false);
                 joueur2.setaJoue(false);
                 joueur2.setaChoisi(false);
+                moteur.getTable().setPhaseJouer(true);
 
                 this.updateObservateur();
 

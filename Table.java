@@ -153,7 +153,7 @@ public class Table implements java.io.Serializable, Cloneable {
     public boolean pilesVides() {
         boolean empty = true;
         for (int i = 0; i < 6; i++) {
-            if (!piles.get(i).estVide()) {
+            if (!this.getPiles().get(i).estVide()) {
                 empty = false;
             }
         }
@@ -163,7 +163,8 @@ public class Table implements java.io.Serializable, Cloneable {
 
     @Override
     public Table clone() {
-        Table table = null;
+    	
+        Table table = new Table();
         try {
             // On récupère l'instance à renvoyer par l'appel de la 
             // méthode super.clone()

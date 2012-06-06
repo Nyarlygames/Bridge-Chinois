@@ -127,7 +127,7 @@ public class PC2 extends PC implements java.io.Serializable{
     }
     
     public Joueur clone() {
-        Joueur j = new PCRandom();
+        Joueur j = new PC2();
         j.setTable(table);
         j.setId(id);
         j.setNbPlis(nbPlis);
