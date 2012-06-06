@@ -37,7 +37,7 @@ public class Son extends Object implements LineListener {
             clip = (Clip) line;
             clip.addLineListener(this);
             String pathres = "res/";
-            AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(pathres + fileAudio));
+            AudioInputStream ais = AudioSystem.getAudioInputStream((getClass().getResource(pathres + fileAudio)));
             clip.open(ais);
             clip.start();
         }

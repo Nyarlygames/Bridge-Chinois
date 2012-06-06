@@ -64,7 +64,7 @@ public class VSIA extends javax.swing.JFrame {
         lbDif.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbDif.setText("Difficulté :");
         getContentPane().add(lbDif);
-        lbDif.setBounds(30, 113, 70, 15);
+        lbDif.setBounds(30, 113, 80, 15);
 
         Launch.setText("Démarrer");
         Launch.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +97,7 @@ public class VSIA extends javax.swing.JFrame {
             }
         });
         jPanel1.add(nbParties);
-        nbParties.setBounds(170, 10, 60, 20);
+        nbParties.setBounds(190, 10, 60, 20);
 
         mode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre de Donnes", "Nombre de Plis", "Aventure" }));
         mode.addItemListener(new java.awt.event.ItemListener() {
@@ -111,14 +111,14 @@ public class VSIA extends javax.swing.JFrame {
             }
         });
         jPanel1.add(mode);
-        mode.setBounds(10, 10, 150, 20);
+        mode.setBounds(10, 10, 160, 20);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(0, 0, 240, 40);
+        jLabel2.setBounds(-10, 0, 270, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(50, 40, 240, 40);
+        jPanel1.setBounds(30, 40, 260, 40);
 
         jSlider1.setMaximum(5);
         jSlider1.setMinimum(1);
