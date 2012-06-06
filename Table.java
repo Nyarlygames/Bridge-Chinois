@@ -201,6 +201,16 @@ public class Table implements java.io.Serializable, Cloneable {
         }
     }
 
+    public InfoMain getInfoAdversaire(int joueur) {
+        if (joueur == 1) {
+            return (info2);
+        } else if (joueur == 2) {
+            return (info1);
+        } else {
+            return null;
+        }
+    }
+
     //renvoie les cartes inconnues du joueur courant (dans la main de l'autre ou sous les piles)
     public ArrayList<Carte> getCartesInconnues(Integer joueurCourant) {
         ArrayList<Carte> inconnues = new ArrayList<Carte>();

@@ -1,6 +1,5 @@
 
 import java.awt.Frame;
-import javax.swing.SwingUtilities;
 
 /*
  * To change this template, choose Tools | Templates
@@ -21,7 +20,7 @@ public class FinPartie extends javax.swing.JDialog {
     static Frame g;
     static Jeu jeu;
     
-    public FinPartie(java.awt.Frame parent, boolean modal, boolean gg, boolean partieRestante) {
+    public FinPartie(java.awt.Frame parent, boolean modal, boolean partieRestante, boolean gg) {
                 
         super(parent, modal);
         gagne=gg;
@@ -51,15 +50,15 @@ public class FinPartie extends javax.swing.JDialog {
         if (gagne)
         {
             if (partieRestante)
-            textFin.setText("Bravo, vous avez gagne. Appuiez sur Continuer pour textFin1");
+            textFin.setText("Bravo, vous avez gagne. Appuyez sur Continuer pour continuer");
             else
-            textFin.setText("Bravo, vous avez gagne. Appuiez sur Nouvelle Partie pour rejouer");
+            textFin.setText("Bravo, vous avez gagne. Appuyez sur Nouvelle Partie pour rejouer");
         }
         else{
             if (partieRestante)
-            textFin.setText("Desole, vous avez perdu.\nAppuiez sur Continuer pour textFin1");
+            textFin.setText("Desole, vous avez perdu. Appuyez sur Continuer pour continuer");
             else
-            textFin.setText("Desole, vous avez perdu.\nAppuiez sur Nouvelle Partie pour rejouer");
+            textFin.setText("Desole, vous avez perdu. Appuyez sur Nouvelle Partie pour rejouer");
         }
         textFin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         getContentPane().add(textFin);
@@ -86,6 +85,7 @@ public class FinPartie extends javax.swing.JDialog {
         getContentPane().add(jButtonPartieSuivante);
         jButtonPartieSuivante.setBounds(259, 108, 115, 23);
 
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
         getContentPane().add(jLabel2);
         jLabel2.setBounds(5, 20, 390, 70);
@@ -96,6 +96,7 @@ public class FinPartie extends javax.swing.JDialog {
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-416)/2, (screenSize.height-192)/2, 416, 192);
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
@@ -160,7 +161,7 @@ public class FinPartie extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                FinPartie dialog = new FinPartie(new javax.swing.JFrame(), true, gagne, partieRestante);
+                FinPartie dialog = new FinPartie(new javax.swing.JFrame(), true, partieRestante, gagne);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

@@ -159,7 +159,7 @@ public class Sauvegarde {
 					public void update(Jeu jeu) {
 						gg.getZoneDessin().repaint();
                         if (jeu.fin) {
-                           final FinPartie fin =new FinPartie(gg.frame,true,jeu.fin,jeu.gg);
+                           final FinPartie fin =new FinPartie(gg.frame,true,jeu.partieRestante,jeu.gg);
                            fin.setVisible(true);
                         }
 					}

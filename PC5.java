@@ -287,7 +287,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    								{
 	    									tSim = t.clone();
 		    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
-    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
+    	    								Carte simule = tSim.getPiles().get(i).piocher();
     	    								tSim.getInfoAdv1().setaChoisi(true);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
     	    								val = minMax(tSim,2, profondeur-1);
@@ -332,7 +332,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    								{
 	    									tSim = t.clone();
 		    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
-    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
+    	    								Carte simule = tSim.getPiles().get(i).piocher();
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
@@ -382,7 +382,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    									tSim = t.clone();
 		    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
 
-    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
+    	    								Carte simule = tSim.getPiles().get(i).piocher();
     	    								tSim.getInfoAdv2().setaChoisi(true);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
     	    								val = minMax(tSim,1, profondeur-1);
@@ -429,7 +429,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    									tSim = t.clone();
 		    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
 
-    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
+    	    								Carte simule = tSim.getPiles().get(i).piocher();
     	    								tSim.getInfoAdv1().setaChoisi(true);
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
@@ -485,7 +485,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    									tSim = t.clone();
 		    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
 
-    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
+    	    								Carte simule = tSim.getPiles().get(i).piocher();
     	    								tSim.getInfoAdv1().setaChoisi(true);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
     	    								val = minMax(tSim,2, profondeur-1);
@@ -528,7 +528,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    									tSim = t.clone();
 		    								tSim.getMain1().add(tSim.getPiles().get(i).piocher());
 
-    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
+    	    								Carte simule = tSim.getPiles().get(i).piocher();
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
@@ -575,7 +575,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    									tSim = t.clone();
 		    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
 
-    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
+    	    								Carte simule = tSim.getPiles().get(i).piocher();
     	    								tSim.getInfoAdv2().setaChoisi(true);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
     	    								val = minMax(tSim,1, profondeur-1);
@@ -617,7 +617,7 @@ public class PC5 extends PC implements java.io.Serializable{
 	    								{
 	    									tSim = t.clone();
 		    								tSim.getMain2().add(tSim.getPiles().get(i).piocher());
-    	    								Carte simule = tSim.getPiles().get(i).getAPiocher();
+    	    								Carte simule = tSim.getPiles().get(i).piocher();
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.getInfoAdv1().setaChoisi(false);
     	    								tSim.swapCartesDansPiles(simule,cartePiles.get(j));
