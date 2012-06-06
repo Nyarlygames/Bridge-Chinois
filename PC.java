@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * @author Samy
  */
-public abstract class PC extends Joueur implements java.io.Serializable{
+public abstract class PC extends Joueur implements java.io.Serializable {
 
     protected ArrayList<Carte> getCartesJouables() {
         ArrayList<Carte> jouables = new ArrayList<Carte>();
@@ -60,5 +60,15 @@ public abstract class PC extends Joueur implements java.io.Serializable{
             }
         }
         return jouables;
+    }
+
+    protected boolean estMaitresse(Carte aPiocher, ArrayList<Carte> inconnues) {
+        boolean maitre = true;
+        for (Carte c : inconnues) {
+            if (c.memeCouleur(aPiocher) && c.rangPlusFort(aPiocher)) {
+                maitre = false;
+            }
+        }
+        return maitre;
     }
 }

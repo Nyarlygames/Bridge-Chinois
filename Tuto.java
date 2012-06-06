@@ -115,7 +115,7 @@ public class Tuto extends javax.swing.JFrame {
                 Table table = new Table();
                 Moteur moteur = new Moteur(table);
 
-                Jeu monJeu = new Jeu(moteur, 0, 1, 10000, 0);
+                Jeu monJeu = new Jeu(moteur, 0, 1, 10000, 0, true);
                 final Graphique gg = new Graphique(monJeu);
                 // test
                 monJeu.addObservateur(new Observateur() {

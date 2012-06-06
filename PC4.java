@@ -5,7 +5,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PC4 extends PC implements java.io.Serializable{
+public class PC4 extends PC implements java.io.Serializable {
 
     /**
      * @author Samy
@@ -21,7 +21,7 @@ public class PC4 extends PC implements java.io.Serializable{
         score = 0;
         aJoue = false;
         aChoisi = false;
-         phaseChoisir = true;
+        phaseChoisir = true;
         phaseJouer = true;
     }
 
@@ -42,7 +42,7 @@ public class PC4 extends PC implements java.io.Serializable{
         if (carteAdv != null) {
             prems = false;
             for (Carte ca : jouables) {
-                if (ca.gagne(carteAdv, table.getAtout())) {
+                if (carteAdv.gagne(ca, table.getAtout())) {
                     gagnantes.add(ca);
                 }
             }
@@ -137,23 +137,36 @@ public class PC4 extends PC implements java.io.Serializable{
             }
         }
         Pile meilleure = null;
+        boolean aMaitresse = false;
         if (!piochables.isEmpty()) {
             meilleure = piochables.get(0);
             HashMap<Pile, Integer> chances = new HashMap<Pile, Integer>();
             ArrayList<Carte> adversaire = table.getCartesAdversaire(id);
             for (Pile p : piochables) {
-                chances.put(p, 0);
-                for (Carte c2 : adversaire) {
-                    if (p.getAPiocher().gagne(c2, table.getAtout())) {
-                        chances.put(p, chances.get(p) + 1);
-                    }
+
+                if ((estMaitresse(p.getAPiocher(), adversaire) && table.getInfoAdversaire(id).aCouleur(p.getAPiocher().getCouleur())) || (!table.getInfoAdversaire(id).aCouleur(table.getAtout()) && table.getInfoAdversaire(id).aCouleur(p.getAPiocher().getCouleur()))) {
+                    meilleure = p;
+                    aMaitresse = true;
                 }
             }
-            Integer mini = 52;
-            for (Pile c : chances.keySet()) {
-                if (chances.get(c) < mini) {
-                    mini = chances.get(c);
-                    meilleure = c;
+
+            if (!aMaitresse) {
+
+
+                for (Pile p : piochables) {
+                    chances.put(p, 0);
+                    for (Carte c2 : adversaire) {
+                        if (p.getAPiocher().gagne(c2, table.getAtout())) {
+                            chances.put(p, chances.get(p) + 1);
+                        }
+                    }
+                }
+                Integer mini = 52;
+                for (Pile c : chances.keySet()) {
+                    if (chances.get(c) < mini) {
+                        mini = chances.get(c);
+                        meilleure = c;
+                    }
                 }
             }
             if (!meilleure.estVide()) {

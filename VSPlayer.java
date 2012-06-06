@@ -37,6 +37,7 @@ this.host = host;
         jPanel1 = new javax.swing.JPanel();
         nbParties = new javax.swing.JComboBox();
         mode = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
         Cancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -61,6 +62,7 @@ this.host = host;
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setOpaque(false);
+        jPanel1.setLayout(null);
 
         nbParties.setEditable(true);
         nbParties.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "3", "5", "10" }));
@@ -69,32 +71,20 @@ this.host = host;
                 nbPartiesFocusLost(evt);
             }
         });
+        jPanel1.add(nbParties);
+        nbParties.setBounds(196, 12, 65, 20);
 
         mode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre de Donnes", "Nombre de Plis" }));
+        jPanel1.add(mode);
+        mode.setBounds(11, 12, 150, 20);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(nbParties, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nbParties, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/option_theme.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(0, 0, 280, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(30, 20, 280, 42);
+        jPanel1.setBounds(30, 20, 280, 40);
 
         Cancel.setText("Annuler");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -229,6 +219,7 @@ monJeu.jouer();
     private javax.swing.JButton Launch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox mode;
     private javax.swing.JComboBox nbParties;
