@@ -106,7 +106,7 @@ public class FinPartie extends javax.swing.JDialog {
         jLabel1.setBounds(-10, -10, 640, 420);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-416)/2, (screenSize.height-338)/2, 416, 338);
+        setBounds((screenSize.width-416)/2, (screenSize.height-207)/2, 416, 207);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
