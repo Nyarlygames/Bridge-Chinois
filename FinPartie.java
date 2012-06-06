@@ -51,15 +51,15 @@ public class FinPartie extends javax.swing.JDialog {
         if (gagne)
         {
             if (partieRestante)
-            textFin.setText("Bravo, vous avez gagne. Appuiez sur Continuer pour textFin1");
+            textFin.setText("Bravo, vous avez gagne. Appuiez sur Continuer pour continuer");
             else
             textFin.setText("Bravo, vous avez gagne. Appuiez sur Nouvelle Partie pour rejouer");
         }
         else{
             if (partieRestante)
-            textFin.setText("Desole, vous avez perdu.\nAppuiez sur Continuer pour textFin1");
+            textFin.setText("Desole, vous avez perdu. Appuiez sur Continuer pour continuer");
             else
-            textFin.setText("Desole, vous avez perdu.\nAppuiez sur Nouvelle Partie pour rejouer");
+            textFin.setText("Desole, vous avez perdu. Appuiez sur Nouvelle Partie pour rejouer");
         }
         textFin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         getContentPane().add(textFin);

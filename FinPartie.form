@@ -33,7 +33,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if (gagne)&#xa;{&#xa; if (partieRestante)&#xa;    textFin.setText(&quot;Bravo, vous avez gagne. Appuiez sur Continuer pour textFin1&quot;);&#xa;else&#xa;    textFin.setText(&quot;Bravo, vous avez gagne. Appuiez sur Nouvelle Partie pour rejouer&quot;);&#xa;}&#xa;else{&#xa; if (partieRestante)&#xa;    textFin.setText(&quot;Desole, vous avez perdu.\nAppuiez sur Continuer pour textFin1&quot;);&#xa;else&#xa;    textFin.setText(&quot;Desole, vous avez perdu.\nAppuiez sur Nouvelle Partie pour rejouer&quot;);&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if (gagne)&#xa;{&#xa; if (partieRestante)&#xa;    textFin.setText(&quot;Bravo, vous avez gagne. Appuiez sur Continuer pour continuer&quot;);&#xa;else&#xa;    textFin.setText(&quot;Bravo, vous avez gagne. Appuiez sur Nouvelle Partie pour rejouer&quot;);&#xa;}&#xa;else{&#xa; if (partieRestante)&#xa;    textFin.setText(&quot;Desole, vous avez perdu. Appuiez sur Continuer pour continuer&quot;);&#xa;else&#xa;    textFin.setText(&quot;Desole, vous avez perdu. Appuiez sur Nouvelle Partie pour rejouer&quot;);&#xa;}"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
